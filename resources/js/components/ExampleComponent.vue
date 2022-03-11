@@ -6,7 +6,7 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        I'm an example component.
+                        <p><fontawesome-icon v-if="true" class="test" :icon="['fas', 'keyboard']" /></p>
                     </div>
                 </div>
             </div>
@@ -21,3 +21,8 @@
         }
     }
 </script>
+<style>
+.test{
+    color: blue;
+}
+</style>

@@ -6,7 +6,17 @@
 
 require('./bootstrap');
 
+import router from "./router";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 window.Vue = require('vue').default;
+
+library.add(fas, far, fab);
+Vue.component("fontawesome-icon", FontAwesomeIcon);
 
 /**
  * The following block of code may be used to automatically register your
@@ -29,4 +39,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    router,
 });

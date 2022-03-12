@@ -1,55 +1,48 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import Index from "./components/Index";
-// import Login from "./components/Login";
-// import Edit from "./components/Edit";
+import Home from "./components/Home";
+import Menu from "./components/Menu";
+import FillMap from "./components/FillMap";
+import QuizMap from "./components/QuizMap";
+import TypingMap from "./components/TypingMap";
+import NotFound from "./components/NotFound";
 // import SystemError from "./components/SystemError";
-// import NotFound from "./components/NotFound";
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: "history",
   routes: [
-    // {
-    //   path: "/",
-    //   name: "index",
-    //   component: Index
-    // },
-    // {
-    //   path: "/login",
-    //   name: "login",
-    //   component: Login,
-    //   beforeEnter(to, from, next) {
-    //     if (store.getters["auth/isLogin"]) {
-    //       next("/");
-    //     } else {
-    //       next();
-    //     }
-    //   }
-    // },
-    // {
-    //   path: "/question",
-    //   name: "question",
-    //   component: Question,
-    //   beforeEnter(to, from, next) {
-    //     if (store.getters["auth/isLogin"]) {
-    //       next();
-    //     } else {
-    //       next("/");
-    //     }
-    //   }
-    // },
-    // {
-    //   path: "/500",
-    //   name: "systemError",
-    //   component: SystemError
-    // },
-    // {
-    //   path: "*",
-    //   name: "notFound",
-    //   component: NotFound
-    // },
+    {
+      path: "/",
+      name: "home",
+      component: Home
+    },
+    {
+      path: "/menu",
+      name: "menu",
+      component: Menu
+    },
+    {
+      path: "/fill-map",
+      name: "fill-map",
+      component: FillMap
+    },
+    {
+      path: "/quiz-map",
+      name: "quiz-map",
+      component: QuizMap
+    },
+    {
+      path: "/typing-map",
+      name: "typing-map",
+      component: TypingMap
+    },
+    {
+      path: "*",
+      name: "not-found",
+      component: NotFound
+    },
   ]
 });
 

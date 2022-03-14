@@ -1,2 +1,251 @@
+@charset "UTF-8";
+
 // Variables
-@import 'variables';
+@import "variables";
+
+html {
+  height: 100%;
+  font-family: $font-base-family;
+  font-size: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: $body-background-color;
+  font-size: $font-base-size;
+  color: $font-base-color;
+}
+
+a {
+  text-decoration: none;
+  color: $font-base-color;
+
+  &:hover {
+    opacity: $hovered-opacity;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/************************************************
+ヘッダー header
+************************************************/
+$header-height: 60px;
+$hamburger-menu-icon-color: gray;
+$hamburger-menu-background-color: gray;
+#header {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+  height: $header-height;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  box-shadow: $box-shadow;
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .logo {
+    }
+
+    #pc-nav {
+      .menu-list {
+        display: flex;
+        li {
+          a {
+            display: block;
+            padding: 0 15px;
+            line-height: $header-height;
+            position: relative;
+            overflow: hidden;
+
+            &::after {
+              position: absolute;
+              display: block;
+              content: "";
+              bottom: -3px;
+              left: 0;
+              background-color: #6d6f70;
+              height: 3px;
+              width: 100%;
+              transition: 0.2s;
+            }
+
+            &:hover {
+              &::after {
+                bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #sp-nav {
+      display: none;
+
+      #hamburger-menu {
+        display: none;
+
+        &:checked {
+          + #hamburger-menu-icon {
+            span {
+              position: absolute;
+              top: 50%;
+              &:nth-of-type(1) {
+                transform: translateY(-50%) rotate(45deg);
+              }
+
+              &:nth-of-type(2) {
+                transform: translateY(-50%) rotate(135deg);
+              }
+
+              &:nth-of-type(3) {
+                transform: scale(0);
+              }
+            }
+          }
+          ~ .menu-list {
+            right: 0;
+          }
+        }
+      }
+
+      #hamburger-menu-icon {
+        display: block;
+        position: relative;
+        width: 50px;
+        height: 50px;
+        padding: 15px;
+        border-radius: 50%;
+        background-color: $hamburger-menu-icon-color;
+        cursor: pointer;
+        z-index: 100;
+
+        &:hover {
+          opacity: $hovered-opacity;
+        }
+
+        span {
+          display: block;
+          height: 3px;
+          background-color: #ffffff;
+          transition: transform 0.5s;
+
+          &:nth-of-type(1) {
+            width: 20px;
+            margin-bottom: 5px;
+          }
+
+          &:nth-of-type(2) {
+            width: 20px;
+            margin-bottom: 5px;
+          }
+
+          &:nth-of-type(3) {
+            width: 15px;
+          }
+        }
+      }
+
+      .menu-list {
+        position: fixed;
+        width: 220px;
+        height: calc(100vh - #{$header-height});
+        top: $header-height;
+        right: -220px;
+        background-color: $hamburger-menu-background-color;
+        transition: right 0.5s;
+        z-index: 10;
+
+        li {
+          a {
+            display: block;
+            padding: 15px;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            transition: 0.5s;
+          }
+        }
+      }
+    }
+  }
+}
+
+/************************************************
+メインコンテンツ main
+************************************************/
+#main {
+  margin-top: $header-height;
+  padding: 20px 0;
+}
+
+/************************************************
+フッター footer
+************************************************/
+$footer-height: 50px;
+#footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3b3b3b;
+  height: $footer-height;
+  .footer-inner {
+    .copyright {
+      font-size: $font-base-size;
+      color: white;
+      .icon {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+/************************************************
+メディアクエリ
+************************************************/
+@media screen and (max-width: 599px) {
+  /************************************************
+  ヘッダー header
+  ************************************************/
+  #header {
+    .header-inner {
+      .logo {
+      }
+
+      #pc-nav {
+        display: none;
+      }
+
+      #sp-nav {
+        display: block;
+      }
+    }
+  }
+}

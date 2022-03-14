@@ -1,7 +1,9 @@
 <template>
   <div id="home">
-    <router-link :to="{ name: 'menu' }"> クリック </router-link>
-    <button @click="aaa">test</button>
+    <div class="home-inner wrapper">
+      <router-link :to="{ name: 'menu' }"> クリック </router-link>
+      <button @click="aaa">test</button>
+    </div>
   </div>
 </template>
 

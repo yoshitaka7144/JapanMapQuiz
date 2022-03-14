@@ -23227,6 +23227,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -23248,7 +23253,93 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      // spメニュー開閉状態
+      isOpened: false
+    };
+  },
+  mounted: function mounted() {
+    window.addEventListener("click", this.closeSpNavMenu);
+  },
+  beforeDestroy: function beforeDestroy() {
+    window.removeEventListener("click", this.closeSpNavMenu);
+  },
+  methods: {
+    closeSpNavMenu: function closeSpNavMenu(event) {
+      if (!this.$el.querySelector("#sp-nav").contains(event.target)) {
+        this.isOpened = false;
+      }
+    }
+  }
+});
 
 /***/ }),
 
@@ -23271,6 +23362,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -23330,10 +23423,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
-//
 //
 //
 //
@@ -47356,18 +47445,20 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "fill-map" } },
-    [
-      _c("p", [_vm._v("地図埋め")]),
-      _vm._v(" "),
-      _c("router-link", { attrs: { to: { name: "menu" } } }, [
-        _vm._v("\n    メニューへ戻る\n  "),
-      ]),
-    ],
-    1
-  )
+  return _c("div", { attrs: { id: "fill-map" } }, [
+    _c(
+      "div",
+      { staticClass: "fill-map-inner wrapper" },
+      [
+        _c("p", [_vm._v("地図埋め")]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: { name: "menu" } } }, [
+          _vm._v(" メニューへ戻る "),
+        ]),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47392,16 +47483,24 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { attrs: { id: "footer" } }, [
+    _c("div", { staticClass: "footer-inner wrapper" }, [
+      _c(
+        "p",
+        { staticClass: "copyright" },
+        [
+          _c("fontawesome-icon", {
+            staticClass: "icon",
+            attrs: { icon: ["fas", "fa-copyright"] },
+          }),
+          _vm._v("\n      Yoshitaka Nagai\n      "),
+        ],
+        1
+      ),
+    ]),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "footer" } }, [_c("p", [_vm._v("footer")])])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -47424,14 +47523,199 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { attrs: { id: "header" } }, [
+    _c("div", { staticClass: "header-inner wrapper" }, [
+      _c(
+        "div",
+        { staticClass: "logo" },
+        [
+          _c("router-link", { attrs: { to: { name: "home" } } }, [
+            _vm._v("タイトルロゴ"),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("nav", { attrs: { id: "sp-nav" } }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.isOpened,
+              expression: "isOpened",
+            },
+          ],
+          attrs: { type: "checkbox", id: "hamburger-menu" },
+          domProps: {
+            checked: Array.isArray(_vm.isOpened)
+              ? _vm._i(_vm.isOpened, null) > -1
+              : _vm.isOpened,
+          },
+          on: {
+            change: function ($event) {
+              var $$a = _vm.isOpened,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && (_vm.isOpened = $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    (_vm.isOpened = $$a
+                      .slice(0, $$i)
+                      .concat($$a.slice($$i + 1)))
+                }
+              } else {
+                _vm.isOpened = $$c
+              }
+            },
+          },
+        }),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c("ul", { staticClass: "menu-list" }, [
+          _c(
+            "li",
+            {
+              on: {
+                click: function ($event) {
+                  _vm.isOpened = false
+                },
+              },
+            },
+            [
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "https://portfolio.mikanbako.jp/works-japan-map-quiz",
+                    target: "_blank",
+                    rel: "noopener",
+                  },
+                },
+                [_vm._v("作品紹介")]
+              ),
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              on: {
+                click: function ($event) {
+                  _vm.isOpened = false
+                },
+              },
+            },
+            [
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "https://portfolio.mikanbako.jp/",
+                    target: "_blank",
+                    rel: "noopener",
+                  },
+                },
+                [_vm._v("ポートフォリオ")]
+              ),
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              on: {
+                click: function ($event) {
+                  _vm.isOpened = false
+                },
+              },
+            },
+            [
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "https://github.com/yoshitaka7144/JapanMapQuiz",
+                    target: "_blank",
+                    rel: "noopener",
+                  },
+                },
+                [_vm._v("Github\n          ")]
+              ),
+            ]
+          ),
+        ]),
+      ]),
+    ]),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "header" } }, [_c("p", [_vm._v("header")])])
+    return _c("nav", { attrs: { id: "pc-nav" } }, [
+      _c("ul", { staticClass: "menu-list" }, [
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                href: "https://portfolio.mikanbako.jp/works-japan-map-quiz",
+                target: "_blank",
+                rel: "noopener",
+              },
+            },
+            [_vm._v("作品紹介")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                href: "https://portfolio.mikanbako.jp/",
+                target: "_blank",
+                rel: "noopener",
+              },
+            },
+            [_vm._v("ポートフォリオ")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                href: "https://github.com/yoshitaka7144/JapanMapQuiz",
+                target: "_blank",
+                rel: "noopener",
+              },
+            },
+            [_vm._v("Github\n          ")]
+          ),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { attrs: { for: "hamburger-menu", id: "hamburger-menu-icon" } },
+      [_c("span"), _vm._v(" "), _c("span"), _vm._v(" "), _c("span")]
+    )
   },
 ]
 render._withStripped = true
@@ -47456,18 +47740,20 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "home" } },
-    [
-      _c("router-link", { attrs: { to: { name: "menu" } } }, [
-        _vm._v(" クリック "),
-      ]),
-      _vm._v(" "),
-      _c("button", { on: { click: _vm.aaa } }, [_vm._v("test")]),
-    ],
-    1
-  )
+  return _c("div", { attrs: { id: "home" } }, [
+    _c(
+      "div",
+      { staticClass: "home-inner wrapper" },
+      [
+        _c("router-link", { attrs: { to: { name: "menu" } } }, [
+          _vm._v(" クリック "),
+        ]),
+        _vm._v(" "),
+        _c("button", { on: { click: _vm.aaa } }, [_vm._v("test")]),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47492,24 +47778,26 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "menu" } },
-    [
-      _c("router-link", { attrs: { to: { name: "fill-map" } } }, [
-        _vm._v("\n    地図埋め\n  "),
-      ]),
-      _vm._v(" "),
-      _c("router-link", { attrs: { to: { name: "quiz-map" } } }, [
-        _vm._v("\n    地図クイズ\n  "),
-      ]),
-      _vm._v(" "),
-      _c("router-link", { attrs: { to: { name: "typing-map" } } }, [
-        _vm._v("\n    地図タイピング\n  "),
-      ]),
-    ],
-    1
-  )
+  return _c("div", { attrs: { id: "menu" } }, [
+    _c(
+      "div",
+      { staticClass: "menu-inner wrapper" },
+      [
+        _c("router-link", { attrs: { to: { name: "fill-map" } } }, [
+          _vm._v(" 地図埋め "),
+        ]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: { name: "quiz-map" } } }, [
+          _vm._v(" 地図クイズ "),
+        ]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: { name: "typing-map" } } }, [
+          _vm._v(" 地図タイピング "),
+        ]),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47534,16 +47822,18 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "not-found" } },
-    [
-      _c("router-link", { attrs: { to: { name: "home" } } }, [
-        _vm._v("\n    トップへ戻る\n  "),
-      ]),
-    ],
-    1
-  )
+  return _c("div", { attrs: { id: "not-found" } }, [
+    _c(
+      "div",
+      { staticClass: "not-found-inner wrapper" },
+      [
+        _c("router-link", { attrs: { to: { name: "home" } } }, [
+          _vm._v(" トップへ戻る "),
+        ]),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47568,18 +47858,20 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "quiz-map" } },
-    [
-      _c("p", [_vm._v("地図クイズ")]),
-      _vm._v(" "),
-      _c("router-link", { attrs: { to: { name: "menu" } } }, [
-        _vm._v("\n    メニューへ戻る\n  "),
-      ]),
-    ],
-    1
-  )
+  return _c("div", { attrs: { id: "quiz-map" } }, [
+    _c(
+      "div",
+      { staticClass: "quiz-map-inner wrapper" },
+      [
+        _c("p", [_vm._v("地図クイズ")]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: { name: "menu" } } }, [
+          _vm._v(" メニューへ戻る "),
+        ]),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47604,18 +47896,20 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "typing-map" } },
-    [
-      _c("p", [_vm._v("地図タイピング")]),
-      _vm._v(" "),
-      _c("router-link", { attrs: { to: { name: "menu" } } }, [
-        _vm._v("\n    メニューへ戻る\n  "),
-      ]),
-    ],
-    1
-  )
+  return _c("div", { attrs: { id: "typing-map" } }, [
+    _c(
+      "div",
+      { staticClass: "typing-map-inner wrapper" },
+      [
+        _c("p", [_vm._v("地図タイピング")]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: { name: "menu" } } }, [
+          _vm._v(" メニューへ戻る "),
+        ]),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

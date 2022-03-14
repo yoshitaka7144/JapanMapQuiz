@@ -17,15 +17,18 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
   <div id="app">
     <header-component></header-component>
-    <div class="container">
+    <main id="main">
       <router-view></router-view>
-    </div>
+    </main>
     <footer-component></footer-component>
   </div>
 </body>

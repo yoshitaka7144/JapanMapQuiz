@@ -1,6 +1,11 @@
 <template>
   <div id="footer">
-    <p>footer</p>
+    <div class="footer-inner wrapper">
+      <p class="copyright">
+        <fontawesome-icon class="icon" :icon="['fas', 'fa-copyright']" />
+        Yoshitaka Nagai
+        </p>
+    </div>
   </div>
 </template>
 

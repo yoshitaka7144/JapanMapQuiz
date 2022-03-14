@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClassificationController;
+use App\Http\Controllers\MapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// 地図データ一覧取得
+Route::get("/maps", [MapController::class, "index"]);
+
+// 地図名一覧のみ取得
+Route::get("/maps/names", [MapController::class, "allNames"]);
+
+// 地方区分データ一覧取得
+Route::get("/classifications", [ClassificationController::class, "index"]);

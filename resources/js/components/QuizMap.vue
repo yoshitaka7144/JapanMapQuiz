@@ -1,12 +1,34 @@
 <template>
   <div id="quiz-map">
     <div class="quiz-map-inner wrapper">
-      <p>地図クイズ</p>
-      <router-link :to="{ name: 'menu' }"> メニューへ戻る </router-link>
+      {{ classificationCheckedValues }}
+      {{ timeLimitChecked }}
+      {{ timeLimitValue }}
+      {{ quizCountValue }}
+      {{ audioChecked }}
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import {
+  OK,
+  CREATED,
+  UNPROCESSABLE_ENTITY,
+  INTERNAL_SERVER_ERROR,
+} from "../util";
+export default {
+  props: {
+    classificationCheckedValues: "",
+    timeLimitChecked: "",
+    timeLimitValue: "",
+    quizCountValue: "",
+    audioChecked: "",
+  },
+  data() {
+    return {};
+  },
+  mounted() {},
+  methods: {},
+};
 </script>

@@ -46,6 +46,26 @@ img {
   flex-direction: column;
 }
 
+.btn {
+  width: 170px;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: 0.5s;
+}
+
+.btn-gray {
+  border: 2px solid gray;
+  color: gray;
+  &:hover {
+    background-color: gray;
+    color: white;
+  }
+}
+
 /************************************************
 ヘッダー header
 ************************************************/
@@ -243,15 +263,15 @@ $hamburger-menu-background-color: gray;
   height: 100%;
   .menu-inner {
     height: 100%;
-    display: flex;
-    flex-direction: column;
 
-    .menu-item {
-      height: calc(100% / 3);
+    .menu-select {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
 
-      .menu-link {
-        display: block;
-        height: 100%;
+      .menu-item {
+        cursor: pointer;
+        height: calc(100% / 3);
         position: relative;
         .title {
           position: absolute;
@@ -273,35 +293,162 @@ $hamburger-menu-background-color: gray;
             color: white;
           }
         }
-      }
 
-      &.menu-fill-map {
-        background-color: rgb(240, 145, 145);
-        .menu-link {
+        &.fill {
+          background-color: rgb(240, 145, 145);
           .title {
             left: 10%;
           }
         }
-      }
 
-      &.menu-quiz-map {
-        background-color: rgb(131, 131, 241);
-        .menu-link {
+        &.quiz {
+          background-color: rgb(131, 131, 241);
           .title {
             right: 10%;
           }
         }
-      }
 
-      &.menu-typing-map {
-        background-color: rgb(248, 248, 167);
-        .menu-link {
+        &.typing {
+          background-color: rgb(248, 248, 167);
           .title {
             left: 10%;
           }
         }
       }
     }
+
+    .setting {
+      height: 100%;
+      background-color: antiquewhite;
+      position: relative;
+      .title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .title-en {
+          display: inline-block;
+          font-size: 1.3rem;
+          font-weight: bold;
+          color: white;
+        }
+
+        .title-ja {
+          display: inline-block;
+          font-size: 1.3rem;
+          font-weight: bold;
+          color: white;
+        }
+      }
+
+      .btn-back-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .btn-start-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      .setting-time-limit,
+      .setting-quiz-count,
+      .setting-audio {
+        .checkbox {
+          display: none;
+
+          + label {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            padding: 11px 0px 11px 45px;
+
+            &::before,
+            &::after {
+              content: "";
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+
+            &::before {
+              width: 38px;
+              height: 18px;
+              left: 0;
+              border: 1px solid #e4e3e1;
+              border-radius: 18px;
+              background-color: #ffffff;
+            }
+
+            &::after {
+              width: 19px;
+              height: 18px;
+              left: 0;
+              border-radius: 50%;
+              background-color: #bdbdbd;
+              transition: all 0.3s ease-out;
+            }
+          }
+
+          &:checked + label::after {
+            left: 19px;
+            background-color: rgb(47, 194, 145);
+          }
+
+          &:not(:checked) ~ .select-wrapper {
+            display: none;
+          }
+        }
+
+        .select-wrapper {
+          display: inline-block;
+          width: 75px;
+          margin-left: 7px;
+          position: relative;
+          border: 2px solid rgb(47, 194, 145);
+          border-radius: 35px;
+          background-color: white;
+          z-index: 0;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 5px solid #383e45;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            z-index: -1;
+          }
+
+          .select {
+            width: 100%;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background: transparent;
+            background-image: none;
+            box-shadow: none;
+            appearance: none;
+            padding: 4px 30px 4px 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/************************************************
+画面 fill-map
+************************************************/
+#fill-map {
+  height: 100%;
+  .fill-map-inner {
+    height: 100%;
   }
 }
 

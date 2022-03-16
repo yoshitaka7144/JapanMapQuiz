@@ -41,6 +41,26 @@ img {
   flex-direction: column;
 }
 
+.btn {
+  width: 170px;
+  text-align: center;
+  display: inline-block;
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: 0.5s;
+}
+
+.btn-gray {
+  border: 2px solid gray;
+  color: gray;
+}
+.btn-gray:hover {
+  background-color: gray;
+  color: white;
+}
+
 /************************************************
 ヘッダー header
 ************************************************/
@@ -202,18 +222,18 @@ img {
 }
 #menu .menu-inner {
   height: 100%;
+}
+#menu .menu-inner .menu-select {
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
-#menu .menu-inner .menu-item {
+#menu .menu-inner .menu-select .menu-item {
+  cursor: pointer;
   height: 33.3333333333%;
-}
-#menu .menu-inner .menu-item .menu-link {
-  display: block;
-  height: 100%;
   position: relative;
 }
-#menu .menu-inner .menu-item .menu-link .title {
+#menu .menu-inner .menu-select .menu-item .title {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -221,35 +241,172 @@ img {
   flex-direction: column;
   align-items: center;
 }
-#menu .menu-inner .menu-item .menu-link .title .title-en {
+#menu .menu-inner .menu-select .menu-item .title .title-en {
   display: inline-block;
   font-size: 1.3rem;
   font-weight: bold;
   color: white;
 }
-#menu .menu-inner .menu-item .menu-link .title .title-ja {
+#menu .menu-inner .menu-select .menu-item .title .title-ja {
   display: inline-block;
   font-size: 1.3rem;
   font-weight: bold;
   color: white;
 }
-#menu .menu-inner .menu-item.menu-fill-map {
+#menu .menu-inner .menu-select .menu-item.fill {
   background-color: #f09191;
 }
-#menu .menu-inner .menu-item.menu-fill-map .menu-link .title {
+#menu .menu-inner .menu-select .menu-item.fill .title {
   left: 10%;
 }
-#menu .menu-inner .menu-item.menu-quiz-map {
+#menu .menu-inner .menu-select .menu-item.quiz {
   background-color: #8383f1;
 }
-#menu .menu-inner .menu-item.menu-quiz-map .menu-link .title {
+#menu .menu-inner .menu-select .menu-item.quiz .title {
   right: 10%;
 }
-#menu .menu-inner .menu-item.menu-typing-map {
+#menu .menu-inner .menu-select .menu-item.typing {
   background-color: #f8f8a7;
 }
-#menu .menu-inner .menu-item.menu-typing-map .menu-link .title {
+#menu .menu-inner .menu-select .menu-item.typing .title {
   left: 10%;
+}
+#menu .menu-inner .setting {
+  height: 100%;
+  background-color: antiquewhite;
+  position: relative;
+}
+#menu .menu-inner .setting .title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#menu .menu-inner .setting .title .title-en {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+}
+#menu .menu-inner .setting .title .title-ja {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+}
+#menu .menu-inner .setting .btn-back-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#menu .menu-inner .setting .btn-start-wrapper {
+  display: flex;
+  justify-content: center;
+}
+#menu .menu-inner .setting .setting-time-limit .checkbox,
+#menu .menu-inner .setting .setting-quiz-count .checkbox,
+#menu .menu-inner .setting .setting-audio .checkbox {
+  display: none;
+}
+#menu .menu-inner .setting .setting-time-limit .checkbox + label,
+#menu .menu-inner .setting .setting-quiz-count .checkbox + label,
+#menu .menu-inner .setting .setting-audio .checkbox + label {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  padding: 11px 0px 11px 45px;
+}
+#menu .menu-inner .setting .setting-time-limit .checkbox + label::before, #menu .menu-inner .setting .setting-time-limit .checkbox + label::after,
+#menu .menu-inner .setting .setting-quiz-count .checkbox + label::before,
+#menu .menu-inner .setting .setting-quiz-count .checkbox + label::after,
+#menu .menu-inner .setting .setting-audio .checkbox + label::before,
+#menu .menu-inner .setting .setting-audio .checkbox + label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#menu .menu-inner .setting .setting-time-limit .checkbox + label::before,
+#menu .menu-inner .setting .setting-quiz-count .checkbox + label::before,
+#menu .menu-inner .setting .setting-audio .checkbox + label::before {
+  width: 38px;
+  height: 18px;
+  left: 0;
+  border: 1px solid #e4e3e1;
+  border-radius: 18px;
+  background-color: #ffffff;
+}
+#menu .menu-inner .setting .setting-time-limit .checkbox + label::after,
+#menu .menu-inner .setting .setting-quiz-count .checkbox + label::after,
+#menu .menu-inner .setting .setting-audio .checkbox + label::after {
+  width: 19px;
+  height: 18px;
+  left: 0;
+  border-radius: 50%;
+  background-color: #bdbdbd;
+  transition: all 0.3s ease-out;
+}
+#menu .menu-inner .setting .setting-time-limit .checkbox:checked + label::after,
+#menu .menu-inner .setting .setting-quiz-count .checkbox:checked + label::after,
+#menu .menu-inner .setting .setting-audio .checkbox:checked + label::after {
+  left: 19px;
+  background-color: #2fc291;
+}
+#menu .menu-inner .setting .setting-time-limit .checkbox:not(:checked) ~ .select-wrapper,
+#menu .menu-inner .setting .setting-quiz-count .checkbox:not(:checked) ~ .select-wrapper,
+#menu .menu-inner .setting .setting-audio .checkbox:not(:checked) ~ .select-wrapper {
+  display: none;
+}
+#menu .menu-inner .setting .setting-time-limit .select-wrapper,
+#menu .menu-inner .setting .setting-quiz-count .select-wrapper,
+#menu .menu-inner .setting .setting-audio .select-wrapper {
+  display: inline-block;
+  width: 75px;
+  margin-left: 7px;
+  position: relative;
+  border: 2px solid #2fc291;
+  border-radius: 35px;
+  background-color: white;
+  z-index: 0;
+}
+#menu .menu-inner .setting .setting-time-limit .select-wrapper::before,
+#menu .menu-inner .setting .setting-quiz-count .select-wrapper::before,
+#menu .menu-inner .setting .setting-audio .select-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 5px solid #383e45;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  z-index: -1;
+}
+#menu .menu-inner .setting .setting-time-limit .select-wrapper .select,
+#menu .menu-inner .setting .setting-quiz-count .select-wrapper .select,
+#menu .menu-inner .setting .setting-audio .select-wrapper .select {
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: 4px 30px 4px 10px;
+}
+
+/************************************************
+画面 fill-map
+************************************************/
+#fill-map {
+  height: 100%;
+}
+#fill-map .fill-map-inner {
+  height: 100%;
 }
 
 /************************************************

@@ -6,7 +6,7 @@ import FillMap from "./components/FillMap";
 import QuizMap from "./components/QuizMap";
 import TypingMap from "./components/TypingMap";
 import NotFound from "./components/NotFound";
-// import SystemError from "./components/SystemError";
+import SystemError from "./components/SystemError";
 
 Vue.use(VueRouter);
 
@@ -24,19 +24,27 @@ const router = new VueRouter({
       component: Menu
     },
     {
-      path: "/fill-map",
-      name: "fill-map",
-      component: FillMap
+      path: "/fill",
+      name: "fill",
+      component: FillMap,
+      props: true,
     },
     {
-      path: "/quiz-map",
-      name: "quiz-map",
-      component: QuizMap
+      path: "/quiz",
+      name: "quiz",
+      component: QuizMap,
+      props: true,
     },
     {
-      path: "/typing-map",
-      name: "typing-map",
-      component: TypingMap
+      path: "/typing",
+      name: "typing",
+      component: TypingMap,
+      props: true,
+    },
+    {
+      path: "/system-error",
+      name: "system-error",
+      component: SystemError
     },
     {
       path: "*",

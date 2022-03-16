@@ -30,7 +30,7 @@ img {
 }
 
 .wrapper {
-  max-width: 1200px;
+  max-width: 1024px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -163,6 +163,93 @@ img {
 #main {
   margin-top: 60px;
   padding: 20px 0;
+  height: 600px;
+}
+
+/************************************************
+ホーム画面 home
+************************************************/
+#home {
+  height: 100%;
+}
+#home .home-inner {
+  height: 100%;
+}
+#home .home-inner .home-img {
+  position: relative;
+  display: block;
+  height: 100%;
+  background-color: #79cbfa;
+}
+#home .home-inner .home-img:hover {
+  opacity: 1;
+}
+#home .home-inner .home-img .start-text {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+}
+
+/************************************************
+メニュー画面 menu
+************************************************/
+#menu {
+  height: 100%;
+}
+#menu .menu-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#menu .menu-inner .menu-item {
+  height: 33.3333333333%;
+}
+#menu .menu-inner .menu-item .menu-link {
+  display: block;
+  height: 100%;
+  position: relative;
+}
+#menu .menu-inner .menu-item .menu-link .title {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#menu .menu-inner .menu-item .menu-link .title .title-en {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+}
+#menu .menu-inner .menu-item .menu-link .title .title-ja {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+}
+#menu .menu-inner .menu-item.menu-fill-map {
+  background-color: #f09191;
+}
+#menu .menu-inner .menu-item.menu-fill-map .menu-link .title {
+  left: 10%;
+}
+#menu .menu-inner .menu-item.menu-quiz-map {
+  background-color: #8383f1;
+}
+#menu .menu-inner .menu-item.menu-quiz-map .menu-link .title {
+  right: 10%;
+}
+#menu .menu-inner .menu-item.menu-typing-map {
+  background-color: #f8f8a7;
+}
+#menu .menu-inner .menu-item.menu-typing-map .menu-link .title {
+  left: 10%;
 }
 
 /************************************************

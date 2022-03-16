@@ -35,7 +35,7 @@ img {
 }
 
 .wrapper {
-  max-width: 1200px;
+  max-width: 1024px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -203,6 +203,106 @@ $hamburger-menu-background-color: gray;
 #main {
   margin-top: $header-height;
   padding: 20px 0;
+  height: 600px;
+}
+
+/************************************************
+ホーム画面 home
+************************************************/
+#home {
+  height: 100%;
+  .home-inner {
+    height: 100%;
+    .home-img {
+      position: relative;
+      display: block;
+      height: 100%;
+      background-color: rgb(121, 203, 250);
+
+      &:hover {
+        opacity: 1;
+      }
+
+      .start-text {
+        position: absolute;
+        bottom: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: white;
+      }
+    }
+  }
+}
+
+/************************************************
+メニュー画面 menu
+************************************************/
+#menu {
+  height: 100%;
+  .menu-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .menu-item {
+      height: calc(100% / 3);
+
+      .menu-link {
+        display: block;
+        height: 100%;
+        position: relative;
+        .title {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .title-en {
+            display: inline-block;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+          }
+          .title-ja {
+            display: inline-block;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+          }
+        }
+      }
+
+      &.menu-fill-map {
+        background-color: rgb(240, 145, 145);
+        .menu-link {
+          .title {
+            left: 10%;
+          }
+        }
+      }
+
+      &.menu-quiz-map {
+        background-color: rgb(131, 131, 241);
+        .menu-link {
+          .title {
+            right: 10%;
+          }
+        }
+      }
+
+      &.menu-typing-map {
+        background-color: rgb(248, 248, 167);
+        .menu-link {
+          .title {
+            left: 10%;
+          }
+        }
+      }
+    }
+  }
 }
 
 /************************************************

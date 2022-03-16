@@ -1,8 +1,9 @@
 <template>
   <div id="home">
     <div class="home-inner wrapper">
-      <router-link :to="{ name: 'menu' }"> クリック </router-link>
-      <button @click="aaa">test</button>
+      <router-link :to="{ name: 'menu' }" class="home-img">
+        <p class="start-text">クリック or タップして下さい。</p>
+      </router-link>
     </div>
   </div>
 </template>
@@ -13,18 +14,6 @@ export default {
     return {};
   },
   methods: {
-    async aaa() {
-      // api用パラメータ
-      const params = {
-        classificationId: [2],
-      };
-      // api呼び出し
-      const response = await axios
-        .get("/api/maps/names", { params })
-        .catch((error) => error.response || error);
-
-      console.log(response);
-    },
   },
 };
 </script>

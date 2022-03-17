@@ -316,138 +316,161 @@ $hamburger-menu-background-color: gray;
         }
       }
     }
+  }
+}
 
-    .setting {
-      height: 100%;
-      background-color: antiquewhite;
+/************************************************
+（共通）設定画面 setting
+************************************************/
+.setting {
+  height: 100%;
+  background-color: antiquewhite;
+  position: relative;
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title-en {
+      display: inline-block;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .title-ja {
+      display: inline-block;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: white;
+    }
+  }
+
+  .btn-back-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .btn-start-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .setting-time-limit,
+  .setting-quiz-count,
+  .setting-audio {
+    .checkbox {
+      display: none;
+
+      + label {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        padding: 11px 0px 11px 45px;
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        &::before {
+          width: 38px;
+          height: 18px;
+          left: 0;
+          border: 1px solid #e4e3e1;
+          border-radius: 18px;
+          background-color: #ffffff;
+        }
+
+        &::after {
+          width: 19px;
+          height: 18px;
+          left: 0;
+          border-radius: 50%;
+          background-color: #bdbdbd;
+          transition: all 0.3s ease-out;
+        }
+      }
+
+      &:checked + label::after {
+        left: 19px;
+        background-color: rgb(47, 194, 145);
+      }
+
+      &:not(:checked) ~ .select-wrapper {
+        display: none;
+      }
+    }
+
+    .select-wrapper {
+      display: inline-block;
+      width: 75px;
+      margin-left: 7px;
       position: relative;
-      .title {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      border: 2px solid rgb(47, 194, 145);
+      border-radius: 35px;
+      background-color: white;
+      z-index: 0;
 
-        .title-en {
-          display: inline-block;
-          font-size: 1.3rem;
-          font-weight: bold;
-          color: white;
-        }
-
-        .title-ja {
-          display: inline-block;
-          font-size: 1.3rem;
-          font-weight: bold;
-          color: white;
-        }
-      }
-
-      .btn-back-wrapper {
+      &::before {
+        content: "";
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 5px solid #383e45;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        z-index: -1;
       }
 
-      .btn-start-wrapper {
-        display: flex;
-        justify-content: center;
-      }
-
-      .setting-time-limit,
-      .setting-quiz-count,
-      .setting-audio {
-        .checkbox {
-          display: none;
-
-          + label {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-            padding: 11px 0px 11px 45px;
-
-            &::before,
-            &::after {
-              content: "";
-              position: absolute;
-              top: 50%;
-              transform: translateY(-50%);
-            }
-
-            &::before {
-              width: 38px;
-              height: 18px;
-              left: 0;
-              border: 1px solid #e4e3e1;
-              border-radius: 18px;
-              background-color: #ffffff;
-            }
-
-            &::after {
-              width: 19px;
-              height: 18px;
-              left: 0;
-              border-radius: 50%;
-              background-color: #bdbdbd;
-              transition: all 0.3s ease-out;
-            }
-          }
-
-          &:checked + label::after {
-            left: 19px;
-            background-color: rgb(47, 194, 145);
-          }
-
-          &:not(:checked) ~ .select-wrapper {
-            display: none;
-          }
-        }
-
-        .select-wrapper {
-          display: inline-block;
-          width: 75px;
-          margin-left: 7px;
-          position: relative;
-          border: 2px solid rgb(47, 194, 145);
-          border-radius: 35px;
-          background-color: white;
-          z-index: 0;
-
-          &::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-top: 5px solid #383e45;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            z-index: -1;
-          }
-
-          .select {
-            width: 100%;
-            cursor: pointer;
-            border: none;
-            outline: none;
-            background: transparent;
-            background-image: none;
-            box-shadow: none;
-            appearance: none;
-            padding: 4px 30px 4px 10px;
-          }
-        }
+      .select {
+        width: 100%;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background: transparent;
+        background-image: none;
+        box-shadow: none;
+        appearance: none;
+        padding: 4px 30px 4px 10px;
       }
     }
   }
 }
 
 /************************************************
-画面 fill-map
+地図埋め画面 fill-map
 ************************************************/
 #fill-map {
   height: 100%;
   .fill-map-inner {
+    height: 100%;
+  }
+}
+
+/************************************************
+地図クイズ画面 quiz-map
+************************************************/
+#quiz-map {
+  height: 100%;
+  .quiz-map-inner {
+    height: 100%;
+  }
+}
+
+/************************************************
+地図タイピング画面 typing-map
+************************************************/
+#typing-map {
+  height: 100%;
+  .typing-map-inner {
     height: 100%;
   }
 }

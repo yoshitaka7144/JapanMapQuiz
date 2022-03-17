@@ -271,63 +271,67 @@ img {
 #menu .menu-inner .menu-select .menu-item.typing .title {
   left: 10%;
 }
-#menu .menu-inner .setting {
+
+/************************************************
+（共通）設定画面 setting
+************************************************/
+.setting {
   height: 100%;
   background-color: antiquewhite;
   position: relative;
 }
-#menu .menu-inner .setting .title {
+.setting .title {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#menu .menu-inner .setting .title .title-en {
+.setting .title .title-en {
   display: inline-block;
   font-size: 1.3rem;
   font-weight: bold;
   color: white;
 }
-#menu .menu-inner .setting .title .title-ja {
+.setting .title .title-ja {
   display: inline-block;
   font-size: 1.3rem;
   font-weight: bold;
   color: white;
 }
-#menu .menu-inner .setting .btn-back-wrapper {
+.setting .btn-back-wrapper {
   position: absolute;
   top: 0;
   left: 0;
 }
-#menu .menu-inner .setting .btn-start-wrapper {
+.setting .btn-start-wrapper {
   display: flex;
   justify-content: center;
 }
-#menu .menu-inner .setting .setting-time-limit .checkbox,
-#menu .menu-inner .setting .setting-quiz-count .checkbox,
-#menu .menu-inner .setting .setting-audio .checkbox {
+.setting .setting-time-limit .checkbox,
+.setting .setting-quiz-count .checkbox,
+.setting .setting-audio .checkbox {
   display: none;
 }
-#menu .menu-inner .setting .setting-time-limit .checkbox + label,
-#menu .menu-inner .setting .setting-quiz-count .checkbox + label,
-#menu .menu-inner .setting .setting-audio .checkbox + label {
+.setting .setting-time-limit .checkbox + label,
+.setting .setting-quiz-count .checkbox + label,
+.setting .setting-audio .checkbox + label {
   position: relative;
   display: inline-block;
   cursor: pointer;
   padding: 11px 0px 11px 45px;
 }
-#menu .menu-inner .setting .setting-time-limit .checkbox + label::before, #menu .menu-inner .setting .setting-time-limit .checkbox + label::after,
-#menu .menu-inner .setting .setting-quiz-count .checkbox + label::before,
-#menu .menu-inner .setting .setting-quiz-count .checkbox + label::after,
-#menu .menu-inner .setting .setting-audio .checkbox + label::before,
-#menu .menu-inner .setting .setting-audio .checkbox + label::after {
+.setting .setting-time-limit .checkbox + label::before, .setting .setting-time-limit .checkbox + label::after,
+.setting .setting-quiz-count .checkbox + label::before,
+.setting .setting-quiz-count .checkbox + label::after,
+.setting .setting-audio .checkbox + label::before,
+.setting .setting-audio .checkbox + label::after {
   content: "";
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
-#menu .menu-inner .setting .setting-time-limit .checkbox + label::before,
-#menu .menu-inner .setting .setting-quiz-count .checkbox + label::before,
-#menu .menu-inner .setting .setting-audio .checkbox + label::before {
+.setting .setting-time-limit .checkbox + label::before,
+.setting .setting-quiz-count .checkbox + label::before,
+.setting .setting-audio .checkbox + label::before {
   width: 38px;
   height: 18px;
   left: 0;
@@ -335,9 +339,9 @@ img {
   border-radius: 18px;
   background-color: #ffffff;
 }
-#menu .menu-inner .setting .setting-time-limit .checkbox + label::after,
-#menu .menu-inner .setting .setting-quiz-count .checkbox + label::after,
-#menu .menu-inner .setting .setting-audio .checkbox + label::after {
+.setting .setting-time-limit .checkbox + label::after,
+.setting .setting-quiz-count .checkbox + label::after,
+.setting .setting-audio .checkbox + label::after {
   width: 19px;
   height: 18px;
   left: 0;
@@ -345,20 +349,20 @@ img {
   background-color: #bdbdbd;
   transition: all 0.3s ease-out;
 }
-#menu .menu-inner .setting .setting-time-limit .checkbox:checked + label::after,
-#menu .menu-inner .setting .setting-quiz-count .checkbox:checked + label::after,
-#menu .menu-inner .setting .setting-audio .checkbox:checked + label::after {
+.setting .setting-time-limit .checkbox:checked + label::after,
+.setting .setting-quiz-count .checkbox:checked + label::after,
+.setting .setting-audio .checkbox:checked + label::after {
   left: 19px;
   background-color: #2fc291;
 }
-#menu .menu-inner .setting .setting-time-limit .checkbox:not(:checked) ~ .select-wrapper,
-#menu .menu-inner .setting .setting-quiz-count .checkbox:not(:checked) ~ .select-wrapper,
-#menu .menu-inner .setting .setting-audio .checkbox:not(:checked) ~ .select-wrapper {
+.setting .setting-time-limit .checkbox:not(:checked) ~ .select-wrapper,
+.setting .setting-quiz-count .checkbox:not(:checked) ~ .select-wrapper,
+.setting .setting-audio .checkbox:not(:checked) ~ .select-wrapper {
   display: none;
 }
-#menu .menu-inner .setting .setting-time-limit .select-wrapper,
-#menu .menu-inner .setting .setting-quiz-count .select-wrapper,
-#menu .menu-inner .setting .setting-audio .select-wrapper {
+.setting .setting-time-limit .select-wrapper,
+.setting .setting-quiz-count .select-wrapper,
+.setting .setting-audio .select-wrapper {
   display: inline-block;
   width: 75px;
   margin-left: 7px;
@@ -368,9 +372,9 @@ img {
   background-color: white;
   z-index: 0;
 }
-#menu .menu-inner .setting .setting-time-limit .select-wrapper::before,
-#menu .menu-inner .setting .setting-quiz-count .select-wrapper::before,
-#menu .menu-inner .setting .setting-audio .select-wrapper::before {
+.setting .setting-time-limit .select-wrapper::before,
+.setting .setting-quiz-count .select-wrapper::before,
+.setting .setting-audio .select-wrapper::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -383,9 +387,9 @@ img {
   border-right: 5px solid transparent;
   z-index: -1;
 }
-#menu .menu-inner .setting .setting-time-limit .select-wrapper .select,
-#menu .menu-inner .setting .setting-quiz-count .select-wrapper .select,
-#menu .menu-inner .setting .setting-audio .select-wrapper .select {
+.setting .setting-time-limit .select-wrapper .select,
+.setting .setting-quiz-count .select-wrapper .select,
+.setting .setting-audio .select-wrapper .select {
   width: 100%;
   cursor: pointer;
   border: none;
@@ -400,12 +404,32 @@ img {
 }
 
 /************************************************
-画面 fill-map
+地図埋め画面 fill-map
 ************************************************/
 #fill-map {
   height: 100%;
 }
 #fill-map .fill-map-inner {
+  height: 100%;
+}
+
+/************************************************
+地図クイズ画面 quiz-map
+************************************************/
+#quiz-map {
+  height: 100%;
+}
+#quiz-map .quiz-map-inner {
+  height: 100%;
+}
+
+/************************************************
+地図タイピング画面 typing-map
+************************************************/
+#typing-map {
+  height: 100%;
+}
+#typing-map .typing-map-inner {
   height: 100%;
 }
 

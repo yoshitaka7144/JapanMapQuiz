@@ -23198,6 +23198,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+/* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/components/Setting.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -23210,18 +23220,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    classificationCheckedValues: "",
-    timeLimitChecked: "",
-    timeLimitValue: "",
-    answerMethod: ""
+  components: {
+    SettingComponent: _Setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MENU_TITLE_JAPANESE,
+      selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MENU_TITLE_ENGLISH,
+      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_EXPLANATION_TEXT,
+      canStartGame: false,
+      classificationCheckedValues: [],
+      answerMethod: String,
+      timeLimitChecked: Boolean,
+      timeLimitSelectedValue: Number
+    };
   },
   mounted: function mounted() {},
-  methods: {}
+  methods: {
+    settingParams: function settingParams(params) {
+      this.classificationCheckedValues = params.classificationCheckedValues;
+      this.answerMethod = params.answerMethod;
+      this.timeLimitChecked = params.timeLimitChecked;
+      this.timeLimitSelectedValue = params.timeLimitSelectedValue;
+      this.canStartGame = true;
+    }
+  }
 });
 
 /***/ }),
@@ -23400,6 +23425,165 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      fillMapTitle: {
+        ja: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MENU_TITLE_JAPANESE,
+        en: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MENU_TITLE_ENGLISH
+      },
+      quizMapTitle: {
+        ja: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_MENU_TITLE_JAPANESE,
+        en: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_MENU_TITLE_ENGLISH
+      },
+      typingMapTitle: {
+        ja: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_MENU_TITLE_JAPANESE,
+        en: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_MENU_TITLE_ENGLISH
+      }
+    };
+  },
+  methods: {
+    selectMenu: function selectMenu(menuName) {
+      this.$router.push({
+        name: menuName.toLowerCase()
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/NotFound.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/NotFound.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/QuizMap.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/QuizMap.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+/* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/components/Setting.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    SettingComponent: _Setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_MENU_TITLE_JAPANESE,
+      selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_MENU_TITLE_ENGLISH,
+      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_EXPLANATION_TEXT,
+      canStartGame: false,
+      classificationCheckedValues: [],
+      audioChecked: Boolean,
+      timeLimitChecked: Boolean,
+      timeLimitSelectedValue: Number,
+      quizCountSelectedValue: Number
+    };
+  },
+  mounted: function mounted() {},
+  methods: {
+    settingParams: function settingParams(params) {
+      this.classificationCheckedValues = params.classificationCheckedValues;
+      this.audioChecked = params.audioChecked;
+      this.timeLimitChecked = params.timeLimitChecked;
+      this.timeLimitSelectedValue = params.timeLimitSelectedValue;
+      this.quizCountSelectedValue = params.quizCountSelectedValue;
+      this.canStartGame = true;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Setting.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Setting.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
@@ -23507,54 +23691,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    selectedMenuTitleJa: String,
+    selectedMenuTitleEn: String,
+    selectedMenuText: String,
+    settingParams: Function
+  },
   data: function data() {
     return {
-      classificationCheckedValues: [],
-      selectedMenuTitleJa: "",
-      selectedMenuTitleEn: "",
-      selectedMenuText: "",
-      menus: [{
-        text: "地図埋めの説明説明説明説明説明説明説明説明説明説明説明",
-        title: {
-          ja: "地図埋め",
-          en: "fill"
-        }
-      }, {
-        text: "地図クイズの説明説明説明説明説明説明説明説明説明説明説明",
-        title: {
-          ja: "地図クイズ",
-          en: "quiz"
-        }
-      }, {
-        text: "地図タイピングの説明説明説明説明説明説明説明説明説明説明説明",
-        title: {
-          ja: "地図タイピング",
-          en: "typing"
-        }
-      }],
-      classifications: "",
-      answerMethod: "select",
-      audioChecked: false,
-      timeLimitValues: "",
-      timeLimitChecked: false,
-      timeLimitSelectedValue: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TIME_LIMIT_VALUE,
-      quizCountValues: "",
-      quizCountSelectedValue: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_QUIZ_COUNT_VALUE
+      params: {
+        classificationCheckedValues: [],
+        answerMethod: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_ANSWER_METHOD,
+        audioChecked: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_AUDIO_CHECKED,
+        timeLimitChecked: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TIME_LIMIT_CHECKED,
+        timeLimitSelectedValue: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TIME_LIMIT_VALUE,
+        quizCountSelectedValue: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_QUIZ_COUNT_VALUE
+      },
+      classifications: Array,
+      timeLimitValues: Array,
+      quizCountValues: Array,
+      targetMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MENU_TITLE_ENGLISH,
+      answerMethodSelectValue: _util__WEBPACK_IMPORTED_MODULE_1__.ANSWER_METHOD_SELECT,
+      answerMethodWriteValue: _util__WEBPACK_IMPORTED_MODULE_1__.ANSWER_METHOD_WRITE
     };
   },
   mounted: function mounted() {
@@ -23563,46 +23723,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getQuizCountValues();
   },
   methods: {
-    clear: function clear() {
-      this.classificationCheckedValues = [];
-      this.selectedMenuTitleJa = "";
-      this.selectedMenuTitleEn = "";
-      this.selectedMenuText = "";
-      this.answerMethod = "select";
-      this.audioChecked = false;
-      this.timeLimitChecked = false;
-      this.timeLimitSelectedValue = _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TIME_LIMIT_VALUE;
-      this.quizCountSelectedValue = _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_QUIZ_COUNT_VALUE;
-    },
-    selectMenu: function selectMenu(menu) {
-      this.selectedMenuTitleJa = menu.title.ja;
-      this.selectedMenuTitleEn = menu.title.en;
-      this.selectedMenuText = menu.text;
-    },
-    start: function start(selectedMenuTitleEn) {
-      if (selectedMenuTitleEn === "fill") {
-        this.$router.push({
-          name: selectedMenuTitleEn,
-          params: {
-            classificationCheckedValues: this.classificationCheckedValues,
-            timeLimitChecked: this.timeLimitChecked,
-            timeLimitValue: this.timeLimitSelectedValue,
-            answerMethod: this.answerMethod
-          }
-        });
-      } else {
-        this.$router.push({
-          name: selectedMenuTitleEn,
-          params: {
-            classificationCheckedValues: this.classificationCheckedValues,
-            timeLimitChecked: this.timeLimitChecked,
-            timeLimitValue: this.timeLimitSelectedValue,
-            quizCountValue: this.quizCountSelectedValue,
-            audioChecked: this.audioChecked
-          }
-        });
-      }
-    },
     getClassifications: function getClassifications() {
       var _this = this;
 
@@ -23707,71 +23827,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/NotFound.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/NotFound.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/QuizMap.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/QuizMap.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    classificationCheckedValues: "",
-    timeLimitChecked: "",
-    timeLimitValue: "",
-    quizCountValue: "",
-    audioChecked: ""
-  },
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {},
-  methods: {}
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SystemError.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SystemError.vue?vue&type=script&lang=js& ***!
@@ -23807,6 +23862,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+/* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/components/Setting.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -23820,19 +23885,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    classificationCheckedValues: "",
-    timeLimitChecked: "",
-    timeLimitValue: "",
-    quizCountValue: "",
-    audioChecked: ""
+  components: {
+    SettingComponent: _Setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_MENU_TITLE_JAPANESE,
+      selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_MENU_TITLE_ENGLISH,
+      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_EXPLANATION_TEXT,
+      canStartGame: false,
+      classificationCheckedValues: [],
+      audioChecked: Boolean,
+      timeLimitChecked: Boolean,
+      timeLimitSelectedValue: Number,
+      quizCountSelectedValue: Number
+    };
   },
   mounted: function mounted() {},
-  methods: {}
+  methods: {
+    settingParams: function settingParams(params) {
+      this.classificationCheckedValues = params.classificationCheckedValues;
+      this.audioChecked = params.audioChecked;
+      this.timeLimitChecked = params.timeLimitChecked;
+      this.timeLimitSelectedValue = params.timeLimitSelectedValue;
+      this.quizCountSelectedValue = params.quizCountSelectedValue;
+      this.canStartGame = true;
+    }
+  }
 });
 
 /***/ }),
@@ -23989,25 +24070,126 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_8__["default"]({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ANSWER_METHOD_SELECT": () => (/* binding */ ANSWER_METHOD_SELECT),
+/* harmony export */   "ANSWER_METHOD_WRITE": () => (/* binding */ ANSWER_METHOD_WRITE),
 /* harmony export */   "CREATED": () => (/* binding */ CREATED),
+/* harmony export */   "DEFAULT_ANSWER_METHOD": () => (/* binding */ DEFAULT_ANSWER_METHOD),
+/* harmony export */   "DEFAULT_AUDIO_CHECKED": () => (/* binding */ DEFAULT_AUDIO_CHECKED),
 /* harmony export */   "DEFAULT_QUIZ_COUNT_VALUE": () => (/* binding */ DEFAULT_QUIZ_COUNT_VALUE),
+/* harmony export */   "DEFAULT_TIME_LIMIT_CHECKED": () => (/* binding */ DEFAULT_TIME_LIMIT_CHECKED),
 /* harmony export */   "DEFAULT_TIME_LIMIT_VALUE": () => (/* binding */ DEFAULT_TIME_LIMIT_VALUE),
+/* harmony export */   "FILL_MAP_EXPLANATION_TEXT": () => (/* binding */ FILL_MAP_EXPLANATION_TEXT),
+/* harmony export */   "FILL_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ FILL_MAP_MENU_TITLE_ENGLISH),
+/* harmony export */   "FILL_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ FILL_MAP_MENU_TITLE_JAPANESE),
 /* harmony export */   "INTERNAL_SERVER_ERROR": () => (/* binding */ INTERNAL_SERVER_ERROR),
 /* harmony export */   "OK": () => (/* binding */ OK),
+/* harmony export */   "QUIZ_MAP_EXPLANATION_TEXT": () => (/* binding */ QUIZ_MAP_EXPLANATION_TEXT),
+/* harmony export */   "QUIZ_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ QUIZ_MAP_MENU_TITLE_ENGLISH),
+/* harmony export */   "QUIZ_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ QUIZ_MAP_MENU_TITLE_JAPANESE),
+/* harmony export */   "TYPING_MAP_EXPLANATION_TEXT": () => (/* binding */ TYPING_MAP_EXPLANATION_TEXT),
+/* harmony export */   "TYPING_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ TYPING_MAP_MENU_TITLE_ENGLISH),
+/* harmony export */   "TYPING_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ TYPING_MAP_MENU_TITLE_JAPANESE),
 /* harmony export */   "UNPROCESSABLE_ENTITY": () => (/* binding */ UNPROCESSABLE_ENTITY)
 /* harmony export */ });
-//apiステータス：成功
-var OK = 200; //apiステータス：データ作成
+/**
+ * apiステータス：成功
+ */
+var OK = 200;
+/**
+ * apiステータス：データ作成
+ */
 
-var CREATED = 201; //apiステータス：UNPROCESSABLE
+var CREATED = 201;
+/**
+ * apiステータス：UNPROCESSABLE
+ */
 
-var UNPROCESSABLE_ENTITY = 422; //apiステータス：システムエラー
+var UNPROCESSABLE_ENTITY = 422;
+/**
+ * apiステータス：システムエラー
+ */
 
-var INTERNAL_SERVER_ERROR = 500; // 制限時間セレクトボックス初期選択値
+var INTERNAL_SERVER_ERROR = 500;
+/**
+ * 設定画面：制限時間チェックボックス：初期選択値
+ */
 
-var DEFAULT_TIME_LIMIT_VALUE = 60; // 問題数セレクトボックス初期選択値
+var DEFAULT_TIME_LIMIT_CHECKED = false;
+/**
+ * 設定画面：制限時間セレクトボックス：初期選択値
+ */
+
+var DEFAULT_TIME_LIMIT_VALUE = 60;
+/**
+ * 設定画面：問題数セレクトボックス：初期選択値
+ */
 
 var DEFAULT_QUIZ_COUNT_VALUE = 10;
+/**
+ * 設定画面：音声チェックボックス：初期選択値
+ */
+
+var DEFAULT_AUDIO_CHECKED = false;
+/**
+ * 設定画面：解答方法ラジオボタン：選択
+ */
+
+var ANSWER_METHOD_SELECT = "select";
+/**
+ * 設定画面：解答方法ラジオボタン：記述
+ */
+
+var ANSWER_METHOD_WRITE = "write";
+/**
+ * 設定画面：解答方法ラジオボタン：初期選択値
+ */
+
+var DEFAULT_ANSWER_METHOD = ANSWER_METHOD_SELECT;
+/**
+ * 地図埋め：日本語タイトル
+ */
+
+var FILL_MAP_MENU_TITLE_JAPANESE = "地図埋め";
+/**
+ * 地図埋め：英語タイトル
+ */
+
+var FILL_MAP_MENU_TITLE_ENGLISH = "Fill";
+/**
+ * 地図埋め：説明テキスト
+ */
+
+var FILL_MAP_EXPLANATION_TEXT = "地図埋めの説明";
+/**
+ * 地図クイズ：日本語タイトル
+ */
+
+var QUIZ_MAP_MENU_TITLE_JAPANESE = "地図クイズ";
+/**
+ * 地図クイズ：英語タイトル
+ */
+
+var QUIZ_MAP_MENU_TITLE_ENGLISH = "Quiz";
+/**
+ * 地図クイズ：説明テキスト
+ */
+
+var QUIZ_MAP_EXPLANATION_TEXT = "地図クイズの説明";
+/**
+* 地図タイピング：日本語タイトル
+*/
+
+var TYPING_MAP_MENU_TITLE_JAPANESE = "地図タイピング";
+/**
+ * 地図タイピング：英語タイトル
+ */
+
+var TYPING_MAP_MENU_TITLE_ENGLISH = "Typing";
+/**
+ * 地図タイピング：説明テキスト
+ */
+
+var TYPING_MAP_EXPLANATION_TEXT = "地図タイピングの説明";
 
 /***/ }),
 
@@ -47494,6 +47676,45 @@ component.options.__file = "resources/js/components/QuizMap.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Setting.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/components/Setting.vue ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Setting_vue_vue_type_template_id_5f96e096___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Setting.vue?vue&type=template&id=5f96e096& */ "./resources/js/components/Setting.vue?vue&type=template&id=5f96e096&");
+/* harmony import */ var _Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Setting.vue?vue&type=script&lang=js& */ "./resources/js/components/Setting.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Setting_vue_vue_type_template_id_5f96e096___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Setting_vue_vue_type_template_id_5f96e096___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Setting.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/SystemError.vue":
 /*!*************************************************!*\
   !*** ./resources/js/components/SystemError.vue ***!
@@ -47684,6 +47905,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Setting.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/Setting.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Setting.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Setting.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/SystemError.vue?vue&type=script&lang=js&":
 /*!**************************************************************************!*\
   !*** ./resources/js/components/SystemError.vue?vue&type=script&lang=js& ***!
@@ -47835,6 +48072,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Setting.vue?vue&type=template&id=5f96e096&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/Setting.vue?vue&type=template&id=5f96e096& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_template_id_5f96e096___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_template_id_5f96e096___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_template_id_5f96e096___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Setting.vue?vue&type=template&id=5f96e096& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Setting.vue?vue&type=template&id=5f96e096&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/SystemError.vue?vue&type=template&id=101d8904&":
 /*!********************************************************************************!*\
   !*** ./resources/js/components/SystemError.vue?vue&type=template&id=101d8904& ***!
@@ -47886,19 +48140,35 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "fill-map" } }, [
-    _c("div", { staticClass: "fill-map-inner wrapper" }, [
-      _vm._v(
-        "\n    " +
-          _vm._s(_vm.classificationCheckedValues) +
-          "\n    " +
-          _vm._s(_vm.timeLimitChecked) +
-          "\n    " +
-          _vm._s(_vm.timeLimitValue) +
-          "\n    " +
-          _vm._s(_vm.answerMethod) +
-          "\n  "
-      ),
-    ]),
+    _c(
+      "div",
+      { staticClass: "fill-map-inner wrapper" },
+      [
+        !_vm.canStartGame
+          ? _c("SettingComponent", {
+              attrs: {
+                "selected-menu-title-ja": _vm.selectedMenuTitleJa,
+                "selected-menu-title-en": _vm.selectedMenuTitleEn,
+                "selected-menu-text": _vm.selectedMenuText,
+                "setting-params": _vm.settingParams,
+              },
+            })
+          : _c("div", { staticClass: "game" }, [
+              _vm._v(
+                "\n      " +
+                  _vm._s(_vm.classificationCheckedValues) +
+                  "\n      " +
+                  _vm._s(_vm.answerMethod) +
+                  "\n      " +
+                  _vm._s(_vm.timeLimitChecked) +
+                  "\n      " +
+                  _vm._s(_vm.timeLimitSelectedValue) +
+                  "\n    "
+              ),
+            ]),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = []
@@ -48225,398 +48495,76 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "menu" } }, [
     _c("div", { staticClass: "menu-inner wrapper" }, [
-      _vm.selectedMenuTitleJa === ""
-        ? _c(
-            "div",
-            { staticClass: "menu-select" },
-            _vm._l(_vm.menus, function (menu) {
-              return _c(
-                "div",
-                {
-                  key: menu.text,
-                  staticClass: "menu-item",
-                  class: menu.title.en,
-                  on: {
-                    click: function ($event) {
-                      return _vm.selectMenu(menu)
-                    },
-                  },
-                },
-                [
-                  _c("p", { staticClass: "title" }, [
-                    _c("span", { staticClass: "title-en" }, [
-                      _vm._v(_vm._s(menu.title.en)),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "title-ja" }, [
-                      _vm._v(_vm._s(menu.title.ja)),
-                    ]),
-                  ]),
-                ]
-              )
-            }),
-            0
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.selectedMenuTitleJa !== ""
-        ? _c("div", { staticClass: "setting" }, [
-            _c("div", { staticClass: "btn-back-wrapper" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-gray",
-                  on: {
-                    click: function ($event) {
-                      return _vm.clear()
-                    },
-                  },
-                },
-                [_vm._v("戻る")]
-              ),
-            ]),
-            _vm._v(" "),
+      _c("div", { staticClass: "menu-select" }, [
+        _c(
+          "div",
+          {
+            staticClass: "menu-item fill",
+            on: {
+              click: function ($event) {
+                return _vm.selectMenu(_vm.fillMapTitle.en)
+              },
+            },
+          },
+          [
             _c("p", { staticClass: "title" }, [
               _c("span", { staticClass: "title-en" }, [
-                _vm._v(_vm._s(_vm.selectedMenuTitleEn)),
+                _vm._v(_vm._s(_vm.fillMapTitle.en)),
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "title-ja" }, [
-                _vm._v(_vm._s(_vm.selectedMenuTitleJa)),
+                _vm._v(_vm._s(_vm.fillMapTitle.ja)),
               ]),
             ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "explanation-text" }, [
-              _vm._v(_vm._s(_vm.selectedMenuText)),
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "setting-target-area" },
-              _vm._l(_vm.classifications, function (classification) {
-                return _c(
-                  "label",
-                  { key: classification.id, attrs: { for: classification.id } },
-                  [
-                    _vm._v(_vm._s(classification.name)),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.classificationCheckedValues,
-                          expression: "classificationCheckedValues",
-                        },
-                      ],
-                      attrs: { id: classification.id, type: "checkbox" },
-                      domProps: {
-                        value: classification.id,
-                        checked: Array.isArray(_vm.classificationCheckedValues)
-                          ? _vm._i(
-                              _vm.classificationCheckedValues,
-                              classification.id
-                            ) > -1
-                          : _vm.classificationCheckedValues,
-                      },
-                      on: {
-                        change: function ($event) {
-                          var $$a = _vm.classificationCheckedValues,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = classification.id,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                (_vm.classificationCheckedValues = $$a.concat([
-                                  $$v,
-                                ]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.classificationCheckedValues = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.classificationCheckedValues = $$c
-                          }
-                        },
-                      },
-                    }),
-                  ]
-                )
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "setting-time-limit" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.timeLimitChecked,
-                    expression: "timeLimitChecked",
-                  },
-                ],
-                staticClass: "checkbox",
-                attrs: { type: "checkbox", id: "time-limit" },
-                domProps: {
-                  checked: Array.isArray(_vm.timeLimitChecked)
-                    ? _vm._i(_vm.timeLimitChecked, null) > -1
-                    : _vm.timeLimitChecked,
-                },
-                on: {
-                  change: function ($event) {
-                    var $$a = _vm.timeLimitChecked,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 && (_vm.timeLimitChecked = $$a.concat([$$v]))
-                      } else {
-                        $$i > -1 &&
-                          (_vm.timeLimitChecked = $$a
-                            .slice(0, $$i)
-                            .concat($$a.slice($$i + 1)))
-                      }
-                    } else {
-                      _vm.timeLimitChecked = $$c
-                    }
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "time-limit" } }, [
-                _vm._v("時間制限（秒）"),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "menu-item quiz",
+            on: {
+              click: function ($event) {
+                return _vm.selectMenu(_vm.quizMapTitle.en)
+              },
+            },
+          },
+          [
+            _c("p", { staticClass: "title" }, [
+              _c("span", { staticClass: "title-en" }, [
+                _vm._v(_vm._s(_vm.quizMapTitle.en)),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "select-wrapper" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.timeLimitSelectedValue,
-                        expression: "timeLimitSelectedValue",
-                      },
-                    ],
-                    staticClass: "select",
-                    on: {
-                      change: function ($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function (o) {
-                            return o.selected
-                          })
-                          .map(function (o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.timeLimitSelectedValue = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                    },
-                  },
-                  _vm._l(_vm.timeLimitValues, function (timeLimitValue) {
-                    return _c(
-                      "option",
-                      {
-                        key: timeLimitValue.id,
-                        domProps: { value: timeLimitValue.value },
-                      },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(timeLimitValue.value) +
-                            "\n            "
-                        ),
-                      ]
-                    )
-                  }),
-                  0
-                ),
+              _c("span", { staticClass: "title-ja" }, [
+                _vm._v(_vm._s(_vm.quizMapTitle.ja)),
               ]),
             ]),
-            _vm._v(" "),
-            _vm.selectedMenuTitleEn !== "fill"
-              ? _c("div", { staticClass: "setting-audio" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.audioChecked,
-                        expression: "audioChecked",
-                      },
-                    ],
-                    staticClass: "checkbox",
-                    attrs: { type: "checkbox", id: "audio" },
-                    domProps: {
-                      checked: Array.isArray(_vm.audioChecked)
-                        ? _vm._i(_vm.audioChecked, null) > -1
-                        : _vm.audioChecked,
-                    },
-                    on: {
-                      change: function ($event) {
-                        var $$a = _vm.audioChecked,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.audioChecked = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.audioChecked = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.audioChecked = $$c
-                        }
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "audio" } }, [
-                    _vm._v("音声有無"),
-                  ]),
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.selectedMenuTitleEn !== "fill"
-              ? _c("div", { staticClass: "setting-quiz-count" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("問題数")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "select-wrapper" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.quizCountSelectedValue,
-                            expression: "quizCountSelectedValue",
-                          },
-                        ],
-                        staticClass: "select",
-                        on: {
-                          change: function ($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function (o) {
-                                return o.selected
-                              })
-                              .map(function (o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.quizCountSelectedValue = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          },
-                        },
-                      },
-                      _vm._l(_vm.quizCountValues, function (quizCountValue) {
-                        return _c(
-                          "option",
-                          {
-                            key: quizCountValue.id,
-                            domProps: { value: quizCountValue.value },
-                          },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(quizCountValue.value) +
-                                "\n            "
-                            ),
-                          ]
-                        )
-                      }),
-                      0
-                    ),
-                  ]),
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.selectedMenuTitleEn === "fill"
-              ? _c("div", { staticClass: "setting-answer-method" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answerMethod,
-                        expression: "answerMethod",
-                      },
-                    ],
-                    attrs: {
-                      type: "radio",
-                      id: "answer-select",
-                      value: "select",
-                    },
-                    domProps: { checked: _vm._q(_vm.answerMethod, "select") },
-                    on: {
-                      change: function ($event) {
-                        _vm.answerMethod = "select"
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "answer-select" } }, [
-                    _vm._v("選択"),
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answerMethod,
-                        expression: "answerMethod",
-                      },
-                    ],
-                    attrs: {
-                      type: "radio",
-                      id: "answer-write",
-                      value: "write",
-                    },
-                    domProps: { checked: _vm._q(_vm.answerMethod, "write") },
-                    on: {
-                      change: function ($event) {
-                        _vm.answerMethod = "write"
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "answer-write" } }, [
-                    _vm._v("記述"),
-                  ]),
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("div", { staticClass: "btn-start-wrapper" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-gray",
-                  on: {
-                    click: function ($event) {
-                      return _vm.start(_vm.selectedMenuTitleEn)
-                    },
-                  },
-                },
-                [_vm._v("\n          スタート\n        ")]
-              ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "menu-item typing",
+            on: {
+              click: function ($event) {
+                return _vm.selectMenu(_vm.typingMapTitle.en)
+              },
+            },
+          },
+          [
+            _c("p", { staticClass: "title" }, [
+              _c("span", { staticClass: "title-en" }, [
+                _vm._v(_vm._s(_vm.typingMapTitle.en)),
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "title-ja" }, [
+                _vm._v(_vm._s(_vm.typingMapTitle.ja)),
+              ]),
             ]),
-          ])
-        : _vm._e(),
+          ]
+        ),
+      ]),
     ]),
   ])
 }
@@ -48680,19 +48628,429 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "quiz-map" } }, [
-    _c("div", { staticClass: "quiz-map-inner wrapper" }, [
-      _vm._v(
-        "\n    " +
-          _vm._s(_vm.classificationCheckedValues) +
-          "\n    " +
-          _vm._s(_vm.timeLimitChecked) +
-          "\n    " +
-          _vm._s(_vm.timeLimitValue) +
-          "\n    " +
-          _vm._s(_vm.quizCountValue) +
-          "\n    " +
-          _vm._s(_vm.audioChecked) +
-          "\n  "
+    _c(
+      "div",
+      { staticClass: "quiz-map-inner wrapper" },
+      [
+        !_vm.canStartGame
+          ? _c("SettingComponent", {
+              attrs: {
+                "selected-menu-title-ja": _vm.selectedMenuTitleJa,
+                "selected-menu-title-en": _vm.selectedMenuTitleEn,
+                "selected-menu-text": _vm.selectedMenuText,
+                "setting-params": _vm.settingParams,
+              },
+            })
+          : _c("div", { staticClass: "game" }, [
+              _vm._v(
+                "\n      " +
+                  _vm._s(_vm.classificationCheckedValues) +
+                  "\n      " +
+                  _vm._s(_vm.audioChecked) +
+                  "\n      " +
+                  _vm._s(_vm.timeLimitChecked) +
+                  "\n      " +
+                  _vm._s(_vm.timeLimitSelectedValue) +
+                  "\n      " +
+                  _vm._s(_vm.quizCountSelectedValue) +
+                  "\n    "
+              ),
+            ]),
+      ],
+      1
+    ),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Setting.vue?vue&type=template&id=5f96e096&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Setting.vue?vue&type=template&id=5f96e096& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "setting" }, [
+    _c(
+      "div",
+      { staticClass: "btn-back-wrapper" },
+      [
+        _c(
+          "router-link",
+          { staticClass: "btn btn-gray", attrs: { to: { name: "menu" } } },
+          [_vm._v("\n      戻る\n    ")]
+        ),
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("p", { staticClass: "title" }, [
+      _c("span", { staticClass: "title-en" }, [
+        _vm._v(_vm._s(_vm.selectedMenuTitleEn)),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "title-ja" }, [
+        _vm._v(_vm._s(_vm.selectedMenuTitleJa)),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("p", { staticClass: "explanation-text" }, [
+      _vm._v(_vm._s(_vm.selectedMenuText)),
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "setting-target-area" },
+      _vm._l(_vm.classifications, function (classification) {
+        return _c(
+          "label",
+          { key: classification.id, attrs: { for: classification.id } },
+          [
+            _vm._v(_vm._s(classification.name)),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.params.classificationCheckedValues,
+                  expression: "params.classificationCheckedValues",
+                },
+              ],
+              attrs: { id: classification.id, type: "checkbox" },
+              domProps: {
+                value: classification.id,
+                checked: Array.isArray(_vm.params.classificationCheckedValues)
+                  ? _vm._i(
+                      _vm.params.classificationCheckedValues,
+                      classification.id
+                    ) > -1
+                  : _vm.params.classificationCheckedValues,
+              },
+              on: {
+                change: function ($event) {
+                  var $$a = _vm.params.classificationCheckedValues,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = classification.id,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(
+                          _vm.params,
+                          "classificationCheckedValues",
+                          $$a.concat([$$v])
+                        )
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.params,
+                          "classificationCheckedValues",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.params, "classificationCheckedValues", $$c)
+                  }
+                },
+              },
+            }),
+          ]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "setting-time-limit" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.params.timeLimitChecked,
+            expression: "params.timeLimitChecked",
+          },
+        ],
+        staticClass: "checkbox",
+        attrs: { type: "checkbox", id: "time-limit" },
+        domProps: {
+          checked: Array.isArray(_vm.params.timeLimitChecked)
+            ? _vm._i(_vm.params.timeLimitChecked, null) > -1
+            : _vm.params.timeLimitChecked,
+        },
+        on: {
+          change: function ($event) {
+            var $$a = _vm.params.timeLimitChecked,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = null,
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(_vm.params, "timeLimitChecked", $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.params,
+                    "timeLimitChecked",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.params, "timeLimitChecked", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "time-limit" } }, [_vm._v("時間制限（秒）")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "select-wrapper" }, [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.params.timeLimitSelectedValue,
+                expression: "params.timeLimitSelectedValue",
+              },
+            ],
+            staticClass: "select",
+            on: {
+              change: function ($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function (o) {
+                    return o.selected
+                  })
+                  .map(function (o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.$set(
+                  _vm.params,
+                  "timeLimitSelectedValue",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
+              },
+            },
+          },
+          _vm._l(_vm.timeLimitValues, function (timeLimitValue) {
+            return _c(
+              "option",
+              {
+                key: timeLimitValue.id,
+                domProps: { value: timeLimitValue.value },
+              },
+              [
+                _vm._v(
+                  "\n          " + _vm._s(timeLimitValue.value) + "\n        "
+                ),
+              ]
+            )
+          }),
+          0
+        ),
+      ]),
+    ]),
+    _vm._v(" "),
+    _vm.selectedMenuTitleEn !== _vm.targetMenuTitleEn
+      ? _c("div", { staticClass: "setting-audio" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.params.audioChecked,
+                expression: "params.audioChecked",
+              },
+            ],
+            staticClass: "checkbox",
+            attrs: { type: "checkbox", id: "audio" },
+            domProps: {
+              checked: Array.isArray(_vm.params.audioChecked)
+                ? _vm._i(_vm.params.audioChecked, null) > -1
+                : _vm.params.audioChecked,
+            },
+            on: {
+              change: function ($event) {
+                var $$a = _vm.params.audioChecked,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 &&
+                      _vm.$set(_vm.params, "audioChecked", $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      _vm.$set(
+                        _vm.params,
+                        "audioChecked",
+                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                      )
+                  }
+                } else {
+                  _vm.$set(_vm.params, "audioChecked", $$c)
+                }
+              },
+            },
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "audio" } }, [_vm._v("音声有無")]),
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.selectedMenuTitleEn !== _vm.targetMenuTitleEn
+      ? _c("div", { staticClass: "setting-quiz-count" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("問題数")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "select-wrapper" }, [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.params.quizCountSelectedValue,
+                    expression: "params.quizCountSelectedValue",
+                  },
+                ],
+                staticClass: "select",
+                on: {
+                  change: function ($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function (o) {
+                        return o.selected
+                      })
+                      .map(function (o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.params,
+                      "quizCountSelectedValue",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  },
+                },
+              },
+              _vm._l(_vm.quizCountValues, function (quizCountValue) {
+                return _c(
+                  "option",
+                  {
+                    key: quizCountValue.id,
+                    domProps: { value: quizCountValue.value },
+                  },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(quizCountValue.value) +
+                        "\n        "
+                    ),
+                  ]
+                )
+              }),
+              0
+            ),
+          ]),
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.selectedMenuTitleEn === _vm.targetMenuTitleEn
+      ? _c("div", { staticClass: "setting-answer-method" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.params.answerMethod,
+                expression: "params.answerMethod",
+              },
+            ],
+            attrs: { type: "radio", id: "answer-select" },
+            domProps: {
+              value: _vm.answerMethodSelectValue,
+              checked: _vm._q(
+                _vm.params.answerMethod,
+                _vm.answerMethodSelectValue
+              ),
+            },
+            on: {
+              change: function ($event) {
+                return _vm.$set(
+                  _vm.params,
+                  "answerMethod",
+                  _vm.answerMethodSelectValue
+                )
+              },
+            },
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "answer-select" } }, [_vm._v("選択")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.params.answerMethod,
+                expression: "params.answerMethod",
+              },
+            ],
+            attrs: { type: "radio", id: "answer-write" },
+            domProps: {
+              value: _vm.answerMethodWriteValue,
+              checked: _vm._q(
+                _vm.params.answerMethod,
+                _vm.answerMethodWriteValue
+              ),
+            },
+            on: {
+              change: function ($event) {
+                return _vm.$set(
+                  _vm.params,
+                  "answerMethod",
+                  _vm.answerMethodWriteValue
+                )
+              },
+            },
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "answer-write" } }, [_vm._v("記述")]),
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "btn-start-wrapper" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-gray",
+          on: {
+            click: function ($event) {
+              return _vm.settingParams(_vm.params)
+            },
+          },
+        },
+        [_vm._v("\n      スタート\n    ")]
       ),
     ]),
   ])
@@ -48757,21 +49115,37 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "typing-map" } }, [
-    _c("div", { staticClass: "typing-map-inner wrapper" }, [
-      _vm._v(
-        "\n    " +
-          _vm._s(_vm.classificationCheckedValues) +
-          "\n    " +
-          _vm._s(_vm.timeLimitChecked) +
-          "\n    " +
-          _vm._s(_vm.timeLimitValue) +
-          "\n    " +
-          _vm._s(_vm.quizCountValue) +
-          "\n    " +
-          _vm._s(_vm.audioChecked) +
-          "\n  "
-      ),
-    ]),
+    _c(
+      "div",
+      { staticClass: "typing-map-inner wrapper" },
+      [
+        !_vm.canStartGame
+          ? _c("SettingComponent", {
+              attrs: {
+                "selected-menu-title-ja": _vm.selectedMenuTitleJa,
+                "selected-menu-title-en": _vm.selectedMenuTitleEn,
+                "selected-menu-text": _vm.selectedMenuText,
+                "setting-params": _vm.settingParams,
+              },
+            })
+          : _c("div", { staticClass: "game" }, [
+              _vm._v(
+                "\n      " +
+                  _vm._s(_vm.classificationCheckedValues) +
+                  "\n      " +
+                  _vm._s(_vm.audioChecked) +
+                  "\n      " +
+                  _vm._s(_vm.timeLimitChecked) +
+                  "\n      " +
+                  _vm._s(_vm.timeLimitSelectedValue) +
+                  "\n      " +
+                  _vm._s(_vm.quizCountSelectedValue) +
+                  "\n    "
+              ),
+            ]),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = []

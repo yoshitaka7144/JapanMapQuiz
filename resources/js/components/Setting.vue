@@ -1,5 +1,5 @@
 <template>
-  <div class="setting">
+  <div class="setting" v-if="completesApiLoading">
     <div class="btn-back-wrapper">
       <router-link :to="{ name: 'menu' }" class="btn btn-gray">
         戻る
@@ -23,7 +23,10 @@
           :value="classification.id"
       /></label>
     </div>
-    <div class="setting-time-limit">
+    <div
+      class="setting-time-limit"
+      v-if="selectedMenuTitleEn !== targetMenuTitleEn"
+    >
       <input
         type="checkbox"
         id="time-limit"
@@ -95,7 +98,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import {
   INTERNAL_SERVER_ERROR,
@@ -131,15 +133,26 @@ export default {
       targetMenuTitleEn: FILL_MAP_MENU_TITLE_ENGLISH,
       answerMethodSelectValue: ANSWER_METHOD_SELECT,
       answerMethodWriteValue: ANSWER_METHOD_WRITE,
+      completesApiLoading: false,
     };
   },
-  mounted() {
-    this.getClassifications();
-    this.getTimeLimitValues();
-    this.getQuizCountValues();
+  created() {
+    if (this.selectedMenuTitleEn !== this.targetMenuTitleEn) {
+      Promise.all([
+        this.loadTimeLimitValues(),
+        this.loadQuizCountValues(),
+        this.loadClassifications(),
+      ]).then(() => {
+        this.completesApiLoading = true;
+      });
+    } else {
+      Promise.all([this.loadClassifications()]).then(() => {
+        this.completesApiLoading = true;
+      });
+    }
   },
   methods: {
-    async getClassifications() {
+    async loadClassifications() {
       const response = await axios
         .get("/api/classifications")
         .catch((error) => error.response || error);
@@ -150,7 +163,7 @@ export default {
         this.classifications = response.data;
       }
     },
-    async getTimeLimitValues() {
+    async loadTimeLimitValues() {
       const response = await axios
         .get("/api/time_limit_values")
         .catch((error) => error.response || error);
@@ -161,7 +174,7 @@ export default {
         this.timeLimitValues = response.data;
       }
     },
-    async getQuizCountValues() {
+    async loadQuizCountValues() {
       const response = await axios
         .get("/api/quiz_count_values")
         .catch((error) => error.response || error);

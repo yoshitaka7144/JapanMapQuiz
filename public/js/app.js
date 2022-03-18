@@ -23516,8 +23516,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
-/* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/components/Setting.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+/* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/components/Setting.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -23543,19 +23551,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    SettingComponent: _Setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    SettingComponent: _Setting_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
-      selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_MENU_TITLE_JAPANESE,
-      selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_MENU_TITLE_ENGLISH,
-      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_EXPLANATION_TEXT,
+      selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_MENU_TITLE_JAPANESE,
+      selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_MENU_TITLE_ENGLISH,
+      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_EXPLANATION_TEXT,
       canStartGame: false,
       classificationCheckedValues: [],
       audioChecked: Boolean,
       timeLimitChecked: Boolean,
       timeLimitSelectedValue: Number,
-      quizCountSelectedValue: Number
+      quizCountSelectedValue: Number,
+      maps: [],
+      choices: [],
+      quizData: [],
+      currentQuizIndex: 0
     };
   },
   mounted: function mounted() {},
@@ -23566,7 +23578,134 @@ __webpack_require__.r(__webpack_exports__);
       this.timeLimitChecked = params.timeLimitChecked;
       this.timeLimitSelectedValue = params.timeLimitSelectedValue;
       this.quizCountSelectedValue = params.quizCountSelectedValue;
-      this.canStartGame = true;
+      this.startQuiz();
+    },
+    loadQuizMaps: function loadQuizMaps() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var params, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                params = {
+                  classificationId: _this.classificationCheckedValues
+                };
+                _context.next = 3;
+                return axios.get("/api/maps", {
+                  params: params
+                })["catch"](function (error) {
+                  return error.response || error;
+                });
+
+              case 3:
+                response = _context.sent;
+
+                if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.INTERNAL_SERVER_ERROR) {
+                  _this.$router.push({
+                    name: "systemError"
+                  });
+                } else {
+                  _this.maps = response.data;
+                }
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    loadQuizChoices: function loadQuizChoices() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get("/api/maps/names")["catch"](function (error) {
+                  return error.response || error;
+                });
+
+              case 2:
+                response = _context2.sent;
+
+                if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.INTERNAL_SERVER_ERROR) {
+                  _this2.$router.push({
+                    name: "systemError"
+                  });
+                } else {
+                  _this2.choices = response.data;
+                }
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    shuffle: function shuffle(array) {
+      var n = array.length;
+      var tmp;
+      var i;
+
+      while (n) {
+        i = Math.floor(Math.random() * n--);
+        tmp = array[n];
+        array[n] = array[i];
+        array[i] = tmp;
+      }
+
+      return array;
+    },
+    createQuizData: function createQuizData() {
+      var quizCount = this.maps.length <= this.quizCountSelectedValue ? this.maps.length : this.quizCountSelectedValue;
+
+      for (var i = 0; i < quizCount; i++) {
+        var quiz = {
+          id: Number,
+          name: String,
+          hintText: String,
+          choices: []
+        };
+        quiz.id = this.maps[i].id;
+        quiz.name = this.maps[i].name;
+        quiz.hintText = this.maps[i].hint_text;
+        var j = 1;
+        var array = [];
+        array.push(quiz.name);
+
+        while (j !== 4) {
+          var r = Math.floor(Math.random() * this.choices.length);
+          var name = this.choices[r].name;
+
+          if (name !== quiz.name && array.indexOf(name) === -1) {
+            array.push(name);
+            j++;
+          }
+        }
+
+        quiz.choices = this.shuffle(array);
+        this.quizData.push(quiz);
+      }
+    },
+    startQuiz: function startQuiz() {
+      var _this3 = this;
+
+      Promise.all([this.loadQuizMaps(), this.loadQuizChoices()]).then(function () {
+        // 問題、選択肢データ作成
+        _this3.createQuizData(); // クイズ画面表示
+
+
+        _this3.canStartGame = true;
+      });
     }
   }
 });
@@ -48655,16 +48794,25 @@ var render = function () {
           : _c("div", { staticClass: "game" }, [
               _vm._v(
                 "\n      " +
-                  _vm._s(_vm.classificationCheckedValues) +
+                  _vm._s(_vm.quizData[_vm.currentQuizIndex].id) +
                   "\n      " +
-                  _vm._s(_vm.audioChecked) +
+                  _vm._s(_vm.quizData[_vm.currentQuizIndex].name) +
                   "\n      " +
-                  _vm._s(_vm.timeLimitChecked) +
+                  _vm._s(_vm.quizData[_vm.currentQuizIndex].hintText) +
                   "\n      " +
-                  _vm._s(_vm.timeLimitSelectedValue) +
-                  "\n      " +
-                  _vm._s(_vm.quizCountSelectedValue) +
-                  "\n    "
+                  _vm._s(_vm.quizData[_vm.currentQuizIndex].choices) +
+                  "\n      "
+              ),
+              _c(
+                "button",
+                {
+                  on: {
+                    click: function ($event) {
+                      _vm.currentQuizIndex++
+                    },
+                  },
+                },
+                [_vm._v("test")]
               ),
             ]),
       ],

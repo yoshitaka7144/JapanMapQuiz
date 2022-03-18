@@ -11,7 +11,7 @@ class MapController extends Controller
     {
         $classification_id = $request->classificationId;
         if (isset($classification_id)) {
-            return Map::whereIn("classification_id", $classification_id)->get();
+            return Map::whereIn("classification_id", $classification_id)->inRandomOrder()->get();
         } else {
             return Map::all();
         }

@@ -23547,6 +23547,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -23567,7 +23591,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       maps: [],
       choices: [],
       quizData: [],
-      currentQuizIndex: 0
+      quizCountLimit: 0,
+      currentQuizIndex: 0,
+      selectedChoiceValue: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE,
+      nextFlag: false,
+      lastFlag: false
     };
   },
   mounted: function mounted() {},
@@ -23694,6 +23722,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         quiz.choices = this.shuffle(array);
         this.quizData.push(quiz);
+        this.quizCountLimit++;
       }
     },
     startQuiz: function startQuiz() {
@@ -23706,6 +23735,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         _this3.canStartGame = true;
       });
+    },
+    judgeQuiz: function judgeQuiz() {
+      if (this.selectedChoiceValue === this.QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
+        alert("aaaa");
+      } else if (this.nextFlag && this.lastFlag) {// 結果画面表示処理へ
+      } else if (this.nextFlag && !this.lastFlag) {
+        // 次の問題へ
+        this.currentQuizIndex++;
+        this.nextFlag = false;
+      } else {
+        // 正解判定
+        var correctValue = this.quizData[this.currentQuizIndex].name;
+
+        if (this.selectedChoiceValue === correctValue) {
+          this.nextFlag = true;
+
+          if (this.currentQuizIndex + 1 === this.quizCountLimit) {
+            this.lastFlag = true;
+          }
+        }
+      }
     }
   }
 });
@@ -24233,6 +24283,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FILL_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ FILL_MAP_MENU_TITLE_JAPANESE),
 /* harmony export */   "INTERNAL_SERVER_ERROR": () => (/* binding */ INTERNAL_SERVER_ERROR),
 /* harmony export */   "OK": () => (/* binding */ OK),
+/* harmony export */   "QUIZ_MAP_CHOICE_DEFAULT_VALUE": () => (/* binding */ QUIZ_MAP_CHOICE_DEFAULT_VALUE),
 /* harmony export */   "QUIZ_MAP_EXPLANATION_TEXT": () => (/* binding */ QUIZ_MAP_EXPLANATION_TEXT),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ QUIZ_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ QUIZ_MAP_MENU_TITLE_JAPANESE),
@@ -24325,6 +24376,11 @@ var QUIZ_MAP_MENU_TITLE_ENGLISH = "Quiz";
  */
 
 var QUIZ_MAP_EXPLANATION_TEXT = "地図クイズの説明";
+/**
+ * 地図クイズ：選択肢初期値
+ */
+
+var QUIZ_MAP_CHOICE_DEFAULT_VALUE = "#";
 /**
 * 地図タイピング：日本語タイトル
 */
@@ -48792,27 +48848,77 @@ var render = function () {
               },
             })
           : _c("div", { staticClass: "game" }, [
-              _vm._v(
-                "\n      " +
-                  _vm._s(_vm.quizData[_vm.currentQuizIndex].id) +
-                  "\n      " +
-                  _vm._s(_vm.quizData[_vm.currentQuizIndex].name) +
-                  "\n      " +
-                  _vm._s(_vm.quizData[_vm.currentQuizIndex].hintText) +
-                  "\n      " +
-                  _vm._s(_vm.quizData[_vm.currentQuizIndex].choices) +
-                  "\n      "
+              _c("div", { staticClass: "img-wrapper" }, [
+                _c("img", {
+                  attrs: {
+                    src:
+                      "./image/" +
+                      _vm.quizData[_vm.currentQuizIndex].id +
+                      ".png",
+                    alt: "",
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "hint" }, [
+                _c("p", { staticClass: "hint-text" }, [
+                  _vm._v(_vm._s(_vm.quizData[_vm.currentQuizIndex].hintText)),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "choices" },
+                _vm._l(
+                  _vm.quizData[_vm.currentQuizIndex].choices,
+                  function (choice, index) {
+                    return _c("div", { key: choice, staticClass: "item" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedChoiceValue,
+                            expression: "selectedChoiceValue",
+                          },
+                        ],
+                        attrs: { type: "radio", id: index },
+                        domProps: {
+                          value: choice,
+                          checked: _vm._q(_vm.selectedChoiceValue, choice),
+                        },
+                        on: {
+                          change: function ($event) {
+                            _vm.selectedChoiceValue = choice
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: index } }, [
+                        _vm._v(_vm._s(choice)),
+                      ]),
+                    ])
+                  }
+                ),
+                0
               ),
+              _vm._v(" "),
               _c(
                 "button",
                 {
                   on: {
                     click: function ($event) {
-                      _vm.currentQuizIndex++
+                      return _vm.judgeQuiz()
                     },
                   },
                 },
-                [_vm._v("test")]
+                [
+                  _vm.nextFlag && _vm.lastFlag
+                    ? _c("span", [_vm._v("結果へ")])
+                    : _vm.nextFlag && !_vm.lastFlag
+                    ? _c("span", [_vm._v("次へ")])
+                    : _c("span", [_vm._v("解答する")]),
+                ]
               ),
             ]),
       ],

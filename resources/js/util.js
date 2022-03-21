@@ -69,6 +69,10 @@ export const QUIZ_MAP_MENU_TITLE_ENGLISH = "Quiz";
  * 地図クイズ：説明テキスト
  */
 export const QUIZ_MAP_EXPLANATION_TEXT = "地図クイズの説明";
+/**
+ * 地図クイズ：選択肢初期値
+ */
+ export const QUIZ_MAP_CHOICE_DEFAULT_VALUE = "#";
 
 /**
 * 地図タイピング：日本語タイトル

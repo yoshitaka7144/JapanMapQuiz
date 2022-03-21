@@ -9,11 +9,35 @@
         :setting-params="settingParams"
       />
       <div class="game" v-else>
-        {{ quizData[currentQuizIndex].id }}
-        {{ quizData[currentQuizIndex].name }}
-        {{ quizData[currentQuizIndex].hintText }}
-        {{ quizData[currentQuizIndex].choices }}
-        <button @click="currentQuizIndex++;">test</button>
+        <div class="img-wrapper">
+          <img
+            :src="'./image/' + quizData[currentQuizIndex].id + '.png'"
+            alt=""
+          />
+        </div>
+        <div class="hint">
+          <p class="hint-text">{{ quizData[currentQuizIndex].hintText }}</p>
+        </div>
+        <div class="choices">
+          <div
+            class="item"
+            v-for="(choice, index) in quizData[currentQuizIndex].choices"
+            :key="choice"
+          >
+            <input
+              type="radio"
+              :id="index"
+              :value="choice"
+              v-model="selectedChoiceValue"
+            />
+            <label :for="index">{{ choice }}</label>
+          </div>
+        </div>
+        <button @click="judgeQuiz()">
+          <span v-if="nextFlag && lastFlag">結果へ</span>
+          <span v-else-if="nextFlag && !lastFlag">次へ</span>
+          <span v-else>解答する</span>
+        </button>
       </div>
     </div>
   </div>
@@ -28,6 +52,7 @@ import {
   QUIZ_MAP_MENU_TITLE_JAPANESE,
   QUIZ_MAP_MENU_TITLE_ENGLISH,
   QUIZ_MAP_EXPLANATION_TEXT,
+  QUIZ_MAP_CHOICE_DEFAULT_VALUE,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 export default {
@@ -48,7 +73,11 @@ export default {
       maps: [],
       choices: [],
       quizData: [],
+      quizCountLimit: 0,
       currentQuizIndex: 0,
+      selectedChoiceValue: QUIZ_MAP_CHOICE_DEFAULT_VALUE,
+      nextFlag: false,
+      lastFlag: false,
     };
   },
   mounted() {},
@@ -131,6 +160,7 @@ export default {
         }
         quiz.choices = this.shuffle(array);
         this.quizData.push(quiz);
+        this.quizCountLimit++;
       }
     },
     startQuiz() {
@@ -141,6 +171,27 @@ export default {
         // クイズ画面表示
         this.canStartGame = true;
       });
+    },
+    judgeQuiz() {
+      if (this.selectedChoiceValue === this.QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
+        alert("aaaa");
+      } else if (this.nextFlag && this.lastFlag) {
+        // 結果画面表示処理へ
+
+      } else if (this.nextFlag && !this.lastFlag) {
+        // 次の問題へ
+        this.currentQuizIndex++;
+        this.nextFlag = false;
+      } else {
+        // 正解判定
+        const correctValue = this.quizData[this.currentQuizIndex].name;
+        if(this.selectedChoiceValue === correctValue){
+          this.nextFlag = true;
+          if(this.currentQuizIndex + 1 === this.quizCountLimit){
+            this.lastFlag = true;
+          }
+        }
+      }
     },
   },
 };

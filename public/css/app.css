@@ -422,6 +422,9 @@ img {
 #quiz-map .quiz-map-inner {
   height: 100%;
 }
+#quiz-map .quiz-map-inner .game {
+  height: 100%;
+}
 
 /************************************************
 地図タイピング画面 typing-map

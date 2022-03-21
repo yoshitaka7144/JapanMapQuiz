@@ -23571,6 +23571,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -23595,17 +23605,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       currentQuizIndex: 0,
       selectedChoiceValue: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE,
       nextFlag: false,
-      lastFlag: false
+      lastFlag: false,
+      resultFlag: false
     };
   },
-  mounted: function mounted() {},
   methods: {
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
       this.audioChecked = params.audioChecked;
       this.timeLimitChecked = params.timeLimitChecked;
       this.timeLimitSelectedValue = params.timeLimitSelectedValue;
-      this.quizCountSelectedValue = params.quizCountSelectedValue;
+      this.quizCountSelectedValue = params.quizCountSelectedValue; // 地方区分エラーチェック
+
+      if (this.classificationCheckedValues.length === 0) {
+        alert(_util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CLASSIFICATION_ERROR_TEXT);
+        return;
+      } // 時間制限エラーチェック
+      // 問題数エラーチェック
+      // 問題開始
+
+
       this.startQuiz();
     },
     loadQuizMaps: function loadQuizMaps() {
@@ -23737,23 +23756,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     judgeQuiz: function judgeQuiz() {
-      if (this.selectedChoiceValue === this.QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
-        alert("aaaa");
-      } else if (this.nextFlag && this.lastFlag) {// 結果画面表示処理へ
+      if (this.selectedChoiceValue === _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
+        alert(_util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_NOT_CHOICE_TEXT);
+      } else if (this.nextFlag && this.lastFlag) {
+        // 結果画面表示
+        this.resultFlag = true;
       } else if (this.nextFlag && !this.lastFlag) {
-        // 次の問題へ
+        // 次の問題表示
         this.currentQuizIndex++;
-        this.nextFlag = false;
+        this.nextFlag = false; // 選択肢をデフォルト値に
+
+        this.selectedChoiceValue = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE;
       } else {
         // 正解判定
         var correctValue = this.quizData[this.currentQuizIndex].name;
 
-        if (this.selectedChoiceValue === correctValue) {
-          this.nextFlag = true;
+        if (this.selectedChoiceValue === correctValue) {// 正解音声再生
+        } else {// 不正解音声再生
+        } // 次へボタン表示
 
-          if (this.currentQuizIndex + 1 === this.quizCountLimit) {
-            this.lastFlag = true;
-          }
+
+        this.nextFlag = true;
+
+        if (this.currentQuizIndex + 1 === this.quizCountLimit) {
+          // 結果へボタン表示
+          this.lastFlag = true;
         }
       }
     }
@@ -24284,9 +24311,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "INTERNAL_SERVER_ERROR": () => (/* binding */ INTERNAL_SERVER_ERROR),
 /* harmony export */   "OK": () => (/* binding */ OK),
 /* harmony export */   "QUIZ_MAP_CHOICE_DEFAULT_VALUE": () => (/* binding */ QUIZ_MAP_CHOICE_DEFAULT_VALUE),
+/* harmony export */   "QUIZ_MAP_CLASSIFICATION_ERROR_TEXT": () => (/* binding */ QUIZ_MAP_CLASSIFICATION_ERROR_TEXT),
 /* harmony export */   "QUIZ_MAP_EXPLANATION_TEXT": () => (/* binding */ QUIZ_MAP_EXPLANATION_TEXT),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ QUIZ_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ QUIZ_MAP_MENU_TITLE_JAPANESE),
+/* harmony export */   "QUIZ_MAP_NOT_CHOICE_TEXT": () => (/* binding */ QUIZ_MAP_NOT_CHOICE_TEXT),
 /* harmony export */   "TYPING_MAP_EXPLANATION_TEXT": () => (/* binding */ TYPING_MAP_EXPLANATION_TEXT),
 /* harmony export */   "TYPING_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ TYPING_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "TYPING_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ TYPING_MAP_MENU_TITLE_JAPANESE),
@@ -24381,6 +24410,16 @@ var QUIZ_MAP_EXPLANATION_TEXT = "地図クイズの説明";
  */
 
 var QUIZ_MAP_CHOICE_DEFAULT_VALUE = "#";
+/**
+* 地図クイズ：選択肢未選択時テキスト
+*/
+
+var QUIZ_MAP_NOT_CHOICE_TEXT = "選択肢を選択してください。";
+/**
+* 地図クイズ：設定：区分チェックエラーテキスト
+*/
+
+var QUIZ_MAP_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
 /**
 * 地図タイピング：日本語タイトル
 */
@@ -48847,7 +48886,8 @@ var render = function () {
                 "setting-params": _vm.settingParams,
               },
             })
-          : _c("div", { staticClass: "game" }, [
+          : !_vm.resultFlag
+          ? _c("div", { staticClass: "game" }, [
               _c("div", { staticClass: "img-wrapper" }, [
                 _c("img", {
                   attrs: {
@@ -48894,9 +48934,19 @@ var render = function () {
                         },
                       }),
                       _vm._v(" "),
-                      _c("label", { attrs: { for: index } }, [
-                        _vm._v(_vm._s(choice)),
-                      ]),
+                      _c(
+                        "label",
+                        {
+                          class: [
+                            _vm.quizData[_vm.currentQuizIndex].name === choice
+                              ? "correct"
+                              : "incorrect",
+                            _vm.nextFlag ? "judge" : "",
+                          ],
+                          attrs: { for: index },
+                        },
+                        [_vm._v(_vm._s(choice))]
+                      ),
                     ])
                   }
                 ),
@@ -48920,7 +48970,8 @@ var render = function () {
                     : _c("span", [_vm._v("解答する")]),
                 ]
               ),
-            ]),
+            ])
+          : _c("div", { staticClass: "result" }, [_vm._v("aaaaaaaaaaaaaaaa")]),
       ],
       1
     ),

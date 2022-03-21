@@ -8,7 +8,7 @@
         :selected-menu-text="selectedMenuText"
         :setting-params="settingParams"
       />
-      <div class="game" v-else>
+      <div class="game" v-else-if="!resultFlag">
         <div class="img-wrapper">
           <img
             :src="'./image/' + quizData[currentQuizIndex].id + '.png'"
@@ -30,7 +30,16 @@
               :value="choice"
               v-model="selectedChoiceValue"
             />
-            <label :for="index">{{ choice }}</label>
+            <label
+              :for="index"
+              :class="[
+                quizData[currentQuizIndex].name === choice
+                  ? 'correct'
+                  : 'incorrect',
+                nextFlag ? 'judge' : '',
+              ]"
+              >{{ choice }}</label
+            >
           </div>
         </div>
         <button @click="judgeQuiz()">
@@ -39,20 +48,20 @@
           <span v-else>解答する</span>
         </button>
       </div>
+      <div class="result" v-else>aaaaaaaaaaaaaaaa</div>
     </div>
   </div>
 </template>
 
 <script>
 import {
-  OK,
-  CREATED,
-  UNPROCESSABLE_ENTITY,
   INTERNAL_SERVER_ERROR,
   QUIZ_MAP_MENU_TITLE_JAPANESE,
   QUIZ_MAP_MENU_TITLE_ENGLISH,
   QUIZ_MAP_EXPLANATION_TEXT,
   QUIZ_MAP_CHOICE_DEFAULT_VALUE,
+  QUIZ_MAP_NOT_CHOICE_TEXT,
+  QUIZ_MAP_CLASSIFICATION_ERROR_TEXT,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 export default {
@@ -78,9 +87,9 @@ export default {
       selectedChoiceValue: QUIZ_MAP_CHOICE_DEFAULT_VALUE,
       nextFlag: false,
       lastFlag: false,
+      resultFlag: false,
     };
   },
-  mounted() {},
   methods: {
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -89,6 +98,17 @@ export default {
       this.timeLimitSelectedValue = params.timeLimitSelectedValue;
       this.quizCountSelectedValue = params.quizCountSelectedValue;
 
+      // 地方区分エラーチェック
+      if (this.classificationCheckedValues.length === 0) {
+        alert(QUIZ_MAP_CLASSIFICATION_ERROR_TEXT);
+        return;
+      }
+
+      // 時間制限エラーチェック
+
+      // 問題数エラーチェック
+
+      // 問題開始
       this.startQuiz();
     },
     async loadQuizMaps() {
@@ -173,23 +193,32 @@ export default {
       });
     },
     judgeQuiz() {
-      if (this.selectedChoiceValue === this.QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
-        alert("aaaa");
+      if (this.selectedChoiceValue === QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
+        alert(QUIZ_MAP_NOT_CHOICE_TEXT);
       } else if (this.nextFlag && this.lastFlag) {
-        // 結果画面表示処理へ
-
+        // 結果画面表示
+        this.resultFlag = true;
       } else if (this.nextFlag && !this.lastFlag) {
-        // 次の問題へ
+        // 次の問題表示
         this.currentQuizIndex++;
         this.nextFlag = false;
+
+        // 選択肢をデフォルト値に
+        this.selectedChoiceValue = QUIZ_MAP_CHOICE_DEFAULT_VALUE;
       } else {
         // 正解判定
         const correctValue = this.quizData[this.currentQuizIndex].name;
-        if(this.selectedChoiceValue === correctValue){
-          this.nextFlag = true;
-          if(this.currentQuizIndex + 1 === this.quizCountLimit){
-            this.lastFlag = true;
-          }
+        if (this.selectedChoiceValue === correctValue) {
+          // 正解音声再生
+        } else {
+          // 不正解音声再生
+        }
+
+        // 次へボタン表示
+        this.nextFlag = true;
+        if (this.currentQuizIndex + 1 === this.quizCountLimit) {
+          // 結果へボタン表示
+          this.lastFlag = true;
         }
       }
     },

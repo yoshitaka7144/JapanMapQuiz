@@ -425,6 +425,12 @@ img {
 #quiz-map .quiz-map-inner .game {
   height: 100%;
 }
+#quiz-map .quiz-map-inner .game .choices .item .judge.correct {
+  color: green;
+}
+#quiz-map .quiz-map-inner .game .choices .item .judge.incorrect {
+  color: red;
+}
 
 /************************************************
 地図タイピング画面 typing-map

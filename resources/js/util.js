@@ -72,7 +72,15 @@ export const QUIZ_MAP_EXPLANATION_TEXT = "地図クイズの説明";
 /**
  * 地図クイズ：選択肢初期値
  */
- export const QUIZ_MAP_CHOICE_DEFAULT_VALUE = "#";
+export const QUIZ_MAP_CHOICE_DEFAULT_VALUE = "#";
+/**
+* 地図クイズ：選択肢未選択時テキスト
+*/
+export const QUIZ_MAP_NOT_CHOICE_TEXT = "選択肢を選択してください。";
+/**
+* 地図クイズ：設定：区分チェックエラーテキスト
+*/
+export const QUIZ_MAP_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
 
 /**
 * 地図タイピング：日本語タイトル

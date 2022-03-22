@@ -431,6 +431,20 @@ img {
 #quiz-map .quiz-map-inner .game .choices .item .judge.incorrect {
   color: red;
 }
+#quiz-map .quiz-map-inner .result {
+  height: 100%;
+}
+#quiz-map .quiz-map-inner .result .table-wrapper {
+  display: flex;
+}
+#quiz-map .quiz-map-inner .result .table-wrapper .table th,
+#quiz-map .quiz-map-inner .result .table-wrapper .table td {
+  padding: 10px;
+}
+#quiz-map .quiz-map-inner .result .table-wrapper .btn-wrapper {
+  display: flex;
+  flex-direction: column;
+}
 
 /************************************************
 地図タイピング画面 typing-map

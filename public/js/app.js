@@ -23618,6 +23618,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -23640,6 +23659,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       maps: [],
       choices: [],
       quizData: [],
+      correctCount: 0,
+      incorrectCount: 0,
       quizCountLimit: 0,
       currentQuizIndex: 0,
       selectedChoiceValue: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE,
@@ -23651,6 +23672,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    reset: function reset() {
+      this.canStartGame = false;
+      this.maps = [];
+      this.choices = [];
+      this.quizData = [];
+      this.correctCount = 0;
+      this.incorrectCount = 0;
+      this.quizCountLimit = 0;
+      this.currentQuizIndex = 0;
+      this.selectedChoiceValue = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE;
+      this.nextFlag = false;
+      this.lastFlag = false;
+      this.resultFlag = false;
+      this.showAlertModal = false;
+    },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
       this.audioChecked = params.audioChecked;
@@ -23662,8 +23698,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.alertMessage = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CLASSIFICATION_ERROR_TEXT;
         this.showAlertModal = true;
         return;
-      } // 時間制限エラーチェック
-      // 問題数エラーチェック
+      } // 問題数エラーチェック
       // 問題開始
 
 
@@ -23814,8 +23849,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // 正解判定
         var correctValue = this.quizData[this.currentQuizIndex].name;
 
-        if (this.selectedChoiceValue === correctValue) {// 正解音声再生
-        } else {// 不正解音声再生
+        if (this.selectedChoiceValue === correctValue) {
+          // 正解
+          this.correctCount++;
+        } else {
+          // 不正解
+          this.incorrectCount++;
         } // 次へボタン表示
 
 
@@ -23952,6 +23991,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -23973,7 +24015,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       classifications: Array,
       timeLimitValues: Array,
       quizCountValues: Array,
-      targetMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MENU_TITLE_ENGLISH,
+      fillMapMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MENU_TITLE_ENGLISH,
+      quizMapMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_MENU_TITLE_ENGLISH,
+      typingMapMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_MENU_TITLE_ENGLISH,
       answerMethodSelectValue: _util__WEBPACK_IMPORTED_MODULE_1__.ANSWER_METHOD_SELECT,
       answerMethodWriteValue: _util__WEBPACK_IMPORTED_MODULE_1__.ANSWER_METHOD_WRITE,
       completesApiLoading: false
@@ -23982,8 +24026,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this = this;
 
-    if (this.selectedMenuTitleEn !== this.targetMenuTitleEn) {
+    if (this.selectedMenuTitleEn === _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_MENU_TITLE_ENGLISH) {
       Promise.all([this.loadTimeLimitValues(), this.loadQuizCountValues(), this.loadClassifications()]).then(function () {
+        _this.completesApiLoading = true;
+      });
+    } else if (this.selectedMenuTitleEn === _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_MENU_TITLE_ENGLISH) {
+      Promise.all([this.loadQuizCountValues(), this.loadClassifications()]).then(function () {
         _this.completesApiLoading = true;
       });
     } else {
@@ -49133,7 +49181,52 @@ var render = function () {
                 ]
               ),
             ])
-          : _c("div", { staticClass: "result" }, [_vm._v("aaaaaaaaaaaaaaaa")]),
+          : _c("div", { staticClass: "result" }, [
+              _c("div", { staticClass: "table-wrapper" }, [
+                _c("div", { staticClass: "table" }, [
+                  _c("tr", [
+                    _c("th", [_vm._v("問題数")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.quizCountLimit))]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("正解数")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.correctCount))]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "btn-wrapper" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-gray",
+                        attrs: { to: { name: "menu" } },
+                      },
+                      [_vm._v("\n            メニュー画面へ\n          ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-gray",
+                        on: {
+                          click: function ($event) {
+                            return _vm.reset()
+                          },
+                        },
+                      },
+                      [_vm._v("設定画面へ")]
+                    ),
+                  ],
+                  1
+                ),
+              ]),
+            ]),
         _vm._v(" "),
         _vm.showAlertModal
           ? _c("AlertModalComponent", {
@@ -49267,7 +49360,7 @@ var render = function () {
           0
         ),
         _vm._v(" "),
-        _vm.selectedMenuTitleEn !== _vm.targetMenuTitleEn
+        _vm.selectedMenuTitleEn === _vm.typingMapMenuTitleEn
           ? _c("div", { staticClass: "setting-time-limit" }, [
               _c("input", {
                 directives: [
@@ -49374,7 +49467,7 @@ var render = function () {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.selectedMenuTitleEn !== _vm.targetMenuTitleEn
+        _vm.selectedMenuTitleEn !== _vm.fillMapMenuTitleEn
           ? _c("div", { staticClass: "setting-audio" }, [
               _c("input", {
                 directives: [
@@ -49426,7 +49519,7 @@ var render = function () {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.selectedMenuTitleEn !== _vm.targetMenuTitleEn
+        _vm.selectedMenuTitleEn !== _vm.fillMapMenuTitleEn
           ? _c("div", { staticClass: "setting-quiz-count" }, [
               _c("label", { attrs: { for: "" } }, [_vm._v("問題数")]),
               _vm._v(" "),
@@ -49485,7 +49578,7 @@ var render = function () {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.selectedMenuTitleEn === _vm.targetMenuTitleEn
+        _vm.selectedMenuTitleEn === _vm.fillMapMenuTitleEn
           ? _c("div", { staticClass: "setting-answer-method" }, [
               _c("input", {
                 directives: [

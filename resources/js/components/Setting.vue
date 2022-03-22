@@ -25,7 +25,7 @@
     </div>
     <div
       class="setting-time-limit"
-      v-if="selectedMenuTitleEn !== targetMenuTitleEn"
+      v-if="selectedMenuTitleEn === typingMapMenuTitleEn"
     >
       <input
         type="checkbox"
@@ -46,7 +46,10 @@
         </select>
       </div>
     </div>
-    <div class="setting-audio" v-if="selectedMenuTitleEn !== targetMenuTitleEn">
+    <div
+      class="setting-audio"
+      v-if="selectedMenuTitleEn !== fillMapMenuTitleEn"
+    >
       <input
         type="checkbox"
         id="audio"
@@ -57,7 +60,7 @@
     </div>
     <div
       class="setting-quiz-count"
-      v-if="selectedMenuTitleEn !== targetMenuTitleEn"
+      v-if="selectedMenuTitleEn !== fillMapMenuTitleEn"
     >
       <label for="">問題数</label>
       <div class="select-wrapper">
@@ -74,7 +77,7 @@
     </div>
     <div
       class="setting-answer-method"
-      v-if="selectedMenuTitleEn === targetMenuTitleEn"
+      v-if="selectedMenuTitleEn === fillMapMenuTitleEn"
     >
       <input
         type="radio"
@@ -104,6 +107,8 @@ import {
   DEFAULT_TIME_LIMIT_VALUE,
   DEFAULT_QUIZ_COUNT_VALUE,
   FILL_MAP_MENU_TITLE_ENGLISH,
+  QUIZ_MAP_MENU_TITLE_ENGLISH,
+  TYPING_MAP_MENU_TITLE_ENGLISH,
   ANSWER_METHOD_SELECT,
   ANSWER_METHOD_WRITE,
   DEFAULT_ANSWER_METHOD,
@@ -130,16 +135,25 @@ export default {
       classifications: Array,
       timeLimitValues: Array,
       quizCountValues: Array,
-      targetMenuTitleEn: FILL_MAP_MENU_TITLE_ENGLISH,
+      fillMapMenuTitleEn: FILL_MAP_MENU_TITLE_ENGLISH,
+      quizMapMenuTitleEn: QUIZ_MAP_MENU_TITLE_ENGLISH,
+      typingMapMenuTitleEn: TYPING_MAP_MENU_TITLE_ENGLISH,
       answerMethodSelectValue: ANSWER_METHOD_SELECT,
       answerMethodWriteValue: ANSWER_METHOD_WRITE,
       completesApiLoading: false,
     };
   },
   created() {
-    if (this.selectedMenuTitleEn !== this.targetMenuTitleEn) {
+    if (this.selectedMenuTitleEn === TYPING_MAP_MENU_TITLE_ENGLISH) {
       Promise.all([
         this.loadTimeLimitValues(),
+        this.loadQuizCountValues(),
+        this.loadClassifications(),
+      ]).then(() => {
+        this.completesApiLoading = true;
+      });
+    } else if (this.selectedMenuTitleEn === QUIZ_MAP_MENU_TITLE_ENGLISH) {
+      Promise.all([
         this.loadQuizCountValues(),
         this.loadClassifications(),
       ]).then(() => {

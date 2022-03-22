@@ -477,6 +477,23 @@ $hamburger-menu-background-color: gray;
         }
       }
     }
+
+    .result {
+      height: 100%;
+      .table-wrapper {
+        display: flex;
+        .table {
+          th,
+          td {
+            padding: 10px;
+          }
+        }
+        .btn-wrapper {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
   }
 }
 

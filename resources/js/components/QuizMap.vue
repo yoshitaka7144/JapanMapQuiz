@@ -48,7 +48,26 @@
           <span v-else>解答する</span>
         </button>
       </div>
-      <div class="result" v-else>aaaaaaaaaaaaaaaa</div>
+      <div class="result" v-else>
+        <div class="table-wrapper">
+          <div class="table">
+            <tr>
+              <th>問題数</th>
+              <td>{{quizCountLimit}}</td>
+            </tr>
+            <tr>
+              <th>正解数</th>
+              <td>{{correctCount}}</td>
+            </tr>
+          </div>
+          <div class="btn-wrapper">
+            <router-link :to="{ name: 'menu' }" class="btn btn-gray">
+              メニュー画面へ
+            </router-link>
+            <button class="btn btn-gray" @click="reset()">設定画面へ</button>
+          </div>
+        </div>
+      </div>
       <AlertModalComponent
         v-if="showAlertModal"
         :alertMessage="alertMessage"
@@ -89,6 +108,8 @@ export default {
       maps: [],
       choices: [],
       quizData: [],
+      correctCount: 0,
+      incorrectCount: 0,
       quizCountLimit: 0,
       currentQuizIndex: 0,
       selectedChoiceValue: QUIZ_MAP_CHOICE_DEFAULT_VALUE,
@@ -100,6 +121,21 @@ export default {
     };
   },
   methods: {
+    reset() {
+      this.canStartGame = false;
+      this.maps = [];
+      this.choices = [];
+      this.quizData = [];
+      this.correctCount = 0;
+      this.incorrectCount = 0;
+      this.quizCountLimit = 0;
+      this.currentQuizIndex = 0;
+      this.selectedChoiceValue = QUIZ_MAP_CHOICE_DEFAULT_VALUE;
+      this.nextFlag = false;
+      this.lastFlag = false;
+      this.resultFlag = false;
+      this.showAlertModal = false;
+    },
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
       this.audioChecked = params.audioChecked;
@@ -113,8 +149,6 @@ export default {
         this.showAlertModal = true;
         return;
       }
-
-      // 時間制限エラーチェック
 
       // 問題数エラーチェック
 
@@ -220,9 +254,11 @@ export default {
         // 正解判定
         const correctValue = this.quizData[this.currentQuizIndex].name;
         if (this.selectedChoiceValue === correctValue) {
-          // 正解音声再生
+          // 正解
+          this.correctCount++;
         } else {
-          // 不正解音声再生
+          // 不正解
+          this.incorrectCount++;
         }
 
         // 次へボタン表示

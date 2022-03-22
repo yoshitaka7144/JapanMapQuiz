@@ -49,6 +49,11 @@
         </button>
       </div>
       <div class="result" v-else>aaaaaaaaaaaaaaaa</div>
+      <AlertModalComponent
+        v-if="showAlertModal"
+        :alertMessage="alertMessage"
+        @close="showAlertModal = false"
+      />
     </div>
   </div>
 </template>
@@ -64,9 +69,11 @@ import {
   QUIZ_MAP_CLASSIFICATION_ERROR_TEXT,
 } from "../util";
 import SettingComponent from "./Setting.vue";
+import AlertModalComponent from "./AlertModal.vue";
 export default {
   components: {
     SettingComponent,
+    AlertModalComponent,
   },
   data() {
     return {
@@ -88,6 +95,8 @@ export default {
       nextFlag: false,
       lastFlag: false,
       resultFlag: false,
+      showAlertModal: false,
+      alertMessage: String,
     };
   },
   methods: {
@@ -100,7 +109,8 @@ export default {
 
       // 地方区分エラーチェック
       if (this.classificationCheckedValues.length === 0) {
-        alert(QUIZ_MAP_CLASSIFICATION_ERROR_TEXT);
+        this.alertMessage = QUIZ_MAP_CLASSIFICATION_ERROR_TEXT;
+        this.showAlertModal = true;
         return;
       }
 
@@ -194,7 +204,8 @@ export default {
     },
     judgeQuiz() {
       if (this.selectedChoiceValue === QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
-        alert(QUIZ_MAP_NOT_CHOICE_TEXT);
+        this.alertMessage = QUIZ_MAP_NOT_CHOICE_TEXT;
+        this.showAlertModal = true;
       } else if (this.nextFlag && this.lastFlag) {
         // 結果画面表示
         this.resultFlag = true;

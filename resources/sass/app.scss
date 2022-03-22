@@ -463,15 +463,15 @@ $hamburger-menu-background-color: gray;
   .quiz-map-inner {
     height: 100%;
 
-    .game{
+    .game {
       height: 100%;
 
-      .choices{
-        .item{
-          .judge.correct{
+      .choices {
+        .item {
+          .judge.correct {
             color: green;
           }
-          .judge.incorrect{
+          .judge.incorrect {
             color: red;
           }
         }
@@ -508,6 +508,34 @@ $footer-height: 50px;
       .icon {
         margin-right: 5px;
       }
+    }
+  }
+}
+
+/************************************************
+modal
+************************************************/
+#alert-modal-mask {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+
+  .modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+
+    .modal-container {
+      width: 300px;
+      margin: 0px auto;
+      padding: 20px 30px;
+      background-color: #fff;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
     }
   }
 }

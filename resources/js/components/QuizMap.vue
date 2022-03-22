@@ -53,11 +53,11 @@
           <div class="table">
             <tr>
               <th>問題数</th>
-              <td>{{quizCountLimit}}</td>
+              <td>{{ quizCountLimit }}</td>
             </tr>
             <tr>
               <th>正解数</th>
-              <td>{{correctCount}}</td>
+              <td>{{ correctCount }}</td>
             </tr>
           </div>
           <div class="btn-wrapper">
@@ -85,7 +85,7 @@ import {
   QUIZ_MAP_EXPLANATION_TEXT,
   QUIZ_MAP_CHOICE_DEFAULT_VALUE,
   QUIZ_MAP_NOT_CHOICE_TEXT,
-  QUIZ_MAP_CLASSIFICATION_ERROR_TEXT,
+  SETTING_CLASSIFICATION_ERROR_TEXT,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 import AlertModalComponent from "./AlertModal.vue";
@@ -145,12 +145,10 @@ export default {
 
       // 地方区分エラーチェック
       if (this.classificationCheckedValues.length === 0) {
-        this.alertMessage = QUIZ_MAP_CLASSIFICATION_ERROR_TEXT;
+        this.alertMessage = SETTING_CLASSIFICATION_ERROR_TEXT;
         this.showAlertModal = true;
         return;
       }
-
-      // 問題数エラーチェック
 
       // 問題開始
       this.startQuiz();
@@ -195,12 +193,12 @@ export default {
       return array;
     },
     createQuizData() {
-      const quizCount =
+      this.quizCountLimit =
         this.maps.length <= this.quizCountSelectedValue
           ? this.maps.length
           : this.quizCountSelectedValue;
 
-      for (let i = 0; i < quizCount; i++) {
+      for (let i = 0; i < this.quizCountLimit; i++) {
         let quiz = {
           id: Number,
           name: String,
@@ -224,7 +222,6 @@ export default {
         }
         quiz.choices = this.shuffle(array);
         this.quizData.push(quiz);
-        this.quizCountLimit++;
       }
     },
     startQuiz() {

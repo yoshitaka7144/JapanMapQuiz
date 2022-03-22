@@ -77,10 +77,6 @@ export const QUIZ_MAP_CHOICE_DEFAULT_VALUE = "#";
 * 地図クイズ：選択肢未選択時テキスト
 */
 export const QUIZ_MAP_NOT_CHOICE_TEXT = "選択肢を選択してください。";
-/**
-* 地図クイズ：設定：区分チェックエラーテキスト
-*/
-export const QUIZ_MAP_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
 
 /**
 * 地図タイピング：日本語タイトル
@@ -94,3 +90,12 @@ export const TYPING_MAP_MENU_TITLE_ENGLISH = "Typing";
  * 地図タイピング：説明テキスト
  */
 export const TYPING_MAP_EXPLANATION_TEXT = "地図タイピングの説明";
+/**
+ * 地図タイピング：タイピングテキスト終了文字
+ */
+export const TYPING_MAP_TYPING_TEXT_END_CHAR = "$";
+
+/**
+* 設定：区分チェックエラーテキスト
+*/
+export const SETTING_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";

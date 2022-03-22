@@ -23695,11 +23695,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.quizCountSelectedValue = params.quizCountSelectedValue; // 地方区分エラーチェック
 
       if (this.classificationCheckedValues.length === 0) {
-        this.alertMessage = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CLASSIFICATION_ERROR_TEXT;
+        this.alertMessage = _util__WEBPACK_IMPORTED_MODULE_1__.SETTING_CLASSIFICATION_ERROR_TEXT;
         this.showAlertModal = true;
         return;
-      } // 問題数エラーチェック
-      // 問題開始
+      } // 問題開始
 
 
       this.startQuiz();
@@ -23790,9 +23789,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return array;
     },
     createQuizData: function createQuizData() {
-      var quizCount = this.maps.length <= this.quizCountSelectedValue ? this.maps.length : this.quizCountSelectedValue;
+      this.quizCountLimit = this.maps.length <= this.quizCountSelectedValue ? this.maps.length : this.quizCountSelectedValue;
 
-      for (var i = 0; i < quizCount; i++) {
+      for (var i = 0; i < this.quizCountLimit; i++) {
         var quiz = {
           id: Number,
           name: String,
@@ -23818,7 +23817,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         quiz.choices = this.shuffle(array);
         this.quizData.push(quiz);
-        this.quizCountLimit++;
       }
     },
     startQuiz: function startQuiz() {
@@ -24179,8 +24177,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
-/* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/components/Setting.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+/* harmony import */ var _key_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../key.js */ "./resources/js/key.js");
+/* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/components/Setting.vue");
+/* harmony import */ var _AlertModal_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AlertModal.vue */ "./resources/js/components/AlertModal.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -24202,34 +24210,297 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    SettingComponent: _Setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    SettingComponent: _Setting_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    AlertModalComponent: _AlertModal_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
     return {
-      selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_MENU_TITLE_JAPANESE,
-      selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_MENU_TITLE_ENGLISH,
-      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_EXPLANATION_TEXT,
+      selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_MENU_TITLE_JAPANESE,
+      selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_MENU_TITLE_ENGLISH,
+      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_EXPLANATION_TEXT,
       canStartGame: false,
+      startCountDownFlag: true,
+      isTyping: false,
       classificationCheckedValues: [],
       audioChecked: Boolean,
       timeLimitChecked: Boolean,
       timeLimitSelectedValue: Number,
-      quizCountSelectedValue: Number
+      quizCountSelectedValue: Number,
+      maps: [],
+      quizData: [],
+      quizCountLimit: 0,
+      currentQuizIndex: 0,
+      currentQuizData: Object,
+      currentTypingText: [],
+      currentTypingTextIndex: 0,
+      correctTypeCount: 0,
+      missTypeCount: 0,
+      missTypeKeyHash: {},
+      displayQuizText: String,
+      displayKanaText: String,
+      displayHintText: String,
+      displayTypingRemainingText: String,
+      displayTypingInputedText: String,
+      resultFlag: false,
+      showAlertModal: false,
+      alertMessage: String,
+      canShowHint: false,
+      canShowDetails: false,
+      oneQuizMissCount: 0
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    // keydownイベントに処理を設定
+    window.addEventListener("keydown", this.keyAction);
+  },
+  beforeDestroy: function beforeDestroy() {
+    // keydownイベントに設定した処理を削除
+    window.removeEventListener("keydown", this.keyAction);
+  },
   methods: {
+    reset: function reset() {
+      this.quizData = [];
+      this.canStartGame = false;
+      this.startCountDownFlag = true;
+      this.isTyping = false;
+      this.quizCountLimit = 0;
+      this.currentQuizIndex = 0;
+      this.correctTypeCount = 0;
+      this.missTypeCount = 0;
+      this.missTypeKeyHash = {};
+      this.resultFlag = false;
+      this.showAlertModal = false;
+      this.canShowHint = false;
+      this.canShowDetails = false;
+    },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
       this.audioChecked = params.audioChecked;
       this.timeLimitChecked = params.timeLimitChecked;
       this.timeLimitSelectedValue = params.timeLimitSelectedValue;
-      this.quizCountSelectedValue = params.quizCountSelectedValue;
-      this.canStartGame = true;
+      this.quizCountSelectedValue = params.quizCountSelectedValue; // 地方区分エラーチェック
+
+      if (this.classificationCheckedValues.length === 0) {
+        this.alertMessage = _util__WEBPACK_IMPORTED_MODULE_1__.SETTING_CLASSIFICATION_ERROR_TEXT;
+        this.showAlertModal = true;
+        return;
+      } // 問題開始
+
+
+      this.startQuiz();
+    },
+    loadQuizMaps: function loadQuizMaps() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var params, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                params = {
+                  classificationId: _this.classificationCheckedValues
+                };
+                _context.next = 3;
+                return axios.get("/api/maps", {
+                  params: params
+                })["catch"](function (error) {
+                  return error.response || error;
+                });
+
+              case 3:
+                response = _context.sent;
+
+                if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.INTERNAL_SERVER_ERROR) {
+                  _this.$router.push({
+                    name: "systemError"
+                  });
+                } else {
+                  _this.maps = response.data;
+                }
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    startQuiz: function startQuiz() {
+      var _this2 = this;
+
+      Promise.all([this.loadQuizMaps()]).then(function () {
+        // 出題問題データ作成
+        _this2.createQuizData(); // クイズ画面表示
+
+
+        _this2.canStartGame = true;
+        setTimeout(function () {
+          _this2.startCountDownFlag = false;
+          _this2.isTyping = true;
+        }, 3000);
+      });
+    },
+    createQuizData: function createQuizData() {
+      this.quizCountLimit = this.maps.length <= this.quizCountSelectedValue ? this.maps.length : this.quizCountSelectedValue;
+
+      for (var i = 0; i < this.quizCountLimit; i++) {
+        var quiz = {
+          id: Number,
+          name: String,
+          kana: String,
+          typingText: String,
+          hintText: String
+        };
+        quiz.id = this.maps[i].id;
+        quiz.name = this.maps[i].name;
+        quiz.kana = this.maps[i].kana;
+        quiz.typingText = this.maps[i].typing_text;
+        quiz.hintText = this.maps[i].hint_text;
+        this.quizData.push(quiz);
+      } // 表示初期化
+
+
+      this.initQuizText();
+    },
+    initQuizText: function initQuizText() {
+      this.currentQuizData = this.quizData[this.currentQuizIndex];
+      this.currentTypingText = this.currentQuizData.typingText.split("");
+      this.currentTypingText.push(_util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_TYPING_TEXT_END_CHAR);
+      this.currentTypingTextIndex = 0;
+      this.displayQuizText = this.currentQuizData.name;
+      this.displayKanaText = this.currentQuizData.kana;
+      this.displayHintText = this.currentQuizData.hint;
+      this.displayTypingRemainingText = this.currentQuizData.typingText;
+      this.displayTypingInputedText = "";
+      this.oneQuizMissCount = 0;
+      this.canShowHint = false;
+      this.canShowDetails = false;
+    },
+    // キータイプ処理
+    keyAction: function keyAction(e) {
+      if (this.isTyping) {
+        // キーの処理をキャンセル
+        e.preventDefault();
+
+        switch ((0,_key_js__WEBPACK_IMPORTED_MODULE_2__.checkInputKey)(e.code, this.currentTypingText, this.currentTypingTextIndex)) {
+          case 1:
+          case 2:
+            // 正解のタイプ時
+            // タイプ数カウント
+            this.correctTypeCount++; // 次のタイピング文字へ進める
+
+            this.currentTypingTextIndex++;
+
+            if (this.currentTypingText[this.currentTypingTextIndex] === _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_TYPING_TEXT_END_CHAR) {
+              // 設定された最終文字に達したとき
+              this.currentQuizIndex++;
+
+              if (this.currentQuizIndex === this.quizCountLimit) {
+                // 結果表示
+                this.resultFlag = true;
+                this.isTyping = false;
+              } else {
+                // 次の問題を表示
+                this.initQuizText();
+              }
+            } else {
+              this.displayTypingRemainingText = "";
+              this.displayTypingInputedText = ""; // 表示文字列
+
+              for (var i = this.currentTypingTextIndex; i < this.currentTypingText.length - 1; i++) {
+                this.displayTypingRemainingText += this.currentTypingText[i];
+              } // 入力済み表示文字列
+
+
+              for (var _i = 0; _i < this.currentTypingTextIndex; _i++) {
+                this.displayTypingInputedText += this.currentTypingText[_i];
+              }
+            }
+
+            break;
+
+          case 0:
+          case 3:
+            //タイプミス時
+            // ミス音声再生
+            if (this.audioChecked) {//this.audio.play();
+            } // ミス回数カウント
+
+
+            this.missTypeCount++;
+            this.oneQuizMissCount++;
+
+            if (this.oneQuizMissCount === 1) {
+              this.canShowHint = true;
+            } else if (this.oneQuizMissCount === 2) {
+              this.canShowDetails = true;
+            } // ミスタイプキーカウント
+
+
+            var missTypeKey = this.currentTypingText[this.currentTypingTextIndex];
+
+            if (this.missTypeKeyHash[missTypeKey]) {
+              this.missTypeKeyHash[missTypeKey]++;
+            } else {
+              this.missTypeKeyHash[missTypeKey] = 1;
+            }
+
+            break;
+
+          default:
+            break;
+        }
+      }
     }
   }
 });
@@ -24307,6 +24578,470 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/key.js":
+/*!*****************************!*\
+  !*** ./resources/js/key.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "checkInputKey": () => (/* binding */ checkInputKey),
+/* harmony export */   "getChar": () => (/* binding */ getChar)
+/* harmony export */ });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./resources/js/util.js");
+ // コードから文字列取得
+
+function getChar(code) {
+  switch (code) {
+    case "KeyA":
+      return "a";
+
+    case "KeyB":
+      return "b";
+
+    case "KeyC":
+      return "c";
+
+    case "KeyD":
+      return "d";
+
+    case "KeyE":
+      return "e";
+
+    case "KeyF":
+      return "f";
+
+    case "KeyG":
+      return "g";
+
+    case "KeyH":
+      return "h";
+
+    case "KeyI":
+      return "i";
+
+    case "KeyJ":
+      return "j";
+
+    case "KeyK":
+      return "k";
+
+    case "KeyL":
+      return "l";
+
+    case "KeyM":
+      return "m";
+
+    case "KeyN":
+      return "n";
+
+    case "KeyO":
+      return "o";
+
+    case "KeyP":
+      return "p";
+
+    case "KeyQ":
+      return "q";
+
+    case "KeyR":
+      return "r";
+
+    case "KeyS":
+      return "s";
+
+    case "KeyT":
+      return "t";
+
+    case "KeyU":
+      return "u";
+
+    case "KeyV":
+      return "v";
+
+    case "KeyW":
+      return "w";
+
+    case "KeyX":
+      return "x";
+
+    case "KeyY":
+      return "y";
+
+    case "KeyZ":
+      return "z";
+
+    case "Digit0":
+      return "0";
+
+    case "Digit1":
+      return "1";
+
+    case "Digit2":
+      return "2";
+
+    case "Digit3":
+      return "3";
+
+    case "Digit4":
+      return "4";
+
+    case "Digit5":
+      return "5";
+
+    case "Digit6":
+      return "6";
+
+    case "Digit7":
+      return "7";
+
+    case "Digit8":
+      return "8";
+
+    case "Digit9":
+      return "9";
+
+    case "Comma":
+      return ",";
+
+    case "Period":
+      return ".";
+
+    case "Minus":
+      return "-";
+
+    default:
+      return "";
+  }
+} // 入力キー判定
+
+function checkInputKey(code, roman, romanIndex) {
+  var inputChar = getChar(code);
+  var currentChar = roman[romanIndex];
+  var prevChar3 = romanIndex >= 3 ? roman[romanIndex - 3] : "";
+  var prevChar2 = romanIndex >= 2 ? roman[romanIndex - 2] : "";
+  var prevChar = romanIndex >= 1 ? roman[romanIndex - 1] : "";
+  var nextChar = roman[romanIndex + 1];
+  var nextChar2 = nextChar === _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_TYPING_TEXT_END_CHAR ? _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_TYPING_TEXT_END_CHAR : roman[romanIndex + 2];
+
+  if (inputChar === "") {
+    return 0;
+  }
+
+  if (inputChar === currentChar) {
+    return 1;
+  } //「い」の曖昧入力判定
+
+
+  if (inputChar === 'y' && currentChar === 'i' && (prevChar === '' || prevChar === 'a' || prevChar === 'i' || prevChar === 'u' || prevChar === 'e' || prevChar === 'o')) {
+    roman.splice(romanIndex, 0, 'y');
+    return 2;
+  }
+
+  if (inputChar === 'y' && currentChar === 'i' && prevChar === 'n' && prevChar2 === 'n' && prevChar3 !== 'n') {
+    roman.splice(romanIndex, 0, 'y');
+    return 2;
+  }
+
+  if (inputChar === 'y' && currentChar === 'i' && prevChar === 'n' && prevChar2 === 'x') {
+    roman.splice(romanIndex, 0, 'y');
+    return 2;
+  } //「う」の曖昧入力判定
+
+
+  if (inputChar === 'w' && currentChar === 'u' && (prevChar === '' || prevChar === 'a' || prevChar === 'i' || prevChar === 'u' || prevChar === 'e' || prevChar === 'o')) {
+    roman.splice(romanIndex, 0, 'w');
+    return 2;
+  }
+
+  if (inputChar === 'w' && currentChar === 'u' && prevChar === 'n' && prevChar2 === 'n' && prevChar3 !== 'n') {
+    roman.splice(romanIndex, 0, 'w');
+    return 2;
+  }
+
+  if (inputChar === 'w' && currentChar === 'u' && prevChar === 'n' && prevChar2 === 'x') {
+    roman.splice(romanIndex, 0, 'w');
+    return 2;
+  }
+
+  if (inputChar === 'h' && prevChar2 !== 't' && prevChar2 !== 'd' && prevChar === 'w' && currentChar === 'u') {
+    roman.splice(romanIndex, 0, 'h');
+    return 2;
+  } //「か」「く」「こ」の曖昧入力判定
+
+
+  if (inputChar === 'c' && prevChar !== 'k' && currentChar === 'k' && (nextChar === 'a' || nextChar === 'u' || nextChar === 'o')) {
+    roman[romanIndex] = 'c';
+    return 2;
+  } //「く」の曖昧入力判定
+
+
+  if (inputChar === 'q' && prevChar !== 'k' && currentChar === 'k' && nextChar === 'u') {
+    roman[romanIndex] = 'q';
+    return 2;
+  } //「し」の曖昧入力判定
+
+
+  if (inputChar === 'h' && prevChar === 's' && currentChar === 'i') {
+    roman.splice(romanIndex, 0, 'h');
+    return 2;
+  } //「じ」の曖昧入力判定
+
+
+  if (inputChar === 'j' && currentChar === 'z' && nextChar === 'i') {
+    roman[romanIndex] = 'j';
+    return 2;
+  } //「しゃ」「しゅ」「しぇ」「しょ」の曖昧入力判定
+
+
+  if (inputChar === 'h' && prevChar === 's' && currentChar === 'y') {
+    roman[romanIndex] = 'h';
+    return 2;
+  } //「じゃ」「じゅ」「じぇ」「じょ」の曖昧入力判定
+
+
+  if (inputChar === 'z' && prevChar !== 'j' && currentChar === 'j' && (nextChar === 'a' || nextChar === 'u' || nextChar === 'e' || nextChar === 'o')) {
+    roman[romanIndex] = 'z';
+    roman.splice(romanIndex + 1, 0, 'y');
+    return 2;
+  }
+
+  if (inputChar === 'j' && prevChar !== 'z' && currentChar === 'z' && nextChar === 'y' && (nextChar2 === 'a' || nextChar2 === 'u' || nextChar2 === 'e' || nextChar2 === "o")) {
+    roman[romanIndex] = 'j';
+    roman.splice(romanIndex + 1, 1);
+    return 2;
+  } //「し」「せ」の曖昧入力判定
+
+
+  if (inputChar === 'c' && prevChar !== 's' && currentChar === 's' && (nextChar === 'i' || nextChar === 'e')) {
+    roman[romanIndex] = 'c';
+    return 2;
+  } //「ち」の曖昧入力判定
+
+
+  if (inputChar === 'c' && prevChar !== 't' && currentChar === 't' && nextChar === 'i') {
+    roman[romanIndex] = 'c';
+    roman.splice(romanIndex + 1, 0, 'h');
+    return 2;
+  } //「ちゃ」「ちゅ」「ちぇ」「ちょ」の曖昧入力判定
+
+
+  if (inputChar === 'c' && prevChar !== 't' && currentChar === 't' && nextChar === 'y') {
+    roman[romanIndex] = 'c';
+    return 2;
+  } //「cya」=>「cha」
+
+
+  if (inputChar === 'h' && prevChar === 'c' && currentChar === 'y') {
+    roman[romanIndex] = 'h';
+    return 2;
+  } //「つ」の曖昧入力判定
+
+
+  if (inputChar === 's' && prevChar === 't' && currentChar === 'u') {
+    roman.splice(romanIndex, 0, 's');
+    return 2;
+  } //「つぁ」「つぃ」「つぇ」「つぉ」の分解入力判定
+
+
+  if (inputChar === 'u' && prevChar === 't' && currentChar === 's' && (nextChar === 'a' || nextChar === 'i' || nextChar === 'e' || nextChar === 'o')) {
+    roman[romanIndex] = 'u';
+    roman.splice(romanIndex + 1, 0, 'x');
+    return 2;
+  }
+
+  if (inputChar === 'u' && prevChar2 === 't' && prevChar === 's' && (currentChar === 'a' || currentChar === 'i' || currentChar === 'e' || currentChar === 'o')) {
+    roman.splice(romanIndex, 0, 'u');
+    roman.splice(romanIndex + 1, 0, 'x');
+    return 2;
+  } //「てぃ」の分解入力判定
+
+
+  if (inputChar === 'e' && prevChar === 't' && currentChar === 'h' && nextChar === 'i') {
+    roman[romanIndex] = 'e';
+    roman.splice(romanIndex + 1, 0, 'x');
+    return 2;
+  } //「でぃ」の分解入力判定
+
+
+  if (inputChar === 'e' && prevChar === 'd' && currentChar === 'h' && nextChar === 'i') {
+    roman[romanIndex] = 'e';
+    roman.splice(romanIndex + 1, 0, 'x');
+    return 2;
+  } //「でゅ」の分解入力判定
+
+
+  if (inputChar === 'e' && prevChar === 'd' && currentChar === 'h' && nextChar === 'u') {
+    roman[romanIndex] = 'e';
+    roman.splice(romanIndex + 1, 0, 'x');
+    roman.splice(romanIndex + 2, 0, 'y');
+    return 2;
+  } //「とぅ」の分解入力判定
+
+
+  if (inputChar === 'o' && prevChar === 't' && currentChar === 'w' && nextChar === 'u') {
+    roman[romanIndex] = 'o';
+    roman.splice(romanIndex + 1, 0, 'x');
+    return 2;
+  } //「どぅ」の分解入力判定
+
+
+  if (inputChar === 'o' && prevChar === 'd' && currentChar === 'w' && nextChar === 'u') {
+    roman[romanIndex] = 'o';
+    roman.splice(romanIndex + 1, 0, 'x');
+    return 2;
+  } //「ふ」の曖昧入力判定
+
+
+  if (inputChar === 'f' && currentChar === 'h' && nextChar === 'u') {
+    roman[romanIndex] = 'f';
+    return 2;
+  } //「ふぁ」「ふぃ」「ふぇ」「ふぉ」の分解入力判定
+
+
+  if (inputChar === 'w' && prevChar === 'f' && (currentChar === 'a' || currentChar === 'i' || currentChar === 'e' || currentChar === 'o')) {
+    roman.splice(romanIndex, 0, 'w');
+    return 2;
+  }
+
+  if (inputChar === 'y' && prevChar === 'f' && (currentChar === 'i' || currentChar === 'e')) {
+    roman.splice(romanIndex, 0, 'y');
+    return 2;
+  }
+
+  if (inputChar === 'h' && prevChar !== 'f' && currentChar === 'f' && (nextChar === 'a' || nextChar === 'i' || nextChar === 'e' || nextChar === 'o')) {
+    roman[romanIndex] = 'h';
+    roman.splice(romanIndex + 1, 0, 'u');
+    roman.splice(romanIndex + 2, 0, 'x');
+    return 2;
+  }
+
+  if (inputChar === 'u' && prevChar === 'f' && (currentChar === 'a' || currentChar === 'i' || currentChar === 'e' || currentChar === 'o')) {
+    roman.splice(romanIndex, 0, 'u');
+    roman.splice(romanIndex + 1, 0, 'x');
+    return 2;
+  } //「ん」の曖昧入力判定（「n'」には未対応）
+
+
+  if (inputChar === 'n' && prevChar2 !== 'n' && prevChar === 'n' && currentChar !== 'a' && currentChar !== 'i' && currentChar !== 'u' && currentChar !== 'e' && currentChar !== 'o' && currentChar !== 'y') {
+    roman.splice(romanIndex, 0, 'n');
+    return 2;
+  }
+
+  if (inputChar === 'x' && prevChar !== 'n' && currentChar === 'n' && nextChar !== 'a' && nextChar !== 'i' && nextChar !== 'u' && nextChar !== 'e' && nextChar !== 'o' && nextChar !== 'y') {
+    if (nextChar === 'n') {
+      roman[romanIndex] = 'x';
+    } else {
+      roman.splice(romanIndex, 0, 'x');
+    }
+
+    return 2;
+  } //「きゃ」「にゃ」などを分解する
+
+
+  if (inputChar === 'i' && currentChar === 'y' && (prevChar === 'k' || prevChar === 's' || prevChar === 't' || prevChar === 'n' || prevChar === 'h' || prevChar === 'm' || prevChar === 'r' || prevChar === 'g' || prevChar === 'z' || prevChar === 'd' || prevChar === 'b' || prevChar === 'p') && (nextChar === 'a' || nextChar === 'u' || nextChar === 'e' || nextChar === 'o')) {
+    if (nextChar === 'e') {
+      roman[romanIndex] = 'i';
+      roman.splice(romanIndex + 1, 0, 'x');
+    } else {
+      roman.splice(romanIndex, 0, 'i');
+      roman.splice(romanIndex + 1, 0, 'x');
+    }
+
+    return 2;
+  } //「しゃ」「ちゃ」などを分解する
+
+
+  if (inputChar === 'i' && (currentChar === 'a' || currentChar === 'u' || currentChar === 'e' || currentChar === 'o') && (prevChar2 === 's' || prevChar2 === 'c') && prevChar === 'h') {
+    if (nextChar === 'e') {
+      roman.splice(romanIndex, 0, 'i');
+      roman.splice(romanIndex + 1, 0, 'x');
+    } else {
+      roman.splice(romanIndex, 'i');
+      roman.splice(romanIndex + 1, 0, 'x');
+      roman.splice(romanIndex + 2, 0, 'y');
+    }
+
+    return 2;
+  } //「しゃ」を「c」で分解する
+
+
+  if (inputChar === 'c' && currentChar === 's' && prevChar !== 's' && nextChar === 'y' && (nextChar2 === 'a' || nextChar2 === 'u' || nextChar2 === 'e' || nextChar2 === 'o')) {
+    if (nextChar2 === 'e') {
+      roman[romanIndex] = 'c';
+      roman[romanIndex + 1] = 'i';
+      roman.splice(romanIndex + 1, 0, 'x');
+    } else {
+      roman[romanIndex] = 'c';
+      roman.splice(romanIndex + 1, 0, 'i');
+      roman.splice(romanIndex + 2, 0, 'x');
+    }
+
+    return 2;
+  } //「っ」の分解入力判定
+
+
+  if ((inputChar === 'x' || inputChar === 'l') && (currentChar === 'k' && nextChar === 'k' || currentChar === 's' && nextChar === 's' || currentChar === 't' && nextChar === 't' || currentChar === 'g' && nextChar === 'g' || currentChar === 'z' && nextChar === 'z' || currentChar === 'j' && nextChar === 'j' || currentChar === 'd' && nextChar === 'd' || currentChar === 'b' && nextChar === 'b' || currentChar === 'p' && nextChar === 'p')) {
+    roman[romanIndex] = inputChar;
+    roman.splice(romanIndex + 1, 0, 't');
+    roman.splice(romanIndex + 2, 0, 'u');
+    return 2;
+  } //「っか」「っく」「っこ」の特殊入力
+
+
+  if (inputChar === 'c' && currentChar === 'k' && nextChar === 'k' && (nextChar2 === 'a' || nextChar2 === 'u' || nextChar2 === 'o')) {
+    roman[romanIndex] = 'c';
+    roman[romanIndex + 1] = 'c';
+    return 2;
+  } //「っく」の特殊入力
+
+
+  if (inputChar === 'q' && currentChar === 'k' && nextChar === 'k' && nextChar2 === 'u') {
+    roman[romanIndex] = 'q';
+    roman[romanIndex + 1] = 'q';
+    return 2;
+  } //「っし」「っせ」の特殊入力
+
+
+  if (inputChar === 'c' && currentChar === 's' && nextChar === 's' && (nextChar2 === 'i' || nextChar2 === 'e')) {
+    roman[romanIndex] = 'c';
+    roman[romanIndex + 1] = 'c';
+    return 2;
+  } //「っちゃ」「っちゅ」「っちぇ」「っちょ」の曖昧入力判定
+
+
+  if (inputChar === 'c' && currentChar === 't' && nextChar === 't' && nextChar2 === 'y') {
+    roman[romanIndex] = 'c';
+    roman[romanIndex + 1] = 'c';
+    return 2;
+  } //「っち」の曖昧入力判定
+
+
+  if (inputChar === 'c' && currentChar === 't' && nextChar === 't' && nextChar2 === 'i') {
+    roman[romanIndex] = 'c';
+    roman[romanIndex + 1] = 'c';
+    roman.splice(romanIndex + 2, 0, 'h');
+    return 2;
+  } //「l」と「x」の完全互換性
+
+
+  if (inputChar === 'x' && currentChar === 'l') {
+    roman[romanIndex] = 'x';
+    return 2;
+  }
+
+  if (inputChar === 'l' && currentChar === 'x') {
+    roman[romanIndex] = 'l';
+    return 2;
+  }
+
+  return 3;
+}
 
 /***/ }),
 
@@ -24402,14 +25137,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "INTERNAL_SERVER_ERROR": () => (/* binding */ INTERNAL_SERVER_ERROR),
 /* harmony export */   "OK": () => (/* binding */ OK),
 /* harmony export */   "QUIZ_MAP_CHOICE_DEFAULT_VALUE": () => (/* binding */ QUIZ_MAP_CHOICE_DEFAULT_VALUE),
-/* harmony export */   "QUIZ_MAP_CLASSIFICATION_ERROR_TEXT": () => (/* binding */ QUIZ_MAP_CLASSIFICATION_ERROR_TEXT),
 /* harmony export */   "QUIZ_MAP_EXPLANATION_TEXT": () => (/* binding */ QUIZ_MAP_EXPLANATION_TEXT),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ QUIZ_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ QUIZ_MAP_MENU_TITLE_JAPANESE),
 /* harmony export */   "QUIZ_MAP_NOT_CHOICE_TEXT": () => (/* binding */ QUIZ_MAP_NOT_CHOICE_TEXT),
+/* harmony export */   "SETTING_CLASSIFICATION_ERROR_TEXT": () => (/* binding */ SETTING_CLASSIFICATION_ERROR_TEXT),
 /* harmony export */   "TYPING_MAP_EXPLANATION_TEXT": () => (/* binding */ TYPING_MAP_EXPLANATION_TEXT),
 /* harmony export */   "TYPING_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ TYPING_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "TYPING_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ TYPING_MAP_MENU_TITLE_JAPANESE),
+/* harmony export */   "TYPING_MAP_TYPING_TEXT_END_CHAR": () => (/* binding */ TYPING_MAP_TYPING_TEXT_END_CHAR),
 /* harmony export */   "UNPROCESSABLE_ENTITY": () => (/* binding */ UNPROCESSABLE_ENTITY)
 /* harmony export */ });
 /**
@@ -24507,11 +25243,6 @@ var QUIZ_MAP_CHOICE_DEFAULT_VALUE = "#";
 
 var QUIZ_MAP_NOT_CHOICE_TEXT = "選択肢を選択してください。";
 /**
-* 地図クイズ：設定：区分チェックエラーテキスト
-*/
-
-var QUIZ_MAP_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
-/**
 * 地図タイピング：日本語タイトル
 */
 
@@ -24526,6 +25257,16 @@ var TYPING_MAP_MENU_TITLE_ENGLISH = "Typing";
  */
 
 var TYPING_MAP_EXPLANATION_TEXT = "地図タイピングの説明";
+/**
+ * 地図タイピング：タイピングテキスト終了文字
+ */
+
+var TYPING_MAP_TYPING_TEXT_END_CHAR = "$";
+/**
+* 設定：区分チェックエラーテキスト
+*/
+
+var SETTING_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
 
 /***/ }),
 
@@ -49734,21 +50475,117 @@ var render = function () {
                 "setting-params": _vm.settingParams,
               },
             })
-          : _c("div", { staticClass: "game" }, [
-              _vm._v(
-                "\n      " +
-                  _vm._s(_vm.classificationCheckedValues) +
-                  "\n      " +
-                  _vm._s(_vm.audioChecked) +
-                  "\n      " +
-                  _vm._s(_vm.timeLimitChecked) +
-                  "\n      " +
-                  _vm._s(_vm.timeLimitSelectedValue) +
-                  "\n      " +
-                  _vm._s(_vm.quizCountSelectedValue) +
-                  "\n    "
-              ),
+          : _vm.startCountDownFlag
+          ? _c("div", { staticClass: "count-down" }, [
+              _c("p", [_vm._v("3")]),
+              _vm._v(" "),
+              _c("p", [_vm._v("2")]),
+              _vm._v(" "),
+              _c("p", [_vm._v("1")]),
+            ])
+          : !_vm.resultFlag
+          ? _c("div", { staticClass: "game" }, [
+              _c("div", { staticClass: "img-wrapper" }, [
+                _c("img", {
+                  attrs: {
+                    src:
+                      "./image/" +
+                      _vm.quizData[_vm.currentQuizIndex].id +
+                      ".png",
+                    alt: "",
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-wrapper" }, [
+                _vm.canShowHint
+                  ? _c("p", { staticClass: "hint" }, [
+                      _vm._v(_vm._s(_vm.displayHintText)),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.canShowDetails
+                  ? _c("p", { staticClass: "quiz" }, [
+                      _vm._v(_vm._s(_vm.displayQuizText)),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.canShowDetails
+                  ? _c("p", { staticClass: "kana" }, [
+                      _vm._v(_vm._s(_vm.displayKanaText)),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "typing" }, [
+                  _c("span", { staticClass: "inputed" }, [
+                    _vm._v(_vm._s(_vm.displayTypingInputedText)),
+                  ]),
+                  _vm._v(" "),
+                  _vm.canShowDetails
+                    ? _c("span", { staticClass: "remaining" }, [
+                        _vm._v(_vm._s(_vm.displayTypingRemainingText)),
+                      ])
+                    : _vm._e(),
+                ]),
+              ]),
+            ])
+          : _c("div", { staticClass: "result" }, [
+              _c("div", { staticClass: "table-wrapper" }, [
+                _c("div", { staticClass: "table" }, [
+                  _c("tr", [
+                    _c("th", [_vm._v("正解タイプ数")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.correctTypeCount))]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("ミスタイプ数")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.missTypeCount))]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "btn-wrapper" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-gray",
+                        attrs: { to: { name: "menu" } },
+                      },
+                      [_vm._v("\n            メニュー画面へ\n          ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-gray",
+                        on: {
+                          click: function ($event) {
+                            return _vm.reset()
+                          },
+                        },
+                      },
+                      [_vm._v("設定画面へ")]
+                    ),
+                  ],
+                  1
+                ),
+              ]),
             ]),
+        _vm._v(" "),
+        _vm.showAlertModal
+          ? _c("AlertModalComponent", {
+              attrs: { alertMessage: _vm.alertMessage },
+              on: {
+                close: function ($event) {
+                  _vm.showAlertModal = false
+                },
+              },
+            })
+          : _vm._e(),
       ],
       1
     ),

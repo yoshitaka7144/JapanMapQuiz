@@ -455,6 +455,79 @@ img {
 #typing-map .typing-map-inner {
   height: 100%;
 }
+#typing-map .typing-map-inner .count-down {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#typing-map .typing-map-inner .count-down p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 70px;
+  font-weight: bold;
+  color: orange;
+  opacity: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+#typing-map .typing-map-inner .count-down p:nth-child(1) {
+  -webkit-animation: count-down 1s 0s;
+          animation: count-down 1s 0s;
+}
+#typing-map .typing-map-inner .count-down p:nth-child(2) {
+  -webkit-animation: count-down 1s 1s;
+          animation: count-down 1s 1s;
+}
+#typing-map .typing-map-inner .count-down p:nth-child(3) {
+  -webkit-animation: count-down 1s 2s;
+          animation: count-down 1s 2s;
+}
+@-webkit-keyframes count-down {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes count-down {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+#typing-map .typing-map-inner .game .text-wrapper .typing {
+  display: flex;
+}
+#typing-map .typing-map-inner .game .text-wrapper .typing .inputed {
+  color: orange;
+}
+#typing-map .typing-map-inner .result {
+  height: 100%;
+}
+#typing-map .typing-map-inner .result .table-wrapper {
+  display: flex;
+}
+#typing-map .typing-map-inner .result .table-wrapper .table th,
+#typing-map .typing-map-inner .result .table-wrapper .table td {
+  padding: 10px;
+}
+#typing-map .typing-map-inner .result .table-wrapper .btn-wrapper {
+  display: flex;
+  flex-direction: column;
+}
 
 /************************************************
 フッター footer

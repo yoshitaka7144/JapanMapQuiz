@@ -23637,6 +23637,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -23668,7 +23677,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       lastFlag: false,
       resultFlag: false,
       showAlertModal: false,
-      alertMessage: String
+      alertMessage: String,
+      canShowHint: false
     };
   },
   methods: {
@@ -23686,6 +23696,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.lastFlag = false;
       this.resultFlag = false;
       this.showAlertModal = false;
+      this.canShowHint = false;
     },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -23840,7 +23851,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } else if (this.nextFlag && !this.lastFlag) {
         // 次の問題表示
         this.currentQuizIndex++;
-        this.nextFlag = false; // 選択肢をデフォルト値に
+        this.nextFlag = false;
+        this.canShowHint = false; // 選択肢をデフォルト値に
 
         this.selectedChoiceValue = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE;
       } else {
@@ -49852,9 +49864,26 @@ var render = function () {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "hint" }, [
-                _c("p", { staticClass: "hint-text" }, [
-                  _vm._v(_vm._s(_vm.quizData[_vm.currentQuizIndex].hintText)),
-                ]),
+                !_vm.canShowHint
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-gray",
+                        on: {
+                          click: function ($event) {
+                            _vm.canShowHint = true
+                          },
+                        },
+                      },
+                      [_vm._v("\n          ヒント表示\n        ")]
+                    )
+                  : _c("p", { staticClass: "hint-text" }, [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(_vm.quizData[_vm.currentQuizIndex].hintText) +
+                          "\n        "
+                      ),
+                    ]),
               ]),
               _vm._v(" "),
               _c(
@@ -49907,6 +49936,7 @@ var render = function () {
               _c(
                 "button",
                 {
+                  staticClass: "btn btn-gray",
                   on: {
                     click: function ($event) {
                       return _vm.judgeQuiz()

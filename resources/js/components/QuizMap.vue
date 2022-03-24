@@ -16,7 +16,16 @@
           />
         </div>
         <div class="hint">
-          <p class="hint-text">{{ quizData[currentQuizIndex].hintText }}</p>
+          <button
+            v-if="!canShowHint"
+            @click="canShowHint = true"
+            class="btn btn-gray"
+          >
+            ヒント表示
+          </button>
+          <p v-else class="hint-text">
+            {{ quizData[currentQuizIndex].hintText }}
+          </p>
         </div>
         <div class="choices">
           <div
@@ -42,7 +51,7 @@
             >
           </div>
         </div>
-        <button @click="judgeQuiz()">
+        <button class="btn btn-gray" @click="judgeQuiz()">
           <span v-if="nextFlag && lastFlag">結果へ</span>
           <span v-else-if="nextFlag && !lastFlag">次へ</span>
           <span v-else>解答する</span>
@@ -118,6 +127,7 @@ export default {
       resultFlag: false,
       showAlertModal: false,
       alertMessage: String,
+      canShowHint: false,
     };
   },
   methods: {
@@ -135,6 +145,7 @@ export default {
       this.lastFlag = false;
       this.resultFlag = false;
       this.showAlertModal = false;
+      this.canShowHint = false;
     },
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -244,6 +255,7 @@ export default {
         // 次の問題表示
         this.currentQuizIndex++;
         this.nextFlag = false;
+        this.canShowHint = false;
 
         // 選択肢をデフォルト値に
         this.selectedChoiceValue = QUIZ_MAP_CHOICE_DEFAULT_VALUE;

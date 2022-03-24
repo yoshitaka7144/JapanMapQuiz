@@ -19,6 +19,6 @@ class MapController extends Controller
 
     public function allNames()
     {
-        return Map::select("name")->get();
+        return Map::select("name")->orderBy("id", "asc")->get();
     }
 }

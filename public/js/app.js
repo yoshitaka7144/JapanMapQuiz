@@ -50341,7 +50341,7 @@ var render = function () {
                     src:
                       "./image/" +
                       _vm.quizData[_vm.currentQuizIndex].id +
-                      ".png",
+                      ".svg",
                     alt: "",
                   },
                 }),

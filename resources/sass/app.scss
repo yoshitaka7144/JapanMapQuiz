@@ -466,6 +466,11 @@ $hamburger-menu-background-color: gray;
     .game {
       height: 100%;
 
+      .img-wrapper{
+        width: 250px;
+        margin: 0 auto;
+      }
+
       .choices {
         .item {
           .judge.correct {

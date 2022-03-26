@@ -425,6 +425,10 @@ img {
 #quiz-map .quiz-map-inner .game {
   height: 100%;
 }
+#quiz-map .quiz-map-inner .game .img-wrapper {
+  width: 250px;
+  margin: 0 auto;
+}
 #quiz-map .quiz-map-inner .game .choices .item .judge.correct {
   color: green;
 }

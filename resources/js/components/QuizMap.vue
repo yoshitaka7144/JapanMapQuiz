@@ -11,7 +11,7 @@
       <div class="game" v-else-if="!resultFlag">
         <div class="img-wrapper">
           <img
-            :src="'./image/' + quizData[currentQuizIndex].id + '.png'"
+            :src="'./image/' + quizData[currentQuizIndex].id + '.svg'"
             alt=""
           />
         </div>

@@ -412,6 +412,33 @@ img {
 #fill-map .fill-map-inner {
   height: 100%;
 }
+#fill-map .fill-map-inner .game .map-wrapper {
+  text-align: center;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg {
+  width: 580px;
+  height: 580px;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1 {
+  fill: #fff;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.inputed {
+  fill: #8b9c97;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1:hover {
+  fill: #2fc291;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1,
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-2 {
+  stroke: #7c7c7c;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 0.48px;
+  fill-rule: evenodd;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-2 {
+  fill: none;
+}
 
 /************************************************
 地図クイズ画面 quiz-map
@@ -426,8 +453,11 @@ img {
   height: 100%;
 }
 #quiz-map .quiz-map-inner .game .img-wrapper {
-  width: 250px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+#quiz-map .quiz-map-inner .game .img-wrapper img {
+  height: 200px;
 }
 #quiz-map .quiz-map-inner .game .choices .item .judge.correct {
   color: green;
@@ -511,6 +541,13 @@ img {
   100% {
     opacity: 0;
   }
+}
+#typing-map .typing-map-inner .game .img-wrapper {
+  display: flex;
+  justify-content: center;
+}
+#typing-map .typing-map-inner .game .img-wrapper img {
+  height: 200px;
 }
 #typing-map .typing-map-inner .game .text-wrapper .typing {
   display: flex;
@@ -599,6 +636,13 @@ modal
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+}
+#input-modal-mask .modal-wrapper .modal-container .img-wrapper {
+  display: flex;
+  justify-content: center;
+}
+#input-modal-mask .modal-wrapper .modal-container .img-wrapper img {
+  height: 200px;
 }
 #input-modal-mask .modal-wrapper .modal-container .input-place-name .select-wrapper {
   display: inline-block;

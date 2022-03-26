@@ -4,7 +4,7 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="img-wrapper">
-            <img :src="'./image/' + imageId + '.png'" alt="" />
+            <img :src="'./image/map/' + imageId + '.svg'" alt="" />
           </div>
           <div class="input-place-name">
             <input

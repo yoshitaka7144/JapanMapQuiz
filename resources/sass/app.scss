@@ -452,6 +452,36 @@ $hamburger-menu-background-color: gray;
   height: 100%;
   .fill-map-inner {
     height: 100%;
+
+    .game {
+      .map-wrapper {
+        text-align: center;
+        svg {
+          width: 580px;
+          height: 580px;
+          .cls-1 {
+            fill: #fff;
+            &.inputed{
+              fill: rgb(139, 156, 151);
+            }
+            &:hover {
+              fill: rgb(47, 194, 145);
+            }
+          }
+          .cls-1,
+          .cls-2 {
+            stroke: #7c7c7c;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 0.48px;
+            fill-rule: evenodd;
+          }
+          .cls-2 {
+            fill: none;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -466,9 +496,12 @@ $hamburger-menu-background-color: gray;
     .game {
       height: 100%;
 
-      .img-wrapper{
-        width: 250px;
-        margin: 0 auto;
+      .img-wrapper {
+        display: flex;
+        justify-content: center;
+        img {
+          height: 200px;
+        }
       }
 
       .choices {
@@ -554,6 +587,11 @@ $hamburger-menu-background-color: gray;
 
     .game {
       .img-wrapper {
+        display: flex;
+        justify-content: center;
+        img {
+          height: 200px;
+        }
       }
 
       .text-wrapper {
@@ -664,6 +702,14 @@ modal
       background-color: #fff;
       border-radius: 2px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+
+      .img-wrapper {
+        display: flex;
+        justify-content: center;
+        img {
+          height: 200px;
+        }
+      }
 
       .input-place-name {
         .select-wrapper {

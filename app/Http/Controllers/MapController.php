@@ -17,8 +17,13 @@ class MapController extends Controller
         }
     }
 
-    public function allNames()
+    public function names(Request $request)
     {
-        return Map::select("name")->orderBy("id", "asc")->get();
+        $classification_id = $request->classificationId;
+        if (isset($classification_id)) {
+            return Map::whereIn("classification_id", $classification_id)->select("name")->orderBy("id", "asc")->get();
+        } else {
+            return Map::select("name")->orderBy("id", "asc")->get();
+        }
     }
 }

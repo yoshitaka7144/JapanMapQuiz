@@ -23651,6 +23651,238 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -23677,17 +23909,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       showInputNameModal: false,
       showAlertModal: false,
       alertMessage: String,
-      imageId: Number
+      imageId: Number,
+      fillNiigataArea: false,
+      fillSigaArea: false,
+      fillHyougoArea: false,
+      fillKumamotoArea: false,
+      checkTargetIndex: [],
+      resultFlag: false
     };
   },
-  mounted: function mounted() {
-    this.addClickHandler();
-  },
+  mounted: function mounted() {},
   methods: {
     reset: function reset() {
       for (var i = 0; i < 47; i++) {
         this.inputedNames[i] = "";
       }
+
+      this.checkTargetIndex = [];
+      this.canStartGame = false;
+      this.resultFlag = false;
     },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -23742,17 +23982,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var response;
+        var params, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return axios.get("/api/maps/names")["catch"](function (error) {
+                params = {
+                  classificationId: _this2.classificationCheckedValues
+                };
+                _context2.next = 3;
+                return axios.get("/api/maps/names", {
+                  params: params
+                })["catch"](function (error) {
                   return error.response || error;
                 });
 
-              case 2:
+              case 3:
                 response = _context2.sent;
 
                 if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.INTERNAL_SERVER_ERROR) {
@@ -23763,7 +24008,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.placeNames = response.data;
                 }
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -23774,13 +24019,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     startGame: function startGame() {
       var _this3 = this;
 
-      Promise.all([this.loadQuizMaps(), this.loadPlaceNames()]).then(function () {
-        _this3.canStartGame = true;
-      });
+      if (this.answerMethod === _util__WEBPACK_IMPORTED_MODULE_1__.ANSWER_METHOD_SELECT) {
+        Promise.all([this.loadQuizMaps(), this.loadPlaceNames()]).then(function () {
+          _this3.addClickHandler();
+
+          _this3.canStartGame = true;
+        });
+      } else {
+        Promise.all([this.loadQuizMaps()]).then(function () {
+          _this3.addClickHandler();
+
+          _this3.canStartGame = true;
+        });
+      }
     },
     setPlaceName: function setPlaceName(name, id) {
-      this.inputedNames[id] = name;
+      this.inputedNames[id - 1] = name;
       this.showInputNameModal = false;
+    },
+    openInputNameModal: function openInputNameModal(event) {
+      var id = Number(event.target.dataset.id);
+      this.imageId = id;
+      this.showInputNameModal = true;
     },
     addClickHandler: function addClickHandler() {
       var _this4 = this;
@@ -23788,11 +24048,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var paths = this.$el.querySelectorAll("path");
       paths.forEach(function (el) {
         var id = Number(el.dataset.id);
-        el.addEventListener("click", function () {
-          _this4.imageId = id;
-          _this4.showInputNameModal = true;
-        });
+        var classificationId = Number(el.dataset.classification);
+        el.removeEventListener("click", _this4.openInputNameModal);
+
+        if (_this4.classificationCheckedValues.includes(classificationId)) {
+          el.addEventListener("click", _this4.openInputNameModal);
+
+          if (!_this4.checkTargetIndex.includes(id - 1)) {
+            _this4.checkTargetIndex.push(id - 1);
+          }
+        }
       });
+    },
+    checkAnswer: function checkAnswer() {
+      var _this5 = this;
+
+      var emptyCount = 0;
+      this.checkTargetIndex.forEach(function (index) {
+        if (_this5.inputedNames[index] === "") {
+          emptyCount++;
+        }
+      });
+
+      if (emptyCount > 0) {} else {
+        // 結果画面表示
+        this.resultFlag = true;
+      }
     }
   }
 });
@@ -50032,8 +50313,8 @@ var render = function () {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.canStartGame,
-                expression: "canStartGame",
+                value: _vm.canStartGame && !_vm.resultFlag,
+                expression: "canStartGame && !resultFlag",
               },
             ],
             staticClass: "game",
@@ -50051,7 +50332,10 @@ var render = function () {
                 [
                   _c("path", {
                     staticClass: "cls-1",
-                    class: { inputed: _vm.inputedNames[1] !== "" },
+                    class: {
+                      inputed: _vm.inputedNames[0] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(1),
+                    },
                     attrs: {
                       "data-name": "hokkaidou",
                       "data-classification": "1",
@@ -50062,6 +50346,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[1] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(2),
+                    },
                     attrs: {
                       "data-name": "aomori",
                       "data-classification": "2",
@@ -50072,6 +50360,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[2] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(2),
+                    },
                     attrs: {
                       "data-name": "iwate",
                       "data-classification": "2",
@@ -50082,6 +50374,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[3] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(2),
+                    },
                     attrs: {
                       "data-name": "akita",
                       "data-classification": "2",
@@ -50092,6 +50388,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[4] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(2),
+                    },
                     attrs: {
                       "data-name": "miyagi",
                       "data-classification": "2",
@@ -50102,6 +50402,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[5] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(2),
+                    },
                     attrs: {
                       "data-name": "yamagata",
                       "data-classification": "2",
@@ -50112,6 +50416,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[6] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(2),
+                    },
                     attrs: {
                       "data-name": "hukusima",
                       "data-classification": "2",
@@ -50122,6 +50430,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[8] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(3),
+                    },
                     attrs: {
                       "data-name": "totigi",
                       "data-classification": "3",
@@ -50132,6 +50444,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[9] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(3),
+                    },
                     attrs: {
                       "data-name": "gunma",
                       "data-classification": "3",
@@ -50142,6 +50458,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[7] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(3),
+                    },
                     attrs: {
                       "data-name": "ibaraki",
                       "data-classification": "3",
@@ -50152,26 +50472,56 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[16] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                      fill: _vm.fillNiigataArea,
+                    },
                     attrs: {
                       "data-name": "niigata-1",
                       "data-classification": "4",
                       "data-id": "17",
                       d: "M295.84,291c.16.32.48-4.49,1-4.81s.44-2.37.44-2.37l2.45-3.41a29.34,29.34,0,0,1,2.89,1.93,8.31,8.31,0,0,1,2.71,3.92c.31,1.07.8,1,1.72.89a11.22,11.22,0,0,1,1.35,0l1,2.89s-1.28,3.21-2.89,3.85a15.59,15.59,0,0,0-2.89,1.93c0-.17-1.23,3.19-1.38,3.61a5,5,0,0,0-.32,3.35s.26,3.17.74,3.63,2.92,1.84,2.44,1.68-3.57,2.49-3.4,3.13-2.25,3.69-1.93,4.81,1,2.73,0,2.89-5.77,1.93-5.77,1.93-4,.64-3.85,1,.31,4.33,0,4.81-2,1.43-1.93,1.93a6,6,0,0,0,1,2.89c.65,1,0,3.53,0,3.85s-.64.64-1,1a50.2,50.2,0,0,1-4.81,1.93L281.4,342s0,.48-1.92,1.92-2.73,2.09-2.89,2.89-4.17,1.13-3.85,1-.41-1.34-.31-2.63a2.48,2.48,0,0,0-.31-.83,6.69,6.69,0,0,1-1.31-2.31c-.48-1.45-1-1.61-1-2.89s-.17-2.41-1-1.93-3.53,1-3.85,1.93-2.15,2.19-2.89,2.89c-1.41,1.34-2.28,3.09-2.89,2.89s-2.89-1.28-2.89-1-1.92,1.34-1.92,1a10.74,10.74,0,0,0-1-1.93l-1.92-1-1-1-2.21,2.69-2.61,4a7.39,7.39,0,0,1-1-1.92,10.24,10.24,0,0,1-.5-4.38l-1.43-1.4-1-1s3.05-1.61,3.85-1.93,5.61-1.28,5.78-1.92,2.89-2.89,2.89-2.89l2.89-1c.48-.17,4.17.8,4.81,0A31.7,31.7,0,0,1,266,326.6c1.93-1.76,4.66-1.92,4.82-2.88a6,6,0,0,1,1.93-3.85c1.6-1.61,2.08-3.37,2.89-3.86s1.28-2.57,1-2.88,1-5.78,1-5.78a37.92,37.92,0,0,1,5.78-3.85c1.92-.8,4.33-.32,5.77-1.93s4-2.57,4.82-3.85c.58-.94,2-2.55,1.92-2.89C295.52,293.55,295.68,290.67,295.84,291Z",
                     },
+                    on: {
+                      mouseover: function ($event) {
+                        _vm.fillNiigataArea = true
+                      },
+                      mouseleave: function ($event) {
+                        _vm.fillNiigataArea = false
+                      },
+                    },
                   }),
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[16] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                      fill: _vm.fillNiigataArea,
+                    },
                     attrs: {
                       "data-name": "niigata-2",
                       "data-classification": "4",
                       "data-id": "17",
                       d: "M260.22,296.76s2.88-1.93,2.88-2.89,1.77-2.09,1.93-2.89A12.54,12.54,0,0,1,267,288.1s.8,4,0,5.77a9.2,9.2,0,0,0-1,3.85c.17,0,1,.65,1,1s2.72-1.44,2.89-1a17.16,17.16,0,0,1,0,2.89s-1.61.16-1.93,1-.65,2.73-1.93,3.85-3.2,3.21-3.85,2.89a29.43,29.43,0,0,0-2.89-1s1.77-1.93,1.93-2.89.48-.8,1-1.92-.16-3.21,0-2.89-1.92,1.92-1.92,1.92-.49,1-1,0,1.28-2.89,1-2.89S260.22,296.76,260.22,296.76Z",
                     },
+                    on: {
+                      mouseover: function ($event) {
+                        _vm.fillNiigataArea = true
+                      },
+                      mouseleave: function ($event) {
+                        _vm.fillNiigataArea = false
+                      },
+                    },
                   }),
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[10] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(3),
+                    },
                     attrs: {
                       "data-name": "saitama",
                       "data-classification": "3",
@@ -50182,6 +50532,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[11] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(3),
+                    },
                     attrs: {
                       "data-name": "tiba",
                       "data-classification": "3",
@@ -50192,6 +50546,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[12] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(3),
+                    },
                     attrs: {
                       "data-name": "toukyou",
                       "data-classification": "3",
@@ -50202,6 +50560,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[13] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(3),
+                    },
                     attrs: {
                       "data-name": "kanagawa",
                       "data-classification": "3",
@@ -50212,6 +50574,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[15] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                    },
                     attrs: {
                       "data-name": "nagano",
                       "data-classification": "4",
@@ -50222,6 +50588,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[14] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                    },
                     attrs: {
                       "data-name": "yamanasi",
                       "data-classification": "4",
@@ -50232,6 +50602,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[17] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                    },
                     attrs: {
                       "data-name": "toyama",
                       "data-classification": "4",
@@ -50242,6 +50616,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[22] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                    },
                     attrs: {
                       "data-name": "gihu",
                       "data-classification": "4",
@@ -50252,6 +50630,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[18] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                    },
                     attrs: {
                       "data-name": "isikawa",
                       "data-classification": "4",
@@ -50262,6 +50644,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[20] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                    },
                     attrs: {
                       "data-name": "sizuoka",
                       "data-classification": "4",
@@ -50272,6 +50658,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[21] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                    },
                     attrs: {
                       "data-name": "aiti",
                       "data-classification": "4",
@@ -50282,6 +50672,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[23] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                    },
                     attrs: {
                       "data-name": "mie",
                       "data-classification": "4",
@@ -50292,6 +50686,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[19] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(4),
+                    },
                     attrs: {
                       "data-name": "hukui",
                       "data-classification": "4",
@@ -50302,6 +50700,11 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[24] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(5),
+                      fill: _vm.fillSigaArea,
+                    },
                     attrs: {
                       "data-name": "siga-1",
                       "data-classification": "5",
@@ -50312,6 +50715,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[25] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(5),
+                    },
                     attrs: {
                       "data-name": "kyouto",
                       "data-classification": "5",
@@ -50322,6 +50729,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[28] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(5),
+                    },
                     attrs: {
                       "data-name": "nara",
                       "data-classification": "5",
@@ -50332,6 +50743,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[26] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(5),
+                    },
                     attrs: {
                       "data-name": "oosaka",
                       "data-classification": "5",
@@ -50342,6 +50757,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[29] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(5),
+                    },
                     attrs: {
                       "data-name": "wakayama",
                       "data-classification": "5",
@@ -50352,36 +50771,78 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[24] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(5),
+                    },
                     attrs: {
                       "data-name": "siga-2",
                       "data-classification": "5",
                       "data-id": "25",
                       d: "M191.84,402.66s3.15-2,2.89-2.89,0-1,0-1a4.17,4.17,0,0,1,0-1.93c.29-.52,1.74-.49,1.93-1a2.94,2.94,0,0,1,1-1s1.5-.22,1.93,1,.4,1.76,1,1.93,1.37,1.11,1,1.92.13,1.58-1,1.93a8.76,8.76,0,0,0-2.89,1.92c-.39.44-1.62,1.22-1.92,1.93a8.61,8.61,0,0,1-1.93,1.92h-1.93v1.93l-1,2.89-1-1-.2-3.06,1.16-3.68Z",
                     },
+                    on: {
+                      mouseover: function ($event) {
+                        _vm.fillSigaArea = true
+                      },
+                      mouseleave: function ($event) {
+                        _vm.fillSigaArea = false
+                      },
+                    },
                   }),
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[27] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(5),
+                      fill: _vm.fillHyougoArea,
+                    },
                     attrs: {
                       "data-name": "hyougo-1",
                       "data-classification": "5",
                       "data-id": "28",
                       d: "M145.63,391.11a19.23,19.23,0,0,1,1.93-2.89c.43-.27,1.95.63,1.93,0s8.76.27,8.66,0,1.74-.46,1.92,0a26,26,0,0,1,0,3.85c0,.63.28,2.48,1,1.92s2.89-1.92,2.89-1.92a2.43,2.43,0,0,1,1,1.92,1.86,1.86,0,0,1-1,1.93c-1.11.81-2.38,1.35-2.42,1.88s-1.52.61-.47,2a10.56,10.56,0,0,0,2.89,2.89,16.89,16.89,0,0,0,2.87,1.58c1,.31,2.1,1,2.9,1.31s2.42.67,2.89,1a10,10,0,0,1,1.93,1.92c.37.56,0,1.1,0,1.93a11.42,11.42,0,0,0,1,2.89,17.56,17.56,0,0,0,0,2.89,12.18,12.18,0,0,1-1,4.81c-.54.86-.39,1.53-1.93,1.93s-3.6-.12-3.85,1-2.23,2.22-2.89,1.93-2.38-.54-2.89-1-2-.49-2.89-1.92a13.61,13.61,0,0,0-2.88-2.89h-3.85s-5.58.47-6.74,1-2,2.17-2.89,1a27.2,27.2,0,0,1-1.93-3.85,9.43,9.43,0,0,1-1.05-4.29,5.6,5.6,0,0,1,2-4.37c1.41-1.34,2.71-2.94,2.88-3.85.27-1.37,0-2.4.56-3.42.41-.74,1.11-.83,1.57-1.81.54-1.14,1.15-2.07-.2-3.44s-2.62-2.57-2.45-3.13S145.63,391.11,145.63,391.11Z",
                     },
+                    on: {
+                      mouseover: function ($event) {
+                        _vm.fillHyougoArea = true
+                      },
+                      mouseleave: function ($event) {
+                        _vm.fillHyougoArea = false
+                      },
+                    },
                   }),
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[27] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(5),
+                      fill: _vm.fillHyougoArea,
+                    },
                     attrs: {
                       "data-name": "hyougo-2",
                       "data-classification": "5",
                       "data-id": "28",
                       d: "M153.34,436.35a30.41,30.41,0,0,1,1.92-2.88,13.65,13.65,0,0,1,2.89-2.89c1.19-.91,3.85-2.89,3.85-2.89l1.93-1a19,19,0,0,0-1.93,2.89,19.31,19.31,0,0,1-1.93,2.88v1.93a1.87,1.87,0,0,0,1,1.92c.86.46,1,1.93,1,1.93a6.63,6.63,0,0,0-1.93,1c-.91.69-2.2.51-1.92,1s-1.38,1.65-1.93,1-1.92-2.89-1.92-2.89h-1Z",
                     },
+                    on: {
+                      mouseover: function ($event) {
+                        _vm.fillHyougoArea = true
+                      },
+                      mouseleave: function ($event) {
+                        _vm.fillHyougoArea = false
+                      },
+                    },
                   }),
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[30] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(6),
+                    },
                     attrs: {
                       "data-name": "tottori",
                       "data-classification": "6",
@@ -50392,6 +50853,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[32] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(6),
+                    },
                     attrs: {
                       "data-name": "okayama",
                       "data-classification": "6",
@@ -50402,6 +50867,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[31] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(6),
+                    },
                     attrs: {
                       "data-name": "simane",
                       "data-classification": "6",
@@ -50412,6 +50881,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[33] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(6),
+                    },
                     attrs: {
                       "data-name": "hirosima",
                       "data-classification": "6",
@@ -50422,6 +50895,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[34] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(6),
+                    },
                     attrs: {
                       "data-name": "yamaguti",
                       "data-classification": "6",
@@ -50432,6 +50909,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[36] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(7),
+                    },
                     attrs: {
                       "data-name": "ehime",
                       "data-classification": "7",
@@ -50442,6 +50923,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[38] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(7),
+                    },
                     attrs: {
                       "data-name": "kouti",
                       "data-classification": "7",
@@ -50452,6 +50937,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[35] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(7),
+                    },
                     attrs: {
                       "data-name": "kagawa",
                       "data-classification": "7",
@@ -50462,6 +50951,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[37] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(7),
+                    },
                     attrs: {
                       "data-name": "tokusima",
                       "data-classification": "7",
@@ -50472,6 +50965,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[39] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                    },
                     attrs: {
                       "data-name": "hukuoka",
                       "data-classification": "8",
@@ -50482,6 +50979,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[43] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                    },
                     attrs: {
                       "data-name": "ooita",
                       "data-classification": "8",
@@ -50492,6 +50993,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[40] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                    },
                     attrs: {
                       "data-name": "saga",
                       "data-classification": "8",
@@ -50502,6 +51007,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[41] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                    },
                     attrs: {
                       "data-name": "nagasaki",
                       "data-classification": "8",
@@ -50512,36 +51021,79 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[42] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                      fill: _vm.fillKumamotoArea,
+                    },
                     attrs: {
                       "data-name": "kumamoto-1",
                       "data-classification": "8",
                       "data-id": "43",
                       d: "M29.14,506.63a3.73,3.73,0,0,1-1,2.89c-1.15,1-2.61.8-2.89,1.93s-1,2.89-1,2.89c2.27.27,2.14.36,3.85,0a10.43,10.43,0,0,0,2.89-1c.9-.43,1.4.63,1.93,1,.28.18-.49.27,1.92,1,1.57.44,3.43,1.9,4.81,1s1.05-2.11,2.9-2.2a5.4,5.4,0,0,0,3.2-.85,12.85,12.85,0,0,0,1.62-2.65s-.41-2-.46-2.68a28.35,28.35,0,0,0-.81-3.28,9.28,9.28,0,0,0-1.56-2.89c-.37-.53-1-1.82-1-1.82l2.4-2.3,2.07-2.13A7.66,7.66,0,0,0,49.65,493c.49-.89,1.64-2.68,1.64-2.68l1-1.93-1-1.92s-1.09-1.47-1-1.93a14.11,14.11,0,0,0,0-2.89c0-1.23-.4-1-1-1.92s-1-2.86-1.92-2.89c-1.09,0-2.76.45-2.89,0s-1-1-1-1l1,4.81s1.78-.1.92.84a9,9,0,0,1-2.23,1.58c-.52.38-1,.92-1.33.65-1.68-1.42-1.72-3-2.18-3.07a15.41,15.41,0,0,1-2.53-.21,2.1,2.1,0,0,1-1.32-.75c-.62-.59-.79-1.59-1.51-1.25a11.72,11.72,0,0,1-2.25,1A3.27,3.27,0,0,0,30,480.89c-.34.83-.33.09-1.47,2.12-1.25,2.2-1.35,2.22-1.27,2.44a8,8,0,0,0,1.92,2.89c1,1.18,1,1.4,1.93,1.93s1.4.94,1,1.92-.21,2.24-1,2.89S26.26,498,26.26,498s3.73.95,4.81,0,3-2.53,2.89-1.93A3.92,3.92,0,0,1,33,498c-.67.7-1.91,1.13-1.93,1.92a10.9,10.9,0,0,1-1,2.89C29.77,503.61,29.14,506.63,29.14,506.63Z",
                     },
+                    on: {
+                      mouseover: function ($event) {
+                        _vm.fillKumamotoArea = true
+                      },
+                      mouseleave: function ($event) {
+                        _vm.fillKumamotoArea = false
+                      },
+                    },
                   }),
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[42] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                      fill: _vm.fillKumamotoArea,
+                    },
                     attrs: {
                       "data-name": "kumamoto-2",
                       "data-classification": "8",
                       "data-id": "43",
                       d: "M21.44,503.75a2.66,2.66,0,0,1,1-1.93,4.94,4.94,0,0,1,1.92-1h2.89v1.92s-1.46,1.56-1.93,1.93a15.42,15.42,0,0,1-2.88,1Z",
                     },
+                    on: {
+                      mouseover: function ($event) {
+                        _vm.fillKumamotoArea = true
+                      },
+                      mouseleave: function ($event) {
+                        _vm.fillKumamotoArea = false
+                      },
+                    },
                   }),
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[42] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                      fill: _vm.fillKumamotoArea,
+                    },
                     attrs: {
                       "data-name": "kumamoto-3",
                       "data-classification": "8",
                       "data-id": "43",
                       d: "M13.74,504.71a3.17,3.17,0,0,1,1-2.89,17,17,0,0,1,2.89-1.93,1,1,0,0,0,1,0c.42-.3.6.23,1,1s1.19,1.92,1,2.89-1,2.88-1,2.88-.46,1.94-1,1.93-1.15.93-1.92,1.92a9.39,9.39,0,0,1-2.89,1.93s-1.3-1.45-1-1.93a18.37,18.37,0,0,0,1-2.88Z",
                     },
+                    on: {
+                      mouseover: function ($event) {
+                        _vm.fillKumamotoArea = true
+                      },
+                      mouseleave: function ($event) {
+                        _vm.fillKumamotoArea = false
+                      },
+                    },
                   }),
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[44] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                    },
                     attrs: {
                       "data-name": "miyazaki",
                       "data-classification": "8",
@@ -50552,6 +51104,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[45] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                    },
                     attrs: {
                       "data-name": "kagosima",
                       "data-classification": "8",
@@ -50562,6 +51118,10 @@ var render = function () {
                   _vm._v(" "),
                   _c("path", {
                     staticClass: "cls-1",
+                    class: {
+                      inputed: _vm.inputedNames[46] !== "",
+                      disabled: !_vm.classificationCheckedValues.includes(8),
+                    },
                     attrs: {
                       "data-name": "okinawa",
                       "data-classification": "8",
@@ -50587,15 +51147,48 @@ var render = function () {
                 staticClass: "btn btn-gray",
                 on: {
                   click: function ($event) {
-                    _vm.showInputNameModal = true
-                    _vm.imageId = 1
+                    return _vm.checkAnswer()
                   },
                 },
               },
-              [_vm._v("\n        " + _vm._s(_vm.inputedNames[1]) + "\n      ")]
+              [_vm._v("解答終了")]
             ),
           ]
         ),
+        _vm._v(" "),
+        _vm.resultFlag
+          ? _c("div", { staticClass: "result" }, [
+              _vm._v("\n      aaaaaa\n      "),
+              _c(
+                "div",
+                { staticClass: "btn-wrapper" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-gray",
+                      attrs: { to: { name: "menu" } },
+                    },
+                    [_vm._v("\n          メニュー画面へ\n        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-gray",
+                      on: {
+                        click: function ($event) {
+                          return _vm.reset()
+                        },
+                      },
+                    },
+                    [_vm._v("設定画面へ")]
+                  ),
+                ],
+                1
+              ),
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _vm.showAlertModal
           ? _c("AlertModalComponent", {
@@ -50614,7 +51207,7 @@ var render = function () {
                 placeNames: _vm.placeNames,
                 imageId: _vm.imageId,
                 answerMethod: _vm.answerMethod,
-                initialPlaceName: _vm.inputedNames[_vm.imageId],
+                initialPlaceName: _vm.inputedNames[_vm.imageId - 1],
                 close: _vm.setPlaceName,
               },
             })

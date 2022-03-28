@@ -26,7 +26,7 @@ use App\Http\Controllers\QuizCountValueController;
 Route::get("/maps", [MapController::class, "index"]);
 
 // 地図名一覧のみ取得
-Route::get("/maps/names", [MapController::class, "allNames"]);
+Route::get("/maps/names", [MapController::class, "names"]);
 
 // 地方区分マスタデータ取得
 Route::get("/classifications", [ClassificationController::class, "index"]);

@@ -422,11 +422,20 @@ img {
 #fill-map .fill-map-inner .game .map-wrapper svg .cls-1 {
   fill: #fff;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.inputed {
-  fill: #8b9c97;
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.disabled {
+  fill: #8b9c97 !important;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1:hover {
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.disabled:hover {
+  fill: #8b9c97 !important;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.inputed {
+  fill: #3995d3;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1:hover, #fill-map .fill-map-inner .game .map-wrapper svg .cls-1.fill {
   fill: #2fc291;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1[data-name=siga-2]:hover {
+  fill: #fff;
 }
 #fill-map .fill-map-inner .game .map-wrapper svg .cls-1,
 #fill-map .fill-map-inner .game .map-wrapper svg .cls-2 {

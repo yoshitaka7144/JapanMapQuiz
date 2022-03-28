@@ -462,21 +462,22 @@ $hamburger-menu-background-color: gray;
 
           .cls-1 {
             fill: #fff;
-            &.inputed {
-              fill: rgb(139, 156, 151);
+            &.disabled {
+              fill: rgb(139, 156, 151) !important;
+              &:hover{
+                fill: rgb(139, 156, 151) !important;
+              }
             }
-            &:hover {
+            &.inputed {
+              fill: rgb(57, 149, 211);
+            }
+            &:hover,
+            &.fill {
               fill: rgb(47, 194, 145);
             }
-            // &[data-name^="niigata-1"] {
-            //   &:hover {
-            //     fill: rgb(47, 81, 194);
-
-            //     & ~ [data-name^="niigata-"] {
-            //       fill: rgb(47, 81, 194);
-            //     }
-            //   }
-            // }
+            &[data-name="siga-2"]:hover{
+              fill: #fff;
+            }
           }
           .cls-1,
           .cls-2 {

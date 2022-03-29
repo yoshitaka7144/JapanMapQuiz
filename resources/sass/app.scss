@@ -469,7 +469,7 @@ $hamburger-menu-background-color: gray;
               }
             }
             &.inputed {
-              fill: rgb(57, 149, 211);
+              fill: rgb(67, 112, 209);
             }
             &:hover,
             &.fill {
@@ -477,6 +477,12 @@ $hamburger-menu-background-color: gray;
             }
             &[data-name="siga-2"]:hover {
               fill: #fff;
+            }
+            &.correct{
+              fill:rgb(123, 224, 191);
+            }
+            &.incorrect{
+              fill:rgb(235, 150, 150);
             }
           }
           .cls-1,

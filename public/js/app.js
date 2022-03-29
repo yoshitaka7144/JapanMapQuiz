@@ -23251,7 +23251,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    emptyCount: Number
+    emptyCount: Number,
+    ok: Function
   },
   data: function data() {
     return {
@@ -23938,6 +23939,106 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -23960,9 +24061,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       answerMethod: String,
       timeLimitChecked: Boolean,
       timeLimitSelectedValue: Number,
-      maps: [],
-      placeNames: [],
-      inputedNames: [],
+      mapNames: [],
+      selectPlaceNames: [],
+      inputedName: [],
       showInputNameModal: false,
       showAlertModal: false,
       showConfirmationModal: false,
@@ -23973,21 +24074,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fillHyougoArea: false,
       fillKumamotoArea: false,
       checkTargetIndex: [],
-      showResult: false,
-      emptyCount: 0
+      isFinished: false,
+      emptyCount: 0,
+      judgeName: []
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.loadMapNames();
+  },
   methods: {
     reset: function reset() {
       for (var i = 0; i < 47; i++) {
-        this.inputedNames[i] = "";
+        this.inputedName[i] = "";
+        this.judgeName[i] = false;
       }
 
       this.emptyCount = 0;
       this.checkTargetIndex = [];
       this.canStartGame = false;
-      this.showResult = false;
+      this.isFinished = false;
     },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -24005,7 +24110,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.reset();
       this.startGame();
     },
-    loadQuizMaps: function loadQuizMaps() {
+    loadMapNames: function loadMapNames() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -24015,7 +24120,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("/api/maps")["catch"](function (error) {
+                return axios.get("/api/maps/names")["catch"](function (error) {
                   return error.response || error;
                 });
 
@@ -24027,7 +24132,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     name: "systemError"
                   });
                 } else {
-                  _this.maps = response.data;
+                  response.data.forEach(function (item) {
+                    _this.mapNames.push(item.name);
+                  });
                 }
 
               case 4:
@@ -24038,7 +24145,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    loadPlaceNames: function loadPlaceNames() {
+    loadSelectPlaceNames: function loadSelectPlaceNames() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -24065,7 +24172,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     name: "systemError"
                   });
                 } else {
-                  _this2.placeNames = response.data;
+                  _this2.selectPlaceNames = response.data;
                 }
 
               case 5:
@@ -24080,21 +24187,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       if (this.answerMethod === _util__WEBPACK_IMPORTED_MODULE_1__.ANSWER_METHOD_SELECT) {
-        Promise.all([this.loadQuizMaps(), this.loadPlaceNames()]).then(function () {
+        Promise.all([this.loadSelectPlaceNames()]).then(function () {
           _this3.addClickHandler();
 
           _this3.canStartGame = true;
         });
       } else {
-        Promise.all([this.loadQuizMaps()]).then(function () {
-          _this3.addClickHandler();
-
-          _this3.canStartGame = true;
-        });
+        this.addClickHandler();
+        this.canStartGame = true;
       }
     },
     setPlaceName: function setPlaceName(name, id) {
-      this.inputedNames[id - 1] = name;
+      this.inputedName[id - 1] = name;
       this.showInputNameModal = false;
     },
     openInputNameModal: function openInputNameModal(event) {
@@ -24125,7 +24229,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var count = 0;
       this.checkTargetIndex.forEach(function (index) {
-        if (_this5.inputedNames[index] === "") {
+        if (_this5.inputedName[index] === "") {
           count++;
         }
       });
@@ -24136,8 +24240,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.showConfirmationModal = true;
       } else {
         // 結果画面表示
-        this.showResult = true;
+        showResult();
       }
+    },
+    showResult: function showResult() {
+      // 入力地名判定
+      for (var i = 0; i < 47; i++) {
+        var name = this.inputedName[i];
+
+        if (name === "") {
+          continue;
+        }
+
+        var correctName = this.mapNames[i];
+
+        if (name === correctName) {
+          this.judgeName[i] = true;
+        }
+      }
+
+      this.showConfirmationModal = false;
+      this.isFinished = true;
     }
   }
 });
@@ -24355,9 +24478,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -24366,7 +24486,7 @@ __webpack_require__.r(__webpack_exports__);
     setPlaceName: Function,
     answerMethod: String,
     initialPlaceName: String,
-    close: Function
+    ok: Function
   },
   data: function data() {
     return {
@@ -50449,14 +50569,7 @@ var render = function () {
           _c("div", { staticClass: "btn-wrapper" }, [
             _c(
               "button",
-              {
-                staticClass: "btn btn-gray",
-                on: {
-                  click: function ($event) {
-                    return _vm.$emit("ok")
-                  },
-                },
-              },
+              { staticClass: "btn btn-gray", on: { click: _vm.ok } },
               [_vm._v("OK")]
             ),
             _vm._v(" "),
@@ -50524,8 +50637,8 @@ var render = function () {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.canStartGame && !_vm.showResult,
-                expression: "canStartGame && !showResult",
+                value: _vm.canStartGame,
+                expression: "canStartGame",
               },
             ],
             staticClass: "game",
@@ -50544,8 +50657,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[0] !== "",
+                      inputed: _vm.inputedName[0] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(1),
+                      correct: _vm.isFinished && _vm.judgeName[0],
+                      incorrect: _vm.isFinished && !_vm.judgeName[0],
                     },
                     attrs: {
                       "data-name": "hokkaidou",
@@ -50558,8 +50673,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[1] !== "",
+                      inputed: _vm.inputedName[1] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(2),
+                      correct: _vm.isFinished && _vm.judgeName[1],
+                      incorrect: _vm.isFinished && !_vm.judgeName[1],
                     },
                     attrs: {
                       "data-name": "aomori",
@@ -50572,8 +50689,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[2] !== "",
+                      inputed: _vm.inputedName[2] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(2),
+                      correct: _vm.isFinished && _vm.judgeName[2],
+                      incorrect: _vm.isFinished && !_vm.judgeName[2],
                     },
                     attrs: {
                       "data-name": "iwate",
@@ -50586,8 +50705,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[3] !== "",
+                      inputed: _vm.inputedName[3] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(2),
+                      correct: _vm.isFinished && _vm.judgeName[3],
+                      incorrect: _vm.isFinished && !_vm.judgeName[3],
                     },
                     attrs: {
                       "data-name": "akita",
@@ -50600,8 +50721,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[4] !== "",
+                      inputed: _vm.inputedName[4] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(2),
+                      correct: _vm.isFinished && _vm.judgeName[4],
+                      incorrect: _vm.isFinished && !_vm.judgeName[4],
                     },
                     attrs: {
                       "data-name": "miyagi",
@@ -50614,8 +50737,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[5] !== "",
+                      inputed: _vm.inputedName[5] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(2),
+                      correct: _vm.isFinished && _vm.judgeName[5],
+                      incorrect: _vm.isFinished && !_vm.judgeName[5],
                     },
                     attrs: {
                       "data-name": "yamagata",
@@ -50628,8 +50753,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[6] !== "",
+                      inputed: _vm.inputedName[6] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(2),
+                      correct: _vm.isFinished && _vm.judgeName[6],
+                      incorrect: _vm.isFinished && !_vm.judgeName[6],
                     },
                     attrs: {
                       "data-name": "hukusima",
@@ -50642,8 +50769,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[8] !== "",
+                      inputed: _vm.inputedName[8] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(3),
+                      correct: _vm.isFinished && _vm.judgeName[8],
+                      incorrect: _vm.isFinished && !_vm.judgeName[8],
                     },
                     attrs: {
                       "data-name": "totigi",
@@ -50656,8 +50785,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[9] !== "",
+                      inputed: _vm.inputedName[9] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(3),
+                      correct: _vm.isFinished && _vm.judgeName[9],
+                      incorrect: _vm.isFinished && !_vm.judgeName[9],
                     },
                     attrs: {
                       "data-name": "gunma",
@@ -50670,8 +50801,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[7] !== "",
+                      inputed: _vm.inputedName[7] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(3),
+                      correct: _vm.isFinished && _vm.judgeName[7],
+                      incorrect: _vm.isFinished && !_vm.judgeName[7],
                     },
                     attrs: {
                       "data-name": "ibaraki",
@@ -50684,9 +50817,11 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[16] !== "",
+                      inputed: _vm.inputedName[16] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
                       fill: _vm.fillNiigataArea,
+                      correct: _vm.isFinished && _vm.judgeName[16],
+                      incorrect: _vm.isFinished && !_vm.judgeName[16],
                     },
                     attrs: {
                       "data-name": "niigata-1",
@@ -50707,9 +50842,11 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[16] !== "",
+                      inputed: _vm.inputedName[16] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
                       fill: _vm.fillNiigataArea,
+                      correct: _vm.isFinished && _vm.judgeName[16],
+                      incorrect: _vm.isFinished && !_vm.judgeName[16],
                     },
                     attrs: {
                       "data-name": "niigata-2",
@@ -50730,8 +50867,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[10] !== "",
+                      inputed: _vm.inputedName[10] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(3),
+                      correct: _vm.isFinished && _vm.judgeName[10],
+                      incorrect: _vm.isFinished && !_vm.judgeName[10],
                     },
                     attrs: {
                       "data-name": "saitama",
@@ -50744,8 +50883,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[11] !== "",
+                      inputed: _vm.inputedName[11] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(3),
+                      correct: _vm.isFinished && _vm.judgeName[11],
+                      incorrect: _vm.isFinished && !_vm.judgeName[11],
                     },
                     attrs: {
                       "data-name": "tiba",
@@ -50758,8 +50899,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[12] !== "",
+                      inputed: _vm.inputedName[12] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(3),
+                      correct: _vm.isFinished && _vm.judgeName[12],
+                      incorrect: _vm.isFinished && !_vm.judgeName[12],
                     },
                     attrs: {
                       "data-name": "toukyou",
@@ -50772,8 +50915,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[13] !== "",
+                      inputed: _vm.inputedName[13] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(3),
+                      correct: _vm.isFinished && _vm.judgeName[13],
+                      incorrect: _vm.isFinished && !_vm.judgeName[13],
                     },
                     attrs: {
                       "data-name": "kanagawa",
@@ -50786,8 +50931,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[15] !== "",
+                      inputed: _vm.inputedName[15] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
+                      correct: _vm.isFinished && _vm.judgeName[15],
+                      incorrect: _vm.isFinished && !_vm.judgeName[15],
                     },
                     attrs: {
                       "data-name": "nagano",
@@ -50800,8 +50947,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[14] !== "",
+                      inputed: _vm.inputedName[14] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
+                      correct: _vm.isFinished && _vm.judgeName[14],
+                      incorrect: _vm.isFinished && !_vm.judgeName[14],
                     },
                     attrs: {
                       "data-name": "yamanasi",
@@ -50814,8 +50963,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[17] !== "",
+                      inputed: _vm.inputedName[17] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
+                      correct: _vm.isFinished && _vm.judgeName[17],
+                      incorrect: _vm.isFinished && !_vm.judgeName[17],
                     },
                     attrs: {
                       "data-name": "toyama",
@@ -50828,8 +50979,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[22] !== "",
+                      inputed: _vm.inputedName[22] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
+                      correct: _vm.isFinished && _vm.judgeName[22],
+                      incorrect: _vm.isFinished && !_vm.judgeName[22],
                     },
                     attrs: {
                       "data-name": "gihu",
@@ -50842,8 +50995,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[18] !== "",
+                      inputed: _vm.inputedName[18] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
+                      correct: _vm.isFinished && _vm.judgeName[18],
+                      incorrect: _vm.isFinished && !_vm.judgeName[18],
                     },
                     attrs: {
                       "data-name": "isikawa",
@@ -50856,8 +51011,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[20] !== "",
+                      inputed: _vm.inputedName[20] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
+                      correct: _vm.isFinished && _vm.judgeName[20],
+                      incorrect: _vm.isFinished && !_vm.judgeName[20],
                     },
                     attrs: {
                       "data-name": "sizuoka",
@@ -50870,8 +51027,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[21] !== "",
+                      inputed: _vm.inputedName[21] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
+                      correct: _vm.isFinished && _vm.judgeName[21],
+                      incorrect: _vm.isFinished && !_vm.judgeName[21],
                     },
                     attrs: {
                       "data-name": "aiti",
@@ -50884,8 +51043,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[23] !== "",
+                      inputed: _vm.inputedName[23] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
+                      correct: _vm.isFinished && _vm.judgeName[23],
+                      incorrect: _vm.isFinished && !_vm.judgeName[23],
                     },
                     attrs: {
                       "data-name": "mie",
@@ -50898,8 +51059,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[19] !== "",
+                      inputed: _vm.inputedName[19] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(4),
+                      correct: _vm.isFinished && _vm.judgeName[19],
+                      incorrect: _vm.isFinished && !_vm.judgeName[19],
                     },
                     attrs: {
                       "data-name": "hukui",
@@ -50912,9 +51075,11 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[24] !== "",
+                      inputed: _vm.inputedName[24] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(5),
                       fill: _vm.fillSigaArea,
+                      correct: _vm.isFinished && _vm.judgeName[24],
+                      incorrect: _vm.isFinished && !_vm.judgeName[24],
                     },
                     attrs: {
                       "data-name": "siga-1",
@@ -50927,8 +51092,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[25] !== "",
+                      inputed: _vm.inputedName[25] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(5),
+                      correct: _vm.isFinished && _vm.judgeName[25],
+                      incorrect: _vm.isFinished && !_vm.judgeName[25],
                     },
                     attrs: {
                       "data-name": "kyouto",
@@ -50941,8 +51108,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[28] !== "",
+                      inputed: _vm.inputedName[28] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(5),
+                      correct: _vm.isFinished && _vm.judgeName[28],
+                      incorrect: _vm.isFinished && !_vm.judgeName[28],
                     },
                     attrs: {
                       "data-name": "nara",
@@ -50955,8 +51124,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[26] !== "",
+                      inputed: _vm.inputedName[26] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(5),
+                      correct: _vm.isFinished && _vm.judgeName[26],
+                      incorrect: _vm.isFinished && !_vm.judgeName[26],
                     },
                     attrs: {
                       "data-name": "oosaka",
@@ -50969,8 +51140,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[29] !== "",
+                      inputed: _vm.inputedName[29] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(5),
+                      correct: _vm.isFinished && _vm.judgeName[29],
+                      incorrect: _vm.isFinished && !_vm.judgeName[29],
                     },
                     attrs: {
                       "data-name": "wakayama",
@@ -50983,8 +51156,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[24] !== "",
+                      inputed: _vm.inputedName[24] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(5),
+                      correct: _vm.isFinished && _vm.judgeName[24],
+                      incorrect: _vm.isFinished && !_vm.judgeName[24],
                     },
                     attrs: {
                       "data-name": "siga-2",
@@ -51005,9 +51180,11 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[27] !== "",
+                      inputed: _vm.inputedName[27] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(5),
                       fill: _vm.fillHyougoArea,
+                      correct: _vm.isFinished && _vm.judgeName[27],
+                      incorrect: _vm.isFinished && !_vm.judgeName[27],
                     },
                     attrs: {
                       "data-name": "hyougo-1",
@@ -51028,9 +51205,11 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[27] !== "",
+                      inputed: _vm.inputedName[27] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(5),
                       fill: _vm.fillHyougoArea,
+                      correct: _vm.isFinished && _vm.judgeName[27],
+                      incorrect: _vm.isFinished && !_vm.judgeName[27],
                     },
                     attrs: {
                       "data-name": "hyougo-2",
@@ -51051,8 +51230,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[30] !== "",
+                      inputed: _vm.inputedName[30] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(6),
+                      correct: _vm.isFinished && _vm.judgeName[30],
+                      incorrect: _vm.isFinished && !_vm.judgeName[30],
                     },
                     attrs: {
                       "data-name": "tottori",
@@ -51065,8 +51246,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[32] !== "",
+                      inputed: _vm.inputedName[32] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(6),
+                      correct: _vm.isFinished && _vm.judgeName[32],
+                      incorrect: _vm.isFinished && !_vm.judgeName[32],
                     },
                     attrs: {
                       "data-name": "okayama",
@@ -51079,8 +51262,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[31] !== "",
+                      inputed: _vm.inputedName[31] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(6),
+                      correct: _vm.isFinished && _vm.judgeName[31],
+                      incorrect: _vm.isFinished && !_vm.judgeName[31],
                     },
                     attrs: {
                       "data-name": "simane",
@@ -51093,8 +51278,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[33] !== "",
+                      inputed: _vm.inputedName[33] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(6),
+                      correct: _vm.isFinished && _vm.judgeName[33],
+                      incorrect: _vm.isFinished && !_vm.judgeName[33],
                     },
                     attrs: {
                       "data-name": "hirosima",
@@ -51107,8 +51294,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[34] !== "",
+                      inputed: _vm.inputedName[34] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(6),
+                      correct: _vm.isFinished && _vm.judgeName[34],
+                      incorrect: _vm.isFinished && !_vm.judgeName[34],
                     },
                     attrs: {
                       "data-name": "yamaguti",
@@ -51121,8 +51310,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[36] !== "",
+                      inputed: _vm.inputedName[36] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(7),
+                      correct: _vm.isFinished && _vm.judgeName[36],
+                      incorrect: _vm.isFinished && !_vm.judgeName[36],
                     },
                     attrs: {
                       "data-name": "ehime",
@@ -51135,8 +51326,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[38] !== "",
+                      inputed: _vm.inputedName[38] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(7),
+                      correct: _vm.isFinished && _vm.judgeName[38],
+                      incorrect: _vm.isFinished && !_vm.judgeName[38],
                     },
                     attrs: {
                       "data-name": "kouti",
@@ -51149,8 +51342,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[35] !== "",
+                      inputed: _vm.inputedName[35] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(7),
+                      correct: _vm.isFinished && _vm.judgeName[35],
+                      incorrect: _vm.isFinished && !_vm.judgeName[35],
                     },
                     attrs: {
                       "data-name": "kagawa",
@@ -51163,8 +51358,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[37] !== "",
+                      inputed: _vm.inputedName[37] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(7),
+                      correct: _vm.isFinished && _vm.judgeName[37],
+                      incorrect: _vm.isFinished && !_vm.judgeName[37],
                     },
                     attrs: {
                       "data-name": "tokusima",
@@ -51177,8 +51374,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[39] !== "",
+                      inputed: _vm.inputedName[39] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
+                      correct: _vm.isFinished && _vm.judgeName[39],
+                      incorrect: _vm.isFinished && !_vm.judgeName[39],
                     },
                     attrs: {
                       "data-name": "hukuoka",
@@ -51191,8 +51390,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[43] !== "",
+                      inputed: _vm.inputedName[43] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
+                      correct: _vm.isFinished && _vm.judgeName[43],
+                      incorrect: _vm.isFinished && !_vm.judgeName[43],
                     },
                     attrs: {
                       "data-name": "ooita",
@@ -51205,8 +51406,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[40] !== "",
+                      inputed: _vm.inputedName[40] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
+                      correct: _vm.isFinished && _vm.judgeName[40],
+                      incorrect: _vm.isFinished && !_vm.judgeName[40],
                     },
                     attrs: {
                       "data-name": "saga",
@@ -51219,8 +51422,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[41] !== "",
+                      inputed: _vm.inputedName[41] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
+                      correct: _vm.isFinished && _vm.judgeName[41],
+                      incorrect: _vm.isFinished && !_vm.judgeName[41],
                     },
                     attrs: {
                       "data-name": "nagasaki",
@@ -51233,9 +51438,11 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[42] !== "",
+                      inputed: _vm.inputedName[42] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
                       fill: _vm.fillKumamotoArea,
+                      correct: _vm.isFinished && _vm.judgeName[42],
+                      incorrect: _vm.isFinished && !_vm.judgeName[42],
                     },
                     attrs: {
                       "data-name": "kumamoto-1",
@@ -51256,9 +51463,11 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[42] !== "",
+                      inputed: _vm.inputedName[42] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
                       fill: _vm.fillKumamotoArea,
+                      correct: _vm.isFinished && _vm.judgeName[42],
+                      incorrect: _vm.isFinished && !_vm.judgeName[42],
                     },
                     attrs: {
                       "data-name": "kumamoto-2",
@@ -51279,9 +51488,11 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[42] !== "",
+                      inputed: _vm.inputedName[42] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
                       fill: _vm.fillKumamotoArea,
+                      correct: _vm.isFinished && _vm.judgeName[42],
+                      incorrect: _vm.isFinished && !_vm.judgeName[42],
                     },
                     attrs: {
                       "data-name": "kumamoto-3",
@@ -51302,8 +51513,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[44] !== "",
+                      inputed: _vm.inputedName[44] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
+                      correct: _vm.isFinished && _vm.judgeName[44],
+                      incorrect: _vm.isFinished && !_vm.judgeName[44],
                     },
                     attrs: {
                       "data-name": "miyazaki",
@@ -51316,8 +51529,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[45] !== "",
+                      inputed: _vm.inputedName[45] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
+                      correct: _vm.isFinished && _vm.judgeName[45],
+                      incorrect: _vm.isFinished && !_vm.judgeName[45],
                     },
                     attrs: {
                       "data-name": "kagosima",
@@ -51330,8 +51545,10 @@ var render = function () {
                   _c("path", {
                     staticClass: "cls-1",
                     class: {
-                      inputed: _vm.inputedNames[46] !== "",
+                      inputed: _vm.inputedName[46] !== "",
                       disabled: !_vm.classificationCheckedValues.includes(8),
+                      correct: _vm.isFinished && _vm.judgeName[46],
+                      incorrect: _vm.isFinished && !_vm.judgeName[46],
                     },
                     attrs: {
                       "data-name": "okinawa",
@@ -51352,54 +51569,51 @@ var render = function () {
               ),
             ]),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-gray",
-                on: {
-                  click: function ($event) {
-                    return _vm.checkAnswer()
-                  },
-                },
-              },
-              [_vm._v("解答終了")]
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _vm.showResult
-          ? _c("div", { staticClass: "result" }, [
-              _vm._v("\n      aaaaaa\n      "),
-              _c(
-                "div",
-                { staticClass: "btn-wrapper" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-gray",
-                      attrs: { to: { name: "menu" } },
-                    },
-                    [_vm._v("\n          メニュー画面へ\n        ")]
-                  ),
-                  _vm._v(" "),
+            !_vm.isFinished
+              ? _c("div", { staticClass: "btn-wrapper" }, [
                   _c(
                     "button",
                     {
                       staticClass: "btn btn-gray",
                       on: {
                         click: function ($event) {
-                          return _vm.reset()
+                          return _vm.checkAnswer()
                         },
                       },
                     },
-                    [_vm._v("設定画面へ")]
+                    [_vm._v("解答終了")]
                   ),
-                ],
-                1
-              ),
-            ])
-          : _vm._e(),
+                ])
+              : _c(
+                  "div",
+                  { staticClass: "btn-wrapper" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-gray",
+                        attrs: { to: { name: "menu" } },
+                      },
+                      [_vm._v("\n          メニュー画面へ\n        ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-gray",
+                        on: {
+                          click: function ($event) {
+                            return _vm.reset()
+                          },
+                        },
+                      },
+                      [_vm._v("設定画面へ")]
+                    ),
+                  ],
+                  1
+                ),
+          ]
+        ),
         _vm._v(" "),
         _vm.showAlertModal
           ? _c("AlertModalComponent", {
@@ -51415,23 +51629,19 @@ var render = function () {
         _vm.showInputNameModal
           ? _c("InputModalComponent", {
               attrs: {
-                placeNames: _vm.placeNames,
+                placeNames: _vm.selectPlaceNames,
                 imageId: _vm.imageId,
                 answerMethod: _vm.answerMethod,
-                initialPlaceName: _vm.inputedNames[_vm.imageId - 1],
-                close: _vm.setPlaceName,
+                initialPlaceName: _vm.inputedName[_vm.imageId - 1],
+                ok: _vm.setPlaceName,
               },
             })
           : _vm._e(),
         _vm._v(" "),
         _vm.showConfirmationModal
           ? _c("ConfirmationModalComponent", {
-              attrs: { emptyCount: _vm.emptyCount },
+              attrs: { emptyCount: _vm.emptyCount, ok: _vm.showResult },
               on: {
-                ok: function ($event) {
-                  _vm.showConfirmationModal = false
-                  _vm.showResult = true
-                },
                 close: function ($event) {
                   _vm.showConfirmationModal = false
                 },
@@ -51857,7 +52067,7 @@ var render = function () {
               staticClass: "btn btn-gray",
               on: {
                 click: function ($event) {
-                  return _vm.close(_vm.selectedPlaceName, _vm.imageId)
+                  return _vm.ok(_vm.selectedPlaceName, _vm.imageId)
                 },
               },
             },

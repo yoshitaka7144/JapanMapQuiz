@@ -9,7 +9,7 @@
           </p>
           <p class="confirmation-message">{{ confirmationMessage }}</p>
           <div class="btn-wrapper">
-            <button class="btn btn-gray" @click="$emit('ok')">OK</button>
+            <button class="btn btn-gray" @click="ok">OK</button>
             <button class="btn btn-gray" @click="$emit('close')">戻る</button>
           </div>
         </div>
@@ -22,6 +22,7 @@ import { FILL_MAP_ANSWER_CONFIRMATION_TEXT } from "../util";
 export default {
   props: {
     emptyCount: Number,
+    ok: Function,
   },
   data() {
     return {

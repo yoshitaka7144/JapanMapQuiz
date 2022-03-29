@@ -26,10 +26,7 @@
               </select>
             </div>
           </div>
-          <button
-            class="btn btn-gray"
-            @click="close(selectedPlaceName, imageId)"
-          >
+          <button class="btn btn-gray" @click="ok(selectedPlaceName, imageId)">
             OK
           </button>
         </div>
@@ -46,7 +43,7 @@ export default {
     setPlaceName: Function,
     answerMethod: String,
     initialPlaceName: String,
-    close: Function,
+    ok: Function,
   },
   data() {
     return {
@@ -55,8 +52,6 @@ export default {
       selectedPlaceName: this.initialPlaceName,
     };
   },
-  methods: {
-    
-  },
+  methods: {},
 };
 </script>

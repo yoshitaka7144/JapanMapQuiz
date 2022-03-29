@@ -429,13 +429,19 @@ img {
   fill: #8b9c97 !important;
 }
 #fill-map .fill-map-inner .game .map-wrapper svg .cls-1.inputed {
-  fill: #3995d3;
+  fill: #4370d1;
 }
 #fill-map .fill-map-inner .game .map-wrapper svg .cls-1:hover, #fill-map .fill-map-inner .game .map-wrapper svg .cls-1.fill {
   fill: #2fc291;
 }
 #fill-map .fill-map-inner .game .map-wrapper svg .cls-1[data-name=siga-2]:hover {
   fill: #fff;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.correct {
+  fill: #7be0bf;
+}
+#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.incorrect {
+  fill: #eb9696;
 }
 #fill-map .fill-map-inner .game .map-wrapper svg .cls-1,
 #fill-map .fill-map-inner .game .map-wrapper svg .cls-2 {

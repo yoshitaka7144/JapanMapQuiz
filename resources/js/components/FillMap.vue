@@ -8,7 +8,7 @@
         :selected-menu-text="selectedMenuText"
         :setting-params="settingParams"
       />
-      <div class="game" v-show="canStartGame && !resultFlag">
+      <div class="game" v-show="canStartGame && !showResult">
         <div class="map-wrapper">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 549.52 558.35">
             <path
@@ -615,7 +615,7 @@
         </div>
         <button class="btn btn-gray" @click="checkAnswer()">解答終了</button>
       </div>
-      <div class="result" v-if="resultFlag">
+      <div class="result" v-if="showResult">
         aaaaaa
         <div class="btn-wrapper">
           <router-link :to="{ name: 'menu' }" class="btn btn-gray">
@@ -637,6 +637,15 @@
         :initialPlaceName="inputedNames[imageId - 1]"
         :close="setPlaceName"
       />
+      <ConfirmationModalComponent
+        v-if="showConfirmationModal"
+        :emptyCount="emptyCount"
+        @ok="
+          showConfirmationModal = false;
+          showResult = true;
+        "
+        @close="showConfirmationModal = false"
+      />
     </div>
   </div>
 </template>
@@ -653,11 +662,13 @@ import {
 import SettingComponent from "./Setting.vue";
 import InputModalComponent from "./InputNameModal.vue";
 import AlertModalComponent from "./AlertModal.vue";
+import ConfirmationModalComponent from "./ConfirmationModal.vue";
 export default {
   components: {
     SettingComponent,
     AlertModalComponent,
     InputModalComponent,
+    ConfirmationModalComponent,
   },
   data() {
     return {
@@ -674,6 +685,7 @@ export default {
       inputedNames: [],
       showInputNameModal: false,
       showAlertModal: false,
+      showConfirmationModal: false,
       alertMessage: String,
       imageId: Number,
       fillNiigataArea: false,
@@ -681,7 +693,8 @@ export default {
       fillHyougoArea: false,
       fillKumamotoArea: false,
       checkTargetIndex: [],
-      resultFlag: false,
+      showResult: false,
+      emptyCount: 0,
     };
   },
   mounted() {},
@@ -690,9 +703,10 @@ export default {
       for (let i = 0; i < 47; i++) {
         this.inputedNames[i] = "";
       }
+      this.emptyCount = 0;
       this.checkTargetIndex = [];
       this.canStartGame = false;
-      this.resultFlag = false;
+      this.showResult = false;
     },
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -773,17 +787,20 @@ export default {
       });
     },
     checkAnswer() {
-      let emptyCount = 0;
+      let count = 0;
       this.checkTargetIndex.forEach((index) => {
         if (this.inputedNames[index] === "") {
-          emptyCount++;
+          count++;
         }
       });
 
-      if (emptyCount > 0) {
+      if (count > 0) {
+        // 確認用モーダル表示
+        this.emptyCount = count;
+        this.showConfirmationModal = true;
       } else {
         // 結果画面表示
-        this.resultFlag = true;
+        this.showResult = true;
       }
     },
   },

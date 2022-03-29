@@ -464,7 +464,7 @@ $hamburger-menu-background-color: gray;
             fill: #fff;
             &.disabled {
               fill: rgb(139, 156, 151) !important;
-              &:hover{
+              &:hover {
                 fill: rgb(139, 156, 151) !important;
               }
             }
@@ -475,7 +475,7 @@ $hamburger-menu-background-color: gray;
             &.fill {
               fill: rgb(47, 194, 145);
             }
-            &[data-name="siga-2"]:hover{
+            &[data-name="siga-2"]:hover {
               fill: #fff;
             }
           }
@@ -759,6 +759,42 @@ modal
             padding: 4px 30px 4px 10px;
           }
         }
+      }
+    }
+  }
+}
+
+#confirmation-modal-mask {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+
+  .modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+
+    .modal-container {
+      width: 300px;
+      margin: 0px auto;
+      padding: 20px 30px;
+      background-color: #fff;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+
+      .empty-message{
+
+      }
+      .confirmation-message{
+
+      }
+      .btn-wrapper{
+        display: flex;
+        justify-content: space-around;
       }
     }
   }

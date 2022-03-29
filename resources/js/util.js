@@ -56,6 +56,10 @@ export const FILL_MAP_MENU_TITLE_ENGLISH = "Fill";
  * 地図埋め：説明テキスト
  */
 export const FILL_MAP_EXPLANATION_TEXT = "地図埋めの説明";
+/**
+ * 地図埋め：解答終了確認テキスト
+ */
+ export const FILL_MAP_ANSWER_CONFIRMATION_TEXT = "解答を終了してよろしいですか？";
 
 /**
  * 地図クイズ：日本語タイトル

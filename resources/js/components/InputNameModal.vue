@@ -6,36 +6,59 @@
           <div class="img-wrapper">
             <img :src="'./image/map/' + imageId + '.svg'" alt="" />
           </div>
-          <div class="input-place-name">
-            <input
-              type="text"
-              class="input"
-              v-model="selectedPlaceName"
-              v-if="answerMethod === methodWrite"
-            />
-            <div class="select-wrapper" v-else>
-              <select class="select" v-model="selectedPlaceName">
-                <option value="">選択してください。</option>
-                <option
-                  v-for="item in placeNames"
-                  :key="item.name"
-                  :value="item.name"
-                >
-                  {{ item.name }}
-                </option>
-              </select>
+          <div class="mode-input" v-if="mode === modeInput">
+            <div class="input-place-name">
+              <input
+                type="text"
+                class="input"
+                v-model="selectedPlaceName"
+                v-if="answerMethod === methodWrite"
+              />
+              <div class="select-wrapper" v-else>
+                <select class="select" v-model="selectedPlaceName">
+                  <option value="">選択してください。</option>
+                  <option
+                    v-for="item in placeNames"
+                    :key="item.name"
+                    :value="item.name"
+                  >
+                    {{ item.name }}
+                  </option>
+                </select>
+              </div>
             </div>
+            <button
+              class="btn btn-gray"
+              @click="ok(selectedPlaceName, imageId)"
+            >
+              OK
+            </button>
           </div>
-          <button class="btn btn-gray" @click="ok(selectedPlaceName, imageId)">
-            OK
-          </button>
+          <div class="mode-confirm" v-else>
+            <div class="confirm-text">
+              <div class="inputed-text">
+                <p>あなたの解答</p>
+                <p>{{ initialPlaceName }}</p>
+              </div>
+              <div class="correct-text">
+                <p>正解</p>
+                <p>{{ correctPlaceName }}</p>
+              </div>
+            </div>
+            <button class="btn btn-gray" @click="ok">OK</button>
+          </div>
         </div>
       </div>
     </div>
   </transition>
 </template>
 <script>
-import { ANSWER_METHOD_SELECT, ANSWER_METHOD_WRITE } from "../util";
+import {
+  ANSWER_METHOD_SELECT,
+  ANSWER_METHOD_WRITE,
+  FILL_MAP_MODAL_INPUT_MODE,
+  FILL_MAP_MODAL_CONFIRM_MODE,
+} from "../util";
 export default {
   props: {
     placeNames: [],
@@ -43,6 +66,8 @@ export default {
     setPlaceName: Function,
     answerMethod: String,
     initialPlaceName: String,
+    correctPlaceName: String,
+    mode: String,
     ok: Function,
   },
   data() {
@@ -50,6 +75,8 @@ export default {
       methodSelect: ANSWER_METHOD_SELECT,
       methodWrite: ANSWER_METHOD_WRITE,
       selectedPlaceName: this.initialPlaceName,
+      modeInput: FILL_MAP_MODAL_INPUT_MODE,
+      modeConfirm: FILL_MAP_MODAL_CONFIRM_MODE,
     };
   },
   methods: {},

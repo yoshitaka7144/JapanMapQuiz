@@ -738,7 +738,9 @@
         :imageId="imageId"
         :answerMethod="answerMethod"
         :initialPlaceName="inputedName[imageId - 1]"
-        :ok="setPlaceName"
+        :correctPlaceName="mapNames[imageId - 1]"
+        :mode="inputModalMode"
+        :ok="okFunction"
       />
       <ConfirmationModalComponent
         v-if="showConfirmationModal"
@@ -758,6 +760,8 @@ import {
   FILL_MAP_EXPLANATION_TEXT,
   SETTING_CLASSIFICATION_ERROR_TEXT,
   ANSWER_METHOD_SELECT,
+  FILL_MAP_MODAL_INPUT_MODE,
+  FILL_MAP_MODAL_CONFIRM_MODE,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 import InputModalComponent from "./InputNameModal.vue";
@@ -796,6 +800,8 @@ export default {
       isFinished: false,
       emptyCount: 0,
       judgeName: [],
+      inputModalMode: FILL_MAP_MODAL_INPUT_MODE,
+      okFunction: this.setPlaceName,
     };
   },
   mounted() {
@@ -811,6 +817,8 @@ export default {
       this.checkTargetIndex = [];
       this.canStartGame = false;
       this.isFinished = false;
+      this.inputModalMode = FILL_MAP_MODAL_INPUT_MODE;
+      this.okFunction = this.setPlaceName;
     },
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -890,6 +898,9 @@ export default {
         }
       });
     },
+    closeInputModal() {
+      this.showInputNameModal = false;
+    },
     checkAnswer() {
       let count = 0;
       this.checkTargetIndex.forEach((index) => {
@@ -911,16 +922,18 @@ export default {
       // 入力地名判定
       for (let i = 0; i < 47; i++) {
         const name = this.inputedName[i];
-        if(name === ""){
+        if (name === "") {
           continue;
         }
         const correctName = this.mapNames[i];
-        if(name === correctName){
+        if (name === correctName) {
           this.judgeName[i] = true;
         }
       }
       this.showConfirmationModal = false;
       this.isFinished = true;
+      this.inputModalMode = FILL_MAP_MODAL_CONFIRM_MODE;
+      this.okFunction = this.closeInputModal;
     },
   },
 };

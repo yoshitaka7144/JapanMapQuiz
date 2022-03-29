@@ -24039,6 +24039,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -24076,7 +24078,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       checkTargetIndex: [],
       isFinished: false,
       emptyCount: 0,
-      judgeName: []
+      judgeName: [],
+      inputModalMode: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_INPUT_MODE,
+      okFunction: this.setPlaceName
     };
   },
   mounted: function mounted() {
@@ -24093,6 +24097,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.checkTargetIndex = [];
       this.canStartGame = false;
       this.isFinished = false;
+      this.inputModalMode = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_INPUT_MODE;
+      this.okFunction = this.setPlaceName;
     },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -24224,6 +24230,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
+    closeInputModal: function closeInputModal() {
+      this.showInputNameModal = false;
+    },
     checkAnswer: function checkAnswer() {
       var _this5 = this;
 
@@ -24261,6 +24270,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.showConfirmationModal = false;
       this.isFinished = true;
+      this.inputModalMode = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_CONFIRM_MODE;
+      this.okFunction = this.closeInputModal;
     }
   }
 });
@@ -24478,6 +24489,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -24486,13 +24515,17 @@ __webpack_require__.r(__webpack_exports__);
     setPlaceName: Function,
     answerMethod: String,
     initialPlaceName: String,
+    correctPlaceName: String,
+    mode: String,
     ok: Function
   },
   data: function data() {
     return {
       methodSelect: _util__WEBPACK_IMPORTED_MODULE_0__.ANSWER_METHOD_SELECT,
       methodWrite: _util__WEBPACK_IMPORTED_MODULE_0__.ANSWER_METHOD_WRITE,
-      selectedPlaceName: this.initialPlaceName
+      selectedPlaceName: this.initialPlaceName,
+      modeInput: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MODAL_INPUT_MODE,
+      modeConfirm: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MODAL_CONFIRM_MODE
     };
   },
   methods: {}
@@ -26202,6 +26235,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FILL_MAP_EXPLANATION_TEXT": () => (/* binding */ FILL_MAP_EXPLANATION_TEXT),
 /* harmony export */   "FILL_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ FILL_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "FILL_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ FILL_MAP_MENU_TITLE_JAPANESE),
+/* harmony export */   "FILL_MAP_MODAL_CONFIRM_MODE": () => (/* binding */ FILL_MAP_MODAL_CONFIRM_MODE),
+/* harmony export */   "FILL_MAP_MODAL_INPUT_MODE": () => (/* binding */ FILL_MAP_MODAL_INPUT_MODE),
 /* harmony export */   "INTERNAL_SERVER_ERROR": () => (/* binding */ INTERNAL_SERVER_ERROR),
 /* harmony export */   "OK": () => (/* binding */ OK),
 /* harmony export */   "QUIZ_MAP_CHOICE_DEFAULT_VALUE": () => (/* binding */ QUIZ_MAP_CHOICE_DEFAULT_VALUE),
@@ -26290,6 +26325,16 @@ var FILL_MAP_EXPLANATION_TEXT = "地図埋めの説明";
  */
 
 var FILL_MAP_ANSWER_CONFIRMATION_TEXT = "解答を終了してよろしいですか？";
+/**
+* 地図埋め：モーダルモード：入力
+*/
+
+var FILL_MAP_MODAL_INPUT_MODE = "input";
+/**
+* 地図埋め：モーダルモード：確認
+*/
+
+var FILL_MAP_MODAL_CONFIRM_MODE = "confirm";
 /**
  * 地図クイズ：日本語タイトル
  */
@@ -51633,7 +51678,9 @@ var render = function () {
                 imageId: _vm.imageId,
                 answerMethod: _vm.answerMethod,
                 initialPlaceName: _vm.inputedName[_vm.imageId - 1],
-                ok: _vm.setPlaceName,
+                correctPlaceName: _vm.mapNames[_vm.imageId - 1],
+                mode: _vm.inputModalMode,
+                ok: _vm.okFunction,
               },
             })
           : _vm._e(),
@@ -51985,94 +52032,121 @@ var render = function () {
             }),
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "input-place-name" }, [
-            _vm.answerMethod === _vm.methodWrite
-              ? _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedPlaceName,
-                      expression: "selectedPlaceName",
-                    },
-                  ],
-                  staticClass: "input",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.selectedPlaceName },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.selectedPlaceName = $event.target.value
-                    },
-                  },
-                })
-              : _c("div", { staticClass: "select-wrapper" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.selectedPlaceName,
-                          expression: "selectedPlaceName",
+          _vm.mode === _vm.modeInput
+            ? _c("div", { staticClass: "mode-input" }, [
+                _c("div", { staticClass: "input-place-name" }, [
+                  _vm.answerMethod === _vm.methodWrite
+                    ? _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedPlaceName,
+                            expression: "selectedPlaceName",
+                          },
+                        ],
+                        staticClass: "input",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.selectedPlaceName },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.selectedPlaceName = $event.target.value
+                          },
                         },
-                      ],
-                      staticClass: "select",
-                      on: {
-                        change: function ($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function (o) {
-                              return o.selected
-                            })
-                            .map(function (o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.selectedPlaceName = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        },
+                      })
+                    : _c("div", { staticClass: "select-wrapper" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.selectedPlaceName,
+                                expression: "selectedPlaceName",
+                              },
+                            ],
+                            staticClass: "select",
+                            on: {
+                              change: function ($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function (o) {
+                                    return o.selected
+                                  })
+                                  .map(function (o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.selectedPlaceName = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                            },
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("選択してください。"),
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.placeNames, function (item) {
+                              return _c(
+                                "option",
+                                {
+                                  key: item.name,
+                                  domProps: { value: item.name },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(item.name) +
+                                      "\n                "
+                                  ),
+                                ]
+                              )
+                            }),
+                          ],
+                          2
+                        ),
+                      ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-gray",
+                    on: {
+                      click: function ($event) {
+                        return _vm.ok(_vm.selectedPlaceName, _vm.imageId)
                       },
                     },
-                    [
-                      _c("option", { attrs: { value: "" } }, [
-                        _vm._v("選択してください。"),
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.placeNames, function (item) {
-                        return _c(
-                          "option",
-                          { key: item.name, domProps: { value: item.name } },
-                          [
-                            _vm._v(
-                              "\n                " +
-                                _vm._s(item.name) +
-                                "\n              "
-                            ),
-                          ]
-                        )
-                      }),
-                    ],
-                    2
-                  ),
+                  },
+                  [_vm._v("\n            OK\n          ")]
+                ),
+              ])
+            : _c("div", { staticClass: "mode-confirm" }, [
+                _c("div", { staticClass: "confirm-text" }, [
+                  _c("div", { staticClass: "inputed-text" }, [
+                    _c("p", [_vm._v("あなたの解答")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.initialPlaceName))]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "correct-text" }, [
+                    _c("p", [_vm._v("正解")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.correctPlaceName))]),
+                  ]),
                 ]),
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-gray",
-              on: {
-                click: function ($event) {
-                  return _vm.ok(_vm.selectedPlaceName, _vm.imageId)
-                },
-              },
-            },
-            [_vm._v("\n          OK\n        ")]
-          ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-gray", on: { click: _vm.ok } },
+                  [_vm._v("OK")]
+                ),
+              ]),
         ]),
       ]),
     ]),

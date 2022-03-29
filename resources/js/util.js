@@ -59,7 +59,15 @@ export const FILL_MAP_EXPLANATION_TEXT = "地図埋めの説明";
 /**
  * 地図埋め：解答終了確認テキスト
  */
- export const FILL_MAP_ANSWER_CONFIRMATION_TEXT = "解答を終了してよろしいですか？";
+export const FILL_MAP_ANSWER_CONFIRMATION_TEXT = "解答を終了してよろしいですか？";
+/**
+* 地図埋め：モーダルモード：入力
+*/
+export const FILL_MAP_MODAL_INPUT_MODE = "input";
+/**
+* 地図埋め：モーダルモード：確認
+*/
+export const FILL_MAP_MODAL_CONFIRM_MODE = "confirm";
 
 /**
  * 地図クイズ：日本語タイトル

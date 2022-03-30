@@ -454,11 +454,15 @@ $hamburger-menu-background-color: gray;
     height: 100%;
 
     .game {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       .map-wrapper {
+        height: 90%;
         text-align: center;
         svg {
-          width: 580px;
-          height: 580px;
+          height: 100%;
+          width: 100%;
 
           .cls-1 {
             fill: #fff;
@@ -468,6 +472,7 @@ $hamburger-menu-background-color: gray;
             }
             &.disabled {
               fill: rgb(139, 156, 151) !important;
+              opacity: 1 !important;
               &:hover {
                 fill: rgb(139, 156, 151) !important;
                 opacity: 1 !important;
@@ -478,6 +483,7 @@ $hamburger-menu-background-color: gray;
             }
             &.fill {
               fill: rgb(47, 194, 145);
+              opacity: 0.7;
             }
             &[data-name="siga-2"]:hover {
               fill: #fff;
@@ -502,6 +508,9 @@ $hamburger-menu-background-color: gray;
           }
         }
       }
+      .btn-wrapper {
+        height: 10%;
+      }
     }
   }
 }
@@ -520,8 +529,14 @@ $hamburger-menu-background-color: gray;
       .img-wrapper {
         display: flex;
         justify-content: center;
-        img {
-          height: 200px;
+
+        .svg-default {
+          fill: rgb(47, 194, 145);
+          stroke: #7c7c7c;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: 0.48px;
+          fill-rule: evenodd;
         }
       }
 
@@ -610,8 +625,13 @@ $hamburger-menu-background-color: gray;
       .img-wrapper {
         display: flex;
         justify-content: center;
-        img {
-          height: 200px;
+        .svg-default {
+          fill: rgb(47, 194, 145);
+          stroke: #7c7c7c;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: 0.48px;
+          fill-rule: evenodd;
         }
       }
 
@@ -727,8 +747,21 @@ modal
       .img-wrapper {
         display: flex;
         justify-content: center;
-        img {
-          height: 200px;
+
+        .svg-default {
+          fill: #fff;
+          stroke: #7c7c7c;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: 0.48px;
+          fill-rule: evenodd;
+
+          &.correct {
+            fill: rgb(123, 224, 191);
+          }
+          &.incorrect {
+            fill: rgb(235, 150, 150);
+          }
         }
       }
 

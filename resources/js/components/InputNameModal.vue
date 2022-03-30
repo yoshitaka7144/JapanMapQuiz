@@ -4,7 +4,19 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="img-wrapper">
-            <img :src="'./image/map/' + imageId + '.svg'" alt="" />
+            <svg
+              class="svg-default"
+              :class="{
+                correct:
+                  mode === modeConfirm && initialPlaceName === correctPlaceName,
+                incorrect:
+                  mode === modeConfirm && initialPlaceName !== correctPlaceName,
+              }"
+            >
+              <use
+                :xlink:href="'./image/map/' + imageId + '.svg#' + imageId"
+              ></use>
+            </svg>
           </div>
           <div class="mode-input" v-if="mode === modeInput">
             <div class="input-place-name">

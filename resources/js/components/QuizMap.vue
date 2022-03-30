@@ -10,10 +10,16 @@
       />
       <div class="game" v-else-if="!resultFlag">
         <div class="img-wrapper">
-          <img
-            :src="'./image/map/' + quizData[currentQuizIndex].id + '.svg'"
-            alt=""
-          />
+          <svg class="svg-default">
+            <use
+              :xlink:href="
+                './image/map/' +
+                quizData[currentQuizIndex].id +
+                '.svg#' +
+                quizData[currentQuizIndex].id
+              "
+            ></use>
+          </svg>
         </div>
         <div class="hint">
           <button

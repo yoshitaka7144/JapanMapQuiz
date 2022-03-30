@@ -68,6 +68,10 @@ export const FILL_MAP_MODAL_INPUT_MODE = "input";
 * 地図埋め：モーダルモード：確認
 */
 export const FILL_MAP_MODAL_CONFIRM_MODE = "confirm";
+/**
+* 地図埋め：viewBox初期値
+*/
+export const FILL_MAP_VIEW_BOX_DEFAULT = "0 0 550 550";
 
 /**
  * 地図クイズ：日本語タイトル

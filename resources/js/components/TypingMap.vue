@@ -13,7 +13,13 @@
         <p>2</p>
         <p>1</p>
       </div>
-      <div class="game" v-else-if="!resultFlag">
+      <div class="game" v-else-if="!isFinished">
+        <div v-if="timeLimitChecked" class="progress">
+          <div
+            class="progress-bar"
+            :style="{ width: progress + '%', backgroundColor: progressColor }"
+          ></div>
+        </div>
         <div class="img-wrapper">
           <svg class="svg-default">
             <use
@@ -112,12 +118,22 @@ export default {
       displayHintText: String,
       displayTypingRemainingText: String,
       displayTypingInputedText: String,
-      resultFlag: false,
+      isFinished: false,
       showAlertModal: false,
       alertMessage: String,
       canShowHint: false,
       canShowDetails: false,
       oneQuizMissCount: 0,
+      typeTime: 0,
+      // 残り時間
+      remainingTime: 0,
+      // プログレスバー進捗率
+      progress: 100,
+      // プログレスバーの色スタイル
+      progressColor: String,
+      // 繰り返し制御用
+      intervalId: "",
+      timeOutId: "",
     };
   },
   mounted() {
@@ -139,7 +155,7 @@ export default {
       this.correctTypeCount = 0;
       this.missTypeCount = 0;
       this.missTypeKeyHash = {};
-      this.resultFlag = false;
+      this.isFinished = false;
       this.showAlertModal = false;
       this.canShowHint = false;
       this.canShowDetails = false;
@@ -186,6 +202,12 @@ export default {
         setTimeout(() => {
           this.startCountDownFlag = false;
           this.isTyping = true;
+          // タイピング時間計測開始
+          this.typeTime = performance.now();
+          if (this.timeLimitChecked) {
+            // 制限時間タイマースタート
+            this.limitTimerStart();
+          }
         }, 3000);
       });
     },
@@ -215,6 +237,42 @@ export default {
 
       // 表示初期化
       this.initQuizText();
+    },
+    // プログレスバー色作成
+    createProgressBarColor(progressPercentage) {
+      // 残り時間減少で緑、黄、赤色へと変化していく
+      const rInitVal = 0;
+      const gInitVal = 230;
+      const bInitVal = 100;
+      const r =
+        (100 - progressPercentage) * 5 > 255
+          ? 255
+          : (100 - progressPercentage) * 5;
+      const g =
+        progressPercentage < 50
+          ? gInitVal - (50 - progressPercentage) * 4
+          : gInitVal;
+      const b = bInitVal - (100 - progressPercentage);
+      this.progressColor = "rgb(" + r + ", " + g + ", " + b + ")";
+    },
+    limitTimerStart() {
+      this.remainingTime = this.timeLimitSelectedValue * 1000;
+      this.intervalId = setInterval(this.remainingTimeCountDown, 10, 10);
+    },
+    // 残り時間を減らす
+    remainingTimeCountDown(n) {
+      // nミリ秒減らす
+      this.remainingTime -= n;
+    },
+    showResult() {
+      if (this.timeLimitChecked) {
+        clearInterval(this.intervalId);
+      }
+      // タイピング時間測定終了
+      this.typeTime = performance.now() - this.typeTime;
+
+      this.isTyping = false;
+      this.isFinished = true;
     },
     initQuizText() {
       this.currentQuizData = this.quizData[this.currentQuizIndex];
@@ -259,8 +317,7 @@ export default {
               this.currentQuizIndex++;
               if (this.currentQuizIndex === this.quizCountLimit) {
                 // 結果表示
-                this.resultFlag = true;
-                this.isTyping = false;
+                this.showResult();
               } else {
                 // 次の問題を表示
                 this.initQuizText();
@@ -311,6 +368,24 @@ export default {
           default:
             break;
         }
+      }
+    },
+  },
+  watch: {
+    remainingTime(val) {
+      if (val < 0) {
+        // 結果表示
+        this.showResult();
+      } else {
+        // 残り時間割合
+        this.progress =
+          Math.floor(
+            (this.remainingTime / (this.timeLimitSelectedValue * 1000)) *
+              100 *
+              10
+          ) / 10;
+        // プログレスバー色作成
+        this.createProgressBarColor(this.progress);
       }
     },
   },

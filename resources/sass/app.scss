@@ -622,6 +622,26 @@ $hamburger-menu-background-color: gray;
     }
 
     .game {
+      .progress {
+        display: inline-block;
+        width: 100%;
+        border-radius: 15px;
+        height: 10px;
+        background-color: #e9edf1;
+        position: relative;
+
+        .progress-bar {
+          display: inline-block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          border-radius: 15px;
+          width: 0%;
+          height: 100%;
+          background-color: rgb(0, 230, 100);
+          transition: all 10ms linear;
+        }
+      }
       .img-wrapper {
         display: flex;
         justify-content: center;

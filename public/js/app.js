@@ -25538,6 +25538,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -25575,12 +25581,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       displayHintText: String,
       displayTypingRemainingText: String,
       displayTypingInputedText: String,
-      resultFlag: false,
+      isFinished: false,
       showAlertModal: false,
       alertMessage: String,
       canShowHint: false,
       canShowDetails: false,
-      oneQuizMissCount: 0
+      oneQuizMissCount: 0,
+      typeTime: 0,
+      // 残り時間
+      remainingTime: 0,
+      // プログレスバー進捗率
+      progress: 100,
+      // プログレスバーの色スタイル
+      progressColor: String,
+      // 繰り返し制御用
+      intervalId: "",
+      timeOutId: ""
     };
   },
   mounted: function mounted() {
@@ -25602,7 +25618,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.correctTypeCount = 0;
       this.missTypeCount = 0;
       this.missTypeKeyHash = {};
-      this.resultFlag = false;
+      this.isFinished = false;
       this.showAlertModal = false;
       this.canShowHint = false;
       this.canShowDetails = false;
@@ -25672,7 +25688,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.canStartGame = true;
         setTimeout(function () {
           _this2.startCountDownFlag = false;
-          _this2.isTyping = true;
+          _this2.isTyping = true; // タイピング時間計測開始
+
+          _this2.typeTime = performance.now();
+
+          if (_this2.timeLimitChecked) {
+            // 制限時間タイマースタート
+            _this2.limitTimerStart();
+          }
         }, 3000);
       });
     },
@@ -25697,6 +25720,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
       this.initQuizText();
+    },
+    // プログレスバー色作成
+    createProgressBarColor: function createProgressBarColor(progressPercentage) {
+      // 残り時間減少で緑、黄、赤色へと変化していく
+      var rInitVal = 0;
+      var gInitVal = 230;
+      var bInitVal = 100;
+      var r = (100 - progressPercentage) * 5 > 255 ? 255 : (100 - progressPercentage) * 5;
+      var g = progressPercentage < 50 ? gInitVal - (50 - progressPercentage) * 4 : gInitVal;
+      var b = bInitVal - (100 - progressPercentage);
+      this.progressColor = "rgb(" + r + ", " + g + ", " + b + ")";
+    },
+    limitTimerStart: function limitTimerStart() {
+      this.remainingTime = this.timeLimitSelectedValue * 1000;
+      this.intervalId = setInterval(this.remainingTimeCountDown, 10, 10);
+    },
+    // 残り時間を減らす
+    remainingTimeCountDown: function remainingTimeCountDown(n) {
+      // nミリ秒減らす
+      this.remainingTime -= n;
+    },
+    showResult: function showResult() {
+      if (this.timeLimitChecked) {
+        clearInterval(this.intervalId);
+      } // タイピング時間測定終了
+
+
+      this.typeTime = performance.now() - this.typeTime;
+      this.isTyping = false;
+      this.isFinished = true;
     },
     initQuizText: function initQuizText() {
       this.currentQuizData = this.quizData[this.currentQuizIndex];
@@ -25733,8 +25786,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               if (this.currentQuizIndex === this.quizCountLimit) {
                 // 結果表示
-                this.resultFlag = true;
-                this.isTyping = false;
+                this.showResult();
               } else {
                 // 次の問題を表示
                 this.initQuizText();
@@ -25786,6 +25838,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           default:
             break;
         }
+      }
+    }
+  },
+  watch: {
+    remainingTime: function remainingTime(val) {
+      if (val < 0) {
+        // 結果表示
+        this.showResult();
+      } else {
+        // 残り時間割合
+        this.progress = Math.floor(this.remainingTime / (this.timeLimitSelectedValue * 1000) * 100 * 10) / 10; // プログレスバー色作成
+
+        this.createProgressBarColor(this.progress);
       }
     }
   }
@@ -53278,8 +53343,20 @@ var render = function () {
               _vm._v(" "),
               _c("p", [_vm._v("1")]),
             ])
-          : !_vm.resultFlag
+          : !_vm.isFinished
           ? _c("div", { staticClass: "game" }, [
+              _vm.timeLimitChecked
+                ? _c("div", { staticClass: "progress" }, [
+                    _c("div", {
+                      staticClass: "progress-bar",
+                      style: {
+                        width: _vm.progress + "%",
+                        backgroundColor: _vm.progressColor,
+                      },
+                    }),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("div", { staticClass: "img-wrapper" }, [
                 _c("svg", { staticClass: "svg-default" }, [
                   _c("use", {

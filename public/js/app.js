@@ -24933,8 +24933,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       timeLimitChecked: Boolean,
       timeLimitSelectedValue: Number,
       quizCountSelectedValue: Number,
+      choiceType: String,
       maps: [],
-      choices: [],
+      choices: {},
       quizData: [],
       correctCount: 0,
       incorrectCount: 0,
@@ -24943,7 +24944,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       selectedChoiceValue: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE,
       nextFlag: false,
       lastFlag: false,
-      resultFlag: false,
+      isFinished: false,
       showAlertModal: false,
       alertMessage: String,
       canShowHint: false
@@ -24953,7 +24954,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     reset: function reset() {
       this.canStartGame = false;
       this.maps = [];
-      this.choices = [];
+      this.choices = {};
       this.quizData = [];
       this.correctCount = 0;
       this.incorrectCount = 0;
@@ -24962,7 +24963,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.selectedChoiceValue = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE;
       this.nextFlag = false;
       this.lastFlag = false;
-      this.resultFlag = false;
+      this.isFinished = false;
       this.showAlertModal = false;
       this.canShowHint = false;
     },
@@ -24971,7 +24972,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.audioChecked = params.audioChecked;
       this.timeLimitChecked = params.timeLimitChecked;
       this.timeLimitSelectedValue = params.timeLimitSelectedValue;
-      this.quizCountSelectedValue = params.quizCountSelectedValue; // 地方区分エラーチェック
+      this.quizCountSelectedValue = params.quizCountSelectedValue;
+      this.choiceType = params.choiceType; // 地方区分エラーチェック
 
       if (this.classificationCheckedValues.length === 0) {
         this.alertMessage = _util__WEBPACK_IMPORTED_MODULE_1__.SETTING_CLASSIFICATION_ERROR_TEXT;
@@ -25042,7 +25044,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     name: "systemError"
                   });
                 } else {
-                  _this2.choices = response.data;
+                  if (_this2.choiceType === _util__WEBPACK_IMPORTED_MODULE_1__.CHOICE_TYPE_ALL) {
+                    _this2.choices = response.data;
+                  } else {
+                    response.data.forEach(function (item) {
+                      var name = item.name;
+                      var classificationId = item.classification_id;
+
+                      if (classificationId === 1) {
+                        _this2.choices[classificationId] = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_HOKKAIDOU_CHOICES.split(",");
+                      } else {
+                        if (_this2.choices[classificationId]) {
+                          _this2.choices[classificationId].push(name);
+                        } else {
+                          _this2.choices[classificationId] = [name];
+                        }
+                      }
+                    });
+                  }
                 }
 
               case 4:
@@ -25084,13 +25103,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var array = [];
         array.push(quiz.name);
 
-        while (j !== 4) {
-          var r = Math.floor(Math.random() * this.choices.length);
-          var name = this.choices[r].name;
+        if (this.choiceType === _util__WEBPACK_IMPORTED_MODULE_1__.CHOICE_TYPE_ALL) {
+          while (j !== 4) {
+            var r = Math.floor(Math.random() * this.choices.length);
+            var name = this.choices[r].name;
 
-          if (name !== quiz.name && array.indexOf(name) === -1) {
-            array.push(name);
-            j++;
+            if (name !== quiz.name && array.indexOf(name) === -1) {
+              array.push(name);
+              j++;
+            }
+          }
+        } else {
+          var classificationId = this.maps[i].classification_id;
+
+          while (j !== 4) {
+            var _r = Math.floor(Math.random() * this.choices[classificationId].length);
+
+            var _name = this.choices[classificationId][_r];
+
+            if (_name !== quiz.name && array.indexOf(_name) === -1) {
+              array.push(_name);
+              j++;
+            }
           }
         }
 
@@ -25109,13 +25143,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this3.canStartGame = true;
       });
     },
+    showResult: function showResult() {
+      this.isFinished = true;
+    },
     judgeQuiz: function judgeQuiz() {
       if (this.selectedChoiceValue === _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
         this.alertMessage = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_NOT_CHOICE_TEXT;
         this.showAlertModal = true;
       } else if (this.nextFlag && this.lastFlag) {
         // 結果画面表示
-        this.resultFlag = true;
+        this.showResult();
       } else if (this.nextFlag && !this.lastFlag) {
         // 次の問題表示
         this.currentQuizIndex++;
@@ -25272,6 +25309,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -25288,7 +25347,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         audioChecked: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_AUDIO_CHECKED,
         timeLimitChecked: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TIME_LIMIT_CHECKED,
         timeLimitSelectedValue: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TIME_LIMIT_VALUE,
-        quizCountSelectedValue: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_QUIZ_COUNT_VALUE
+        quizCountSelectedValue: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_QUIZ_COUNT_VALUE,
+        choiceType: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_CHOICE_TYPE
       },
       classifications: Array,
       timeLimitValues: Array,
@@ -25298,6 +25358,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       typingMapMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_MENU_TITLE_ENGLISH,
       answerMethodSelectValue: _util__WEBPACK_IMPORTED_MODULE_1__.ANSWER_METHOD_SELECT,
       answerMethodWriteValue: _util__WEBPACK_IMPORTED_MODULE_1__.ANSWER_METHOD_WRITE,
+      choiceTypeAll: _util__WEBPACK_IMPORTED_MODULE_1__.CHOICE_TYPE_ALL,
+      choiceTypeClassification: _util__WEBPACK_IMPORTED_MODULE_1__.CHOICE_TYPE_CLASSIFICATION,
       completesApiLoading: false
     };
   },
@@ -26476,9 +26538,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ANSWER_METHOD_SELECT": () => (/* binding */ ANSWER_METHOD_SELECT),
 /* harmony export */   "ANSWER_METHOD_WRITE": () => (/* binding */ ANSWER_METHOD_WRITE),
+/* harmony export */   "CHOICE_TYPE_ALL": () => (/* binding */ CHOICE_TYPE_ALL),
+/* harmony export */   "CHOICE_TYPE_CLASSIFICATION": () => (/* binding */ CHOICE_TYPE_CLASSIFICATION),
 /* harmony export */   "CREATED": () => (/* binding */ CREATED),
 /* harmony export */   "DEFAULT_ANSWER_METHOD": () => (/* binding */ DEFAULT_ANSWER_METHOD),
 /* harmony export */   "DEFAULT_AUDIO_CHECKED": () => (/* binding */ DEFAULT_AUDIO_CHECKED),
+/* harmony export */   "DEFAULT_CHOICE_TYPE": () => (/* binding */ DEFAULT_CHOICE_TYPE),
 /* harmony export */   "DEFAULT_QUIZ_COUNT_VALUE": () => (/* binding */ DEFAULT_QUIZ_COUNT_VALUE),
 /* harmony export */   "DEFAULT_TIME_LIMIT_CHECKED": () => (/* binding */ DEFAULT_TIME_LIMIT_CHECKED),
 /* harmony export */   "DEFAULT_TIME_LIMIT_VALUE": () => (/* binding */ DEFAULT_TIME_LIMIT_VALUE),
@@ -26493,6 +26558,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "OK": () => (/* binding */ OK),
 /* harmony export */   "QUIZ_MAP_CHOICE_DEFAULT_VALUE": () => (/* binding */ QUIZ_MAP_CHOICE_DEFAULT_VALUE),
 /* harmony export */   "QUIZ_MAP_EXPLANATION_TEXT": () => (/* binding */ QUIZ_MAP_EXPLANATION_TEXT),
+/* harmony export */   "QUIZ_MAP_HOKKAIDOU_CHOICES": () => (/* binding */ QUIZ_MAP_HOKKAIDOU_CHOICES),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ QUIZ_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ QUIZ_MAP_MENU_TITLE_JAPANESE),
 /* harmony export */   "QUIZ_MAP_NOT_CHOICE_TEXT": () => (/* binding */ QUIZ_MAP_NOT_CHOICE_TEXT),
@@ -26558,6 +26624,21 @@ var ANSWER_METHOD_WRITE = "write";
 
 var DEFAULT_ANSWER_METHOD = ANSWER_METHOD_SELECT;
 /**
+ * 設定画面：選択肢タイプ：全都道府県
+ */
+
+var CHOICE_TYPE_ALL = "all";
+/**
+ * 設定画面：選択肢タイプ：同地方区分
+ */
+
+var CHOICE_TYPE_CLASSIFICATION = "classification";
+/**
+ * 設定画面：選択肢タイプ：初期選択値
+ */
+
+var DEFAULT_CHOICE_TYPE = CHOICE_TYPE_ALL;
+/**
  * 地図埋め：日本語タイトル
  */
 
@@ -26617,6 +26698,11 @@ var QUIZ_MAP_CHOICE_DEFAULT_VALUE = "#";
 */
 
 var QUIZ_MAP_NOT_CHOICE_TEXT = "選択肢を選択してください。";
+/**
+* 地図クイズ：選択肢が同地方区分の場合の北海道の選択肢データ
+*/
+
+var QUIZ_MAP_HOKKAIDOU_CHOICES = "北海道,あああ,いいい,ううう";
 /**
 * 地図タイピング：日本語タイトル
 */
@@ -52677,7 +52763,7 @@ var render = function () {
                 "setting-params": _vm.settingParams,
               },
             })
-          : !_vm.resultFlag
+          : !_vm.isFinished
           ? _c("div", { staticClass: "game" }, [
               _c("div", { staticClass: "img-wrapper" }, [
                 _c("svg", { staticClass: "svg-default" }, [
@@ -53064,6 +53150,75 @@ var render = function () {
                   }),
                   0
                 ),
+              ]),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.selectedMenuTitleEn === _vm.quizMapMenuTitleEn
+          ? _c("div", { staticClass: "setting-choice-type" }, [
+              _c("p", [_vm._v("選択肢タイプ")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "radio-wrapper" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.params.choiceType,
+                      expression: "params.choiceType",
+                    },
+                  ],
+                  attrs: { type: "radio", id: "choice-type-all" },
+                  domProps: {
+                    value: _vm.choiceTypeAll,
+                    checked: _vm._q(_vm.params.choiceType, _vm.choiceTypeAll),
+                  },
+                  on: {
+                    change: function ($event) {
+                      return _vm.$set(
+                        _vm.params,
+                        "choiceType",
+                        _vm.choiceTypeAll
+                      )
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "choice-type-all" } }, [
+                  _vm._v("全都道府県"),
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.params.choiceType,
+                      expression: "params.choiceType",
+                    },
+                  ],
+                  attrs: { type: "radio", id: "choice-type-classification" },
+                  domProps: {
+                    value: _vm.choiceTypeClassification,
+                    checked: _vm._q(
+                      _vm.params.choiceType,
+                      _vm.choiceTypeClassification
+                    ),
+                  },
+                  on: {
+                    change: function ($event) {
+                      return _vm.$set(
+                        _vm.params,
+                        "choiceType",
+                        _vm.choiceTypeClassification
+                      )
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "choice-type-classification" } }, [
+                  _vm._v("同地方区分"),
+                ]),
               ]),
             ])
           : _vm._e(),

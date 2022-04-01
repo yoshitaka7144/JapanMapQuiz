@@ -47,6 +47,28 @@
       </div>
     </div>
     <div
+      class="setting-choice-type"
+      v-if="selectedMenuTitleEn === quizMapMenuTitleEn"
+    >
+      <p>選択肢タイプ</p>
+      <div class="radio-wrapper">
+        <input
+          type="radio"
+          id="choice-type-all"
+          :value="choiceTypeAll"
+          v-model="params.choiceType"
+        />
+        <label for="choice-type-all">全都道府県</label>
+        <input
+          type="radio"
+          id="choice-type-classification"
+          :value="choiceTypeClassification"
+          v-model="params.choiceType"
+        />
+        <label for="choice-type-classification">同地方区分</label>
+      </div>
+    </div>
+    <div
       class="setting-audio"
       v-if="selectedMenuTitleEn !== fillMapMenuTitleEn"
     >
@@ -114,6 +136,9 @@ import {
   DEFAULT_ANSWER_METHOD,
   DEFAULT_TIME_LIMIT_CHECKED,
   DEFAULT_AUDIO_CHECKED,
+  CHOICE_TYPE_ALL,
+  CHOICE_TYPE_CLASSIFICATION,
+  DEFAULT_CHOICE_TYPE,
 } from "../util";
 export default {
   props: {
@@ -131,6 +156,7 @@ export default {
         timeLimitChecked: DEFAULT_TIME_LIMIT_CHECKED,
         timeLimitSelectedValue: DEFAULT_TIME_LIMIT_VALUE,
         quizCountSelectedValue: DEFAULT_QUIZ_COUNT_VALUE,
+        choiceType: DEFAULT_CHOICE_TYPE,
       },
       classifications: Array,
       timeLimitValues: Array,
@@ -140,6 +166,8 @@ export default {
       typingMapMenuTitleEn: TYPING_MAP_MENU_TITLE_ENGLISH,
       answerMethodSelectValue: ANSWER_METHOD_SELECT,
       answerMethodWriteValue: ANSWER_METHOD_WRITE,
+      choiceTypeAll: CHOICE_TYPE_ALL,
+      choiceTypeClassification: CHOICE_TYPE_CLASSIFICATION,
       completesApiLoading: false,
     };
   },

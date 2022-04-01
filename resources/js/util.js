@@ -43,6 +43,18 @@ export const ANSWER_METHOD_WRITE = "write";
  * 設定画面：解答方法ラジオボタン：初期選択値
  */
 export const DEFAULT_ANSWER_METHOD = ANSWER_METHOD_SELECT;
+/**
+ * 設定画面：選択肢タイプ：全都道府県
+ */
+export const CHOICE_TYPE_ALL = "all";
+/**
+ * 設定画面：選択肢タイプ：同地方区分
+ */
+export const CHOICE_TYPE_CLASSIFICATION = "classification";
+/**
+ * 設定画面：選択肢タイプ：初期選択値
+ */
+export const DEFAULT_CHOICE_TYPE = CHOICE_TYPE_ALL;
 
 /**
  * 地図埋め：日本語タイトル
@@ -93,6 +105,10 @@ export const QUIZ_MAP_CHOICE_DEFAULT_VALUE = "#";
 * 地図クイズ：選択肢未選択時テキスト
 */
 export const QUIZ_MAP_NOT_CHOICE_TEXT = "選択肢を選択してください。";
+/**
+* 地図クイズ：選択肢が同地方区分の場合の北海道の選択肢データ
+*/
+export const QUIZ_MAP_HOKKAIDOU_CHOICES = "北海道,あああ,いいい,ううう";
 
 /**
 * 地図タイピング：日本語タイトル

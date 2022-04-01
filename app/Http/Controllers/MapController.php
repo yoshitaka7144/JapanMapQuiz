@@ -23,7 +23,7 @@ class MapController extends Controller
         if (isset($classification_id)) {
             return Map::whereIn("classification_id", $classification_id)->select("name")->orderBy("id", "asc")->get();
         } else {
-            return Map::select("name")->orderBy("id", "asc")->get();
+            return Map::select("name", "classification_id")->orderBy("id", "asc")->get();
         }
     }
 }

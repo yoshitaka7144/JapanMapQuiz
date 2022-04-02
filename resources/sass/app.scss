@@ -496,7 +496,39 @@ $hamburger-menu-background-color: gray;
       flex-direction: column;
       .map-wrapper {
         height: 90%;
-        text-align: center;
+        position: relative;
+
+        .info {
+          position: absolute;
+          top: 0;
+          left: 0;
+          p {
+            padding: 10px;
+            margin-bottom: 7px;
+            border-radius: 5px;
+            border: 1px solid #7c7c7c;
+            text-align: center;
+            color: white;
+
+            &.disabled {
+              background-color: rgb(139, 156, 151);
+            }
+            &.blank {
+              background-color: white;
+              color: #7c7c7c;
+            }
+            &.inputed {
+              background-color: rgb(67, 112, 209);
+            }
+            &.correct {
+              background-color: rgb(123, 224, 191);
+            }
+            &.incorrect {
+              background-color: rgb(235, 150, 150);
+            }
+          }
+        }
+
         svg {
           height: 100%;
           width: 100%;

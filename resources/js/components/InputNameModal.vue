@@ -47,7 +47,14 @@
             </button>
           </div>
           <div class="mode-confirm" v-else>
-            <div class="confirm-text">
+            <div class="confirm-text" v-if="kana">
+              <div class="typing-text">
+                <p>{{ roman }}</p>
+                <p>{{ kana }}</p>
+                <p>{{ correctPlaceName }}</p>
+              </div>
+            </div>
+            <div class="confirm-text" v-else>
               <div class="inputed-text">
                 <p>あなたの解答</p>
                 <p>{{ initialPlaceName }}</p>
@@ -79,6 +86,8 @@ export default {
     answerMethod: String,
     initialPlaceName: String,
     correctPlaceName: String,
+    kana: String,
+    roman: String,
     mode: String,
     ok: Function,
   },

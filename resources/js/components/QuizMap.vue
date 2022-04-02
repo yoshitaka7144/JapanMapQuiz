@@ -74,6 +74,17 @@
               <th>正解数</th>
               <td>{{ correctCount }}</td>
             </tr>
+            <tr>
+              <th>ミス問題</th>
+              <td>
+                <span
+                  v-for="item in missQuizData"
+                  :key="item.id"
+                  @click="showMissQuiz(item)"
+                  >{{ item.correctName }}</span
+                >
+              </td>
+            </tr>
           </div>
           <div class="btn-wrapper">
             <router-link :to="{ name: 'menu' }" class="btn btn-gray">
@@ -87,6 +98,14 @@
         v-if="showAlertModal"
         :alertMessage="alertMessage"
         @close="showAlertModal = false"
+      />
+      <InputModalComponent
+        v-if="showInputModal"
+        :imageId="imageId"
+        :initialPlaceName="initialPlaceName"
+        :correctPlaceName="correctPlaceName"
+        :mode="modalMode"
+        :ok="okFunction"
       />
     </div>
   </div>
@@ -103,13 +122,16 @@ import {
   SETTING_CLASSIFICATION_ERROR_TEXT,
   CHOICE_TYPE_ALL,
   QUIZ_MAP_HOKKAIDOU_CHOICES,
+  FILL_MAP_MODAL_CONFIRM_MODE,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 import AlertModalComponent from "./AlertModal.vue";
+import InputModalComponent from "./InputNameModal.vue";
 export default {
   components: {
     SettingComponent,
     AlertModalComponent,
+    InputModalComponent,
   },
   data() {
     return {
@@ -137,6 +159,13 @@ export default {
       showAlertModal: false,
       alertMessage: String,
       canShowHint: false,
+      showInputModal: false,
+      modalMode: FILL_MAP_MODAL_CONFIRM_MODE,
+      imageId: Number,
+      initialPlaceName: String,
+      correctPlaceName: String,
+      okFunction: Function,
+      missQuizData: [],
     };
   },
   methods: {
@@ -155,6 +184,7 @@ export default {
       this.isFinished = false;
       this.showAlertModal = false;
       this.canShowHint = false;
+      this.missQuizData = [];
     },
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -314,6 +344,12 @@ export default {
         } else {
           // 不正解
           this.incorrectCount++;
+          const missData = {
+            id: this.quizData[this.currentQuizIndex].id,
+            correctName: correctValue,
+            selectedName: this.selectedChoiceValue,
+          };
+          this.missQuizData.push(missData);
         }
 
         // 次へボタン表示
@@ -323,6 +359,16 @@ export default {
           this.lastFlag = true;
         }
       }
+    },
+    closeInputModal() {
+      this.showInputModal = false;
+    },
+    showMissQuiz(item) {
+      this.imageId = item.id;
+      this.initialPlaceName = item.selectedName;
+      this.correctPlaceName = item.correctName;
+      this.okFunction = this.closeInputModal;
+      this.showInputModal = true;
     },
   },
 };

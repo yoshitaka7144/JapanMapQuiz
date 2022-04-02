@@ -55,6 +55,17 @@
               <th>ミスタイプ数</th>
               <td>{{ missTypeCount }}</td>
             </tr>
+            <tr>
+              <th>ミス問題</th>
+              <td>
+                <span
+                  v-for="item in missQuizData"
+                  :key="item.id"
+                  @click="showMissQuiz(item)"
+                  >{{ item.correctName }}</span
+                >
+              </td>
+            </tr>
           </div>
           <div class="btn-wrapper">
             <router-link :to="{ name: 'menu' }" class="btn btn-gray">
@@ -69,6 +80,15 @@
         :alertMessage="alertMessage"
         @close="showAlertModal = false"
       />
+      <InputModalComponent
+        v-if="showInputModal"
+        :imageId="imageId"
+        :kana="kana"
+        :roman="roman"
+        :correctPlaceName="correctPlaceName"
+        :mode="modalMode"
+        :ok="okFunction"
+      />
     </div>
   </div>
 </template>
@@ -81,14 +101,17 @@ import {
   TYPING_MAP_EXPLANATION_TEXT,
   TYPING_MAP_TYPING_TEXT_END_CHAR,
   SETTING_CLASSIFICATION_ERROR_TEXT,
+  FILL_MAP_MODAL_CONFIRM_MODE,
 } from "../util";
 import { checkInputKey } from "../key.js";
 import SettingComponent from "./Setting.vue";
 import AlertModalComponent from "./AlertModal.vue";
+import InputModalComponent from "./InputNameModal.vue";
 export default {
   components: {
     SettingComponent,
     AlertModalComponent,
+    InputModalComponent,
   },
   data() {
     return {
@@ -134,6 +157,15 @@ export default {
       // 繰り返し制御用
       intervalId: "",
       timeOutId: "",
+      showInputModal: false,
+      modalMode: FILL_MAP_MODAL_CONFIRM_MODE,
+      imageId: Number,
+      kana: String,
+      roman: String,
+      correctPlaceName: String,
+      okFunction: Function,
+      missQuizData: [],
+      tmpId: 0,
     };
   },
   mounted() {
@@ -159,6 +191,8 @@ export default {
       this.showAlertModal = false;
       this.canShowHint = false;
       this.canShowDetails = false;
+      this.tmpId = 0;
+      this.missQuizData = [];
     },
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -274,6 +308,17 @@ export default {
       this.isTyping = false;
       this.isFinished = true;
     },
+    closeInputModal() {
+      this.showInputModal = false;
+    },
+    showMissQuiz(item) {
+      this.imageId = item.id;
+      this.kana = item.kana;
+      this.correctPlaceName = item.correctName;
+      this.roman = item.roman;
+      this.okFunction = this.closeInputModal;
+      this.showInputModal = true;
+    },
     initQuizText() {
       this.currentQuizData = this.quizData[this.currentQuizIndex];
       this.currentTypingText = this.currentQuizData.typingText.split("");
@@ -364,6 +409,18 @@ export default {
             } else {
               this.missTypeKeyHash[missTypeKey] = 1;
             }
+
+            if (this.tmpId !== this.quizData[this.currentQuizIndex].id) {
+              const missData = {
+                id: this.quizData[this.currentQuizIndex].id,
+                correctName: this.quizData[this.currentQuizIndex].name,
+                kana: this.quizData[this.currentQuizIndex].kana,
+                roman: this.quizData[this.currentQuizIndex].typingText,
+              };
+              this.missQuizData.push(missData);
+              this.tmpId = this.quizData[this.currentQuizIndex].id;
+            }
+
             break;
           default:
             break;

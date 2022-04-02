@@ -24117,6 +24117,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -24681,6 +24688,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -24690,6 +24704,8 @@ __webpack_require__.r(__webpack_exports__);
     answerMethod: String,
     initialPlaceName: String,
     correctPlaceName: String,
+    kana: String,
+    roman: String,
     mode: String,
     ok: Function
   },
@@ -24814,6 +24830,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
 /* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/components/Setting.vue");
 /* harmony import */ var _AlertModal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AlertModal.vue */ "./resources/js/components/AlertModal.vue");
+/* harmony import */ var _InputNameModal_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./InputNameModal.vue */ "./resources/js/components/InputNameModal.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -24914,13 +24931,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     SettingComponent: _Setting_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    AlertModalComponent: _AlertModal_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    AlertModalComponent: _AlertModal_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    InputModalComponent: _InputNameModal_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
     return {
@@ -24947,7 +24985,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isFinished: false,
       showAlertModal: false,
       alertMessage: String,
-      canShowHint: false
+      canShowHint: false,
+      showInputModal: false,
+      modalMode: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_CONFIRM_MODE,
+      imageId: Number,
+      initialPlaceName: String,
+      correctPlaceName: String,
+      okFunction: Function,
+      missQuizData: []
     };
   },
   methods: {
@@ -24966,6 +25011,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isFinished = false;
       this.showAlertModal = false;
       this.canShowHint = false;
+      this.missQuizData = [];
     },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -25170,6 +25216,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         } else {
           // 不正解
           this.incorrectCount++;
+          var missData = {
+            id: this.quizData[this.currentQuizIndex].id,
+            correctName: correctValue,
+            selectedName: this.selectedChoiceValue
+          };
+          this.missQuizData.push(missData);
         } // 次へボタン表示
 
 
@@ -25180,6 +25232,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           this.lastFlag = true;
         }
       }
+    },
+    closeInputModal: function closeInputModal() {
+      this.showInputModal = false;
+    },
+    showMissQuiz: function showMissQuiz(item) {
+      this.imageId = item.id;
+      this.initialPlaceName = item.selectedName;
+      this.correctPlaceName = item.correctName;
+      this.okFunction = this.closeInputModal;
+      this.showInputModal = true;
     }
   }
 });
@@ -25342,7 +25404,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       params: {
-        classificationCheckedValues: [],
+        classificationCheckedValues: [1, 2, 3, 4, 5, 6, 7, 8],
         answerMethod: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_ANSWER_METHOD,
         audioChecked: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_AUDIO_CHECKED,
         timeLimitChecked: _util__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_TIME_LIMIT_CHECKED,
@@ -25525,6 +25587,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _key_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../key.js */ "./resources/js/key.js");
 /* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/components/Setting.vue");
 /* harmony import */ var _AlertModal_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AlertModal.vue */ "./resources/js/components/AlertModal.vue");
+/* harmony import */ var _InputNameModal_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./InputNameModal.vue */ "./resources/js/components/InputNameModal.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -25606,6 +25669,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -25613,7 +25697,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     SettingComponent: _Setting_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    AlertModalComponent: _AlertModal_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    AlertModalComponent: _AlertModal_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    InputModalComponent: _InputNameModal_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   data: function data() {
     return {
@@ -25658,7 +25743,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       progressColor: String,
       // 繰り返し制御用
       intervalId: "",
-      timeOutId: ""
+      timeOutId: "",
+      showInputModal: false,
+      modalMode: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_CONFIRM_MODE,
+      imageId: Number,
+      kana: String,
+      roman: String,
+      correctPlaceName: String,
+      okFunction: Function,
+      missQuizData: [],
+      tmpId: 0
     };
   },
   mounted: function mounted() {
@@ -25684,6 +25778,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.showAlertModal = false;
       this.canShowHint = false;
       this.canShowDetails = false;
+      this.tmpId = 0;
+      this.missQuizData = [];
     },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -25813,6 +25909,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isTyping = false;
       this.isFinished = true;
     },
+    closeInputModal: function closeInputModal() {
+      this.showInputModal = false;
+    },
+    showMissQuiz: function showMissQuiz(item) {
+      this.imageId = item.id;
+      this.kana = item.kana;
+      this.correctPlaceName = item.correctName;
+      this.roman = item.roman;
+      this.okFunction = this.closeInputModal;
+      this.showInputModal = true;
+    },
     initQuizText: function initQuizText() {
       this.currentQuizData = this.quizData[this.currentQuizIndex];
       this.currentTypingText = this.currentQuizData.typingText.split("");
@@ -25893,6 +26000,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               this.missTypeKeyHash[missTypeKey]++;
             } else {
               this.missTypeKeyHash[missTypeKey] = 1;
+            }
+
+            if (this.tmpId !== this.quizData[this.currentQuizIndex].id) {
+              var missData = {
+                id: this.quizData[this.currentQuizIndex].id,
+                correctName: this.quizData[this.currentQuizIndex].name,
+                kana: this.quizData[this.currentQuizIndex].kana,
+                roman: this.quizData[this.currentQuizIndex].typingText
+              };
+              this.missQuizData.push(missData);
+              this.tmpId = this.quizData[this.currentQuizIndex].id;
             }
 
             break;
@@ -51033,6 +51151,74 @@ var render = function () {
           },
           [
             _c("div", { staticClass: "map-wrapper" }, [
+              _c("div", { staticClass: "info" }, [
+                _c("p", { staticClass: "disabled" }, [_vm._v("対象外")]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.isFinished,
+                        expression: "!isFinished",
+                      },
+                    ],
+                    staticClass: "blank",
+                  },
+                  [_vm._v("未入力")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.isFinished,
+                        expression: "!isFinished",
+                      },
+                    ],
+                    staticClass: "inputed",
+                  },
+                  [_vm._v("入力済")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.isFinished,
+                        expression: "isFinished",
+                      },
+                    ],
+                    staticClass: "correct",
+                  },
+                  [_vm._v("正解")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.isFinished,
+                        expression: "isFinished",
+                      },
+                    ],
+                    staticClass: "incorrect",
+                  },
+                  [_vm._v("不正解")]
+                ),
+              ]),
+              _vm._v(" "),
               _c(
                 "svg",
                 {
@@ -52567,19 +52753,29 @@ var render = function () {
                 ),
               ])
             : _c("div", { staticClass: "mode-confirm" }, [
-                _c("div", { staticClass: "confirm-text" }, [
-                  _c("div", { staticClass: "inputed-text" }, [
-                    _c("p", [_vm._v("あなたの解答")]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(_vm.initialPlaceName))]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "correct-text" }, [
-                    _c("p", [_vm._v("正解")]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(_vm.correctPlaceName))]),
-                  ]),
-                ]),
+                _vm.kana
+                  ? _c("div", { staticClass: "confirm-text" }, [
+                      _c("div", { staticClass: "typing-text" }, [
+                        _c("p", [_vm._v(_vm._s(_vm.roman))]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.kana))]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.correctPlaceName))]),
+                      ]),
+                    ])
+                  : _c("div", { staticClass: "confirm-text" }, [
+                      _c("div", { staticClass: "inputed-text" }, [
+                        _c("p", [_vm._v("あなたの解答")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.initialPlaceName))]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "correct-text" }, [
+                        _c("p", [_vm._v("正解")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.correctPlaceName))]),
+                      ]),
+                    ]),
                 _vm._v(" "),
                 _c(
                   "button",
@@ -52882,6 +53078,29 @@ var render = function () {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm.correctCount))]),
                   ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("ミス問題")]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      _vm._l(_vm.missQuizData, function (item) {
+                        return _c(
+                          "span",
+                          {
+                            key: item.id,
+                            on: {
+                              click: function ($event) {
+                                return _vm.showMissQuiz(item)
+                              },
+                            },
+                          },
+                          [_vm._v(_vm._s(item.correctName))]
+                        )
+                      }),
+                      0
+                    ),
+                  ]),
                 ]),
                 _vm._v(" "),
                 _c(
@@ -52922,6 +53141,18 @@ var render = function () {
                 close: function ($event) {
                   _vm.showAlertModal = false
                 },
+              },
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.showInputModal
+          ? _c("InputModalComponent", {
+              attrs: {
+                imageId: _vm.imageId,
+                initialPlaceName: _vm.initialPlaceName,
+                correctPlaceName: _vm.correctPlaceName,
+                mode: _vm.modalMode,
+                ok: _vm.okFunction,
               },
             })
           : _vm._e(),
@@ -53572,6 +53803,29 @@ var render = function () {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm.missTypeCount))]),
                   ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("ミス問題")]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      _vm._l(_vm.missQuizData, function (item) {
+                        return _c(
+                          "span",
+                          {
+                            key: item.id,
+                            on: {
+                              click: function ($event) {
+                                return _vm.showMissQuiz(item)
+                              },
+                            },
+                          },
+                          [_vm._v(_vm._s(item.correctName))]
+                        )
+                      }),
+                      0
+                    ),
+                  ]),
                 ]),
                 _vm._v(" "),
                 _c(
@@ -53612,6 +53866,19 @@ var render = function () {
                 close: function ($event) {
                   _vm.showAlertModal = false
                 },
+              },
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.showInputModal
+          ? _c("InputModalComponent", {
+              attrs: {
+                imageId: _vm.imageId,
+                kana: _vm.kana,
+                roman: _vm.roman,
+                correctPlaceName: _vm.correctPlaceName,
+                mode: _vm.modalMode,
+                ok: _vm.okFunction,
               },
             })
           : _vm._e(),

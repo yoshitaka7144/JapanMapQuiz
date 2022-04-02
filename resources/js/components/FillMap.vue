@@ -10,6 +10,13 @@
       />
       <div class="game" v-show="canStartGame">
         <div class="map-wrapper">
+          <div class="info">
+            <p class="disabled">対象外</p>
+            <p v-show="!isFinished" class="blank">未入力</p>
+            <p v-show="!isFinished" class="inputed">入力済</p>
+            <p v-show="isFinished" class="correct">正解</p>
+            <p v-show="isFinished" class="incorrect">不正解</p>
+          </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             :viewBox="viewBox"

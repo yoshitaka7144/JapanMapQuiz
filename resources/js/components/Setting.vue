@@ -150,7 +150,7 @@ export default {
   data() {
     return {
       params: {
-        classificationCheckedValues: [],
+        classificationCheckedValues: [1, 2, 3, 4, 5, 6, 7, 8],
         answerMethod: DEFAULT_ANSWER_METHOD,
         audioChecked: DEFAULT_AUDIO_CHECKED,
         timeLimitChecked: DEFAULT_TIME_LIMIT_CHECKED,

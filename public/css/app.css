@@ -452,33 +452,40 @@ img {
   height: 90%;
   position: relative;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info {
+#fill-map .fill-map-inner .game .map-wrapper .info-table {
   position: absolute;
   top: 0;
   left: 0;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info p {
+#fill-map .fill-map-inner .game .map-wrapper .info-table td,
+#fill-map .fill-map-inner .game .map-wrapper .info-table th {
   padding: 10px;
   margin-bottom: 7px;
+}
+#fill-map .fill-map-inner .game .map-wrapper .info-table td {
+  color: #7c7c7c;
+  text-align: right;
+}
+#fill-map .fill-map-inner .game .map-wrapper .info-table th {
   border-radius: 5px;
   border: 1px solid #7c7c7c;
   text-align: center;
   color: white;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info p.disabled {
+#fill-map .fill-map-inner .game .map-wrapper .info-table th.disabled {
   background-color: #8b9c97;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info p.blank {
+#fill-map .fill-map-inner .game .map-wrapper .info-table th.blank {
   background-color: white;
   color: #7c7c7c;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info p.inputed {
+#fill-map .fill-map-inner .game .map-wrapper .info-table th.inputed {
   background-color: #4370d1;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info p.correct {
+#fill-map .fill-map-inner .game .map-wrapper .info-table th.correct {
   background-color: #7be0bf;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info p.incorrect {
+#fill-map .fill-map-inner .game .map-wrapper .info-table th.incorrect {
   background-color: #eb9696;
 }
 #fill-map .fill-map-inner .game .map-wrapper svg {

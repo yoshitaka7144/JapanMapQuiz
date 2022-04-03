@@ -28,7 +28,7 @@
               />
               <div class="select-wrapper" v-else>
                 <select class="select" v-model="selectedPlaceName">
-                  <option value="">選択してください。</option>
+                  <option value="">未選択</option>
                   <option
                     v-for="item in placeNames"
                     :key="item.name"

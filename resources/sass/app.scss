@@ -498,13 +498,23 @@ $hamburger-menu-background-color: gray;
         height: 90%;
         position: relative;
 
-        .info {
+        .info-table {
           position: absolute;
           top: 0;
           left: 0;
-          p {
+
+          td,
+          th {
             padding: 10px;
             margin-bottom: 7px;
+          }
+
+          td {
+            color: #7c7c7c;
+            text-align: right;
+          }
+
+          th {
             border-radius: 5px;
             border: 1px solid #7c7c7c;
             text-align: center;

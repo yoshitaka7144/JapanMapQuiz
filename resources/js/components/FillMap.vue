@@ -10,13 +10,28 @@
       />
       <div class="game" v-show="canStartGame">
         <div class="map-wrapper">
-          <div class="info">
-            <p class="disabled">対象外</p>
-            <p v-show="!isFinished" class="blank">未入力</p>
-            <p v-show="!isFinished" class="inputed">入力済</p>
-            <p v-show="isFinished" class="correct">正解</p>
-            <p v-show="isFinished" class="incorrect">不正解</p>
-          </div>
+          <table class="info-table">
+            <tr>
+              <th class="disabled">対象外</th>
+              <td>{{ disabledPlaceCount }}</td>
+            </tr>
+            <tr v-show="!isFinished">
+              <th class="blank">未入力</th>
+              <td>{{ blankPlaceCount }}</td>
+            </tr>
+            <tr v-show="!isFinished">
+              <th class="inputed">入力済</th>
+              <td>{{ inputedPlaceCount }}</td>
+            </tr>
+            <tr v-show="isFinished">
+              <th class="correct">正解</th>
+              <td>{{ correctPlaceCount }}</td>
+            </tr>
+            <tr v-show="isFinished">
+              <th class="incorrect">不正解</th>
+              <td>{{ incorrectPlaceCount }}</td>
+            </tr>
+          </table>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             :viewBox="viewBox"
@@ -883,11 +898,28 @@ export default {
   mounted() {
     this.loadMapNames();
   },
+  computed: {
+    disabledPlaceCount() {
+      return 47 - this.selectPlaceNames.length;
+    },
+    inputedPlaceCount() {
+      return this.inputedName.filter((name) => name !== "").length;
+    },
+    blankPlaceCount() {
+      return 47 - this.disabledPlaceCount - this.inputedPlaceCount;
+    },
+    correctPlaceCount() {
+      return this.judgeName.filter((judge) => judge === true).length;
+    },
+    incorrectPlaceCount() {
+      return 47 - this.disabledPlaceCount - this.correctPlaceCount;
+    },
+  },
   methods: {
     reset() {
       for (let i = 0; i < 47; i++) {
-        this.inputedName[i] = "";
-        this.judgeName[i] = false;
+        this.$set(this.inputedName, i, "");
+        this.$set(this.judgeName, i, false);
       }
       this.emptyCount = 0;
       this.checkTargetIndex = [];
@@ -952,7 +984,7 @@ export default {
       }
     },
     setPlaceName(name, id) {
-      this.inputedName[id - 1] = name;
+      this.$set(this.inputedName, id - 1, name);
       this.showInputNameModal = false;
     },
     openInputNameModal(e) {
@@ -1004,7 +1036,7 @@ export default {
         }
         const correctName = this.mapNames[i];
         if (name === correctName) {
-          this.judgeName[i] = true;
+          this.$set(this.judgeName, i, true);
         }
       }
       this.showConfirmationModal = false;
@@ -1024,14 +1056,14 @@ export default {
         w = w * 0.9;
         h = h * 0.9;
       }
-      this.makeViewBox(x, y, w, h);
+      this.createViewBox(x, y, w, h);
     },
     move(e) {
       if (this.canMove) {
         let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
         const deltaX = e.offsetX - this.dx;
         const deltaY = e.offsetY - this.dy;
-        this.makeViewBox(x - deltaX, y - deltaY, w, h);
+        this.createViewBox(x - deltaX, y - deltaY, w, h);
         this.dx += deltaX;
         this.dy += deltaY;
       }
@@ -1044,12 +1076,12 @@ export default {
         const offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
         const deltaX = offsetX - this.dx;
         const deltaY = offsetY - this.dy;
-        this.makeViewBox(x - deltaX, y - deltaY, w, h);
+        this.createViewBox(x - deltaX, y - deltaY, w, h);
         this.dx += deltaX;
         this.dy += deltaY;
       }
     },
-    makeViewBox(x, y, w, h) {
+    createViewBox(x, y, w, h) {
       this.viewBox = [x, y, w, h].join(" ");
     },
     startMove(e) {

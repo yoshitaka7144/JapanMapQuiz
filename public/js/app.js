@@ -24124,6 +24124,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -24173,11 +24188,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     this.loadMapNames();
   },
+  computed: {
+    disabledPlaceCount: function disabledPlaceCount() {
+      return 47 - this.selectPlaceNames.length;
+    },
+    inputedPlaceCount: function inputedPlaceCount() {
+      return this.inputedName.filter(function (name) {
+        return name !== "";
+      }).length;
+    },
+    blankPlaceCount: function blankPlaceCount() {
+      return 47 - this.disabledPlaceCount - this.inputedPlaceCount;
+    },
+    correctPlaceCount: function correctPlaceCount() {
+      return this.judgeName.filter(function (judge) {
+        return judge === true;
+      }).length;
+    },
+    incorrectPlaceCount: function incorrectPlaceCount() {
+      return 47 - this.disabledPlaceCount - this.correctPlaceCount;
+    }
+  },
   methods: {
     reset: function reset() {
       for (var i = 0; i < 47; i++) {
-        this.inputedName[i] = "";
-        this.judgeName[i] = false;
+        this.$set(this.inputedName, i, "");
+        this.$set(this.judgeName, i, false);
       }
 
       this.emptyCount = 0;
@@ -24291,7 +24327,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     setPlaceName: function setPlaceName(name, id) {
-      this.inputedName[id - 1] = name;
+      this.$set(this.inputedName, id - 1, name);
       this.showInputNameModal = false;
     },
     openInputNameModal: function openInputNameModal(e) {
@@ -24352,7 +24388,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var correctName = this.mapNames[i];
 
         if (name === correctName) {
-          this.judgeName[i] = true;
+          this.$set(this.judgeName, i, true);
         }
       }
 
@@ -24382,7 +24418,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         h = h * 0.9;
       }
 
-      this.makeViewBox(x, y, w, h);
+      this.createViewBox(x, y, w, h);
     },
     move: function move(e) {
       if (this.canMove) {
@@ -24397,7 +24433,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         var deltaX = e.offsetX - this.dx;
         var deltaY = e.offsetY - this.dy;
-        this.makeViewBox(x - deltaX, y - deltaY, w, h);
+        this.createViewBox(x - deltaX, y - deltaY, w, h);
         this.dx += deltaX;
         this.dy += deltaY;
       }
@@ -24418,12 +24454,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
         var deltaX = offsetX - this.dx;
         var deltaY = offsetY - this.dy;
-        this.makeViewBox(x - deltaX, y - deltaY, w, h);
+        this.createViewBox(x - deltaX, y - deltaY, w, h);
         this.dx += deltaX;
         this.dy += deltaY;
       }
     },
-    makeViewBox: function makeViewBox(x, y, w, h) {
+    createViewBox: function createViewBox(x, y, w, h) {
       this.viewBox = [x, y, w, h].join(" ");
     },
     startMove: function startMove(e) {
@@ -51151,11 +51187,15 @@ var render = function () {
           },
           [
             _c("div", { staticClass: "map-wrapper" }, [
-              _c("div", { staticClass: "info" }, [
-                _c("p", { staticClass: "disabled" }, [_vm._v("対象外")]),
+              _c("table", { staticClass: "info-table" }, [
+                _c("tr", [
+                  _c("th", { staticClass: "disabled" }, [_vm._v("対象外")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.disabledPlaceCount))]),
+                ]),
                 _vm._v(" "),
                 _c(
-                  "p",
+                  "tr",
                   {
                     directives: [
                       {
@@ -51165,13 +51205,16 @@ var render = function () {
                         expression: "!isFinished",
                       },
                     ],
-                    staticClass: "blank",
                   },
-                  [_vm._v("未入力")]
+                  [
+                    _c("th", { staticClass: "blank" }, [_vm._v("未入力")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.blankPlaceCount))]),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
-                  "p",
+                  "tr",
                   {
                     directives: [
                       {
@@ -51181,13 +51224,16 @@ var render = function () {
                         expression: "!isFinished",
                       },
                     ],
-                    staticClass: "inputed",
                   },
-                  [_vm._v("入力済")]
+                  [
+                    _c("th", { staticClass: "inputed" }, [_vm._v("入力済")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.inputedPlaceCount))]),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
-                  "p",
+                  "tr",
                   {
                     directives: [
                       {
@@ -51197,13 +51243,16 @@ var render = function () {
                         expression: "isFinished",
                       },
                     ],
-                    staticClass: "correct",
                   },
-                  [_vm._v("正解")]
+                  [
+                    _c("th", { staticClass: "correct" }, [_vm._v("正解")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.correctPlaceCount))]),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
-                  "p",
+                  "tr",
                   {
                     directives: [
                       {
@@ -51213,9 +51262,12 @@ var render = function () {
                         expression: "isFinished",
                       },
                     ],
-                    staticClass: "incorrect",
                   },
-                  [_vm._v("不正解")]
+                  [
+                    _c("th", { staticClass: "incorrect" }, [_vm._v("不正解")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.incorrectPlaceCount))]),
+                  ]
                 ),
               ]),
               _vm._v(" "),
@@ -52714,7 +52766,7 @@ var render = function () {
                           },
                           [
                             _c("option", { attrs: { value: "" } }, [
-                              _vm._v("選択してください。"),
+                              _vm._v("未選択"),
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.placeNames, function (item) {

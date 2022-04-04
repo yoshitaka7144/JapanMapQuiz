@@ -10,28 +10,39 @@
       />
       <div class="game" v-show="canStartGame">
         <div class="map-wrapper">
-          <table class="info-table">
-            <tr>
-              <th class="disabled">対象外</th>
-              <td>{{ disabledPlaceCount }}</td>
-            </tr>
-            <tr v-show="!isFinished">
-              <th class="blank">未入力</th>
-              <td>{{ blankPlaceCount }}</td>
-            </tr>
-            <tr v-show="!isFinished">
-              <th class="inputed">入力済</th>
-              <td>{{ inputedPlaceCount }}</td>
-            </tr>
-            <tr v-show="isFinished">
-              <th class="correct">正解</th>
-              <td>{{ correctPlaceCount }}</td>
-            </tr>
-            <tr v-show="isFinished">
-              <th class="incorrect">不正解</th>
-              <td>{{ incorrectPlaceCount }}</td>
-            </tr>
-          </table>
+          <div class="info-area">
+            <table class="info-table">
+              <tr>
+                <th class="disabled">対象外</th>
+                <td>{{ disabledPlaceCount }}</td>
+              </tr>
+              <tr v-show="!isFinished">
+                <th class="blank">未入力</th>
+                <td>{{ blankPlaceCount }}</td>
+              </tr>
+              <tr v-show="!isFinished">
+                <th class="inputed">入力済</th>
+                <td>{{ inputedPlaceCount }}</td>
+              </tr>
+              <tr v-show="isFinished">
+                <th class="correct">正解</th>
+                <td>{{ correctPlaceCount }}</td>
+              </tr>
+              <tr v-show="isFinished">
+                <th class="incorrect">不正解</th>
+                <td>{{ incorrectPlaceCount }}</td>
+              </tr>
+            </table>
+            <div class="circle" v-if="isFinished">
+              <div class="circle-inner">
+                <p class="evaluation-text">
+                  {{ evaluationText.split(",")[0] }}<br />{{
+                    evaluationText.split(",")[1]
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             :viewBox="viewBox"
@@ -849,6 +860,10 @@ import {
   FILL_MAP_MODAL_INPUT_MODE,
   FILL_MAP_MODAL_CONFIRM_MODE,
   FILL_MAP_VIEW_BOX_DEFAULT,
+  RESULT_EVALUATION_TEXT_EXCELLENT,
+  RESULT_EVALUATION_TEXT_GREAT,
+  RESULT_EVALUATION_TEXT_GOOD,
+  RESULT_EVALUATION_TEXT_POOR,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 import InputModalComponent from "./InputNameModal.vue";
@@ -913,6 +928,19 @@ export default {
     },
     incorrectPlaceCount() {
       return 47 - this.disabledPlaceCount - this.correctPlaceCount;
+    },
+    evaluationText() {
+      const total = this.correctPlaceCount + this.incorrectPlaceCount;
+      const percentage = Math.floor((this.correctPlaceCount / total) * 100);
+      if (percentage === 100) {
+        return RESULT_EVALUATION_TEXT_EXCELLENT;
+      } else if (percentage >= 70) {
+        return RESULT_EVALUATION_TEXT_GREAT;
+      } else if (percentage >= 40) {
+        return RESULT_EVALUATION_TEXT_GOOD;
+      } else {
+        return RESULT_EVALUATION_TEXT_POOR;
+      }
     },
   },
   methods: {

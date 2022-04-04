@@ -55,6 +55,10 @@ export const CHOICE_TYPE_CLASSIFICATION = "classification";
  * 設定画面：選択肢タイプ：初期選択値
  */
 export const DEFAULT_CHOICE_TYPE = CHOICE_TYPE_ALL;
+/**
+* 設定画面：区分チェックエラーテキスト
+*/
+export const SETTING_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
 
 /**
  * 地図埋め：日本語タイトル
@@ -128,6 +132,18 @@ export const TYPING_MAP_EXPLANATION_TEXT = "地図タイピングの説明";
 export const TYPING_MAP_TYPING_TEXT_END_CHAR = "$";
 
 /**
-* 設定：区分チェックエラーテキスト
+ * 結果画面：結果評価テキスト:大変良い
+ */
+export const RESULT_EVALUATION_TEXT_EXCELLENT = "全問正解,おめでとう!!";
+/**
+* 結果画面：結果評価テキスト:良い
 */
-export const SETTING_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
+export const RESULT_EVALUATION_TEXT_GREAT = "たいへん,よくできました!";
+/**
+* 結果画面：結果評価テキスト:普通
+*/
+export const RESULT_EVALUATION_TEXT_GOOD = "もうすこし,がんばろう!";
+/**
+* 結果画面：結果評価テキスト:悪い
+*/
+export const RESULT_EVALUATION_TEXT_POOR = "少しずつ,覚えよう!";

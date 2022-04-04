@@ -46,7 +46,7 @@
       </div>
       <div class="result" v-else>
         <div class="table-wrapper">
-          <div class="table">
+          <table class="table">
             <tr>
               <th>正解タイプ数</th>
               <td>{{ correctTypeCount }}</td>
@@ -66,6 +66,15 @@
                 >
               </td>
             </tr>
+          </table>
+          <div class="circle">
+            <div class="circle-inner">
+              <p class="evaluation-text">
+                {{ evaluationText.split(",")[0] }}<br />{{
+                  evaluationText.split(",")[1]
+                }}
+              </p>
+            </div>
           </div>
           <div class="btn-wrapper">
             <router-link :to="{ name: 'menu' }" class="btn btn-gray">
@@ -102,6 +111,10 @@ import {
   TYPING_MAP_TYPING_TEXT_END_CHAR,
   SETTING_CLASSIFICATION_ERROR_TEXT,
   FILL_MAP_MODAL_CONFIRM_MODE,
+  RESULT_EVALUATION_TEXT_EXCELLENT,
+  RESULT_EVALUATION_TEXT_GREAT,
+  RESULT_EVALUATION_TEXT_GOOD,
+  RESULT_EVALUATION_TEXT_POOR,
 } from "../util";
 import { checkInputKey } from "../key.js";
 import SettingComponent from "./Setting.vue";
@@ -175,6 +188,23 @@ export default {
   beforeDestroy() {
     // keydownイベントに設定した処理を削除
     window.removeEventListener("keydown", this.keyAction);
+  },
+  computed: {
+    evaluationText() {
+      const total = this.quizCountLimit;
+      const missQuizCount = this.missQuizData.length;
+      const correctQuizCount = total - missQuizCount;
+      const percentage = Math.floor((correctQuizCount / total) * 100);
+      if (percentage === 100) {
+        return RESULT_EVALUATION_TEXT_EXCELLENT;
+      } else if (percentage >= 70) {
+        return RESULT_EVALUATION_TEXT_GREAT;
+      } else if (percentage >= 40) {
+        return RESULT_EVALUATION_TEXT_GOOD;
+      } else {
+        return RESULT_EVALUATION_TEXT_POOR;
+      }
+    },
   },
   methods: {
     reset() {

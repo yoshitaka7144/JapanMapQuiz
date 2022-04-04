@@ -24139,6 +24139,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -24207,6 +24218,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     incorrectPlaceCount: function incorrectPlaceCount() {
       return 47 - this.disabledPlaceCount - this.correctPlaceCount;
+    },
+    evaluationText: function evaluationText() {
+      var total = this.correctPlaceCount + this.incorrectPlaceCount;
+      var percentage = Math.floor(this.correctPlaceCount / total * 100);
+
+      if (percentage === 100) {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_EXCELLENT;
+      } else if (percentage >= 70) {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_GREAT;
+      } else if (percentage >= 40) {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_GOOD;
+      } else {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_POOR;
+      }
     }
   },
   methods: {
@@ -24986,6 +25011,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -25030,6 +25064,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       okFunction: Function,
       missQuizData: []
     };
+  },
+  computed: {
+    evaluationText: function evaluationText() {
+      var total = this.quizCountLimit;
+      var percentage = Math.floor(this.correctCount / total * 100);
+
+      if (percentage === 100) {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_EXCELLENT;
+      } else if (percentage >= 70) {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_GREAT;
+      } else if (percentage >= 40) {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_GOOD;
+      } else {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_POOR;
+      }
+    }
   },
   methods: {
     reset: function reset() {
@@ -25725,6 +25775,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -25798,6 +25857,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   beforeDestroy: function beforeDestroy() {
     // keydownイベントに設定した処理を削除
     window.removeEventListener("keydown", this.keyAction);
+  },
+  computed: {
+    evaluationText: function evaluationText() {
+      var total = this.quizCountLimit;
+      var missQuizCount = this.missQuizData.length;
+      var correctQuizCount = total - missQuizCount;
+      var percentage = Math.floor(correctQuizCount / total * 100);
+
+      if (percentage === 100) {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_EXCELLENT;
+      } else if (percentage >= 70) {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_GREAT;
+      } else if (percentage >= 40) {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_GOOD;
+      } else {
+        return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_POOR;
+      }
+    }
   },
   methods: {
     reset: function reset() {
@@ -26716,6 +26793,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ QUIZ_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ QUIZ_MAP_MENU_TITLE_JAPANESE),
 /* harmony export */   "QUIZ_MAP_NOT_CHOICE_TEXT": () => (/* binding */ QUIZ_MAP_NOT_CHOICE_TEXT),
+/* harmony export */   "RESULT_EVALUATION_TEXT_EXCELLENT": () => (/* binding */ RESULT_EVALUATION_TEXT_EXCELLENT),
+/* harmony export */   "RESULT_EVALUATION_TEXT_GOOD": () => (/* binding */ RESULT_EVALUATION_TEXT_GOOD),
+/* harmony export */   "RESULT_EVALUATION_TEXT_GREAT": () => (/* binding */ RESULT_EVALUATION_TEXT_GREAT),
+/* harmony export */   "RESULT_EVALUATION_TEXT_POOR": () => (/* binding */ RESULT_EVALUATION_TEXT_POOR),
 /* harmony export */   "SETTING_CLASSIFICATION_ERROR_TEXT": () => (/* binding */ SETTING_CLASSIFICATION_ERROR_TEXT),
 /* harmony export */   "TYPING_MAP_EXPLANATION_TEXT": () => (/* binding */ TYPING_MAP_EXPLANATION_TEXT),
 /* harmony export */   "TYPING_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ TYPING_MAP_MENU_TITLE_ENGLISH),
@@ -26792,6 +26873,11 @@ var CHOICE_TYPE_CLASSIFICATION = "classification";
  */
 
 var DEFAULT_CHOICE_TYPE = CHOICE_TYPE_ALL;
+/**
+* 設定画面：区分チェックエラーテキスト
+*/
+
+var SETTING_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
 /**
  * 地図埋め：日本語タイトル
  */
@@ -26878,10 +26964,25 @@ var TYPING_MAP_EXPLANATION_TEXT = "地図タイピングの説明";
 
 var TYPING_MAP_TYPING_TEXT_END_CHAR = "$";
 /**
-* 設定：区分チェックエラーテキスト
+ * 結果画面：結果評価テキスト:大変良い
+ */
+
+var RESULT_EVALUATION_TEXT_EXCELLENT = "全問正解,おめでとう!!";
+/**
+* 結果画面：結果評価テキスト:良い
 */
 
-var SETTING_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
+var RESULT_EVALUATION_TEXT_GREAT = "たいへん,よくできました!";
+/**
+* 結果画面：結果評価テキスト:普通
+*/
+
+var RESULT_EVALUATION_TEXT_GOOD = "もうすこし,がんばろう!";
+/**
+* 結果画面：結果評価テキスト:悪い
+*/
+
+var RESULT_EVALUATION_TEXT_POOR = "少しずつ,覚えよう!";
 
 /***/ }),
 
@@ -51187,88 +51288,110 @@ var render = function () {
           },
           [
             _c("div", { staticClass: "map-wrapper" }, [
-              _c("table", { staticClass: "info-table" }, [
-                _c("tr", [
-                  _c("th", { staticClass: "disabled" }, [_vm._v("対象外")]),
+              _c("div", { staticClass: "info-area" }, [
+                _c("table", { staticClass: "info-table" }, [
+                  _c("tr", [
+                    _c("th", { staticClass: "disabled" }, [_vm._v("対象外")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.disabledPlaceCount))]),
+                  ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.disabledPlaceCount))]),
+                  _c(
+                    "tr",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.isFinished,
+                          expression: "!isFinished",
+                        },
+                      ],
+                    },
+                    [
+                      _c("th", { staticClass: "blank" }, [_vm._v("未入力")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.blankPlaceCount))]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.isFinished,
+                          expression: "!isFinished",
+                        },
+                      ],
+                    },
+                    [
+                      _c("th", { staticClass: "inputed" }, [_vm._v("入力済")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.inputedPlaceCount))]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.isFinished,
+                          expression: "isFinished",
+                        },
+                      ],
+                    },
+                    [
+                      _c("th", { staticClass: "correct" }, [_vm._v("正解")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.correctPlaceCount))]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.isFinished,
+                          expression: "isFinished",
+                        },
+                      ],
+                    },
+                    [
+                      _c("th", { staticClass: "incorrect" }, [
+                        _vm._v("不正解"),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.incorrectPlaceCount))]),
+                    ]
+                  ),
                 ]),
                 _vm._v(" "),
-                _c(
-                  "tr",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: !_vm.isFinished,
-                        expression: "!isFinished",
-                      },
-                    ],
-                  },
-                  [
-                    _c("th", { staticClass: "blank" }, [_vm._v("未入力")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.blankPlaceCount))]),
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "tr",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: !_vm.isFinished,
-                        expression: "!isFinished",
-                      },
-                    ],
-                  },
-                  [
-                    _c("th", { staticClass: "inputed" }, [_vm._v("入力済")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.inputedPlaceCount))]),
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "tr",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.isFinished,
-                        expression: "isFinished",
-                      },
-                    ],
-                  },
-                  [
-                    _c("th", { staticClass: "correct" }, [_vm._v("正解")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.correctPlaceCount))]),
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "tr",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.isFinished,
-                        expression: "isFinished",
-                      },
-                    ],
-                  },
-                  [
-                    _c("th", { staticClass: "incorrect" }, [_vm._v("不正解")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.incorrectPlaceCount))]),
-                  ]
-                ),
+                _vm.isFinished
+                  ? _c("div", { staticClass: "circle" }, [
+                      _c("div", { staticClass: "circle-inner" }, [
+                        _c("p", { staticClass: "evaluation-text" }, [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.evaluationText.split(",")[0])
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            _vm._s(_vm.evaluationText.split(",")[1]) +
+                              "\n              "
+                          ),
+                        ]),
+                      ]),
+                    ])
+                  : _vm._e(),
               ]),
               _vm._v(" "),
               _c(
@@ -53118,7 +53241,7 @@ var render = function () {
             ])
           : _c("div", { staticClass: "result" }, [
               _c("div", { staticClass: "table-wrapper" }, [
-                _c("div", { staticClass: "table" }, [
+                _c("table", { staticClass: "table" }, [
                   _c("tr", [
                     _c("th", [_vm._v("問題数")]),
                     _vm._v(" "),
@@ -53152,6 +53275,22 @@ var render = function () {
                       }),
                       0
                     ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "circle" }, [
+                  _c("div", { staticClass: "circle-inner" }, [
+                    _c("p", { staticClass: "evaluation-text" }, [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.evaluationText.split(",")[0])
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        _vm._s(_vm.evaluationText.split(",")[1]) +
+                          "\n            "
+                      ),
+                    ]),
                   ]),
                 ]),
                 _vm._v(" "),
@@ -53843,7 +53982,7 @@ var render = function () {
             ])
           : _c("div", { staticClass: "result" }, [
               _c("div", { staticClass: "table-wrapper" }, [
-                _c("div", { staticClass: "table" }, [
+                _c("table", { staticClass: "table" }, [
                   _c("tr", [
                     _c("th", [_vm._v("正解タイプ数")]),
                     _vm._v(" "),
@@ -53877,6 +54016,22 @@ var render = function () {
                       }),
                       0
                     ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "circle" }, [
+                  _c("div", { staticClass: "circle-inner" }, [
+                    _c("p", { staticClass: "evaluation-text" }, [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.evaluationText.split(",")[0])
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        _vm._s(_vm.evaluationText.split(",")[1]) +
+                          "\n            "
+                      ),
+                    ]),
                   ]),
                 ]),
                 _vm._v(" "),

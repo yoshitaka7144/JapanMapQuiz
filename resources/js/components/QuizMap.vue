@@ -65,7 +65,7 @@
       </div>
       <div class="result" v-else>
         <div class="table-wrapper">
-          <div class="table">
+          <table class="table">
             <tr>
               <th>問題数</th>
               <td>{{ quizCountLimit }}</td>
@@ -85,6 +85,15 @@
                 >
               </td>
             </tr>
+          </table>
+          <div class="circle">
+            <div class="circle-inner">
+              <p class="evaluation-text">
+                {{ evaluationText.split(",")[0] }}<br />{{
+                  evaluationText.split(",")[1]
+                }}
+              </p>
+            </div>
           </div>
           <div class="btn-wrapper">
             <router-link :to="{ name: 'menu' }" class="btn btn-gray">
@@ -123,6 +132,10 @@ import {
   CHOICE_TYPE_ALL,
   QUIZ_MAP_HOKKAIDOU_CHOICES,
   FILL_MAP_MODAL_CONFIRM_MODE,
+  RESULT_EVALUATION_TEXT_EXCELLENT,
+  RESULT_EVALUATION_TEXT_GREAT,
+  RESULT_EVALUATION_TEXT_GOOD,
+  RESULT_EVALUATION_TEXT_POOR,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 import AlertModalComponent from "./AlertModal.vue";
@@ -167,6 +180,21 @@ export default {
       okFunction: Function,
       missQuizData: [],
     };
+  },
+  computed: {
+    evaluationText() {
+      const total = this.quizCountLimit;
+      const percentage = Math.floor((this.correctCount / total) * 100);
+      if (percentage === 100) {
+        return RESULT_EVALUATION_TEXT_EXCELLENT;
+      } else if (percentage >= 70) {
+        return RESULT_EVALUATION_TEXT_GREAT;
+      } else if (percentage >= 40) {
+        return RESULT_EVALUATION_TEXT_GOOD;
+      } else {
+        return RESULT_EVALUATION_TEXT_POOR;
+      }
+    },
   },
   methods: {
     reset() {

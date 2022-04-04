@@ -498,6 +498,15 @@ $hamburger-menu-background-color: gray;
         height: 90%;
         position: relative;
 
+        .zoom-slider-wrapper {
+          position: absolute;
+          top: 0;
+          right: 0;
+
+          .zoom-slider {
+          }
+        }
+
         .info-area {
           position: absolute;
           top: 0;
@@ -592,7 +601,7 @@ $hamburger-menu-background-color: gray;
           }
         }
 
-        svg {
+        #japan-map-svg {
           height: 100%;
           width: 100%;
 

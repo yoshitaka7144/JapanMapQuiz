@@ -24150,6 +24150,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -24193,7 +24214,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       viewBox: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_DEFAULT,
       dx: 0,
       dy: 0,
-      canMove: false
+      canMove: false,
+      zoomValue: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH
     };
   },
   mounted: function mounted() {
@@ -24241,6 +24263,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.$set(this.judgeName, i, false);
       }
 
+      this.viewBox = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_DEFAULT;
+      this.zoomValue = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH;
       this.emptyCount = 0;
       this.checkTargetIndex = [];
       this.canStartGame = false;
@@ -24421,9 +24445,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.inputModalMode = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_CONFIRM_MODE;
       this.okFunction = this.closeInputModal;
       this.viewBox = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_DEFAULT;
+      this.zoomValue = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH;
       this.isFinished = true;
     },
-    zoom: function zoom(e) {
+    zoomPlus: function zoomPlus() {
       var _this$viewBox$split$m = this.viewBox.split(" ").map(function (v) {
         return parseFloat(v);
       }),
@@ -24433,55 +24458,127 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           w = _this$viewBox$split$m2[2],
           h = _this$viewBox$split$m2[3];
 
-      if (e.deltaY > 0) {
-        // 拡大
-        w = w * 1.1;
-        h = h * 1.1;
-      } else {
-        // 縮小
-        w = w * 0.9;
-        h = h * 0.9;
+      w = w - 50;
+      h = h - 50;
+
+      if (w < _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH) {
+        w = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH;
+        h = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH;
       }
 
       this.createViewBox(x, y, w, h);
+      this.zoomValue = w;
+    },
+    zoomMinus: function zoomMinus() {
+      var _this$viewBox$split$m3 = this.viewBox.split(" ").map(function (v) {
+        return parseFloat(v);
+      }),
+          _this$viewBox$split$m4 = _slicedToArray(_this$viewBox$split$m3, 4),
+          x = _this$viewBox$split$m4[0],
+          y = _this$viewBox$split$m4[1],
+          w = _this$viewBox$split$m4[2],
+          h = _this$viewBox$split$m4[3];
+
+      w = w + 50;
+      h = h + 50;
+
+      if (w > _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH) {
+        w = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH;
+        h = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH;
+      }
+
+      this.createViewBox(x, y, w, h);
+      this.zoomValue = w;
+    },
+    zoomSlider: function zoomSlider(e) {
+      var _this$viewBox$split$m5 = this.viewBox.split(" ").map(function (v) {
+        return parseFloat(v);
+      }),
+          _this$viewBox$split$m6 = _slicedToArray(_this$viewBox$split$m5, 4),
+          x = _this$viewBox$split$m6[0],
+          y = _this$viewBox$split$m6[1],
+          w = _this$viewBox$split$m6[2],
+          h = _this$viewBox$split$m6[3];
+
+      var newWidthValue = e.target.value;
+      this.createViewBox(x, y, newWidthValue, newWidthValue);
+    },
+    zoom: function zoom(e) {
+      var _this$viewBox$split$m7 = this.viewBox.split(" ").map(function (v) {
+        return parseFloat(v);
+      }),
+          _this$viewBox$split$m8 = _slicedToArray(_this$viewBox$split$m7, 4),
+          x = _this$viewBox$split$m8[0],
+          y = _this$viewBox$split$m8[1],
+          w = _this$viewBox$split$m8[2],
+          h = _this$viewBox$split$m8[3];
+
+      if (e.deltaY > 0) {
+        // 縮小
+        w = w * 1.1;
+        h = h * 1.1;
+
+        if (w > _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH) {
+          w = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH;
+          h = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH;
+        }
+      } else {
+        // 拡大
+        w = w * 0.9;
+        h = h * 0.9;
+
+        if (w < _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH) {
+          w = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH;
+          h = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH;
+        }
+      }
+
+      this.createViewBox(x, y, w, h);
+      this.zoomValue = w;
     },
     move: function move(e) {
       if (this.canMove) {
-        var _this$viewBox$split$m3 = this.viewBox.split(" ").map(function (v) {
+        var _this$viewBox$split$m9 = this.viewBox.split(" ").map(function (v) {
           return parseFloat(v);
         }),
-            _this$viewBox$split$m4 = _slicedToArray(_this$viewBox$split$m3, 4),
-            x = _this$viewBox$split$m4[0],
-            y = _this$viewBox$split$m4[1],
-            w = _this$viewBox$split$m4[2],
-            h = _this$viewBox$split$m4[3];
+            _this$viewBox$split$m10 = _slicedToArray(_this$viewBox$split$m9, 4),
+            x = _this$viewBox$split$m10[0],
+            y = _this$viewBox$split$m10[1],
+            w = _this$viewBox$split$m10[2],
+            h = _this$viewBox$split$m10[3];
 
         var deltaX = e.offsetX - this.dx;
         var deltaY = e.offsetY - this.dy;
-        this.createViewBox(x - deltaX, y - deltaY, w, h);
-        this.dx += deltaX;
-        this.dy += deltaY;
+
+        if (_util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_X <= x - deltaX && x - deltaX <= _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_X && _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_Y <= y - deltaY && y - deltaY <= _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_Y) {
+          this.createViewBox(x - deltaX, y - deltaY, w, h);
+          this.dx += deltaX;
+          this.dy += deltaY;
+        }
       }
     },
     touchMove: function touchMove(e) {
       if (this.canMove) {
-        var _this$viewBox$split$m5 = this.viewBox.split(" ").map(function (v) {
+        var _this$viewBox$split$m11 = this.viewBox.split(" ").map(function (v) {
           return parseFloat(v);
         }),
-            _this$viewBox$split$m6 = _slicedToArray(_this$viewBox$split$m5, 4),
-            x = _this$viewBox$split$m6[0],
-            y = _this$viewBox$split$m6[1],
-            w = _this$viewBox$split$m6[2],
-            h = _this$viewBox$split$m6[3];
+            _this$viewBox$split$m12 = _slicedToArray(_this$viewBox$split$m11, 4),
+            x = _this$viewBox$split$m12[0],
+            y = _this$viewBox$split$m12[1],
+            w = _this$viewBox$split$m12[2],
+            h = _this$viewBox$split$m12[3];
 
         var rect = e.target.getBoundingClientRect();
         var offsetX = e.touches[0].clientX - window.pageXOffset - rect.left;
         var offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
         var deltaX = offsetX - this.dx;
         var deltaY = offsetY - this.dy;
-        this.createViewBox(x - deltaX, y - deltaY, w, h);
-        this.dx += deltaX;
-        this.dy += deltaY;
+
+        if (_util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_X <= x - deltaX && x - deltaX <= _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_X && _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_Y <= y - deltaY && y - deltaY <= _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_Y) {
+          this.createViewBox(x - deltaX, y - deltaY, w, h);
+          this.dx += deltaX;
+          this.dy += deltaY;
+        }
       }
     },
     createViewBox: function createViewBox(x, y, w, h) {
@@ -26791,6 +26888,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FILL_MAP_MODAL_CONFIRM_MODE": () => (/* binding */ FILL_MAP_MODAL_CONFIRM_MODE),
 /* harmony export */   "FILL_MAP_MODAL_INPUT_MODE": () => (/* binding */ FILL_MAP_MODAL_INPUT_MODE),
 /* harmony export */   "FILL_MAP_VIEW_BOX_DEFAULT": () => (/* binding */ FILL_MAP_VIEW_BOX_DEFAULT),
+/* harmony export */   "FILL_MAP_VIEW_BOX_MAX_WIDTH": () => (/* binding */ FILL_MAP_VIEW_BOX_MAX_WIDTH),
+/* harmony export */   "FILL_MAP_VIEW_BOX_MAX_X": () => (/* binding */ FILL_MAP_VIEW_BOX_MAX_X),
+/* harmony export */   "FILL_MAP_VIEW_BOX_MAX_Y": () => (/* binding */ FILL_MAP_VIEW_BOX_MAX_Y),
+/* harmony export */   "FILL_MAP_VIEW_BOX_MIN_WIDTH": () => (/* binding */ FILL_MAP_VIEW_BOX_MIN_WIDTH),
+/* harmony export */   "FILL_MAP_VIEW_BOX_MIN_X": () => (/* binding */ FILL_MAP_VIEW_BOX_MIN_X),
+/* harmony export */   "FILL_MAP_VIEW_BOX_MIN_Y": () => (/* binding */ FILL_MAP_VIEW_BOX_MIN_Y),
 /* harmony export */   "INTERNAL_SERVER_ERROR": () => (/* binding */ INTERNAL_SERVER_ERROR),
 /* harmony export */   "OK": () => (/* binding */ OK),
 /* harmony export */   "QUIZ_MAP_CHOICE_DEFAULT_VALUE": () => (/* binding */ QUIZ_MAP_CHOICE_DEFAULT_VALUE),
@@ -26919,6 +27022,36 @@ var FILL_MAP_MODAL_CONFIRM_MODE = "confirm";
 */
 
 var FILL_MAP_VIEW_BOX_DEFAULT = "0 0 550 550";
+/**
+* 地図埋め：viewBox:最大幅（最大高さ）
+*/
+
+var FILL_MAP_VIEW_BOX_MAX_WIDTH = 550;
+/**
+* 地図埋め：viewBox:最小幅（最小高さ）
+*/
+
+var FILL_MAP_VIEW_BOX_MIN_WIDTH = 100;
+/**
+* 地図埋め：viewBox:最大x座標
+*/
+
+var FILL_MAP_VIEW_BOX_MAX_X = 500;
+/**
+* 地図埋め：viewBox:最小x座標
+*/
+
+var FILL_MAP_VIEW_BOX_MIN_X = -400;
+/**
+* 地図埋め：viewBox:最大y座標
+*/
+
+var FILL_MAP_VIEW_BOX_MAX_Y = 480;
+/**
+* 地図埋め：viewBox:最小y座標
+*/
+
+var FILL_MAP_VIEW_BOX_MIN_Y = -100;
 /**
  * 地図クイズ：日本語タイトル
  */
@@ -51294,6 +51427,53 @@ var render = function () {
           },
           [
             _c("div", { staticClass: "map-wrapper" }, [
+              _c(
+                "div",
+                { staticClass: "zoom-slider-wrapper" },
+                [
+                  _c("fontawesome-icon", {
+                    staticClass: "icon",
+                    attrs: { icon: ["fas", "fa-square-plus"] },
+                    on: {
+                      click: function ($event) {
+                        return _vm.zoomPlus()
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.zoomValue,
+                        expression: "zoomValue",
+                      },
+                    ],
+                    staticClass: "zoom-slider",
+                    attrs: { type: "range", min: "100", max: "550" },
+                    domProps: { value: _vm.zoomValue },
+                    on: {
+                      change: _vm.zoomSlider,
+                      __r: function ($event) {
+                        _vm.zoomValue = $event.target.value
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("fontawesome-icon", {
+                    staticClass: "icon",
+                    attrs: { icon: ["fas", "fa-square-minus"] },
+                    on: {
+                      click: function ($event) {
+                        return _vm.zoomMinus()
+                      },
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c("div", { staticClass: "info-area" }, [
                 _c("table", { staticClass: "info-table" }, [
                   _c("tr", [
@@ -51404,6 +51584,7 @@ var render = function () {
                 "svg",
                 {
                   attrs: {
+                    id: "japan-map-svg",
                     xmlns: "http://www.w3.org/2000/svg",
                     viewBox: _vm.viewBox,
                   },

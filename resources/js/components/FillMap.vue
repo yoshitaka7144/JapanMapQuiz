@@ -10,6 +10,26 @@
       />
       <div class="game" v-show="canStartGame">
         <div class="map-wrapper">
+          <div class="zoom-slider-wrapper">
+            <fontawesome-icon
+              class="icon"
+              :icon="['fas', 'fa-square-plus']"
+              @click="zoomPlus()"
+            />
+            <input
+              type="range"
+              class="zoom-slider"
+              min="100"
+              max="550"
+              v-model="zoomValue"
+              @change="zoomSlider"
+            />
+            <fontawesome-icon
+              class="icon"
+              :icon="['fas', 'fa-square-minus']"
+              @click="zoomMinus()"
+            />
+          </div>
           <div class="info-area">
             <table class="info-table">
               <tr>
@@ -44,6 +64,7 @@
             </div>
           </div>
           <svg
+            id="japan-map-svg"
             xmlns="http://www.w3.org/2000/svg"
             :viewBox="viewBox"
             @mousewheel.prevent="zoom"
@@ -864,6 +885,12 @@ import {
   RESULT_EVALUATION_TEXT_GREAT,
   RESULT_EVALUATION_TEXT_GOOD,
   RESULT_EVALUATION_TEXT_POOR,
+  FILL_MAP_VIEW_BOX_MAX_WIDTH,
+  FILL_MAP_VIEW_BOX_MIN_WIDTH,
+  FILL_MAP_VIEW_BOX_MAX_X,
+  FILL_MAP_VIEW_BOX_MIN_X,
+  FILL_MAP_VIEW_BOX_MAX_Y,
+  FILL_MAP_VIEW_BOX_MIN_Y,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 import InputModalComponent from "./InputNameModal.vue";
@@ -908,6 +935,7 @@ export default {
       dx: 0,
       dy: 0,
       canMove: false,
+      zoomValue: FILL_MAP_VIEW_BOX_MAX_WIDTH,
     };
   },
   mounted() {
@@ -949,6 +977,8 @@ export default {
         this.$set(this.inputedName, i, "");
         this.$set(this.judgeName, i, false);
       }
+      this.viewBox = FILL_MAP_VIEW_BOX_DEFAULT;
+      this.zoomValue = FILL_MAP_VIEW_BOX_MAX_WIDTH;
       this.emptyCount = 0;
       this.checkTargetIndex = [];
       this.canStartGame = false;
@@ -1071,29 +1101,73 @@ export default {
       this.inputModalMode = FILL_MAP_MODAL_CONFIRM_MODE;
       this.okFunction = this.closeInputModal;
       this.viewBox = FILL_MAP_VIEW_BOX_DEFAULT;
+      this.zoomValue = FILL_MAP_VIEW_BOX_MAX_WIDTH;
       this.isFinished = true;
+    },
+    zoomPlus() {
+      let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
+      w = w - 50;
+      h = h - 50;
+      if (w < FILL_MAP_VIEW_BOX_MIN_WIDTH) {
+        w = FILL_MAP_VIEW_BOX_MIN_WIDTH;
+        h = FILL_MAP_VIEW_BOX_MIN_WIDTH;
+      }
+      this.createViewBox(x, y, w, h);
+      this.zoomValue = w;
+    },
+    zoomMinus() {
+      let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
+      w = w + 50;
+      h = h + 50;
+      if (w > FILL_MAP_VIEW_BOX_MAX_WIDTH) {
+        w = FILL_MAP_VIEW_BOX_MAX_WIDTH;
+        h = FILL_MAP_VIEW_BOX_MAX_WIDTH;
+      }
+      this.createViewBox(x, y, w, h);
+      this.zoomValue = w;
+    },
+    zoomSlider(e) {
+      let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
+      const newWidthValue = e.target.value;
+      this.createViewBox(x, y, newWidthValue, newWidthValue);
     },
     zoom(e) {
       let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
       if (e.deltaY > 0) {
-        // 拡大
+        // 縮小
         w = w * 1.1;
         h = h * 1.1;
+        if (w > FILL_MAP_VIEW_BOX_MAX_WIDTH) {
+          w = FILL_MAP_VIEW_BOX_MAX_WIDTH;
+          h = FILL_MAP_VIEW_BOX_MAX_WIDTH;
+        }
       } else {
-        // 縮小
+        // 拡大
         w = w * 0.9;
         h = h * 0.9;
+        if (w < FILL_MAP_VIEW_BOX_MIN_WIDTH) {
+          w = FILL_MAP_VIEW_BOX_MIN_WIDTH;
+          h = FILL_MAP_VIEW_BOX_MIN_WIDTH;
+        }
       }
       this.createViewBox(x, y, w, h);
+      this.zoomValue = w;
     },
     move(e) {
       if (this.canMove) {
         let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
         const deltaX = e.offsetX - this.dx;
         const deltaY = e.offsetY - this.dy;
-        this.createViewBox(x - deltaX, y - deltaY, w, h);
-        this.dx += deltaX;
-        this.dy += deltaY;
+        if (
+          FILL_MAP_VIEW_BOX_MIN_X <= x - deltaX &&
+          x - deltaX <= FILL_MAP_VIEW_BOX_MAX_X &&
+          FILL_MAP_VIEW_BOX_MIN_Y <= y - deltaY &&
+          y - deltaY <= FILL_MAP_VIEW_BOX_MAX_Y
+        ) {
+          this.createViewBox(x - deltaX, y - deltaY, w, h);
+          this.dx += deltaX;
+          this.dy += deltaY;
+        }
       }
     },
     touchMove(e) {
@@ -1104,9 +1178,16 @@ export default {
         const offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
         const deltaX = offsetX - this.dx;
         const deltaY = offsetY - this.dy;
-        this.createViewBox(x - deltaX, y - deltaY, w, h);
-        this.dx += deltaX;
-        this.dy += deltaY;
+        if (
+          FILL_MAP_VIEW_BOX_MIN_X <= x - deltaX &&
+          x - deltaX <= FILL_MAP_VIEW_BOX_MAX_X &&
+          FILL_MAP_VIEW_BOX_MIN_Y <= y - deltaY &&
+          y - deltaY <= FILL_MAP_VIEW_BOX_MAX_Y
+        ) {
+          this.createViewBox(x - deltaX, y - deltaY, w, h);
+          this.dx += deltaX;
+          this.dy += deltaY;
+        }
       }
     },
     createViewBox(x, y, w, h) {

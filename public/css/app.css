@@ -452,6 +452,11 @@ img {
   height: 90%;
   position: relative;
 }
+#fill-map .fill-map-inner .game .map-wrapper .zoom-slider-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 #fill-map .fill-map-inner .game .map-wrapper .info-area {
   position: absolute;
   top: 0;
@@ -553,50 +558,50 @@ img {
   font-weight: bold;
   color: #fc3434;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg {
   height: 100%;
   width: 100%;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1 {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1 {
   fill: #fff;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1:hover {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1:hover {
   fill: #2fc291;
   opacity: 0.7;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.disabled {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1.disabled {
   fill: #8b9c97 !important;
   opacity: 1 !important;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.disabled:hover {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1.disabled:hover {
   fill: #8b9c97 !important;
   opacity: 1 !important;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.inputed {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1.inputed {
   fill: #4370d1;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.fill {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1.fill {
   fill: #2fc291;
   opacity: 0.7;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1[data-name=siga-2]:hover {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1[data-name=siga-2]:hover {
   fill: #fff;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.correct {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1.correct {
   fill: #7be0bf;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1.incorrect {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1.incorrect {
   fill: #eb9696;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-1,
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-2 {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1,
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-2 {
   stroke: #7c7c7c;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 0.48px;
   fill-rule: evenodd;
 }
-#fill-map .fill-map-inner .game .map-wrapper svg .cls-2 {
+#fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-2 {
   fill: none;
 }
 #fill-map .fill-map-inner .game .btn-wrapper {

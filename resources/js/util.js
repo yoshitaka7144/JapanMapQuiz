@@ -88,6 +88,30 @@ export const FILL_MAP_MODAL_CONFIRM_MODE = "confirm";
 * 地図埋め：viewBox初期値
 */
 export const FILL_MAP_VIEW_BOX_DEFAULT = "0 0 550 550";
+/**
+* 地図埋め：viewBox:最大幅（最大高さ）
+*/
+export const FILL_MAP_VIEW_BOX_MAX_WIDTH = 550;
+/**
+* 地図埋め：viewBox:最小幅（最小高さ）
+*/
+export const FILL_MAP_VIEW_BOX_MIN_WIDTH = 100;
+/**
+* 地図埋め：viewBox:最大x座標
+*/
+export const FILL_MAP_VIEW_BOX_MAX_X = 500;
+/**
+* 地図埋め：viewBox:最小x座標
+*/
+export const FILL_MAP_VIEW_BOX_MIN_X = -400;
+/**
+* 地図埋め：viewBox:最大y座標
+*/
+export const FILL_MAP_VIEW_BOX_MAX_Y = 480;
+/**
+* 地図埋め：viewBox:最小y座標
+*/
+export const FILL_MAP_VIEW_BOX_MIN_Y = -100;
 
 /**
  * 地図クイズ：日本語タイトル

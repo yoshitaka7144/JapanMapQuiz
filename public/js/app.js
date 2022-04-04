@@ -24364,19 +24364,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     startGame: function startGame() {
       var _this3 = this;
 
-      if (this.answerMethod === _util__WEBPACK_IMPORTED_MODULE_1__.ANSWER_METHOD_SELECT) {
-        Promise.all([this.loadSelectPlaceNames()]).then(function () {
-          _this3.setCheckTargetIndex();
+      Promise.all([this.loadSelectPlaceNames()]).then(function () {
+        _this3.setCheckTargetIndex();
 
-          _this3.canStartGame = true;
-        });
-      } else {
-        this.setCheckTargetIndex();
-        this.canStartGame = true;
-      }
+        _this3.canStartGame = true;
+      });
     },
     setPlaceName: function setPlaceName(name, id) {
-      this.$set(this.inputedName, id - 1, name);
+      this.$set(this.inputedName, id - 1, name.replace(/都|府|県/, ""));
       this.showInputNameModal = false;
     },
     openInputNameModal: function openInputNameModal(e) {

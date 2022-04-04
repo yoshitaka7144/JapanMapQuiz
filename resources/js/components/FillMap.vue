@@ -1031,18 +1031,13 @@ export default {
       }
     },
     startGame() {
-      if (this.answerMethod === ANSWER_METHOD_SELECT) {
-        Promise.all([this.loadSelectPlaceNames()]).then(() => {
-          this.setCheckTargetIndex();
-          this.canStartGame = true;
-        });
-      } else {
+      Promise.all([this.loadSelectPlaceNames()]).then(() => {
         this.setCheckTargetIndex();
         this.canStartGame = true;
-      }
+      });
     },
     setPlaceName(name, id) {
-      this.$set(this.inputedName, id - 1, name);
+      this.$set(this.inputedName, id - 1, name.replace(/都|府|県/, ""));
       this.showInputNameModal = false;
     },
     openInputNameModal(e) {

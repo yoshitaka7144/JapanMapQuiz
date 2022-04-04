@@ -25784,6 +25784,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -25861,9 +25865,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     evaluationText: function evaluationText() {
       var total = this.quizCountLimit;
+      var finishedQuizCount = this.currentQuizIndex;
       var missQuizCount = this.missQuizData.length;
-      var correctQuizCount = total - missQuizCount;
-      var percentage = Math.floor(correctQuizCount / total * 100);
+      var correctQuizCount = finishedQuizCount - missQuizCount;
+      var missTypeCount = this.missTypeCount;
+      var percentage = Math.floor(correctQuizCount / total * 100) - missTypeCount;
 
       if (percentage === 100) {
         return _util__WEBPACK_IMPORTED_MODULE_1__.RESULT_EVALUATION_TEXT_EXCELLENT;
@@ -53983,6 +53989,18 @@ var render = function () {
           : _c("div", { staticClass: "result" }, [
               _c("div", { staticClass: "table-wrapper" }, [
                 _c("table", { staticClass: "table" }, [
+                  _c("tr", [
+                    _c("th", [_vm._v("クリア数 / 問題数")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(_vm.currentQuizIndex) +
+                          " / " +
+                          _vm._s(_vm.quizCountLimit)
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
                   _c("tr", [
                     _c("th", [_vm._v("正解タイプ数")]),
                     _vm._v(" "),

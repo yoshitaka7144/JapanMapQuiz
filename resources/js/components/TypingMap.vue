@@ -48,6 +48,10 @@
         <div class="table-wrapper">
           <table class="table">
             <tr>
+              <th>クリア数 / 問題数</th>
+              <td>{{ currentQuizIndex }} / {{ quizCountLimit }}</td>
+            </tr>
+            <tr>
               <th>正解タイプ数</th>
               <td>{{ correctTypeCount }}</td>
             </tr>
@@ -192,9 +196,12 @@ export default {
   computed: {
     evaluationText() {
       const total = this.quizCountLimit;
+      const finishedQuizCount = this.currentQuizIndex;
       const missQuizCount = this.missQuizData.length;
-      const correctQuizCount = total - missQuizCount;
-      const percentage = Math.floor((correctQuizCount / total) * 100);
+      const correctQuizCount = finishedQuizCount - missQuizCount;
+      const missTypeCount = this.missTypeCount;
+      const percentage =
+        Math.floor((correctQuizCount / total) * 100) - missTypeCount;
       if (percentage === 100) {
         return RESULT_EVALUATION_TEXT_EXCELLENT;
       } else if (percentage >= 70) {

@@ -42,14 +42,20 @@ img {
 }
 
 .btn {
-  width: 170px;
+  width: 150px;
   text-align: center;
   display: inline-block;
-  padding: 15px 20px;
+  padding: 10px 15px;
   border-radius: 5px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   transition: 0.5s;
+}
+.btn.small {
+  width: 80px;
+}
+.btn.large {
+  width: 220px;
 }
 
 .btn-gray {
@@ -181,9 +187,11 @@ img {
 メインコンテンツ main
 ************************************************/
 #main {
-  margin-top: 60px;
-  padding: 20px 0;
-  height: 600px;
+  margin: 60px auto 0 auto;
+  padding: 15px 0;
+  width: 100%;
+  max-width: 700px;
+  height: 550px;
 }
 
 /************************************************
@@ -277,61 +285,127 @@ img {
 ************************************************/
 .setting {
   height: 100%;
-  background-color: antiquewhite;
+  padding: 10px;
+  background-color: floralwhite;
   position: relative;
 }
 .setting .title {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.setting .title .title-en {
-  display: inline-block;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: white;
+  margin-bottom: 10px;
 }
 .setting .title .title-ja {
   display: inline-block;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: bold;
-  color: white;
 }
-.setting .btn-back-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
+.setting .sub-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 .setting .btn-start-wrapper {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.setting .btn-start-wrapper button {
+  margin-bottom: 10px;
+}
+.setting .setting-inner {
+  max-width: 450px;
+  margin: 0 auto;
+}
+.setting .setting-inner > div {
+  margin-bottom: 8px;
+}
+.setting .setting-inner .setting-target-area {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.setting .setting-inner .setting-target-area .sub-title {
+  width: 100%;
+}
+.setting .setting-inner .setting-target-area .checkbox-wrapper {
+  width: 25%;
+  display: flex;
   justify-content: center;
 }
-.setting .setting-time-limit .checkbox,
-.setting .setting-quiz-count .checkbox,
-.setting .setting-audio .checkbox {
+.setting .setting-inner .setting-target-area .checkbox-wrapper input[type=checkbox] {
   display: none;
 }
-.setting .setting-time-limit .checkbox + label,
-.setting .setting-quiz-count .checkbox + label,
-.setting .setting-audio .checkbox + label {
+.setting .setting-inner .setting-target-area .checkbox-wrapper input[type=checkbox]:checked + label {
+  color: #7aa3cc;
+}
+.setting .setting-inner .setting-target-area .checkbox-wrapper input[type=checkbox]:checked + label::before {
+  border: 2px solid #7aa3cc;
+}
+.setting .setting-inner .setting-target-area .checkbox-wrapper input[type=checkbox]:checked + label::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  transform: rotate(45deg);
+  display: inline-block;
+  width: 8px;
+  height: 18px;
+  border-bottom: 4px solid #7aa3cc;
+  border-right: 4px solid #7aa3cc;
+}
+.setting .setting-inner .setting-target-area .checkbox-wrapper label {
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 5px 5px 25px;
+  font-size: 1rem;
+  color: #7c7c7c;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+}
+.setting .setting-inner .setting-target-area .checkbox-wrapper label::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  border: 2px solid #7c7c7c;
+  border-radius: 3px;
+}
+.setting .setting-inner .setting-common {
+  display: flex;
+  flex-wrap: wrap;
+}
+.setting .setting-inner .setting-common .setting-audio {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+.setting .setting-inner .setting-common .setting-audio .checkbox {
+  display: none;
+}
+.setting .setting-inner .setting-common .setting-audio .checkbox + label {
   position: relative;
   display: inline-block;
   cursor: pointer;
   padding: 11px 0px 11px 45px;
+  font-size: 1rem;
+  font-weight: bold;
 }
-.setting .setting-time-limit .checkbox + label::before, .setting .setting-time-limit .checkbox + label::after,
-.setting .setting-quiz-count .checkbox + label::before,
-.setting .setting-quiz-count .checkbox + label::after,
-.setting .setting-audio .checkbox + label::before,
-.setting .setting-audio .checkbox + label::after {
+.setting .setting-inner .setting-common .setting-audio .checkbox + label::before, .setting .setting-inner .setting-common .setting-audio .checkbox + label::after {
   content: "";
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
-.setting .setting-time-limit .checkbox + label::before,
-.setting .setting-quiz-count .checkbox + label::before,
-.setting .setting-audio .checkbox + label::before {
+.setting .setting-inner .setting-common .setting-audio .checkbox + label::before {
   width: 38px;
   height: 18px;
   left: 0;
@@ -339,9 +413,7 @@ img {
   border-radius: 18px;
   background-color: #ffffff;
 }
-.setting .setting-time-limit .checkbox + label::after,
-.setting .setting-quiz-count .checkbox + label::after,
-.setting .setting-audio .checkbox + label::after {
+.setting .setting-inner .setting-common .setting-audio .checkbox + label::after {
   width: 19px;
   height: 18px;
   left: 0;
@@ -349,32 +421,33 @@ img {
   background-color: #bdbdbd;
   transition: all 0.3s ease-out;
 }
-.setting .setting-time-limit .checkbox:checked + label::after,
-.setting .setting-quiz-count .checkbox:checked + label::after,
-.setting .setting-audio .checkbox:checked + label::after {
+.setting .setting-inner .setting-common .setting-audio .checkbox:checked + label::after {
   left: 19px;
-  background-color: #2fc291;
+  background-color: #5aaefd;
 }
-.setting .setting-time-limit .checkbox:not(:checked) ~ .select-wrapper,
-.setting .setting-quiz-count .checkbox:not(:checked) ~ .select-wrapper,
-.setting .setting-audio .checkbox:not(:checked) ~ .select-wrapper {
+.setting .setting-inner .setting-common .setting-audio .checkbox:not(:checked) ~ .select-wrapper {
   display: none;
 }
-.setting .setting-time-limit .select-wrapper,
-.setting .setting-quiz-count .select-wrapper,
-.setting .setting-audio .select-wrapper {
+.setting .setting-inner .setting-common .setting-quiz-count {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+.setting .setting-inner .setting-common .setting-quiz-count label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.setting .setting-inner .setting-common .setting-quiz-count .select-wrapper {
   display: inline-block;
-  width: 75px;
+  width: 78px;
   margin-left: 7px;
   position: relative;
-  border: 2px solid #2fc291;
+  border: 2px solid #5aaefd;
   border-radius: 35px;
   background-color: white;
   z-index: 0;
 }
-.setting .setting-time-limit .select-wrapper::before,
-.setting .setting-quiz-count .select-wrapper::before,
-.setting .setting-audio .select-wrapper::before {
+.setting .setting-inner .setting-common .setting-quiz-count .select-wrapper::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -387,9 +460,7 @@ img {
   border-right: 5px solid transparent;
   z-index: -1;
 }
-.setting .setting-time-limit .select-wrapper .select,
-.setting .setting-quiz-count .select-wrapper .select,
-.setting .setting-audio .select-wrapper .select {
+.setting .setting-inner .setting-common .setting-quiz-count .select-wrapper .select {
   width: 100%;
   cursor: pointer;
   border: none;
@@ -402,35 +473,122 @@ img {
           appearance: none;
   padding: 4px 30px 4px 10px;
 }
-.setting .setting-choice-type .radio-wrapper {
+.setting .setting-inner .setting-common .setting-time-limit {
+  width: 100%;
+}
+.setting .setting-inner .setting-common .setting-time-limit .checkbox {
+  display: none;
+}
+.setting .setting-inner .setting-common .setting-time-limit .checkbox + label {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  padding: 11px 0px 11px 45px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.setting .setting-inner .setting-common .setting-time-limit .checkbox + label::before, .setting .setting-inner .setting-common .setting-time-limit .checkbox + label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.setting .setting-inner .setting-common .setting-time-limit .checkbox + label::before {
+  width: 38px;
+  height: 18px;
+  left: 0;
+  border: 1px solid #e4e3e1;
+  border-radius: 18px;
+  background-color: #ffffff;
+}
+.setting .setting-inner .setting-common .setting-time-limit .checkbox + label::after {
+  width: 19px;
+  height: 18px;
+  left: 0;
+  border-radius: 50%;
+  background-color: #bdbdbd;
+  transition: all 0.3s ease-out;
+}
+.setting .setting-inner .setting-common .setting-time-limit .checkbox:checked + label::after {
+  left: 19px;
+  background-color: #5aaefd;
+}
+.setting .setting-inner .setting-common .setting-time-limit .checkbox:not(:checked) ~ .select-wrapper {
+  display: none;
+}
+.setting .setting-inner .setting-common .setting-time-limit .select-wrapper {
+  display: inline-block;
+  width: 78px;
+  margin-left: 7px;
+  position: relative;
+  border: 2px solid #5aaefd;
+  border-radius: 35px;
+  background-color: white;
+  z-index: 0;
+}
+.setting .setting-inner .setting-common .setting-time-limit .select-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 5px solid #383e45;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  z-index: -1;
+}
+.setting .setting-inner .setting-common .setting-time-limit .select-wrapper .select {
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: 4px 30px 4px 10px;
+}
+.setting .setting-inner .setting-answer-method .radio-wrapper,
+.setting .setting-inner .setting-choice-type .radio-wrapper {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
-.setting .setting-choice-type .radio-wrapper input {
+.setting .setting-inner .setting-answer-method .radio-wrapper input,
+.setting .setting-inner .setting-choice-type .radio-wrapper input {
   display: none;
 }
-.setting .setting-choice-type .radio-wrapper input:checked + label {
+.setting .setting-inner .setting-answer-method .radio-wrapper input:checked + label,
+.setting .setting-inner .setting-choice-type .radio-wrapper input:checked + label {
   background-color: #5aaefd;
   border: 3px solid #0b88fd;
   color: white;
 }
-.setting .setting-choice-type .radio-wrapper input:checked + label:hover {
+.setting .setting-inner .setting-answer-method .radio-wrapper input:checked + label:hover,
+.setting .setting-inner .setting-choice-type .radio-wrapper input:checked + label:hover {
   opacity: 1;
 }
-.setting .setting-choice-type .radio-wrapper label {
+.setting .setting-inner .setting-answer-method .radio-wrapper label,
+.setting .setting-inner .setting-choice-type .radio-wrapper label {
   cursor: pointer;
   display: inline-block;
   text-align: center;
-  width: 50%;
-  padding: 5px;
+  max-width: 250px;
+  width: calc(50% - 10px);
+  padding: 7px;
+  margin: 5px;
   border: 3px solid transparent;
   border-radius: 5px;
   background-color: #dfdfdf;
-  font-size: 1.1rem;
+  font-size: 1rem;
   transition: 0.4s;
 }
-.setting .setting-choice-type .radio-wrapper label:hover {
+.setting .setting-inner .setting-answer-method .radio-wrapper label:hover,
+.setting .setting-inner .setting-choice-type .radio-wrapper label:hover {
   opacity: 0.7;
 }
 
@@ -1027,5 +1185,16 @@ modal
   }
   #header .header-inner #sp-nav {
     display: block;
+  }
+
+  .setting .setting-inner .setting-target-area .checkbox-wrapper {
+    width: 33.3333333333%;
+  }
+  .setting .setting-inner .setting-common .setting-audio {
+    width: 100%;
+  }
+  .setting .setting-inner .setting-common .setting-quiz-count {
+    width: 100%;
+    order: -1;
   }
 }

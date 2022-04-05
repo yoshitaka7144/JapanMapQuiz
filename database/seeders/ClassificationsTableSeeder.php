@@ -24,25 +24,25 @@ class ClassificationsTableSeeder extends Seeder
                 "name" => "北海道",
             ],
             [
-                "name" => "東北",
+                "name" => "東北　",
             ],
             [
-                "name" => "関東",
+                "name" => "関東　",
             ],
             [
-                "name" => "中部",
+                "name" => "中部　",
             ],
             [
-                "name" => "近畿",
+                "name" => "近畿　",
             ],
             [
-                "name" => "中国",
+                "name" => "中国　",
             ],
             [
-                "name" => "四国",
+                "name" => "四国　",
             ],
             [
-                "name" => "九州",
+                "name" => "九州　",
             ],
         ];
 

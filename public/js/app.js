@@ -25571,6 +25571,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -53559,465 +53562,484 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _vm.completesApiLoading
     ? _c("div", { staticClass: "setting" }, [
-        _c(
-          "div",
-          { staticClass: "btn-back-wrapper" },
-          [
-            _c(
-              "router-link",
-              { staticClass: "btn btn-gray", attrs: { to: { name: "menu" } } },
-              [_vm._v("\n      戻る\n    ")]
-            ),
-          ],
-          1
-        ),
-        _vm._v(" "),
         _c("p", { staticClass: "title" }, [
-          _c("span", { staticClass: "title-en" }, [
-            _vm._v(_vm._s(_vm.selectedMenuTitleEn)),
-          ]),
-          _vm._v(" "),
           _c("span", { staticClass: "title-ja" }, [
             _vm._v(_vm._s(_vm.selectedMenuTitleJa)),
           ]),
         ]),
         _vm._v(" "),
-        _c("p", { staticClass: "explanation-text" }, [
-          _vm._v(_vm._s(_vm.selectedMenuText)),
+        _c("div", { staticClass: "setting-inner" }, [
+          _c(
+            "div",
+            { staticClass: "setting-target-area" },
+            [
+              _c("p", { staticClass: "sub-title" }, [_vm._v("出題対象地方")]),
+              _vm._v(" "),
+              _vm._l(_vm.classifications, function (classification) {
+                return _c(
+                  "div",
+                  { key: classification.id, staticClass: "checkbox-wrapper" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.params.classificationCheckedValues,
+                          expression: "params.classificationCheckedValues",
+                        },
+                      ],
+                      attrs: { id: classification.id, type: "checkbox" },
+                      domProps: {
+                        value: classification.id,
+                        checked: Array.isArray(
+                          _vm.params.classificationCheckedValues
+                        )
+                          ? _vm._i(
+                              _vm.params.classificationCheckedValues,
+                              classification.id
+                            ) > -1
+                          : _vm.params.classificationCheckedValues,
+                      },
+                      on: {
+                        change: function ($event) {
+                          var $$a = _vm.params.classificationCheckedValues,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = classification.id,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.params,
+                                  "classificationCheckedValues",
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.params,
+                                  "classificationCheckedValues",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(
+                              _vm.params,
+                              "classificationCheckedValues",
+                              $$c
+                            )
+                          }
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: classification.id } }, [
+                      _vm._v(_vm._s(classification.name)),
+                    ]),
+                  ]
+                )
+              }),
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.selectedMenuTitleEn === _vm.quizMapMenuTitleEn
+            ? _c("div", { staticClass: "setting-choice-type" }, [
+                _c("p", { staticClass: "sub-title" }, [_vm._v("選択肢タイプ")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "radio-wrapper" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.choiceType,
+                        expression: "params.choiceType",
+                      },
+                    ],
+                    attrs: { type: "radio", id: "choice-type-all" },
+                    domProps: {
+                      value: _vm.choiceTypeAll,
+                      checked: _vm._q(_vm.params.choiceType, _vm.choiceTypeAll),
+                    },
+                    on: {
+                      change: function ($event) {
+                        return _vm.$set(
+                          _vm.params,
+                          "choiceType",
+                          _vm.choiceTypeAll
+                        )
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "choice-type-all" } }, [
+                    _vm._v("全都道府県"),
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.choiceType,
+                        expression: "params.choiceType",
+                      },
+                    ],
+                    attrs: { type: "radio", id: "choice-type-classification" },
+                    domProps: {
+                      value: _vm.choiceTypeClassification,
+                      checked: _vm._q(
+                        _vm.params.choiceType,
+                        _vm.choiceTypeClassification
+                      ),
+                    },
+                    on: {
+                      change: function ($event) {
+                        return _vm.$set(
+                          _vm.params,
+                          "choiceType",
+                          _vm.choiceTypeClassification
+                        )
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { attrs: { for: "choice-type-classification" } },
+                    [_vm._v("同地方区分")]
+                  ),
+                ]),
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selectedMenuTitleEn !== _vm.fillMapMenuTitleEn
+            ? _c("div", { staticClass: "setting-common" }, [
+                _c("div", { staticClass: "setting-audio" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.audioChecked,
+                        expression: "params.audioChecked",
+                      },
+                    ],
+                    staticClass: "checkbox",
+                    attrs: { type: "checkbox", id: "audio" },
+                    domProps: {
+                      checked: Array.isArray(_vm.params.audioChecked)
+                        ? _vm._i(_vm.params.audioChecked, null) > -1
+                        : _vm.params.audioChecked,
+                    },
+                    on: {
+                      change: function ($event) {
+                        var $$a = _vm.params.audioChecked,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.params,
+                                "audioChecked",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.params,
+                                "audioChecked",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.params, "audioChecked", $$c)
+                        }
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "audio" } }, [
+                    _vm._v("音声有無"),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "setting-quiz-count" }, [
+                  _c("label", [_vm._v("問題数")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "select-wrapper" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.params.quizCountSelectedValue,
+                            expression: "params.quizCountSelectedValue",
+                          },
+                        ],
+                        staticClass: "select",
+                        on: {
+                          change: function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.params,
+                              "quizCountSelectedValue",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                        },
+                      },
+                      _vm._l(_vm.quizCountValues, function (quizCountValue) {
+                        return _c(
+                          "option",
+                          {
+                            key: quizCountValue.id,
+                            domProps: { value: quizCountValue.value },
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(quizCountValue.value) +
+                                "\n            "
+                            ),
+                          ]
+                        )
+                      }),
+                      0
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _vm.selectedMenuTitleEn === _vm.typingMapMenuTitleEn
+                  ? _c("div", { staticClass: "setting-time-limit" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.params.timeLimitChecked,
+                            expression: "params.timeLimitChecked",
+                          },
+                        ],
+                        staticClass: "checkbox",
+                        attrs: { type: "checkbox", id: "time-limit" },
+                        domProps: {
+                          checked: Array.isArray(_vm.params.timeLimitChecked)
+                            ? _vm._i(_vm.params.timeLimitChecked, null) > -1
+                            : _vm.params.timeLimitChecked,
+                        },
+                        on: {
+                          change: function ($event) {
+                            var $$a = _vm.params.timeLimitChecked,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.params,
+                                    "timeLimitChecked",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.params,
+                                    "timeLimitChecked",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.params, "timeLimitChecked", $$c)
+                            }
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: "time-limit" } }, [
+                        _vm._v("時間制限(秒)"),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "select-wrapper" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.params.timeLimitSelectedValue,
+                                expression: "params.timeLimitSelectedValue",
+                              },
+                            ],
+                            staticClass: "select",
+                            on: {
+                              change: function ($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function (o) {
+                                    return o.selected
+                                  })
+                                  .map(function (o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.params,
+                                  "timeLimitSelectedValue",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
+                            },
+                          },
+                          _vm._l(
+                            _vm.timeLimitValues,
+                            function (timeLimitValue) {
+                              return _c(
+                                "option",
+                                {
+                                  key: timeLimitValue.id,
+                                  domProps: { value: timeLimitValue.value },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(timeLimitValue.value) +
+                                      "\n            "
+                                  ),
+                                ]
+                              )
+                            }
+                          ),
+                          0
+                        ),
+                      ]),
+                    ])
+                  : _vm._e(),
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selectedMenuTitleEn === _vm.fillMapMenuTitleEn
+            ? _c("div", { staticClass: "setting-answer-method" }, [
+                _c("p", { staticClass: "sub-title" }, [_vm._v("解答タイプ")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "radio-wrapper" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.answerMethod,
+                        expression: "params.answerMethod",
+                      },
+                    ],
+                    attrs: { type: "radio", id: "answer-select" },
+                    domProps: {
+                      value: _vm.answerMethodSelectValue,
+                      checked: _vm._q(
+                        _vm.params.answerMethod,
+                        _vm.answerMethodSelectValue
+                      ),
+                    },
+                    on: {
+                      change: function ($event) {
+                        return _vm.$set(
+                          _vm.params,
+                          "answerMethod",
+                          _vm.answerMethodSelectValue
+                        )
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "answer-select" } }, [
+                    _vm._v("選択"),
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.answerMethod,
+                        expression: "params.answerMethod",
+                      },
+                    ],
+                    attrs: { type: "radio", id: "answer-write" },
+                    domProps: {
+                      value: _vm.answerMethodWriteValue,
+                      checked: _vm._q(
+                        _vm.params.answerMethod,
+                        _vm.answerMethodWriteValue
+                      ),
+                    },
+                    on: {
+                      change: function ($event) {
+                        return _vm.$set(
+                          _vm.params,
+                          "answerMethod",
+                          _vm.answerMethodWriteValue
+                        )
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "answer-write" } }, [
+                    _vm._v("記述"),
+                  ]),
+                ]),
+              ])
+            : _vm._e(),
         ]),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "setting-target-area" },
-          _vm._l(_vm.classifications, function (classification) {
-            return _c(
-              "label",
-              { key: classification.id, attrs: { for: classification.id } },
-              [
-                _vm._v(_vm._s(classification.name)),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.params.classificationCheckedValues,
-                      expression: "params.classificationCheckedValues",
-                    },
-                  ],
-                  attrs: { id: classification.id, type: "checkbox" },
-                  domProps: {
-                    value: classification.id,
-                    checked: Array.isArray(
-                      _vm.params.classificationCheckedValues
-                    )
-                      ? _vm._i(
-                          _vm.params.classificationCheckedValues,
-                          classification.id
-                        ) > -1
-                      : _vm.params.classificationCheckedValues,
-                  },
-                  on: {
-                    change: function ($event) {
-                      var $$a = _vm.params.classificationCheckedValues,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = classification.id,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(
-                              _vm.params,
-                              "classificationCheckedValues",
-                              $$a.concat([$$v])
-                            )
-                        } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.params,
-                              "classificationCheckedValues",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
-                        }
-                      } else {
-                        _vm.$set(_vm.params, "classificationCheckedValues", $$c)
-                      }
-                    },
-                  },
-                }),
-              ]
-            )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _vm.selectedMenuTitleEn === _vm.typingMapMenuTitleEn
-          ? _c("div", { staticClass: "setting-time-limit" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.params.timeLimitChecked,
-                    expression: "params.timeLimitChecked",
-                  },
-                ],
-                staticClass: "checkbox",
-                attrs: { type: "checkbox", id: "time-limit" },
-                domProps: {
-                  checked: Array.isArray(_vm.params.timeLimitChecked)
-                    ? _vm._i(_vm.params.timeLimitChecked, null) > -1
-                    : _vm.params.timeLimitChecked,
-                },
+          { staticClass: "btn-start-wrapper" },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn large btn-gray",
                 on: {
-                  change: function ($event) {
-                    var $$a = _vm.params.timeLimitChecked,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 &&
-                          _vm.$set(
-                            _vm.params,
-                            "timeLimitChecked",
-                            $$a.concat([$$v])
-                          )
-                      } else {
-                        $$i > -1 &&
-                          _vm.$set(
-                            _vm.params,
-                            "timeLimitChecked",
-                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                          )
-                      }
-                    } else {
-                      _vm.$set(_vm.params, "timeLimitChecked", $$c)
-                    }
+                  click: function ($event) {
+                    return _vm.settingParams(_vm.params)
                   },
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "time-limit" } }, [
-                _vm._v("時間制限（秒）"),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "select-wrapper" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.params.timeLimitSelectedValue,
-                        expression: "params.timeLimitSelectedValue",
-                      },
-                    ],
-                    staticClass: "select",
-                    on: {
-                      change: function ($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function (o) {
-                            return o.selected
-                          })
-                          .map(function (o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.params,
-                          "timeLimitSelectedValue",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      },
-                    },
-                  },
-                  _vm._l(_vm.timeLimitValues, function (timeLimitValue) {
-                    return _c(
-                      "option",
-                      {
-                        key: timeLimitValue.id,
-                        domProps: { value: timeLimitValue.value },
-                      },
-                      [
-                        _vm._v(
-                          "\n          " +
-                            _vm._s(timeLimitValue.value) +
-                            "\n        "
-                        ),
-                      ]
-                    )
-                  }),
-                  0
-                ),
-              ]),
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.selectedMenuTitleEn === _vm.quizMapMenuTitleEn
-          ? _c("div", { staticClass: "setting-choice-type" }, [
-              _c("p", [_vm._v("選択肢タイプ")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "radio-wrapper" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.params.choiceType,
-                      expression: "params.choiceType",
-                    },
-                  ],
-                  attrs: { type: "radio", id: "choice-type-all" },
-                  domProps: {
-                    value: _vm.choiceTypeAll,
-                    checked: _vm._q(_vm.params.choiceType, _vm.choiceTypeAll),
-                  },
-                  on: {
-                    change: function ($event) {
-                      return _vm.$set(
-                        _vm.params,
-                        "choiceType",
-                        _vm.choiceTypeAll
-                      )
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "choice-type-all" } }, [
-                  _vm._v("全都道府県"),
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.params.choiceType,
-                      expression: "params.choiceType",
-                    },
-                  ],
-                  attrs: { type: "radio", id: "choice-type-classification" },
-                  domProps: {
-                    value: _vm.choiceTypeClassification,
-                    checked: _vm._q(
-                      _vm.params.choiceType,
-                      _vm.choiceTypeClassification
-                    ),
-                  },
-                  on: {
-                    change: function ($event) {
-                      return _vm.$set(
-                        _vm.params,
-                        "choiceType",
-                        _vm.choiceTypeClassification
-                      )
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "choice-type-classification" } }, [
-                  _vm._v("同地方区分"),
-                ]),
-              ]),
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.selectedMenuTitleEn !== _vm.fillMapMenuTitleEn
-          ? _c("div", { staticClass: "setting-audio" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.params.audioChecked,
-                    expression: "params.audioChecked",
-                  },
-                ],
-                staticClass: "checkbox",
-                attrs: { type: "checkbox", id: "audio" },
-                domProps: {
-                  checked: Array.isArray(_vm.params.audioChecked)
-                    ? _vm._i(_vm.params.audioChecked, null) > -1
-                    : _vm.params.audioChecked,
-                },
-                on: {
-                  change: function ($event) {
-                    var $$a = _vm.params.audioChecked,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 &&
-                          _vm.$set(
-                            _vm.params,
-                            "audioChecked",
-                            $$a.concat([$$v])
-                          )
-                      } else {
-                        $$i > -1 &&
-                          _vm.$set(
-                            _vm.params,
-                            "audioChecked",
-                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                          )
-                      }
-                    } else {
-                      _vm.$set(_vm.params, "audioChecked", $$c)
-                    }
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "audio" } }, [_vm._v("音声有無")]),
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.selectedMenuTitleEn !== _vm.fillMapMenuTitleEn
-          ? _c("div", { staticClass: "setting-quiz-count" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("問題数")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "select-wrapper" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.params.quizCountSelectedValue,
-                        expression: "params.quizCountSelectedValue",
-                      },
-                    ],
-                    staticClass: "select",
-                    on: {
-                      change: function ($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function (o) {
-                            return o.selected
-                          })
-                          .map(function (o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.params,
-                          "quizCountSelectedValue",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      },
-                    },
-                  },
-                  _vm._l(_vm.quizCountValues, function (quizCountValue) {
-                    return _c(
-                      "option",
-                      {
-                        key: quizCountValue.id,
-                        domProps: { value: quizCountValue.value },
-                      },
-                      [
-                        _vm._v(
-                          "\n          " +
-                            _vm._s(quizCountValue.value) +
-                            "\n        "
-                        ),
-                      ]
-                    )
-                  }),
-                  0
-                ),
-              ]),
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.selectedMenuTitleEn === _vm.fillMapMenuTitleEn
-          ? _c("div", { staticClass: "setting-answer-method" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.params.answerMethod,
-                    expression: "params.answerMethod",
-                  },
-                ],
-                attrs: { type: "radio", id: "answer-select" },
-                domProps: {
-                  value: _vm.answerMethodSelectValue,
-                  checked: _vm._q(
-                    _vm.params.answerMethod,
-                    _vm.answerMethodSelectValue
-                  ),
-                },
-                on: {
-                  change: function ($event) {
-                    return _vm.$set(
-                      _vm.params,
-                      "answerMethod",
-                      _vm.answerMethodSelectValue
-                    )
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "answer-select" } }, [
-                _vm._v("選択"),
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.params.answerMethod,
-                    expression: "params.answerMethod",
-                  },
-                ],
-                attrs: { type: "radio", id: "answer-write" },
-                domProps: {
-                  value: _vm.answerMethodWriteValue,
-                  checked: _vm._q(
-                    _vm.params.answerMethod,
-                    _vm.answerMethodWriteValue
-                  ),
-                },
-                on: {
-                  change: function ($event) {
-                    return _vm.$set(
-                      _vm.params,
-                      "answerMethod",
-                      _vm.answerMethodWriteValue
-                    )
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "answer-write" } }, [_vm._v("記述")]),
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "btn-start-wrapper" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-gray",
-              on: {
-                click: function ($event) {
-                  return _vm.settingParams(_vm.params)
                 },
               },
-            },
-            [_vm._v("\n      スタート\n    ")]
-          ),
-        ]),
+              [_vm._v("\n      スタート\n    ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "btn large btn-gray",
+                attrs: { to: { name: "menu" } },
+              },
+              [_vm._v("\n      戻る\n    ")]
+            ),
+          ],
+          1
+        ),
       ])
     : _vm._e()
 }

@@ -21,14 +21,13 @@
             ></use>
           </svg>
         </div>
-        <div class="hint">
-          <button
-            v-if="!canShowHint"
-            @click="canShowHint = true"
-            class="btn btn-gray"
-          >
-            ヒント表示
-          </button>
+        <div class="hint-wrapper">
+          <div class="btn-wrapper" v-if="!canShowHint">
+            <button @click="canShowHint = true" class="btn btn-orange">
+              <fontawesome-icon class="icon" :icon="['far', 'fa-lightbulb']" />
+              ヒント
+            </button>
+          </div>
           <p v-else class="hint-text">
             {{ quizData[currentQuizIndex].hintText }}
           </p>
@@ -57,11 +56,17 @@
             >
           </div>
         </div>
-        <button class="btn btn-gray" @click="judgeQuiz()">
-          <span v-if="nextFlag && lastFlag">結果へ</span>
-          <span v-else-if="nextFlag && !lastFlag">次へ</span>
-          <span v-else>解答する</span>
-        </button>
+        <div class="btn-wrapper">
+          <button
+            class="btn"
+            :class="{ 'btn-blue': !nextFlag, 'btn-green': nextFlag }"
+            @click="judgeQuiz()"
+          >
+            <span v-if="nextFlag && lastFlag">結果へ</span>
+            <span v-else-if="nextFlag && !lastFlag">次へ</span>
+            <span v-else>解答する</span>
+          </button>
+        </div>
       </div>
       <div class="result" v-else>
         <div class="table-wrapper">
@@ -77,30 +82,34 @@
             <tr>
               <th>ミス問題</th>
               <td>
-                <span
-                  v-for="item in missQuizData"
-                  :key="item.id"
-                  @click="showMissQuiz(item)"
-                  >{{ item.correctName }}</span
-                >
+                <div class="incorrect-item-wrapper">
+                  <span
+                    v-for="item in missQuizData"
+                    :key="item.id"
+                    @click="showMissQuiz(item)"
+                    >{{ item.correctName }}</span
+                  >
+                </div>
               </td>
             </tr>
           </table>
-          <div class="circle">
-            <div class="circle-inner">
-              <p class="evaluation-text">
-                {{ evaluationText.split(",")[0] }}<br />{{
-                  evaluationText.split(",")[1]
-                }}
-              </p>
+          <div class="evaluation-circle-wrapper">
+            <div class="circle">
+              <div class="circle-inner">
+                <p class="evaluation-text">
+                  {{ evaluationText.split(",")[0] }}<br />{{
+                    evaluationText.split(",")[1]
+                  }}
+                </p>
+              </div>
             </div>
           </div>
-          <div class="btn-wrapper">
-            <router-link :to="{ name: 'menu' }" class="btn btn-gray">
-              メニュー画面へ
-            </router-link>
-            <button class="btn btn-gray" @click="reset()">設定画面へ</button>
-          </div>
+        </div>
+        <div class="btn-wrapper">
+          <router-link :to="{ name: 'menu' }" class="btn btn-gray">
+            メニューへ
+          </router-link>
+          <button class="btn btn-gray" @click="reset()">設定画面へ</button>
         </div>
       </div>
       <AlertModalComponent

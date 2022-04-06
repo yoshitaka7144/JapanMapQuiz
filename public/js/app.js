@@ -23209,6 +23209,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     alertMessage: String
@@ -25112,6 +25114,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -25446,6 +25457,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -51293,17 +51306,20 @@ var render = function () {
             _vm._v(_vm._s(_vm.alertMessage)),
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.$emit("close")
+          _c("div", { staticClass: "btn-wrapper" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-gray",
+                on: {
+                  click: function ($event) {
+                    return _vm.$emit("close")
+                  },
                 },
               },
-            },
-            [_vm._v("OK")]
-          ),
+              [_vm._v("OK")]
+            ),
+          ]),
         ]),
       ]),
     ]),
@@ -53335,20 +53351,29 @@ var render = function () {
                 ]),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "hint" }, [
+              _c("div", { staticClass: "hint-wrapper" }, [
                 !_vm.canShowHint
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-gray",
-                        on: {
-                          click: function ($event) {
-                            _vm.canShowHint = true
+                  ? _c("div", { staticClass: "btn-wrapper" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-orange",
+                          on: {
+                            click: function ($event) {
+                              _vm.canShowHint = true
+                            },
                           },
                         },
-                      },
-                      [_vm._v("\n          ヒント表示\n        ")]
-                    )
+                        [
+                          _c("fontawesome-icon", {
+                            staticClass: "icon",
+                            attrs: { icon: ["far", "fa-lightbulb"] },
+                          }),
+                          _vm._v("\n            ヒント\n          "),
+                        ],
+                        1
+                      ),
+                    ])
                   : _c("p", { staticClass: "hint-text" }, [
                       _vm._v(
                         "\n          " +
@@ -53405,24 +53430,30 @@ var render = function () {
                 0
               ),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-gray",
-                  on: {
-                    click: function ($event) {
-                      return _vm.judgeQuiz()
+              _c("div", { staticClass: "btn-wrapper" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn",
+                    class: {
+                      "btn-blue": !_vm.nextFlag,
+                      "btn-green": _vm.nextFlag,
+                    },
+                    on: {
+                      click: function ($event) {
+                        return _vm.judgeQuiz()
+                      },
                     },
                   },
-                },
-                [
-                  _vm.nextFlag && _vm.lastFlag
-                    ? _c("span", [_vm._v("結果へ")])
-                    : _vm.nextFlag && !_vm.lastFlag
-                    ? _c("span", [_vm._v("次へ")])
-                    : _c("span", [_vm._v("解答する")]),
-                ]
-              ),
+                  [
+                    _vm.nextFlag && _vm.lastFlag
+                      ? _c("span", [_vm._v("結果へ")])
+                      : _vm.nextFlag && !_vm.lastFlag
+                      ? _c("span", [_vm._v("次へ")])
+                      : _c("span", [_vm._v("解答する")]),
+                  ]
+                ),
+              ]),
             ])
           : _c("div", { staticClass: "result" }, [
               _c("div", { staticClass: "table-wrapper" }, [
@@ -53442,72 +53473,77 @@ var render = function () {
                   _c("tr", [
                     _c("th", [_vm._v("ミス問題")]),
                     _vm._v(" "),
-                    _c(
-                      "td",
-                      _vm._l(_vm.missQuizData, function (item) {
-                        return _c(
-                          "span",
-                          {
-                            key: item.id,
-                            on: {
-                              click: function ($event) {
-                                return _vm.showMissQuiz(item)
+                    _c("td", [
+                      _c(
+                        "div",
+                        { staticClass: "incorrect-item-wrapper" },
+                        _vm._l(_vm.missQuizData, function (item) {
+                          return _c(
+                            "span",
+                            {
+                              key: item.id,
+                              on: {
+                                click: function ($event) {
+                                  return _vm.showMissQuiz(item)
+                                },
                               },
                             },
-                          },
-                          [_vm._v(_vm._s(item.correctName))]
-                        )
-                      }),
-                      0
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "circle" }, [
-                  _c("div", { staticClass: "circle-inner" }, [
-                    _c("p", { staticClass: "evaluation-text" }, [
-                      _vm._v(
-                        "\n              " +
-                          _vm._s(_vm.evaluationText.split(",")[0])
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        _vm._s(_vm.evaluationText.split(",")[1]) +
-                          "\n            "
+                            [_vm._v(_vm._s(item.correctName))]
+                          )
+                        }),
+                        0
                       ),
                     ]),
                   ]),
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "btn-wrapper" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-gray",
-                        attrs: { to: { name: "menu" } },
-                      },
-                      [_vm._v("\n            メニュー画面へ\n          ")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-gray",
-                        on: {
-                          click: function ($event) {
-                            return _vm.reset()
-                          },
+                _c("div", { staticClass: "evaluation-circle-wrapper" }, [
+                  _c("div", { staticClass: "circle" }, [
+                    _c("div", { staticClass: "circle-inner" }, [
+                      _c("p", { staticClass: "evaluation-text" }, [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm.evaluationText.split(",")[0])
+                        ),
+                        _c("br"),
+                        _vm._v(
+                          _vm._s(_vm.evaluationText.split(",")[1]) +
+                            "\n              "
+                        ),
+                      ]),
+                    ]),
+                  ]),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "btn-wrapper" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-gray",
+                      attrs: { to: { name: "menu" } },
+                    },
+                    [_vm._v("\n          メニューへ\n        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-gray",
+                      on: {
+                        click: function ($event) {
+                          return _vm.reset()
                         },
                       },
-                      [_vm._v("設定画面へ")]
-                    ),
-                  ],
-                  1
-                ),
-              ]),
+                    },
+                    [_vm._v("設定画面へ")]
+                  ),
+                ],
+                1
+              ),
             ]),
         _vm._v(" "),
         _vm.showAlertModal
@@ -54019,14 +54055,21 @@ var render = function () {
             _c(
               "button",
               {
-                staticClass: "btn large btn-gray",
+                staticClass: "btn large btn-blue",
                 on: {
                   click: function ($event) {
                     return _vm.settingParams(_vm.params)
                   },
                 },
               },
-              [_vm._v("\n      スタート\n    ")]
+              [
+                _c("fontawesome-icon", {
+                  staticClass: "icon",
+                  attrs: { icon: ["fas", "fa-play"] },
+                }),
+                _vm._v("\n      スタート\n    "),
+              ],
+              1
             ),
             _vm._v(" "),
             _c(
@@ -54035,7 +54078,14 @@ var render = function () {
                 staticClass: "btn large btn-gray",
                 attrs: { to: { name: "menu" } },
               },
-              [_vm._v("\n      戻る\n    ")]
+              [
+                _c("fontawesome-icon", {
+                  staticClass: "icon",
+                  attrs: { icon: ["fas", "fa-reply"] },
+                }),
+                _vm._v("\n      戻る\n    "),
+              ],
+              1
             ),
           ],
           1

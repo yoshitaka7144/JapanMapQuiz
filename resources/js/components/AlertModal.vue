@@ -4,7 +4,9 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <p class="message">{{ alertMessage }}</p>
-          <button @click="$emit('close')">OK</button>
+          <div class="btn-wrapper">
+            <button class="btn btn-gray" @click="$emit('close')">OK</button>
+          </div>
         </div>
       </div>
     </div>

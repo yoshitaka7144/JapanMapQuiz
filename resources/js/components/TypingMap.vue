@@ -101,6 +101,7 @@
         :correctPlaceName="correctPlaceName"
         :mode="modalMode"
         :ok="okFunction"
+        @close="showInputModal = false"
       />
     </div>
   </div>

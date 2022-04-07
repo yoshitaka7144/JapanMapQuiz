@@ -58,7 +58,7 @@ export const DEFAULT_CHOICE_TYPE = CHOICE_TYPE_ALL;
 /**
 * 設定画面：区分チェックエラーテキスト
 */
-export const SETTING_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
+export const SETTING_CLASSIFICATION_ERROR_TEXT = "出題対象地方を1つ以上選択してください。";
 
 /**
  * 地図埋め：日本語タイトル
@@ -75,7 +75,7 @@ export const FILL_MAP_EXPLANATION_TEXT = "地図埋めの説明";
 /**
  * 地図埋め：解答終了確認テキスト
  */
-export const FILL_MAP_ANSWER_CONFIRMATION_TEXT = "解答を終了してよろしいですか？";
+export const FILL_MAP_ANSWER_CONFIRMATION_TEXT = "終了してよろしいですか？";
 /**
 * 地図埋め：モーダルモード：入力
 */
@@ -84,6 +84,14 @@ export const FILL_MAP_MODAL_INPUT_MODE = "input";
 * 地図埋め：モーダルモード：確認
 */
 export const FILL_MAP_MODAL_CONFIRM_MODE = "confirm";
+/**
+* 地図埋め：入力モーダル：選択肢デフォルト値
+*/
+export const FILL_MAP_INPUT_MODAL_SELECT_DEFAULT_VALUE = "未選択";
+/**
+* 地図埋め：入力モーダル：プレースホルダテキスト
+*/
+export const FILL_MAP_INPUT_MODAL_PLACEHOLDER_TEXT = "都道府県名を入力";
 /**
 * 地図埋め：viewBox初期値
 */
@@ -136,7 +144,15 @@ export const QUIZ_MAP_NOT_CHOICE_TEXT = "選択肢を選択してください。
 /**
 * 地図クイズ：選択肢が同地方区分の場合の北海道の選択肢データ
 */
-export const QUIZ_MAP_HOKKAIDOU_CHOICES = "北海道,あああ,いいい,ううう";
+export const QUIZ_MAP_HOKKAIDOU_CHOICES = "北海道,岩手,熊本,神奈川";
+/**
+* 地図クイズ：正解時表示テキスト
+*/
+export const QUIZ_MAP_CORRECT_TEXT = "正解!!";
+/**
+* 地図クイズ：不正解時表示テキスト
+*/
+export const QUIZ_MAP_INCORRECT_TEXT = "不正解";
 
 /**
 * 地図タイピング：日本語タイトル

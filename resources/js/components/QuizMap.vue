@@ -56,6 +56,9 @@
             >
           </div>
         </div>
+        <p class="judge-text" :class="{ correct: isCorrected }">
+          {{ judgeText }}
+        </p>
         <div class="btn-wrapper">
           <button
             class="btn"
@@ -72,12 +75,11 @@
         <div class="table-wrapper">
           <table class="table">
             <tr>
-              <th>問題数</th>
-              <td>{{ quizCountLimit }}</td>
-            </tr>
-            <tr>
-              <th>正解数</th>
-              <td>{{ correctCount }}</td>
+              <th><span class="correct">正解</span> / 問題数</th>
+              <td>
+                <span class="correct">{{ correctCount }}</span> /
+                {{ quizCountLimit }}
+              </td>
             </tr>
             <tr>
               <th>ミス問題</th>
@@ -124,6 +126,7 @@
         :correctPlaceName="correctPlaceName"
         :mode="modalMode"
         :ok="okFunction"
+        @close="showInputModal = false"
       />
     </div>
   </div>
@@ -145,6 +148,8 @@ import {
   RESULT_EVALUATION_TEXT_GREAT,
   RESULT_EVALUATION_TEXT_GOOD,
   RESULT_EVALUATION_TEXT_POOR,
+  QUIZ_MAP_CORRECT_TEXT,
+  QUIZ_MAP_INCORRECT_TEXT,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 import AlertModalComponent from "./AlertModal.vue";
@@ -188,6 +193,8 @@ export default {
       correctPlaceName: String,
       okFunction: Function,
       missQuizData: [],
+      judgeText: "",
+      isCorrected: false,
     };
   },
   computed: {
@@ -222,6 +229,7 @@ export default {
       this.showAlertModal = false;
       this.canShowHint = false;
       this.missQuizData = [];
+      this.judgeText = "";
     },
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -372,15 +380,20 @@ export default {
 
         // 選択肢をデフォルト値に
         this.selectedChoiceValue = QUIZ_MAP_CHOICE_DEFAULT_VALUE;
+        this.judgeText = "";
       } else {
         // 正解判定
         const correctValue = this.quizData[this.currentQuizIndex].name;
         if (this.selectedChoiceValue === correctValue) {
           // 正解
           this.correctCount++;
+          this.judgeText = QUIZ_MAP_CORRECT_TEXT;
+          this.isCorrected = true;
         } else {
           // 不正解
           this.incorrectCount++;
+          this.judgeText = QUIZ_MAP_INCORRECT_TEXT;
+          this.isCorrected = false;
           const missData = {
             id: this.quizData[this.currentQuizIndex].id,
             correctName: correctValue,

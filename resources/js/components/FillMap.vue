@@ -859,6 +859,7 @@
         :correctPlaceName="mapNames[imageId - 1]"
         :mode="inputModalMode"
         :ok="okFunction"
+        @close="showInputNameModal = false"
       />
       <ConfirmationModalComponent
         v-if="showConfirmationModal"

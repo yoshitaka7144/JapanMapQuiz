@@ -3,9 +3,12 @@
     <div id="alert-modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
+          <button class="closeBtn" @click="$emit('close')">
+            <fontawesome-icon class="icon" :icon="['fas', 'fa-circle-xmark']" />
+          </button>
           <p class="message">{{ alertMessage }}</p>
           <div class="btn-wrapper">
-            <button class="btn btn-gray" @click="$emit('close')">OK</button>
+            <button class="btn btn-orange" @click="$emit('close')">OK</button>
           </div>
         </div>
       </div>

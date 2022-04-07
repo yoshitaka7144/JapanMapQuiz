@@ -3,6 +3,9 @@
     <div id="input-modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
+          <button class="closeBtn" @click="$emit('close')">
+            <fontawesome-icon class="icon" :icon="['fas', 'fa-circle-xmark']" />
+          </button>
           <div class="img-wrapper">
             <svg
               class="svg-default"
@@ -22,13 +25,14 @@
             <div class="input-place-name">
               <input
                 type="text"
-                class="input"
+                autocomplete="false"
+                :placeholder="placeholderText"
                 v-model="selectedPlaceName"
                 v-if="answerMethod === methodWrite"
               />
               <div class="select-wrapper" v-else>
                 <select class="select" v-model="selectedPlaceName">
-                  <option value="">未選択</option>
+                  <option value="">{{ selectDefaultValue }}</option>
                   <option
                     v-for="item in placeNames"
                     :key="item.name"
@@ -39,32 +43,42 @@
                 </select>
               </div>
             </div>
-            <button
-              class="btn btn-gray"
-              @click="ok(selectedPlaceName, imageId)"
-            >
-              OK
-            </button>
+            <div class="btn-wrapper">
+              <button
+                class="btn btn-orange"
+                @click="ok(selectedPlaceName, imageId)"
+              >
+                OK
+              </button>
+            </div>
           </div>
           <div class="mode-confirm" v-else>
-            <div class="confirm-text" v-if="kana">
-              <div class="typing-text">
-                <p>{{ roman }}</p>
-                <p>{{ kana }}</p>
-                <p>{{ correctPlaceName }}</p>
+            <div class="confirm" v-if="kana">
+              <div class="typing">
+                <p class="roman">{{ roman }}</p>
+                <p class="kana">{{ kana }}</p>
+                <p class="name">{{ correctPlaceName }}</p>
               </div>
             </div>
-            <div class="confirm-text" v-else>
-              <div class="inputed-text">
-                <p>あなたの解答</p>
-                <p>{{ initialPlaceName }}</p>
+            <div class="confirm" v-else>
+              <div class="answer">
+                <p class="title">あなたの解答</p>
+                <p class="text">
+                  <span :class="{ incorrect: !isCorrected }">{{
+                    initialPlaceName
+                  }}</span>
+                </p>
               </div>
-              <div class="correct-text">
-                <p>正解</p>
-                <p>{{ correctPlaceName }}</p>
+              <div class="correct">
+                <p class="title">正解</p>
+                <p class="text">
+                  <span>{{ correctPlaceName }}</span>
+                </p>
               </div>
             </div>
-            <button class="btn btn-gray" @click="ok">OK</button>
+            <div class="btn-wrapper">
+              <button class="btn btn-orange" @click="ok">OK</button>
+            </div>
           </div>
         </div>
       </div>
@@ -77,6 +91,8 @@ import {
   ANSWER_METHOD_WRITE,
   FILL_MAP_MODAL_INPUT_MODE,
   FILL_MAP_MODAL_CONFIRM_MODE,
+  FILL_MAP_INPUT_MODAL_SELECT_DEFAULT_VALUE,
+  FILL_MAP_INPUT_MODAL_PLACEHOLDER_TEXT,
 } from "../util";
 export default {
   props: {
@@ -98,7 +114,14 @@ export default {
       selectedPlaceName: this.initialPlaceName,
       modeInput: FILL_MAP_MODAL_INPUT_MODE,
       modeConfirm: FILL_MAP_MODAL_CONFIRM_MODE,
+      selectDefaultValue: FILL_MAP_INPUT_MODAL_SELECT_DEFAULT_VALUE,
+      placeholderText: FILL_MAP_INPUT_MODAL_PLACEHOLDER_TEXT,
     };
+  },
+  computed: {
+    isCorrected() {
+      return this.initialPlaceName === this.correctPlaceName;
+    },
   },
   methods: {},
 };

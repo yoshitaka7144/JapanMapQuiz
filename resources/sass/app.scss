@@ -768,24 +768,6 @@ $hamburger-menu-background-color: gray;
             visibility: hidden;
             animation: stamp 0.5s 0.5s ease-in forwards;
 
-            @keyframes stamp {
-              0% {
-                visibility: visible;
-                opacity: 0;
-                transform: rotate(-30deg) scale(4);
-              }
-              50% {
-                visibility: visible;
-                opacity: 0.8;
-                transform: rotate(-15deg) scale(2);
-              }
-              100% {
-                visibility: visible;
-                opacity: 1;
-                transform: rotate(0deg) scale(1);
-              }
-            }
-
             .circle-inner {
               position: absolute;
               top: 50%;
@@ -883,8 +865,8 @@ $hamburger-menu-background-color: gray;
       .img-wrapper {
         display: flex;
         justify-content: center;
-        height: 35%;
-        margin-bottom: 15px;
+        height: 30%;
+        margin-bottom: 10px;
 
         .svg-default {
           fill: rgb(47, 194, 145);
@@ -897,7 +879,7 @@ $hamburger-menu-background-color: gray;
       }
 
       .hint-wrapper {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
 
         .btn-wrapper {
           display: flex;
@@ -914,7 +896,7 @@ $hamburger-menu-background-color: gray;
       .choices {
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         .item {
           width: calc(50% - 20px);
           margin: 10px;
@@ -934,7 +916,7 @@ $hamburger-menu-background-color: gray;
             width: 100%;
             max-width: 200px;
             display: inline-block;
-            padding: 10px;
+            padding: 8px;
             border-radius: 15px;
             border: 2px solid #7c7c7c;
             text-align: center;
@@ -950,6 +932,20 @@ $hamburger-menu-background-color: gray;
         }
       }
 
+      .judge-text {
+        height: 5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: rgb(231, 84, 84);
+        margin-bottom: 10px;
+        &.correct {
+          color: rgb(30, 185, 134);
+        }
+      }
+
       .btn-wrapper {
         display: flex;
         justify-content: center;
@@ -961,30 +957,48 @@ $hamburger-menu-background-color: gray;
       background-color: white;
       border-radius: 10px;
       box-shadow: $box-shadow;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       .table-wrapper {
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         .table {
+          width: 100%;
           margin-bottom: 15px;
+          border-collapse: collapse;
           th,
           td {
+            width: 50%;
+            font-size: 1.2rem;
+            text-align: center;
             padding: 10px;
+            border-left: 2px solid #7c7c7c;
+            border-top: 2px solid #7c7c7c;
+            .correct {
+              color: rgb(30, 185, 134);
+            }
           }
           th {
-            width: 40%;
+            &:last-of-type {
+              border-bottom: 2px solid #7c7c7c;
+            }
           }
           td {
-            width: 60%;
+            border-right: 2px solid #7c7c7c;
+            &:last-of-type {
+              border-bottom: 2px solid #7c7c7c;
+            }
             .incorrect-item-wrapper {
               display: block;
               overflow-y: auto;
-              height: 85px;
+              height: 50px;
+              text-align: left;
               span {
                 cursor: pointer;
                 display: inline-block;
@@ -1009,24 +1023,6 @@ $hamburger-menu-background-color: gray;
             position: relative;
             visibility: hidden;
             animation: stamp 0.5s 0.5s ease-in forwards;
-
-            @keyframes stamp {
-              0% {
-                visibility: visible;
-                opacity: 0;
-                transform: rotate(-30deg) scale(4);
-              }
-              50% {
-                visibility: visible;
-                opacity: 0.8;
-                transform: rotate(-15deg) scale(2);
-              }
-              100% {
-                visibility: visible;
-                opacity: 1;
-                transform: rotate(0deg) scale(1);
-              }
-            }
 
             .circle-inner {
               position: absolute;
@@ -1185,24 +1181,6 @@ $hamburger-menu-background-color: gray;
           visibility: hidden;
           animation: stamp 0.5s 0.5s ease-in forwards;
 
-          @keyframes stamp {
-            0% {
-              visibility: visible;
-              opacity: 0;
-              transform: rotate(-30deg) scale(4);
-            }
-            50% {
-              visibility: visible;
-              opacity: 0.8;
-              transform: rotate(-15deg) scale(2);
-            }
-            100% {
-              visibility: visible;
-              opacity: 1;
-              transform: rotate(0deg) scale(1);
-            }
-          }
-
           .circle-inner {
             position: absolute;
             top: 50%;
@@ -1278,10 +1256,25 @@ modal
       width: 100%;
       max-width: 400px;
       margin: 0px auto;
-      padding: 30px 20px;
+      padding: 25px 15px;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      position: relative;
+
+      .closeBtn {
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        .icon {
+          font-size: 1.2rem;
+          color: #7c7c7c;
+          cursor: pointer;
+          &:hover {
+            opacity: $hovered-opacity;
+          }
+        }
+      }
 
       .message {
         font-size: 1rem;
@@ -1310,20 +1303,39 @@ modal
   .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
+    padding: 0 20px;
 
     .modal-container {
-      width: 300px;
+      width: 100%;
+      max-width: 400px;
       margin: 0px auto;
-      padding: 20px 30px;
+      padding: 25px 15px;
       background-color: #fff;
-      border-radius: 2px;
+      border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      position: relative;
+
+      .closeBtn {
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        .icon {
+          font-size: 1.2rem;
+          color: #7c7c7c;
+          cursor: pointer;
+          &:hover {
+            opacity: $hovered-opacity;
+          }
+        }
+      }
 
       .img-wrapper {
         display: flex;
         justify-content: center;
+        margin-bottom: 15px;
 
         .svg-default {
+          width: 100%;
           fill: #fff;
           stroke: #7c7c7c;
           stroke-linecap: round;
@@ -1341,13 +1353,39 @@ modal
       }
 
       .mode-input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         .input-place-name {
+          margin-bottom: 15px;
+
+          input[type="text"] {
+            display: block;
+            width: 160px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            color: $font-base-color;
+            font-size: 1.2rem;
+
+            &:focus {
+              outline: none;
+              border-color: dodgerBlue;
+              box-shadow: 0 0 5px 0 dodgerBlue;
+            }
+
+            &::placeholder {
+              font-size: 1rem;
+              color: #afaeae;
+            }
+          }
+
           .select-wrapper {
             display: inline-block;
-            width: 75px;
-            margin-left: 7px;
+            width: 120px;
             position: relative;
-            border: 2px solid rgb(47, 194, 145);
+            border: 2px solid #5aaefd;
             border-radius: 35px;
             background-color: white;
             z-index: 0;
@@ -1369,6 +1407,8 @@ modal
             .select {
               width: 100%;
               cursor: pointer;
+              color: $font-base-color;
+              font-size: 1.2rem;
               border: none;
               outline: none;
               background: transparent;
@@ -1379,10 +1419,89 @@ modal
             }
           }
         }
+        .btn-wrapper {
+          display: flex;
+          justify-content: center;
+        }
       }
       .mode-confirm {
-        .confirm-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .confirm {
           display: flex;
+          justify-content: center;
+          margin-bottom: 15px;
+
+          .typing {
+            .roman {
+              font-size: 1.3rem;
+              margin-bottom: 10px;
+            }
+
+            .kana {
+              font-size: 1rem;
+              margin-bottom: 2px;
+            }
+
+            .name {
+              font-size: 1.3rem;
+            }
+          }
+
+          .answer {
+            width: 50%;
+            .title {
+              text-align: center;
+              font-size: 1.1rem;
+              margin-bottom: 15px;
+            }
+
+            .text {
+              text-align: center;
+              span {
+                font-size: 1.3rem;
+                font-weight: bold;
+                display: inline-block;
+                background-position: 0% 0%;
+                background-size: 0% auto;
+                background-image: linear-gradient(to bottom, transparent 60%, rgb(123, 224, 191) 40%);
+                animation: draw-line 0.7s ease-out forwards;
+
+                &.incorrect {
+                  background-image: linear-gradient(to bottom, transparent 60%, rgb(235, 150, 150) 40%);
+                }
+              }
+            }
+          }
+
+          .correct {
+            width: 50%;
+            .title {
+              text-align: center;
+              font-size: 1.1rem;
+              margin-bottom: 15px;
+            }
+
+            .text {
+              text-align: center;
+              span {
+                font-size: 1.3rem;
+                font-weight: bold;
+                display: inline-block;
+                background-image: linear-gradient(to bottom, transparent 60%, rgb(123, 224, 191) 40%);
+                background-position: 0% 0%;
+                background-size: 0% auto;
+                animation: draw-line 0.7s ease-out forwards;
+              }
+            }
+          }
+        }
+
+        .btn-wrapper {
+          display: flex;
+          justify-content: center;
         }
       }
     }
@@ -1402,24 +1521,88 @@ modal
   .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
+    padding: 0 20px;
 
     .modal-container {
-      width: 300px;
+      width: 100%;
+      max-width: 400px;
       margin: 0px auto;
-      padding: 20px 30px;
+      padding: 25px 15px;
       background-color: #fff;
-      border-radius: 2px;
+      border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .closeBtn {
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        .icon {
+          font-size: 1.2rem;
+          color: #7c7c7c;
+          cursor: pointer;
+          &:hover {
+            opacity: $hovered-opacity;
+          }
+        }
+      }
 
       .empty-message {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        span {
+          color: rgb(235, 150, 150);
+          font-weight: bold;
+          margin: 0 5px;
+        }
       }
       .confirmation-message {
+        font-size: 1rem;
+        margin-bottom: 15px;
       }
       .btn-wrapper {
         display: flex;
-        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        .btn:first-of-type {
+          margin-bottom: 15px;
+        }
       }
     }
+  }
+}
+
+/************************************************
+keyframes
+************************************************/
+@keyframes draw-line {
+  0% {
+    background-size: 0% auto;
+  }
+  100% {
+    background-size: 100% auto;
+  }
+}
+
+@keyframes stamp {
+  0% {
+    visibility: visible;
+    opacity: 0;
+    transform: rotate(-30deg) scale(4);
+  }
+  50% {
+    visibility: visible;
+    opacity: 0.8;
+    transform: rotate(-15deg) scale(2);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
 }
 
@@ -1466,5 +1649,22 @@ modal
   }
 
   #quiz-map {
+    .quiz-map-inner {
+      .game {
+        .img-wrapper {
+          height: 25%;
+        }
+      }
+      .result {
+        .table-wrapper {
+          .table {
+            th {
+              font-size: 1rem;
+              padding: 10px 5px;
+            }
+          }
+        }
+      }
+    }
   }
 }

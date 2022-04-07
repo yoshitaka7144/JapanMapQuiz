@@ -23211,6 +23211,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     alertMessage: String
@@ -23231,6 +23234,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+//
+//
+//
 //
 //
 //
@@ -23301,6 +23307,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -24850,6 +24857,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -24870,8 +24891,15 @@ __webpack_require__.r(__webpack_exports__);
       methodWrite: _util__WEBPACK_IMPORTED_MODULE_0__.ANSWER_METHOD_WRITE,
       selectedPlaceName: this.initialPlaceName,
       modeInput: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MODAL_INPUT_MODE,
-      modeConfirm: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MODAL_CONFIRM_MODE
+      modeConfirm: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MODAL_CONFIRM_MODE,
+      selectDefaultValue: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_INPUT_MODAL_SELECT_DEFAULT_VALUE,
+      placeholderText: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_INPUT_MODAL_PLACEHOLDER_TEXT
     };
+  },
+  computed: {
+    isCorrected: function isCorrected() {
+      return this.initialPlaceName === this.correctPlaceName;
+    }
   },
   methods: {}
 });
@@ -25123,6 +25151,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -25165,7 +25196,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       initialPlaceName: String,
       correctPlaceName: String,
       okFunction: Function,
-      missQuizData: []
+      missQuizData: [],
+      judgeText: "",
+      isCorrected: false
     };
   },
   computed: {
@@ -25201,6 +25234,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.showAlertModal = false;
       this.canShowHint = false;
       this.missQuizData = [];
+      this.judgeText = "";
     },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -25395,6 +25429,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.canShowHint = false; // 選択肢をデフォルト値に
 
         this.selectedChoiceValue = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE;
+        this.judgeText = "";
       } else {
         // 正解判定
         var correctValue = this.quizData[this.currentQuizIndex].name;
@@ -25402,9 +25437,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (this.selectedChoiceValue === correctValue) {
           // 正解
           this.correctCount++;
+          this.judgeText = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CORRECT_TEXT;
+          this.isCorrected = true;
         } else {
           // 不正解
           this.incorrectCount++;
+          this.judgeText = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_INCORRECT_TEXT;
+          this.isCorrected = false;
           var missData = {
             id: this.quizData[this.currentQuizIndex].id,
             correctName: correctValue,
@@ -25788,6 +25827,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -26894,6 +26934,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "DEFAULT_TIME_LIMIT_VALUE": () => (/* binding */ DEFAULT_TIME_LIMIT_VALUE),
 /* harmony export */   "FILL_MAP_ANSWER_CONFIRMATION_TEXT": () => (/* binding */ FILL_MAP_ANSWER_CONFIRMATION_TEXT),
 /* harmony export */   "FILL_MAP_EXPLANATION_TEXT": () => (/* binding */ FILL_MAP_EXPLANATION_TEXT),
+/* harmony export */   "FILL_MAP_INPUT_MODAL_PLACEHOLDER_TEXT": () => (/* binding */ FILL_MAP_INPUT_MODAL_PLACEHOLDER_TEXT),
+/* harmony export */   "FILL_MAP_INPUT_MODAL_SELECT_DEFAULT_VALUE": () => (/* binding */ FILL_MAP_INPUT_MODAL_SELECT_DEFAULT_VALUE),
 /* harmony export */   "FILL_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ FILL_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "FILL_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ FILL_MAP_MENU_TITLE_JAPANESE),
 /* harmony export */   "FILL_MAP_MODAL_CONFIRM_MODE": () => (/* binding */ FILL_MAP_MODAL_CONFIRM_MODE),
@@ -26908,8 +26950,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "INTERNAL_SERVER_ERROR": () => (/* binding */ INTERNAL_SERVER_ERROR),
 /* harmony export */   "OK": () => (/* binding */ OK),
 /* harmony export */   "QUIZ_MAP_CHOICE_DEFAULT_VALUE": () => (/* binding */ QUIZ_MAP_CHOICE_DEFAULT_VALUE),
+/* harmony export */   "QUIZ_MAP_CORRECT_TEXT": () => (/* binding */ QUIZ_MAP_CORRECT_TEXT),
 /* harmony export */   "QUIZ_MAP_EXPLANATION_TEXT": () => (/* binding */ QUIZ_MAP_EXPLANATION_TEXT),
 /* harmony export */   "QUIZ_MAP_HOKKAIDOU_CHOICES": () => (/* binding */ QUIZ_MAP_HOKKAIDOU_CHOICES),
+/* harmony export */   "QUIZ_MAP_INCORRECT_TEXT": () => (/* binding */ QUIZ_MAP_INCORRECT_TEXT),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ QUIZ_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ QUIZ_MAP_MENU_TITLE_JAPANESE),
 /* harmony export */   "QUIZ_MAP_NOT_CHOICE_TEXT": () => (/* binding */ QUIZ_MAP_NOT_CHOICE_TEXT),
@@ -26997,7 +27041,7 @@ var DEFAULT_CHOICE_TYPE = CHOICE_TYPE_ALL;
 * 設定画面：区分チェックエラーテキスト
 */
 
-var SETTING_CLASSIFICATION_ERROR_TEXT = "地方区分を最低1つ選択してください。";
+var SETTING_CLASSIFICATION_ERROR_TEXT = "出題対象地方を1つ以上選択してください。";
 /**
  * 地図埋め：日本語タイトル
  */
@@ -27017,7 +27061,7 @@ var FILL_MAP_EXPLANATION_TEXT = "地図埋めの説明";
  * 地図埋め：解答終了確認テキスト
  */
 
-var FILL_MAP_ANSWER_CONFIRMATION_TEXT = "解答を終了してよろしいですか？";
+var FILL_MAP_ANSWER_CONFIRMATION_TEXT = "終了してよろしいですか？";
 /**
 * 地図埋め：モーダルモード：入力
 */
@@ -27028,6 +27072,16 @@ var FILL_MAP_MODAL_INPUT_MODE = "input";
 */
 
 var FILL_MAP_MODAL_CONFIRM_MODE = "confirm";
+/**
+* 地図埋め：入力モーダル：選択肢デフォルト値
+*/
+
+var FILL_MAP_INPUT_MODAL_SELECT_DEFAULT_VALUE = "未選択";
+/**
+* 地図埋め：入力モーダル：プレースホルダテキスト
+*/
+
+var FILL_MAP_INPUT_MODAL_PLACEHOLDER_TEXT = "都道府県名を入力";
 /**
 * 地図埋め：viewBox初期値
 */
@@ -27092,7 +27146,17 @@ var QUIZ_MAP_NOT_CHOICE_TEXT = "選択肢を選択してください。";
 * 地図クイズ：選択肢が同地方区分の場合の北海道の選択肢データ
 */
 
-var QUIZ_MAP_HOKKAIDOU_CHOICES = "北海道,あああ,いいい,ううう";
+var QUIZ_MAP_HOKKAIDOU_CHOICES = "北海道,岩手,熊本,神奈川";
+/**
+* 地図クイズ：正解時表示テキスト
+*/
+
+var QUIZ_MAP_CORRECT_TEXT = "正解!!";
+/**
+* 地図クイズ：不正解時表示テキスト
+*/
+
+var QUIZ_MAP_INCORRECT_TEXT = "不正解";
 /**
 * 地図タイピング：日本語タイトル
 */
@@ -51302,6 +51366,25 @@ var render = function () {
     _c("div", { attrs: { id: "alert-modal-mask" } }, [
       _c("div", { staticClass: "modal-wrapper" }, [
         _c("div", { staticClass: "modal-container" }, [
+          _c(
+            "button",
+            {
+              staticClass: "closeBtn",
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("close")
+                },
+              },
+            },
+            [
+              _c("fontawesome-icon", {
+                staticClass: "icon",
+                attrs: { icon: ["fas", "fa-circle-xmark"] },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c("p", { staticClass: "message" }, [
             _vm._v(_vm._s(_vm.alertMessage)),
           ]),
@@ -51310,7 +51393,7 @@ var render = function () {
             _c(
               "button",
               {
-                staticClass: "btn btn-gray",
+                staticClass: "btn btn-orange",
                 on: {
                   click: function ($event) {
                     return _vm.$emit("close")
@@ -51352,6 +51435,25 @@ var render = function () {
     _c("div", { attrs: { id: "confirmation-modal-mask" } }, [
       _c("div", { staticClass: "modal-wrapper" }, [
         _c("div", { staticClass: "modal-container" }, [
+          _c(
+            "button",
+            {
+              staticClass: "closeBtn",
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("close")
+                },
+              },
+            },
+            [
+              _c("fontawesome-icon", {
+                staticClass: "icon",
+                attrs: { icon: ["fas", "fa-circle-xmark"] },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c("p", { staticClass: "empty-message" }, [
             _vm._v("\n          未解答："),
             _c("span", [_vm._v(_vm._s(_vm.emptyCount))]),
@@ -51365,7 +51467,7 @@ var render = function () {
           _c("div", { staticClass: "btn-wrapper" }, [
             _c(
               "button",
-              { staticClass: "btn btn-gray", on: { click: _vm.ok } },
+              { staticClass: "btn btn-orange", on: { click: _vm.ok } },
               [_vm._v("OK")]
             ),
             _vm._v(" "),
@@ -52665,6 +52767,11 @@ var render = function () {
                 mode: _vm.inputModalMode,
                 ok: _vm.okFunction,
               },
+              on: {
+                close: function ($event) {
+                  _vm.showInputNameModal = false
+                },
+              },
             })
           : _vm._e(),
         _vm._v(" "),
@@ -53009,6 +53116,25 @@ var render = function () {
     _c("div", { attrs: { id: "input-modal-mask" } }, [
       _c("div", { staticClass: "modal-wrapper" }, [
         _c("div", { staticClass: "modal-container" }, [
+          _c(
+            "button",
+            {
+              staticClass: "closeBtn",
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("close")
+                },
+              },
+            },
+            [
+              _c("fontawesome-icon", {
+                staticClass: "icon",
+                attrs: { icon: ["fas", "fa-circle-xmark"] },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c("div", { staticClass: "img-wrapper" }, [
             _c(
               "svg",
@@ -53047,8 +53173,11 @@ var render = function () {
                             expression: "selectedPlaceName",
                           },
                         ],
-                        staticClass: "input",
-                        attrs: { type: "text" },
+                        attrs: {
+                          type: "text",
+                          autocomplete: "false",
+                          placeholder: _vm.placeholderText,
+                        },
                         domProps: { value: _vm.selectedPlaceName },
                         on: {
                           input: function ($event) {
@@ -53090,7 +53219,7 @@ var render = function () {
                           },
                           [
                             _c("option", { attrs: { value: "" } }, [
-                              _vm._v("未選択"),
+                              _vm._v(_vm._s(_vm.selectDefaultValue)),
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.placeNames, function (item) {
@@ -53115,49 +53244,69 @@ var render = function () {
                       ]),
                 ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-gray",
-                    on: {
-                      click: function ($event) {
-                        return _vm.ok(_vm.selectedPlaceName, _vm.imageId)
+                _c("div", { staticClass: "btn-wrapper" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-orange",
+                      on: {
+                        click: function ($event) {
+                          return _vm.ok(_vm.selectedPlaceName, _vm.imageId)
+                        },
                       },
                     },
-                  },
-                  [_vm._v("\n            OK\n          ")]
-                ),
+                    [_vm._v("\n              OK\n            ")]
+                  ),
+                ]),
               ])
             : _c("div", { staticClass: "mode-confirm" }, [
                 _vm.kana
-                  ? _c("div", { staticClass: "confirm-text" }, [
-                      _c("div", { staticClass: "typing-text" }, [
-                        _c("p", [_vm._v(_vm._s(_vm.roman))]),
+                  ? _c("div", { staticClass: "confirm" }, [
+                      _c("div", { staticClass: "typing" }, [
+                        _c("p", { staticClass: "roman" }, [
+                          _vm._v(_vm._s(_vm.roman)),
+                        ]),
                         _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(_vm.kana))]),
+                        _c("p", { staticClass: "kana" }, [
+                          _vm._v(_vm._s(_vm.kana)),
+                        ]),
                         _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(_vm.correctPlaceName))]),
+                        _c("p", { staticClass: "name" }, [
+                          _vm._v(_vm._s(_vm.correctPlaceName)),
+                        ]),
                       ]),
                     ])
-                  : _c("div", { staticClass: "confirm-text" }, [
-                      _c("div", { staticClass: "inputed-text" }, [
-                        _c("p", [_vm._v("あなたの解答")]),
+                  : _c("div", { staticClass: "confirm" }, [
+                      _c("div", { staticClass: "answer" }, [
+                        _c("p", { staticClass: "title" }, [
+                          _vm._v("あなたの解答"),
+                        ]),
                         _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(_vm.initialPlaceName))]),
+                        _c("p", { staticClass: "text" }, [
+                          _c(
+                            "span",
+                            { class: { incorrect: !_vm.isCorrected } },
+                            [_vm._v(_vm._s(_vm.initialPlaceName))]
+                          ),
+                        ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "correct-text" }, [
-                        _c("p", [_vm._v("正解")]),
+                      _c("div", { staticClass: "correct" }, [
+                        _c("p", { staticClass: "title" }, [_vm._v("正解")]),
                         _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(_vm.correctPlaceName))]),
+                        _c("p", { staticClass: "text" }, [
+                          _c("span", [_vm._v(_vm._s(_vm.correctPlaceName))]),
+                        ]),
                       ]),
                     ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-gray", on: { click: _vm.ok } },
-                  [_vm._v("OK")]
-                ),
+                _c("div", { staticClass: "btn-wrapper" }, [
+                  _c(
+                    "button",
+                    { staticClass: "btn btn-orange", on: { click: _vm.ok } },
+                    [_vm._v("OK")]
+                  ),
+                ]),
               ]),
         ]),
       ]),
@@ -53430,6 +53579,15 @@ var render = function () {
                 0
               ),
               _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass: "judge-text",
+                  class: { correct: _vm.isCorrected },
+                },
+                [_vm._v("\n        " + _vm._s(_vm.judgeText) + "\n      ")]
+              ),
+              _vm._v(" "),
               _c("div", { staticClass: "btn-wrapper" }, [
                 _c(
                   "button",
@@ -53459,15 +53617,21 @@ var render = function () {
               _c("div", { staticClass: "table-wrapper" }, [
                 _c("table", { staticClass: "table" }, [
                   _c("tr", [
-                    _c("th", [_vm._v("問題数")]),
+                    _c("th", [
+                      _c("span", { staticClass: "correct" }, [_vm._v("正解")]),
+                      _vm._v(" / 問題数"),
+                    ]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.quizCountLimit))]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("正解数")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.correctCount))]),
+                    _c("td", [
+                      _c("span", { staticClass: "correct" }, [
+                        _vm._v(_vm._s(_vm.correctCount)),
+                      ]),
+                      _vm._v(
+                        " /\n              " +
+                          _vm._s(_vm.quizCountLimit) +
+                          "\n            "
+                      ),
+                    ]),
                   ]),
                   _vm._v(" "),
                   _c("tr", [
@@ -53565,6 +53729,11 @@ var render = function () {
                 correctPlaceName: _vm.correctPlaceName,
                 mode: _vm.modalMode,
                 ok: _vm.okFunction,
+              },
+              on: {
+                close: function ($event) {
+                  _vm.showInputModal = false
+                },
               },
             })
           : _vm._e(),
@@ -54352,6 +54521,11 @@ var render = function () {
                 correctPlaceName: _vm.correctPlaceName,
                 mode: _vm.modalMode,
                 ok: _vm.okFunction,
+              },
+              on: {
+                close: function ($event) {
+                  _vm.showInputModal = false
+                },
               },
             })
           : _vm._e(),

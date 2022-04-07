@@ -687,40 +687,6 @@ img {
   -webkit-animation: stamp 0.5s 0.5s ease-in forwards;
           animation: stamp 0.5s 0.5s ease-in forwards;
 }
-@-webkit-keyframes stamp {
-  0% {
-    visibility: visible;
-    opacity: 0;
-    transform: rotate(-30deg) scale(4);
-  }
-  50% {
-    visibility: visible;
-    opacity: 0.8;
-    transform: rotate(-15deg) scale(2);
-  }
-  100% {
-    visibility: visible;
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-  }
-}
-@keyframes stamp {
-  0% {
-    visibility: visible;
-    opacity: 0;
-    transform: rotate(-30deg) scale(4);
-  }
-  50% {
-    visibility: visible;
-    opacity: 0.8;
-    transform: rotate(-15deg) scale(2);
-  }
-  100% {
-    visibility: visible;
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-  }
-}
 #fill-map .fill-map-inner .game .map-wrapper .info-area .circle .circle-inner {
   position: absolute;
   top: 50%;
@@ -810,8 +776,8 @@ img {
 #quiz-map .quiz-map-inner .game .img-wrapper {
   display: flex;
   justify-content: center;
-  height: 35%;
-  margin-bottom: 15px;
+  height: 30%;
+  margin-bottom: 10px;
 }
 #quiz-map .quiz-map-inner .game .img-wrapper .svg-default {
   fill: #2fc291;
@@ -822,7 +788,7 @@ img {
   fill-rule: evenodd;
 }
 #quiz-map .quiz-map-inner .game .hint-wrapper {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 #quiz-map .quiz-map-inner .game .hint-wrapper .btn-wrapper {
   display: flex;
@@ -834,7 +800,7 @@ img {
 #quiz-map .quiz-map-inner .game .choices {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 #quiz-map .quiz-map-inner .game .choices .item {
   width: calc(50% - 20px);
@@ -853,7 +819,7 @@ img {
   width: 100%;
   max-width: 200px;
   display: inline-block;
-  padding: 10px;
+  padding: 8px;
   border-radius: 15px;
   border: 2px solid #7c7c7c;
   text-align: center;
@@ -866,6 +832,19 @@ img {
 #quiz-map .quiz-map-inner .game .choices .item label.judge.incorrect {
   background-color: #eb9696;
 }
+#quiz-map .quiz-map-inner .game .judge-text {
+  height: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e75454;
+  margin-bottom: 10px;
+}
+#quiz-map .quiz-map-inner .game .judge-text.correct {
+  color: #1eb986;
+}
 #quiz-map .quiz-map-inner .game .btn-wrapper {
   display: flex;
   justify-content: center;
@@ -875,34 +854,51 @@ img {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 #quiz-map .quiz-map-inner .result .table-wrapper {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 #quiz-map .quiz-map-inner .result .table-wrapper .table {
+  width: 100%;
   margin-bottom: 15px;
+  border-collapse: collapse;
 }
 #quiz-map .quiz-map-inner .result .table-wrapper .table th,
 #quiz-map .quiz-map-inner .result .table-wrapper .table td {
+  width: 50%;
+  font-size: 1.2rem;
+  text-align: center;
   padding: 10px;
+  border-left: 2px solid #7c7c7c;
+  border-top: 2px solid #7c7c7c;
 }
-#quiz-map .quiz-map-inner .result .table-wrapper .table th {
-  width: 40%;
+#quiz-map .quiz-map-inner .result .table-wrapper .table th .correct,
+#quiz-map .quiz-map-inner .result .table-wrapper .table td .correct {
+  color: #1eb986;
+}
+#quiz-map .quiz-map-inner .result .table-wrapper .table th:last-of-type {
+  border-bottom: 2px solid #7c7c7c;
 }
 #quiz-map .quiz-map-inner .result .table-wrapper .table td {
-  width: 60%;
+  border-right: 2px solid #7c7c7c;
+}
+#quiz-map .quiz-map-inner .result .table-wrapper .table td:last-of-type {
+  border-bottom: 2px solid #7c7c7c;
 }
 #quiz-map .quiz-map-inner .result .table-wrapper .table td .incorrect-item-wrapper {
   display: block;
   overflow-y: auto;
-  height: 85px;
+  height: 50px;
+  text-align: left;
 }
 #quiz-map .quiz-map-inner .result .table-wrapper .table td .incorrect-item-wrapper span {
   cursor: pointer;
@@ -927,23 +923,6 @@ img {
   visibility: hidden;
   -webkit-animation: stamp 0.5s 0.5s ease-in forwards;
           animation: stamp 0.5s 0.5s ease-in forwards;
-}
-@keyframes stamp {
-  0% {
-    visibility: visible;
-    opacity: 0;
-    transform: rotate(-30deg) scale(4);
-  }
-  50% {
-    visibility: visible;
-    opacity: 0.8;
-    transform: rotate(-15deg) scale(2);
-  }
-  100% {
-    visibility: visible;
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-  }
 }
 #quiz-map .quiz-map-inner .result .table-wrapper .evaluation-circle-wrapper .circle .circle-inner {
   position: absolute;
@@ -1093,23 +1072,6 @@ img {
   -webkit-animation: stamp 0.5s 0.5s ease-in forwards;
           animation: stamp 0.5s 0.5s ease-in forwards;
 }
-@keyframes stamp {
-  0% {
-    visibility: visible;
-    opacity: 0;
-    transform: rotate(-30deg) scale(4);
-  }
-  50% {
-    visibility: visible;
-    opacity: 0.8;
-    transform: rotate(-15deg) scale(2);
-  }
-  100% {
-    visibility: visible;
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-  }
-}
 #typing-map .typing-map-inner .result .table-wrapper .circle .circle-inner {
   position: absolute;
   top: 50%;
@@ -1176,10 +1138,24 @@ modal
   width: 100%;
   max-width: 400px;
   margin: 0px auto;
-  padding: 30px 20px;
+  padding: 25px 15px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  position: relative;
+}
+#alert-modal-mask .modal-wrapper .modal-container .closeBtn {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}
+#alert-modal-mask .modal-wrapper .modal-container .closeBtn .icon {
+  font-size: 1.2rem;
+  color: #7c7c7c;
+  cursor: pointer;
+}
+#alert-modal-mask .modal-wrapper .modal-container .closeBtn .icon:hover {
+  opacity: 0.7;
 }
 #alert-modal-mask .modal-wrapper .modal-container .message {
   font-size: 1rem;
@@ -1204,20 +1180,38 @@ modal
 #input-modal-mask .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  padding: 0 20px;
 }
 #input-modal-mask .modal-wrapper .modal-container {
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 25px 15px;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  position: relative;
+}
+#input-modal-mask .modal-wrapper .modal-container .closeBtn {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}
+#input-modal-mask .modal-wrapper .modal-container .closeBtn .icon {
+  font-size: 1.2rem;
+  color: #7c7c7c;
+  cursor: pointer;
+}
+#input-modal-mask .modal-wrapper .modal-container .closeBtn .icon:hover {
+  opacity: 0.7;
 }
 #input-modal-mask .modal-wrapper .modal-container .img-wrapper {
   display: flex;
   justify-content: center;
+  margin-bottom: 15px;
 }
 #input-modal-mask .modal-wrapper .modal-container .img-wrapper .svg-default {
+  width: 100%;
   fill: #fff;
   stroke: #7c7c7c;
   stroke-linecap: round;
@@ -1231,12 +1225,46 @@ modal
 #input-modal-mask .modal-wrapper .modal-container .img-wrapper .svg-default.incorrect {
   fill: #eb9696;
 }
+#input-modal-mask .modal-wrapper .modal-container .mode-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-input .input-place-name {
+  margin-bottom: 15px;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-input .input-place-name input[type=text] {
+  display: block;
+  width: 160px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  color: #6d6f70;
+  font-size: 1.2rem;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-input .input-place-name input[type=text]:focus {
+  outline: none;
+  border-color: dodgerBlue;
+  box-shadow: 0 0 5px 0 dodgerBlue;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-input .input-place-name input[type=text]::-moz-placeholder {
+  font-size: 1rem;
+  color: #afaeae;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-input .input-place-name input[type=text]:-ms-input-placeholder {
+  font-size: 1rem;
+  color: #afaeae;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-input .input-place-name input[type=text]::placeholder {
+  font-size: 1rem;
+  color: #afaeae;
+}
 #input-modal-mask .modal-wrapper .modal-container .mode-input .input-place-name .select-wrapper {
   display: inline-block;
-  width: 75px;
-  margin-left: 7px;
+  width: 120px;
   position: relative;
-  border: 2px solid #2fc291;
+  border: 2px solid #5aaefd;
   border-radius: 35px;
   background-color: white;
   z-index: 0;
@@ -1257,6 +1285,8 @@ modal
 #input-modal-mask .modal-wrapper .modal-container .mode-input .input-place-name .select-wrapper .select {
   width: 100%;
   cursor: pointer;
+  color: #6d6f70;
+  font-size: 1.2rem;
   border: none;
   outline: none;
   background: transparent;
@@ -1267,8 +1297,79 @@ modal
           appearance: none;
   padding: 4px 30px 4px 10px;
 }
-#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm-text {
+#input-modal-mask .modal-wrapper .modal-container .mode-input .btn-wrapper {
   display: flex;
+  justify-content: center;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .typing .roman {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .typing .kana {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .typing .name {
+  font-size: 1.3rem;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .answer {
+  width: 50%;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .answer .title {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .answer .text {
+  text-align: center;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .answer .text span {
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: inline-block;
+  background-position: 0% 0%;
+  background-size: 0% auto;
+  background-image: linear-gradient(to bottom, transparent 60%, #7be0bf 40%);
+  -webkit-animation: draw-line 0.7s ease-out forwards;
+          animation: draw-line 0.7s ease-out forwards;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .answer .text span.incorrect {
+  background-image: linear-gradient(to bottom, transparent 60%, #eb9696 40%);
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .correct {
+  width: 50%;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .correct .title {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .correct .text {
+  text-align: center;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .confirm .correct .text span {
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: inline-block;
+  background-image: linear-gradient(to bottom, transparent 60%, #7be0bf 40%);
+  background-position: 0% 0%;
+  background-size: 0% auto;
+  -webkit-animation: draw-line 0.7s ease-out forwards;
+          animation: draw-line 0.7s ease-out forwards;
+}
+#input-modal-mask .modal-wrapper .modal-container .mode-confirm .btn-wrapper {
+  display: flex;
+  justify-content: center;
 }
 
 #confirmation-modal-mask {
@@ -1284,20 +1385,110 @@ modal
 #confirmation-modal-mask .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  padding: 0 20px;
 }
 #confirmation-modal-mask .modal-wrapper .modal-container {
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 25px 15px;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+#confirmation-modal-mask .modal-wrapper .modal-container .closeBtn {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}
+#confirmation-modal-mask .modal-wrapper .modal-container .closeBtn .icon {
+  font-size: 1.2rem;
+  color: #7c7c7c;
+  cursor: pointer;
+}
+#confirmation-modal-mask .modal-wrapper .modal-container .closeBtn .icon:hover {
+  opacity: 0.7;
+}
+#confirmation-modal-mask .modal-wrapper .modal-container .empty-message {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+#confirmation-modal-mask .modal-wrapper .modal-container .empty-message span {
+  color: #eb9696;
+  font-weight: bold;
+  margin: 0 5px;
+}
+#confirmation-modal-mask .modal-wrapper .modal-container .confirmation-message {
+  font-size: 1rem;
+  margin-bottom: 15px;
 }
 #confirmation-modal-mask .modal-wrapper .modal-container .btn-wrapper {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+#confirmation-modal-mask .modal-wrapper .modal-container .btn-wrapper .btn:first-of-type {
+  margin-bottom: 15px;
 }
 
+/************************************************
+keyframes
+************************************************/
+@-webkit-keyframes draw-line {
+  0% {
+    background-size: 0% auto;
+  }
+  100% {
+    background-size: 100% auto;
+  }
+}
+@keyframes draw-line {
+  0% {
+    background-size: 0% auto;
+  }
+  100% {
+    background-size: 100% auto;
+  }
+}
+@-webkit-keyframes stamp {
+  0% {
+    visibility: visible;
+    opacity: 0;
+    transform: rotate(-30deg) scale(4);
+  }
+  50% {
+    visibility: visible;
+    opacity: 0.8;
+    transform: rotate(-15deg) scale(2);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+@keyframes stamp {
+  0% {
+    visibility: visible;
+    opacity: 0;
+    transform: rotate(-30deg) scale(4);
+  }
+  50% {
+    visibility: visible;
+    opacity: 0.8;
+    transform: rotate(-15deg) scale(2);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
 /************************************************
 メディアクエリ
 ************************************************/
@@ -1321,5 +1512,13 @@ modal
   .setting .setting-inner .setting-common .setting-quiz-count {
     width: 100%;
     order: -1;
+  }
+
+  #quiz-map .quiz-map-inner .game .img-wrapper {
+    height: 25%;
+  }
+  #quiz-map .quiz-map-inner .result .table-wrapper .table th {
+    font-size: 1rem;
+    padding: 10px 5px;
   }
 }

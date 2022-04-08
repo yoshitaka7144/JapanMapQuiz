@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string("name", 50);
             $table->string("kana", 50);
             $table->string("typing_text", 50);
-            $table->string("hint_text", 50);
+            $table->string("hint_famous", 100);
+            $table->string("hint_food", 100);
             $table->integer("editor_user_id")->nullable();
             $table->timestamps();
             $table->unique(['name', 'kana']);

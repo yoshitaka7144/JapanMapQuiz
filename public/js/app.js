@@ -25154,6 +25154,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -25198,7 +25221,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       okFunction: Function,
       missQuizData: [],
       judgeText: "",
-      isCorrected: false
+      isCorrected: false,
+      hintTextType: String,
+      typeFamous: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_HINT_TEXT_FAMOUS,
+      typeFood: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_HINT_TEXT_FOOD
     };
   },
   computed: {
@@ -25362,12 +25388,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var quiz = {
           id: Number,
           name: String,
-          hintText: String,
+          hintText: {},
           choices: []
         };
         quiz.id = this.maps[i].id;
         quiz.name = this.maps[i].name;
-        quiz.hintText = this.maps[i].hint_text;
+        quiz.hintText[_util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_HINT_TEXT_FAMOUS] = this.maps[i].hint_famous;
+        quiz.hintText[_util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_HINT_TEXT_FOOD] = this.maps[i].hint_food;
         var j = 1;
         var array = [];
         array.push(quiz.name);
@@ -26139,7 +26166,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         quiz.name = this.maps[i].name;
         quiz.kana = this.maps[i].kana;
         quiz.typingText = this.maps[i].typing_text;
-        quiz.hintText = this.maps[i].hint_text;
+
+        if (Math.floor(Math.random() * 10) % 2 === 0) {
+          quiz.hintText = this.maps[i].hint_famous;
+        } else {
+          quiz.hintText = this.maps[i].hint_food;
+        }
+
         this.quizData.push(quiz);
       } // 表示初期化
 
@@ -26194,7 +26227,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.currentTypingTextIndex = 0;
       this.displayQuizText = this.currentQuizData.name;
       this.displayKanaText = this.currentQuizData.kana;
-      this.displayHintText = this.currentQuizData.hint;
+      this.displayHintText = this.currentQuizData.hintText;
       this.displayTypingRemainingText = this.currentQuizData.typingText;
       this.displayTypingInputedText = "";
       this.oneQuizMissCount = 0;
@@ -26952,6 +26985,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "QUIZ_MAP_CHOICE_DEFAULT_VALUE": () => (/* binding */ QUIZ_MAP_CHOICE_DEFAULT_VALUE),
 /* harmony export */   "QUIZ_MAP_CORRECT_TEXT": () => (/* binding */ QUIZ_MAP_CORRECT_TEXT),
 /* harmony export */   "QUIZ_MAP_EXPLANATION_TEXT": () => (/* binding */ QUIZ_MAP_EXPLANATION_TEXT),
+/* harmony export */   "QUIZ_MAP_HINT_TEXT_FAMOUS": () => (/* binding */ QUIZ_MAP_HINT_TEXT_FAMOUS),
+/* harmony export */   "QUIZ_MAP_HINT_TEXT_FOOD": () => (/* binding */ QUIZ_MAP_HINT_TEXT_FOOD),
 /* harmony export */   "QUIZ_MAP_HOKKAIDOU_CHOICES": () => (/* binding */ QUIZ_MAP_HOKKAIDOU_CHOICES),
 /* harmony export */   "QUIZ_MAP_INCORRECT_TEXT": () => (/* binding */ QUIZ_MAP_INCORRECT_TEXT),
 /* harmony export */   "QUIZ_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ QUIZ_MAP_MENU_TITLE_ENGLISH),
@@ -27157,6 +27192,16 @@ var QUIZ_MAP_CORRECT_TEXT = "正解!!";
 */
 
 var QUIZ_MAP_INCORRECT_TEXT = "不正解";
+/**
+* 地図クイズ：ヒント：名所
+*/
+
+var QUIZ_MAP_HINT_TEXT_FAMOUS = "famous";
+/**
+* 地図クイズ：ヒント：食べ物
+*/
+
+var QUIZ_MAP_HINT_TEXT_FOOD = "food";
 /**
 * 地図タイピング：日本語タイトル
 */
@@ -53501,24 +53546,57 @@ var render = function () {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "hint-wrapper" }, [
+                _c(
+                  "p",
+                  { staticClass: "title" },
+                  [
+                    _c("fontawesome-icon", {
+                      staticClass: "icon",
+                      attrs: { icon: ["far", "fa-lightbulb"] },
+                    }),
+                    _vm._v("ヒント\n        "),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
                 !_vm.canShowHint
                   ? _c("div", { staticClass: "btn-wrapper" }, [
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-orange",
+                          staticClass: "btn btn-green circle",
                           on: {
                             click: function ($event) {
                               _vm.canShowHint = true
+                              _vm.hintTextType = _vm.typeFamous
                             },
                           },
                         },
                         [
                           _c("fontawesome-icon", {
                             staticClass: "icon",
-                            attrs: { icon: ["far", "fa-lightbulb"] },
+                            attrs: { icon: ["fas", "fa-location-dot"] },
                           }),
-                          _vm._v("\n            ヒント\n          "),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-orange circle",
+                          on: {
+                            click: function ($event) {
+                              _vm.canShowHint = true
+                              _vm.hintTextType = _vm.typeFood
+                            },
+                          },
+                        },
+                        [
+                          _c("fontawesome-icon", {
+                            staticClass: "icon",
+                            attrs: { icon: ["fas", "fa-utensils"] },
+                          }),
                         ],
                         1
                       ),
@@ -53526,7 +53604,11 @@ var render = function () {
                   : _c("p", { staticClass: "hint-text" }, [
                       _vm._v(
                         "\n          " +
-                          _vm._s(_vm.quizData[_vm.currentQuizIndex].hintText) +
+                          _vm._s(
+                            _vm.quizData[_vm.currentQuizIndex].hintText[
+                              _vm.hintTextType
+                            ]
+                          ) +
                           "\n        "
                       ),
                     ]),

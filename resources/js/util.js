@@ -153,6 +153,14 @@ export const QUIZ_MAP_CORRECT_TEXT = "正解!!";
 * 地図クイズ：不正解時表示テキスト
 */
 export const QUIZ_MAP_INCORRECT_TEXT = "不正解";
+/**
+* 地図クイズ：ヒント：名所
+*/
+export const QUIZ_MAP_HINT_TEXT_FAMOUS = "famous";
+/**
+* 地図クイズ：ヒント：食べ物
+*/
+export const QUIZ_MAP_HINT_TEXT_FOOD = "food";
 
 /**
 * 地図タイピング：日本語タイトル

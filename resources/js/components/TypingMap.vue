@@ -302,7 +302,11 @@ export default {
         quiz.name = this.maps[i].name;
         quiz.kana = this.maps[i].kana;
         quiz.typingText = this.maps[i].typing_text;
-        quiz.hintText = this.maps[i].hint_text;
+        if (Math.floor(Math.random() * 10) % 2 === 0) {
+          quiz.hintText = this.maps[i].hint_famous;
+        } else {
+          quiz.hintText = this.maps[i].hint_food;
+        }
 
         this.quizData.push(quiz);
       }
@@ -364,7 +368,7 @@ export default {
       this.currentTypingTextIndex = 0;
       this.displayQuizText = this.currentQuizData.name;
       this.displayKanaText = this.currentQuizData.kana;
-      this.displayHintText = this.currentQuizData.hint;
+      this.displayHintText = this.currentQuizData.hintText;
       this.displayTypingRemainingText = this.currentQuizData.typingText;
       this.displayTypingInputedText = "";
       this.oneQuizMissCount = 0;

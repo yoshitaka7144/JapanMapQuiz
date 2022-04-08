@@ -22,14 +22,37 @@
           </svg>
         </div>
         <div class="hint-wrapper">
+          <p class="title">
+            <fontawesome-icon
+              class="icon"
+              :icon="['far', 'fa-lightbulb']"
+            />ヒント
+          </p>
           <div class="btn-wrapper" v-if="!canShowHint">
-            <button @click="canShowHint = true" class="btn btn-orange">
-              <fontawesome-icon class="icon" :icon="['far', 'fa-lightbulb']" />
-              ヒント
+            <button
+              @click="
+                canShowHint = true;
+                hintTextType = typeFamous;
+              "
+              class="btn btn-green circle"
+            >
+              <fontawesome-icon
+                class="icon"
+                :icon="['fas', 'fa-location-dot']"
+              />
+            </button>
+            <button
+              @click="
+                canShowHint = true;
+                hintTextType = typeFood;
+              "
+              class="btn btn-orange circle"
+            >
+              <fontawesome-icon class="icon" :icon="['fas', 'fa-utensils']" />
             </button>
           </div>
           <p v-else class="hint-text">
-            {{ quizData[currentQuizIndex].hintText }}
+            {{ quizData[currentQuizIndex].hintText[hintTextType] }}
           </p>
         </div>
         <div class="choices">
@@ -150,6 +173,8 @@ import {
   RESULT_EVALUATION_TEXT_POOR,
   QUIZ_MAP_CORRECT_TEXT,
   QUIZ_MAP_INCORRECT_TEXT,
+  QUIZ_MAP_HINT_TEXT_FAMOUS,
+  QUIZ_MAP_HINT_TEXT_FOOD,
 } from "../util";
 import SettingComponent from "./Setting.vue";
 import AlertModalComponent from "./AlertModal.vue";
@@ -195,6 +220,9 @@ export default {
       missQuizData: [],
       judgeText: "",
       isCorrected: false,
+      hintTextType: String,
+      typeFamous: QUIZ_MAP_HINT_TEXT_FAMOUS,
+      typeFood: QUIZ_MAP_HINT_TEXT_FOOD,
     };
   },
   computed: {
@@ -315,12 +343,13 @@ export default {
         let quiz = {
           id: Number,
           name: String,
-          hintText: String,
+          hintText: {},
           choices: [],
         };
         quiz.id = this.maps[i].id;
         quiz.name = this.maps[i].name;
-        quiz.hintText = this.maps[i].hint_text;
+        quiz.hintText[QUIZ_MAP_HINT_TEXT_FAMOUS] = this.maps[i].hint_famous;
+        quiz.hintText[QUIZ_MAP_HINT_TEXT_FOOD] = this.maps[i].hint_food;
 
         let j = 1;
         let array = [];

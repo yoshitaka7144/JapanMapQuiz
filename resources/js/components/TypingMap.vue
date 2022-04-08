@@ -14,11 +14,21 @@
         <p>1</p>
       </div>
       <div class="game" v-else-if="!isFinished">
-        <div v-if="timeLimitChecked" class="progress">
-          <div
-            class="progress-bar"
-            :style="{ width: progress + '%', backgroundColor: progressColor }"
-          ></div>
+        <div class="info-table-wrapper">
+          <table class="table">
+            <tr>
+              <th>タイプ数</th>
+            </tr>
+            <tr>
+              <td class="correct">{{ correctTypeCount }}</td>
+            </tr>
+            <tr>
+              <th>ミス数</th>
+            </tr>
+            <tr>
+              <td class="miss">{{ missTypeCount }}</td>
+            </tr>
+          </table>
         </div>
         <div class="img-wrapper">
           <svg class="svg-default">
@@ -32,16 +42,31 @@
             ></use>
           </svg>
         </div>
+        <div v-if="timeLimitChecked" class="progress">
+          <div
+            class="progress-bar"
+            :style="{ width: progress + '%', backgroundColor: progressColor }"
+          ></div>
+        </div>
+        <div class="hint-wrapper">
+          <p class="hint" :class="{ hidden: !canShowHint }">
+            <fontawesome-icon class="icon" :icon="['far', 'fa-lightbulb']" />
+            {{ displayHintText }}
+          </p>
+        </div>
         <div class="text-wrapper">
-          <p class="hint" v-if="canShowHint">{{ displayHintText }}</p>
-          <p class="quiz" v-if="canShowDetails">{{ displayQuizText }}</p>
-          <p class="kana" v-if="canShowDetails">{{ displayKanaText }}</p>
           <div class="typing">
             <span class="inputed">{{ displayTypingInputedText }}</span>
-            <span class="remaining" v-if="canShowDetails">{{
+            <span class="remaining" :class="{ hidden: !canShowDetails }">{{
               displayTypingRemainingText
             }}</span>
           </div>
+          <p class="kana" :class="{ hidden: !canShowDetails }">
+            {{ displayKanaText }}
+          </p>
+          <p class="quiz" :class="{ hidden: !canShowDetails }">
+            {{ displayQuizText }}
+          </p>
         </div>
       </div>
       <div class="result" v-else>

@@ -1044,6 +1044,60 @@ img {
     opacity: 0;
   }
 }
+#typing-map .typing-map-inner .game {
+  height: 100%;
+  padding: 15px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+#typing-map .typing-map-inner .game .info-table-wrapper {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+#typing-map .typing-map-inner .game .info-table-wrapper .table {
+  border-collapse: collapse;
+}
+#typing-map .typing-map-inner .game .info-table-wrapper .table th,
+#typing-map .typing-map-inner .game .info-table-wrapper .table td {
+  padding: 8px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-left: 2px solid #7c7c7c;
+  border-right: 2px solid #7c7c7c;
+}
+#typing-map .typing-map-inner .game .info-table-wrapper .table th {
+  border-top: 2px solid #7c7c7c;
+}
+#typing-map .typing-map-inner .game .info-table-wrapper .table td {
+  border-top: 2px dotted #7c7c7c;
+}
+#typing-map .typing-map-inner .game .info-table-wrapper .table td:last-of-type {
+  border-bottom: 2px solid #7c7c7c;
+}
+#typing-map .typing-map-inner .game .info-table-wrapper .table td.correct {
+  color: #1eb986;
+}
+#typing-map .typing-map-inner .game .info-table-wrapper .table td.miss {
+  color: #e75454;
+}
+#typing-map .typing-map-inner .game .img-wrapper {
+  height: 35%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+#typing-map .typing-map-inner .game .img-wrapper .svg-default {
+  fill: #2fc291;
+  stroke: #7c7c7c;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 0.48px;
+  fill-rule: evenodd;
+}
 #typing-map .typing-map-inner .game .progress {
   display: inline-block;
   width: 100%;
@@ -1051,6 +1105,7 @@ img {
   height: 10px;
   background-color: #e9edf1;
   position: relative;
+  margin-bottom: 20px;
 }
 #typing-map .typing-map-inner .game .progress .progress-bar {
   display: inline-block;
@@ -1063,23 +1118,62 @@ img {
   background-color: #00e664;
   transition: all 10ms linear;
 }
-#typing-map .typing-map-inner .game .img-wrapper {
+#typing-map .typing-map-inner .game .hint-wrapper {
+  width: 100%;
+  padding: 15px;
   display: flex;
   justify-content: center;
 }
-#typing-map .typing-map-inner .game .img-wrapper .svg-default {
-  fill: #2fc291;
-  stroke: #7c7c7c;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 0.48px;
-  fill-rule: evenodd;
+#typing-map .typing-map-inner .game .hint-wrapper .hint {
+  font-size: 1.4rem;
+  padding: 10px;
+  color: #5aaefd;
+}
+#typing-map .typing-map-inner .game .hint-wrapper .hint.hidden {
+  visibility: hidden;
+}
+#typing-map .typing-map-inner .game .hint-wrapper .hint .icon {
+  color: #fdae4d;
+  margin-right: 10px;
+}
+#typing-map .typing-map-inner .game .text-wrapper {
+  padding: 20px;
+  border-radius: 10px;
+  background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px, #e9f4ff 3px, #e9f4ff 7px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 #typing-map .typing-map-inner .game .text-wrapper .typing {
   display: flex;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  letter-spacing: 0.5rem;
 }
 #typing-map .typing-map-inner .game .text-wrapper .typing .inputed {
   color: orange;
+}
+#typing-map .typing-map-inner .game .text-wrapper .typing .remaining {
+  color: #7c7c7c;
+}
+#typing-map .typing-map-inner .game .text-wrapper .typing .remaining.hidden {
+  visibility: hidden;
+}
+#typing-map .typing-map-inner .game .text-wrapper .kana {
+  font-size: 1.4rem;
+  color: #7c7c7c;
+  margin-bottom: 5px;
+}
+#typing-map .typing-map-inner .game .text-wrapper .kana.hidden {
+  visibility: hidden;
+}
+#typing-map .typing-map-inner .game .text-wrapper .quiz {
+  font-size: 1.6rem;
+  color: #7c7c7c;
+}
+#typing-map .typing-map-inner .game .text-wrapper .quiz.hidden {
+  visibility: hidden;
 }
 #typing-map .typing-map-inner .result {
   height: 100%;
@@ -1551,5 +1645,9 @@ keyframes
   #quiz-map .quiz-map-inner .result .table-wrapper .table th {
     font-size: 1rem;
     padding: 10px 5px;
+  }
+
+  #typing-map .typing-map-inner .game .img-wrapper {
+    height: 28%;
   }
 }

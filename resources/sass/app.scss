@@ -896,7 +896,7 @@ $hamburger-menu-background-color: gray;
         border-radius: 10px;
         position: relative;
 
-        .title{
+        .title {
           display: inline-block;
           position: absolute;
           top: -15px;
@@ -906,7 +906,7 @@ $hamburger-menu-background-color: gray;
           font-size: 1.1rem;
           font-weight: bold;
           color: #67aff3;
-          .icon{
+          .icon {
             margin-right: 5px;
           }
         }
@@ -1140,6 +1140,63 @@ $hamburger-menu-background-color: gray;
     }
 
     .game {
+      height: 100%;
+      padding: 15px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: $box-shadow;
+      position: relative;
+
+      .info-table-wrapper {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        .table {
+          border-collapse: collapse;
+          th,
+          td {
+            padding: 5px;
+            text-align: center;
+            font-size: 1.0rem;
+            font-weight: bold;
+            border-left: 2px solid #7c7c7c;
+            border-right: 2px solid #7c7c7c;
+          }
+          th{
+            border-top: 2px solid #7c7c7c;
+          }
+          td{
+            border-top: 2px dotted #7c7c7c;
+            &:last-of-type{
+              border-bottom: 2px solid #7c7c7c;
+            }
+
+            &.correct{
+              color: rgb(30, 185, 134);
+            }
+
+            &.miss{
+              color: rgb(231, 84, 84);
+            }
+          }
+        }
+      }
+
+      .img-wrapper {
+        height: 35%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        .svg-default {
+          fill: rgb(47, 194, 145);
+          stroke: #7c7c7c;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: 0.48px;
+          fill-rule: evenodd;
+        }
+      }
+
       .progress {
         display: inline-block;
         width: 100%;
@@ -1147,6 +1204,7 @@ $hamburger-menu-background-color: gray;
         height: 10px;
         background-color: #e9edf1;
         position: relative;
+        margin-bottom: 20px;
 
         .progress-bar {
           display: inline-block;
@@ -1160,32 +1218,66 @@ $hamburger-menu-background-color: gray;
           transition: all 10ms linear;
         }
       }
-      .img-wrapper {
+
+      .hint-wrapper {
+        width: 100%;
+        padding: 15px;
         display: flex;
         justify-content: center;
-        .svg-default {
-          fill: rgb(47, 194, 145);
-          stroke: #7c7c7c;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          stroke-width: 0.48px;
-          fill-rule: evenodd;
+
+        .hint {
+          font-size: 1.4rem;
+          padding: 10px;
+          color: #5aaefd;
+
+          &.hidden {
+            visibility: hidden;
+          }
+
+          .icon {
+            color: #fdae4d;
+            margin-right: 10px;
+          }
         }
       }
 
       .text-wrapper {
-        .hint {
-        }
-        .quiz {
-        }
-        .kana {
-        }
+        padding: 20px;
+        border-radius: 10px;
+        background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px, #e9f4ff 3px, #e9f4ff 7px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         .typing {
           display: flex;
+          font-size: 2rem;
+          font-weight: bold;
+          margin-bottom: 10px;
+          letter-spacing: 0.5rem;
           .inputed {
             color: orange;
           }
           .remaining {
+            color: #7c7c7c;
+            &.hidden {
+              visibility: hidden;
+            }
+          }
+        }
+        .kana {
+          font-size: 1.4rem;
+          color: #7c7c7c;
+          margin-bottom: 5px;
+          &.hidden {
+            visibility: hidden;
+          }
+        }
+        .quiz {
+          font-size: 1.6rem;
+          color: #7c7c7c;
+          &.hidden {
+            visibility: hidden;
           }
         }
       }
@@ -1694,6 +1786,16 @@ keyframes
               padding: 10px 5px;
             }
           }
+        }
+      }
+    }
+  }
+
+  #typing-map {
+    .typing-map-inner {
+      .game {
+        .img-wrapper {
+          height: 28%;
         }
       }
     }

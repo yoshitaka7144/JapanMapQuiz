@@ -25963,6 +25963,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -54427,17 +54452,25 @@ var render = function () {
             ])
           : !_vm.isFinished
           ? _c("div", { staticClass: "game" }, [
-              _vm.timeLimitChecked
-                ? _c("div", { staticClass: "progress" }, [
-                    _c("div", {
-                      staticClass: "progress-bar",
-                      style: {
-                        width: _vm.progress + "%",
-                        backgroundColor: _vm.progressColor,
-                      },
-                    }),
-                  ])
-                : _vm._e(),
+              _c("div", { staticClass: "info-table-wrapper" }, [
+                _c("table", { staticClass: "table" }, [
+                  _c("tr", [_c("th", [_vm._v("タイプ数")])]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { staticClass: "correct" }, [
+                      _vm._v(_vm._s(_vm.correctTypeCount)),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [_c("th", [_vm._v("ミス数")])]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { staticClass: "miss" }, [
+                      _vm._v(_vm._s(_vm.missTypeCount)),
+                    ]),
+                  ]),
+                ]),
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "img-wrapper" }, [
                 _c("svg", { staticClass: "svg-default" }, [
@@ -54453,36 +54486,82 @@ var render = function () {
                 ]),
               ]),
               _vm._v(" "),
+              _vm.timeLimitChecked
+                ? _c("div", { staticClass: "progress" }, [
+                    _c("div", {
+                      staticClass: "progress-bar",
+                      style: {
+                        width: _vm.progress + "%",
+                        backgroundColor: _vm.progressColor,
+                      },
+                    }),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "hint-wrapper" }, [
+                _c(
+                  "p",
+                  { staticClass: "hint", class: { hidden: !_vm.canShowHint } },
+                  [
+                    _c("fontawesome-icon", {
+                      staticClass: "icon",
+                      attrs: { icon: ["far", "fa-lightbulb"] },
+                    }),
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.displayHintText) +
+                        "\n        "
+                    ),
+                  ],
+                  1
+                ),
+              ]),
+              _vm._v(" "),
               _c("div", { staticClass: "text-wrapper" }, [
-                _vm.canShowHint
-                  ? _c("p", { staticClass: "hint" }, [
-                      _vm._v(_vm._s(_vm.displayHintText)),
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.canShowDetails
-                  ? _c("p", { staticClass: "quiz" }, [
-                      _vm._v(_vm._s(_vm.displayQuizText)),
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.canShowDetails
-                  ? _c("p", { staticClass: "kana" }, [
-                      _vm._v(_vm._s(_vm.displayKanaText)),
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
                 _c("div", { staticClass: "typing" }, [
                   _c("span", { staticClass: "inputed" }, [
                     _vm._v(_vm._s(_vm.displayTypingInputedText)),
                   ]),
                   _vm._v(" "),
-                  _vm.canShowDetails
-                    ? _c("span", { staticClass: "remaining" }, [
-                        _vm._v(_vm._s(_vm.displayTypingRemainingText)),
-                      ])
-                    : _vm._e(),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "remaining",
+                      class: { hidden: !_vm.canShowDetails },
+                    },
+                    [_vm._v(_vm._s(_vm.displayTypingRemainingText))]
+                  ),
                 ]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "kana",
+                    class: { hidden: !_vm.canShowDetails },
+                  },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.displayKanaText) +
+                        "\n        "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "quiz",
+                    class: { hidden: !_vm.canShowDetails },
+                  },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.displayQuizText) +
+                        "\n        "
+                    ),
+                  ]
+                ),
               ]),
             ])
           : _c("div", { staticClass: "result" }, [

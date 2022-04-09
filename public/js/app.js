@@ -26060,7 +26060,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       correctPlaceName: String,
       okFunction: Function,
       missQuizData: [],
-      tmpId: 0
+      tmpId: 0,
+      wpm: Number
     };
   },
   mounted: function mounted() {
@@ -26239,7 +26240,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } // タイピング時間測定終了
 
 
-      this.typeTime = performance.now() - this.typeTime;
+      this.typeTime = performance.now() - this.typeTime; // wpm
+
+      this.wpm = Math.floor(this.correctTypeCount / this.typeTime * 1000 * 60);
       this.isTyping = false;
       this.isFinished = true;
     },
@@ -54605,7 +54608,11 @@ var render = function () {
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("tr", [_c("th", [_vm._v("WPM")]), _vm._v(" "), _c("td")]),
+                _c("tr", [
+                  _c("th", [_vm._v("WPM")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.wpm))]),
+                ]),
                 _vm._v(" "),
                 _c("tr", [
                   _c("th", [_vm._v("ミス問題")]),

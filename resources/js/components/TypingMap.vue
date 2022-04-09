@@ -85,7 +85,7 @@
           </tr>
           <tr>
             <th>WPM</th>
-            <td></td>
+            <td>{{ wpm }}</td>
           </tr>
           <tr>
             <th>ミス問題</th>
@@ -215,6 +215,7 @@ export default {
       okFunction: Function,
       missQuizData: [],
       tmpId: 0,
+      wpm: Number,
     };
   },
   mounted() {
@@ -377,6 +378,11 @@ export default {
       }
       // タイピング時間測定終了
       this.typeTime = performance.now() - this.typeTime;
+
+      // wpm
+      this.wpm = Math.floor(
+        (this.correctTypeCount / this.typeTime) * 1000 * 60
+      );
 
       this.isTyping = false;
       this.isFinished = true;

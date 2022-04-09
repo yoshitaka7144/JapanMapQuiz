@@ -711,18 +711,57 @@ $hamburger-menu-background-color: gray;
 
     .game {
       height: 100%;
+      padding: 15px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: $box-shadow;
       display: flex;
       flex-direction: column;
       .map-wrapper {
-        height: 90%;
+        height: 85%;
         position: relative;
+        margin-bottom: 5px;
 
         .zoom-slider-wrapper {
           position: absolute;
-          top: 0;
-          right: 0;
+          top: 20%;
+          right: -150px;
+          transform: rotate(90deg);
+          transform-origin: bottom left;
+          display: flex;
+          align-items: center;
 
           .zoom-slider {
+            appearance: none;
+            cursor: pointer;
+            outline: none;
+            height: 15px;
+            width: 120px;
+            background-color: #8acdff;
+            border-radius: 10px;
+            border: 3px solid #dff1ff;
+            user-select: none;
+
+            &::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              background-color: #53aeff;
+              width: 22px;
+              height: 22px;
+              border-radius: 50%;
+            }
+          }
+
+          #plus-icon {
+            color: #7c7c7c;
+            font-size: 1.2rem;
+            margin-right: 8px;
+          }
+
+          #minus-icon {
+            color: #7c7c7c;
+            font-size: 1.2rem;
+            margin-left: 8px;
+            transform: rotate(90deg);
           }
         }
 
@@ -730,24 +769,41 @@ $hamburger-menu-background-color: gray;
           position: absolute;
           top: 0;
           left: 0;
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
 
-          .info-table {
-            td,
-            th {
-              padding: 10px;
-              margin-bottom: 7px;
+          .info-list {
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+
+            dt,
+            dd {
+              padding: 5px;
+              margin-bottom: 10px;
+              &:last-of-type {
+                margin-bottom: 0;
+              }
             }
 
-            td {
+            dd {
+              width: 20%;
               color: #7c7c7c;
               text-align: right;
+              font-size: 1rem;
+              font-weight: bold;
             }
 
-            th {
-              border-radius: 5px;
-              border: 1px solid #7c7c7c;
+            dt {
+              width: 80%;
+              border-radius: 7px;
               text-align: center;
               color: white;
+              font-size: 0.9rem;
+              font-weight: bold;
+              border: 2px solid #7c7c7c;
 
               &.disabled {
                 background-color: rgb(139, 156, 151);
@@ -757,7 +813,7 @@ $hamburger-menu-background-color: gray;
                 color: #7c7c7c;
               }
               &.inputed {
-                background-color: rgb(67, 112, 209);
+                background-color: rgb(124, 179, 252);
               }
               &.correct {
                 background-color: rgb(123, 224, 191);
@@ -810,7 +866,7 @@ $hamburger-menu-background-color: gray;
             fill: #fff;
             &:hover {
               fill: rgb(47, 194, 145);
-              opacity: 0.7;
+              opacity: $hovered-opacity;
             }
             &.disabled {
               fill: rgb(139, 156, 151) !important;
@@ -821,7 +877,7 @@ $hamburger-menu-background-color: gray;
               }
             }
             &.inputed {
-              fill: rgb(67, 112, 209);
+              fill: rgb(124, 179, 252);
             }
             &.fill {
               fill: rgb(47, 194, 145);
@@ -851,7 +907,11 @@ $hamburger-menu-background-color: gray;
         }
       }
       .btn-wrapper {
-        height: 10%;
+        display: flex;
+        justify-content: center;
+        .btn:first-child {
+          margin-right: 20px;
+        }
       }
     }
   }
@@ -1241,7 +1301,7 @@ $hamburger-menu-background-color: gray;
       }
 
       .text-wrapper {
-        padding: 20px;
+        padding: 15px;
         border-radius: 10px;
         background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px, #e9f4ff 3px, #e9f4ff 7px);
         display: flex;
@@ -1822,6 +1882,26 @@ keyframes
         .setting-quiz-count {
           width: 100%;
           order: -1;
+        }
+      }
+    }
+  }
+
+  #fill-map {
+    .fill-map-inner {
+      .game {
+        .map-wrapper {
+          .info-area {
+            .circle {
+              width: 100px;
+              height: 100px;
+              .circle-inner {
+                .evaluation-text {
+                  font-size: 0.8rem;
+                }
+              }
+            }
+          }
         }
       }
     }

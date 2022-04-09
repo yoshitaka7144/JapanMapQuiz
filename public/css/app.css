@@ -637,52 +637,116 @@ img {
 }
 #fill-map .fill-map-inner .game {
   height: 100%;
+  padding: 15px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
 }
 #fill-map .fill-map-inner .game .map-wrapper {
-  height: 90%;
+  height: 85%;
   position: relative;
+  margin-bottom: 5px;
 }
 #fill-map .fill-map-inner .game .map-wrapper .zoom-slider-wrapper {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 20%;
+  right: -150px;
+  transform: rotate(90deg);
+  transform-origin: bottom left;
+  display: flex;
+  align-items: center;
+}
+#fill-map .fill-map-inner .game .map-wrapper .zoom-slider-wrapper .zoom-slider {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  cursor: pointer;
+  outline: none;
+  height: 15px;
+  width: 120px;
+  background-color: #8acdff;
+  border-radius: 10px;
+  border: 3px solid #dff1ff;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+#fill-map .fill-map-inner .game .map-wrapper .zoom-slider-wrapper .zoom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #53aeff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+}
+#fill-map .fill-map-inner .game .map-wrapper .zoom-slider-wrapper #plus-icon {
+  color: #7c7c7c;
+  font-size: 1.2rem;
+  margin-right: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+#fill-map .fill-map-inner .game .map-wrapper .zoom-slider-wrapper #minus-icon {
+  color: #7c7c7c;
+  font-size: 1.2rem;
+  margin-left: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  transform: rotate(90deg);
 }
 #fill-map .fill-map-inner .game .map-wrapper .info-area {
   position: absolute;
   top: 0;
   left: 0;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info-area .info-table td,
-#fill-map .fill-map-inner .game .map-wrapper .info-area .info-table th {
-  padding: 10px;
-  margin-bottom: 7px;
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list {
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info-area .info-table td {
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dt,
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dd {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dt:last-of-type,
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dd:last-of-type {
+  margin-bottom: 0;
+}
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dd {
+  width: 20%;
   color: #7c7c7c;
   text-align: right;
+  font-size: 1rem;
+  font-weight: bold;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info-area .info-table th {
-  border-radius: 5px;
-  border: 1px solid #7c7c7c;
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dt {
+  width: 80%;
+  border-radius: 7px;
   text-align: center;
   color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border: 2px solid #7c7c7c;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info-area .info-table th.disabled {
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dt.disabled {
   background-color: #8b9c97;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info-area .info-table th.blank {
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dt.blank {
   background-color: white;
   color: #7c7c7c;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info-area .info-table th.inputed {
-  background-color: #4370d1;
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dt.inputed {
+  background-color: #7cb3fc;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info-area .info-table th.correct {
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dt.correct {
   background-color: #7be0bf;
 }
-#fill-map .fill-map-inner .game .map-wrapper .info-area .info-table th.incorrect {
+#fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dt.incorrect {
   background-color: #eb9696;
 }
 #fill-map .fill-map-inner .game .map-wrapper .info-area .circle {
@@ -736,7 +800,7 @@ img {
   opacity: 1 !important;
 }
 #fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1.inputed {
-  fill: #4370d1;
+  fill: #7cb3fc;
 }
 #fill-map .fill-map-inner .game .map-wrapper #japan-map-svg .cls-1.fill {
   fill: #2fc291;
@@ -763,7 +827,11 @@ img {
   fill: none;
 }
 #fill-map .fill-map-inner .game .btn-wrapper {
-  height: 10%;
+  display: flex;
+  justify-content: center;
+}
+#fill-map .fill-map-inner .game .btn-wrapper .btn:first-child {
+  margin-right: 20px;
 }
 
 /************************************************
@@ -1133,7 +1201,7 @@ img {
   margin-right: 10px;
 }
 #typing-map .typing-map-inner .game .text-wrapper {
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px, #e9f4ff 3px, #e9f4ff 7px);
   display: flex;
@@ -1689,6 +1757,14 @@ keyframes
   .setting .setting-inner .setting-common .setting-quiz-count {
     width: 100%;
     order: -1;
+  }
+
+  #fill-map .fill-map-inner .game .map-wrapper .info-area .circle {
+    width: 100px;
+    height: 100px;
+  }
+  #fill-map .fill-map-inner .game .map-wrapper .info-area .circle .circle-inner .evaluation-text {
+    font-size: 0.8rem;
   }
 
   #quiz-map .quiz-map-inner .game .img-wrapper {

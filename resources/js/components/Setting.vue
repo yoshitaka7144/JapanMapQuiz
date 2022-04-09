@@ -117,7 +117,7 @@
       </div>
     </div>
     <div class="btn-start-wrapper">
-      <button class="btn large btn-blue" @click="settingParams(params)">
+      <button class="btn large btn-orange" @click="settingParams(params)">
         <fontawesome-icon class="icon" :icon="['fas', 'fa-play']" />
         スタート
       </button>

@@ -24170,16 +24170,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -51630,8 +51620,7 @@ var render = function () {
                 { staticClass: "zoom-slider-wrapper" },
                 [
                   _c("fontawesome-icon", {
-                    staticClass: "icon",
-                    attrs: { icon: ["fas", "fa-square-plus"] },
+                    attrs: { id: "plus-icon", icon: ["fas", "fa-square-plus"] },
                     on: {
                       click: function ($event) {
                         return _vm.zoomPlus()
@@ -51660,8 +51649,10 @@ var render = function () {
                   }),
                   _vm._v(" "),
                   _c("fontawesome-icon", {
-                    staticClass: "icon",
-                    attrs: { icon: ["fas", "fa-square-minus"] },
+                    attrs: {
+                      id: "minus-icon",
+                      icon: ["fas", "fa-square-minus"],
+                    },
                     on: {
                       click: function ($event) {
                         return _vm.zoomMinus()
@@ -51673,15 +51664,29 @@ var render = function () {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "info-area" }, [
-                _c("table", { staticClass: "info-table" }, [
-                  _c("tr", [
-                    _c("th", { staticClass: "disabled" }, [_vm._v("対象外")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.disabledPlaceCount))]),
-                  ]),
+                _c("dl", { staticClass: "info-list" }, [
+                  _c("dt", { staticClass: "disabled" }, [_vm._v("対象外")]),
+                  _vm._v(" "),
+                  _c("dd", [_vm._v(_vm._s(_vm.disabledPlaceCount))]),
                   _vm._v(" "),
                   _c(
-                    "tr",
+                    "dt",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.isFinished,
+                          expression: "!isFinished",
+                        },
+                      ],
+                      staticClass: "blank",
+                    },
+                    [_vm._v("未入力")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "dd",
                     {
                       directives: [
                         {
@@ -51692,15 +51697,27 @@ var render = function () {
                         },
                       ],
                     },
-                    [
-                      _c("th", { staticClass: "blank" }, [_vm._v("未入力")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.blankPlaceCount))]),
-                    ]
+                    [_vm._v(_vm._s(_vm.blankPlaceCount))]
                   ),
                   _vm._v(" "),
                   _c(
-                    "tr",
+                    "dt",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.isFinished,
+                          expression: "!isFinished",
+                        },
+                      ],
+                      staticClass: "inputed",
+                    },
+                    [_vm._v("入力済")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "dd",
                     {
                       directives: [
                         {
@@ -51711,15 +51728,27 @@ var render = function () {
                         },
                       ],
                     },
-                    [
-                      _c("th", { staticClass: "inputed" }, [_vm._v("入力済")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.inputedPlaceCount))]),
-                    ]
+                    [_vm._v(_vm._s(_vm.inputedPlaceCount))]
                   ),
                   _vm._v(" "),
                   _c(
-                    "tr",
+                    "dt",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.isFinished,
+                          expression: "isFinished",
+                        },
+                      ],
+                      staticClass: "correct",
+                    },
+                    [_vm._v("正解")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "dd",
                     {
                       directives: [
                         {
@@ -51730,15 +51759,27 @@ var render = function () {
                         },
                       ],
                     },
-                    [
-                      _c("th", { staticClass: "correct" }, [_vm._v("正解")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.correctPlaceCount))]),
-                    ]
+                    [_vm._v(_vm._s(_vm.correctPlaceCount))]
                   ),
                   _vm._v(" "),
                   _c(
-                    "tr",
+                    "dt",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.isFinished,
+                          expression: "isFinished",
+                        },
+                      ],
+                      staticClass: "incorrect",
+                    },
+                    [_vm._v("不正解")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "dd",
                     {
                       directives: [
                         {
@@ -51749,13 +51790,7 @@ var render = function () {
                         },
                       ],
                     },
-                    [
-                      _c("th", { staticClass: "incorrect" }, [
-                        _vm._v("不正解"),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.incorrectPlaceCount))]),
-                    ]
+                    [_vm._v(_vm._s(_vm.incorrectPlaceCount))]
                   ),
                 ]),
                 _vm._v(" "),
@@ -52786,7 +52821,7 @@ var render = function () {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-gray",
+                      staticClass: "btn btn-blue",
                       on: {
                         click: function ($event) {
                           return _vm.checkAnswer()
@@ -52806,7 +52841,7 @@ var render = function () {
                         staticClass: "btn btn-gray",
                         attrs: { to: { name: "menu" } },
                       },
-                      [_vm._v("\n          メニュー画面へ\n        ")]
+                      [_vm._v("\n          メニューへ\n        ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -54345,7 +54380,7 @@ var render = function () {
             _c(
               "button",
               {
-                staticClass: "btn large btn-blue",
+                staticClass: "btn large btn-orange",
                 on: {
                   click: function ($event) {
                     return _vm.settingParams(_vm.params)

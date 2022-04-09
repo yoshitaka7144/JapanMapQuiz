@@ -12,7 +12,7 @@
         <div class="map-wrapper">
           <div class="zoom-slider-wrapper">
             <fontawesome-icon
-              class="icon"
+              id="plus-icon"
               :icon="['fas', 'fa-square-plus']"
               @click="zoomPlus()"
             />
@@ -25,34 +25,24 @@
               @change="zoomSlider"
             />
             <fontawesome-icon
-              class="icon"
+              id="minus-icon"
               :icon="['fas', 'fa-square-minus']"
               @click="zoomMinus()"
             />
           </div>
           <div class="info-area">
-            <table class="info-table">
-              <tr>
-                <th class="disabled">対象外</th>
-                <td>{{ disabledPlaceCount }}</td>
-              </tr>
-              <tr v-show="!isFinished">
-                <th class="blank">未入力</th>
-                <td>{{ blankPlaceCount }}</td>
-              </tr>
-              <tr v-show="!isFinished">
-                <th class="inputed">入力済</th>
-                <td>{{ inputedPlaceCount }}</td>
-              </tr>
-              <tr v-show="isFinished">
-                <th class="correct">正解</th>
-                <td>{{ correctPlaceCount }}</td>
-              </tr>
-              <tr v-show="isFinished">
-                <th class="incorrect">不正解</th>
-                <td>{{ incorrectPlaceCount }}</td>
-              </tr>
-            </table>
+            <dl class="info-list">
+              <dt class="disabled">対象外</dt>
+              <dd>{{ disabledPlaceCount }}</dd>
+              <dt class="blank" v-show="!isFinished">未入力</dt>
+              <dd v-show="!isFinished">{{ blankPlaceCount }}</dd>
+              <dt class="inputed" v-show="!isFinished">入力済</dt>
+              <dd v-show="!isFinished">{{ inputedPlaceCount }}</dd>
+              <dt class="correct" v-show="isFinished">正解</dt>
+              <dd v-show="isFinished">{{ correctPlaceCount }}</dd>
+              <dt class="incorrect" v-show="isFinished">不正解</dt>
+              <dd v-show="isFinished">{{ incorrectPlaceCount }}</dd>
+            </dl>
             <div class="circle" v-if="isFinished">
               <div class="circle-inner">
                 <p class="evaluation-text">
@@ -836,11 +826,11 @@
           </svg>
         </div>
         <div class="btn-wrapper" v-if="!isFinished">
-          <button class="btn btn-gray" @click="checkAnswer()">解答終了</button>
+          <button class="btn btn-blue" @click="checkAnswer()">解答終了</button>
         </div>
         <div class="btn-wrapper" v-else>
           <router-link :to="{ name: 'menu' }" class="btn btn-gray">
-            メニュー画面へ
+            メニューへ
           </router-link>
           <button class="btn btn-gray" @click="reset()">設定画面へ</button>
         </div>

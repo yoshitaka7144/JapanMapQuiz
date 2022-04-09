@@ -827,6 +827,7 @@
         </div>
         <div class="btn-wrapper" v-if="!isFinished">
           <button class="btn btn-blue" @click="checkAnswer()">解答終了</button>
+          <button class="btn btn-green">操作方法</button>
         </div>
         <div class="btn-wrapper" v-else>
           <router-link :to="{ name: 'menu' }" class="btn btn-gray">

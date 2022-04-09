@@ -22,7 +22,7 @@ export const DEFAULT_TIME_LIMIT_CHECKED = false;
 /**
  * 設定画面：制限時間セレクトボックス：初期選択値
  */
-export const DEFAULT_TIME_LIMIT_VALUE = 60;
+export const DEFAULT_TIME_LIMIT_VALUE = 30;
 /**
  * 設定画面：問題数セレクトボックス：初期選択値
  */
@@ -178,6 +178,10 @@ export const TYPING_MAP_EXPLANATION_TEXT = "地図タイピングの説明";
  * 地図タイピング：タイピングテキスト終了文字
  */
 export const TYPING_MAP_TYPING_TEXT_END_CHAR = "$";
+/**
+ * 地図タイピング：初期表示テキスト
+ */
+ export const TYPING_MAP_TYPING_PRE_TEXT = "タイピングしてください!!";
 
 /**
  * 結果画面：結果評価テキスト:大変良い

@@ -685,13 +685,11 @@ img {
   color: #7c7c7c;
   font-size: 1.2rem;
   margin-right: 8px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 #fill-map .fill-map-inner .game .map-wrapper .zoom-slider-wrapper #minus-icon {
   color: #7c7c7c;
   font-size: 1.2rem;
   margin-left: 8px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   transform: rotate(90deg);
 }
 #fill-map .fill-map-inner .game .map-wrapper .info-area {
@@ -1065,7 +1063,7 @@ img {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 70px;
+  font-size: 80px;
   font-weight: bold;
   color: orange;
   opacity: 0;
@@ -1207,6 +1205,20 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+#typing-map .typing-map-inner .game .text-wrapper .pre-text {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fdae4d;
+  -webkit-animation: blink 1.2s linear infinite;
+          animation: blink 1.2s linear infinite;
 }
 #typing-map .typing-map-inner .game .text-wrapper .typing {
   display: flex;
@@ -1732,6 +1744,22 @@ keyframes
     visibility: visible;
     opacity: 1;
     transform: rotate(0deg) scale(1);
+  }
+}
+@-webkit-keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
   }
 }
 /************************************************

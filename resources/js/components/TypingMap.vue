@@ -55,6 +55,7 @@
           </p>
         </div>
         <div class="text-wrapper">
+          <p class="pre-text" v-if="!typeKey">{{ preText }}</p>
           <div class="typing">
             <span class="inputed">{{ displayTypingInputedText }}</span>
             <span class="remaining" :class="{ hidden: !canShowDetails }">{{
@@ -151,6 +152,7 @@ import {
   RESULT_EVALUATION_TEXT_GREAT,
   RESULT_EVALUATION_TEXT_GOOD,
   RESULT_EVALUATION_TEXT_POOR,
+  TYPING_MAP_TYPING_PRE_TEXT,
 } from "../util";
 import { checkInputKey } from "../key.js";
 import SettingComponent from "./Setting.vue";
@@ -216,6 +218,8 @@ export default {
       missQuizData: [],
       tmpId: 0,
       wpm: Number,
+      preText: TYPING_MAP_TYPING_PRE_TEXT,
+      typeKey: false,
     };
   },
   mounted() {
@@ -263,6 +267,7 @@ export default {
       this.canShowDetails = false;
       this.tmpId = 0;
       this.missQuizData = [];
+      this.typeKey = false;
     },
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -411,12 +416,15 @@ export default {
       this.oneQuizMissCount = 0;
       this.canShowHint = false;
       this.canShowDetails = false;
+      this.typeKey = false;
     },
     // キータイプ処理
     keyAction(e) {
       if (this.isTyping) {
         // キーの処理をキャンセル
         e.preventDefault();
+
+        this.typeKey = true;
 
         switch (
           checkInputKey(

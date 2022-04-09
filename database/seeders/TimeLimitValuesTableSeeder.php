@@ -20,6 +20,9 @@ class TimeLimitValuesTableSeeder extends Seeder
 
         $values = [
             [
+                "value" => 30,
+            ],
+            [
                 "value" => 60,
             ],
             [

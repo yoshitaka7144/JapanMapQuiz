@@ -24170,6 +24170,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -25987,6 +25988,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -26051,7 +26053,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       okFunction: Function,
       missQuizData: [],
       tmpId: 0,
-      wpm: Number
+      wpm: Number,
+      preText: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_TYPING_PRE_TEXT,
+      typeKey: false
     };
   },
   mounted: function mounted() {
@@ -26099,6 +26103,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.canShowDetails = false;
       this.tmpId = 0;
       this.missQuizData = [];
+      this.typeKey = false;
     },
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
@@ -26260,12 +26265,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.oneQuizMissCount = 0;
       this.canShowHint = false;
       this.canShowDetails = false;
+      this.typeKey = false;
     },
     // キータイプ処理
     keyAction: function keyAction(e) {
       if (this.isTyping) {
         // キーの処理をキャンセル
         e.preventDefault();
+        this.typeKey = true;
 
         switch ((0,_key_js__WEBPACK_IMPORTED_MODULE_2__.checkInputKey)(e.code, this.currentTypingText, this.currentTypingTextIndex)) {
           case 1:
@@ -27027,6 +27034,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "TYPING_MAP_EXPLANATION_TEXT": () => (/* binding */ TYPING_MAP_EXPLANATION_TEXT),
 /* harmony export */   "TYPING_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ TYPING_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "TYPING_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ TYPING_MAP_MENU_TITLE_JAPANESE),
+/* harmony export */   "TYPING_MAP_TYPING_PRE_TEXT": () => (/* binding */ TYPING_MAP_TYPING_PRE_TEXT),
 /* harmony export */   "TYPING_MAP_TYPING_TEXT_END_CHAR": () => (/* binding */ TYPING_MAP_TYPING_TEXT_END_CHAR),
 /* harmony export */   "UNPROCESSABLE_ENTITY": () => (/* binding */ UNPROCESSABLE_ENTITY)
 /* harmony export */ });
@@ -27058,7 +27066,7 @@ var DEFAULT_TIME_LIMIT_CHECKED = false;
  * 設定画面：制限時間セレクトボックス：初期選択値
  */
 
-var DEFAULT_TIME_LIMIT_VALUE = 60;
+var DEFAULT_TIME_LIMIT_VALUE = 30;
 /**
  * 設定画面：問題数セレクトボックス：初期選択値
  */
@@ -27249,6 +27257,11 @@ var TYPING_MAP_EXPLANATION_TEXT = "地図タイピングの説明";
  */
 
 var TYPING_MAP_TYPING_TEXT_END_CHAR = "$";
+/**
+ * 地図タイピング：初期表示テキスト
+ */
+
+var TYPING_MAP_TYPING_PRE_TEXT = "タイピングしてください!!";
 /**
  * 結果画面：結果評価テキスト:大変良い
  */
@@ -52830,6 +52843,10 @@ var render = function () {
                     },
                     [_vm._v("解答終了")]
                   ),
+                  _vm._v(" "),
+                  _c("button", { staticClass: "btn btn-green" }, [
+                    _vm._v("操作方法"),
+                  ]),
                 ])
               : _c(
                   "div",
@@ -54567,6 +54584,12 @@ var render = function () {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "text-wrapper" }, [
+                !_vm.typeKey
+                  ? _c("p", { staticClass: "pre-text" }, [
+                      _vm._v(_vm._s(_vm.preText)),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("div", { staticClass: "typing" }, [
                   _c("span", { staticClass: "inputed" }, [
                     _vm._v(_vm._s(_vm.displayTypingInputedText)),

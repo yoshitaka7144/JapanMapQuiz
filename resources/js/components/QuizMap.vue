@@ -95,46 +95,49 @@
         </div>
       </div>
       <div class="result" v-else>
-        <div class="table-wrapper">
-          <table class="table">
-            <tr>
-              <th><span class="correct">正解</span> / 問題数</th>
-              <td>
-                <span class="correct">{{ correctCount }}</span> /
-                {{ quizCountLimit }}
-              </td>
-            </tr>
-            <tr>
-              <th>ミス問題</th>
-              <td>
-                <div class="incorrect-item-wrapper">
-                  <span
-                    v-for="item in missQuizData"
-                    :key="item.id"
-                    @click="showMissQuiz(item)"
-                    >{{ item.correctName }}</span
-                  >
-                </div>
-              </td>
-            </tr>
-          </table>
-          <div class="evaluation-circle-wrapper">
-            <div class="circle">
-              <div class="circle-inner">
-                <p class="evaluation-text">
-                  {{ evaluationText.split(",")[0] }}<br />{{
-                    evaluationText.split(",")[1]
-                  }}
-                </p>
+        <table class="table">
+          <tr>
+            <th>問題数</th>
+            <td>
+              {{ quizCountLimit }}
+            </td>
+          </tr>
+          <tr>
+            <th>正解数</th>
+            <td>
+              <span class="correct">{{ correctCount }}</span>
+            </td>
+          </tr>
+          <tr>
+            <th>ミス問題</th>
+            <td>
+              <div class="incorrect-item-wrapper">
+                <span
+                  v-for="item in missQuizData"
+                  :key="item.id"
+                  @click="showMissQuiz(item)"
+                  >{{ item.correctName }}</span
+                >
               </div>
+            </td>
+          </tr>
+        </table>
+        <div class="evaluation-wrapper">
+          <div class="circle">
+            <div class="circle-inner">
+              <p class="evaluation-text">
+                {{ evaluationText.split(",")[0] }}<br />{{
+                  evaluationText.split(",")[1]
+                }}
+              </p>
             </div>
           </div>
-        </div>
-        <div class="btn-wrapper">
-          <router-link :to="{ name: 'menu' }" class="btn btn-gray">
-            メニューへ
-          </router-link>
-          <button class="btn btn-gray" @click="reset()">設定画面へ</button>
+          <div class="btn-wrapper">
+            <router-link :to="{ name: 'menu' }" class="btn btn-gray">
+              メニューへ
+            </router-link>
+            <button class="btn btn-gray" @click="reset()">設定画面へ</button>
+          </div>
         </div>
       </div>
       <AlertModalComponent

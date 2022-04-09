@@ -48,7 +48,7 @@ img {
 
 .btn {
   cursor: pointer;
-  width: 150px;
+  width: 130px;
   text-align: center;
   display: inline-block;
   padding: 10px 15px;
@@ -62,7 +62,7 @@ img {
   box-shadow: $box-shadow;
 
   &.large {
-    width: 220px;
+    width: 210px;
   }
 
   &.circle {
@@ -992,97 +992,96 @@ $hamburger-menu-background-color: gray;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      .table-wrapper {
+
+      .table {
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        .table {
-          width: 100%;
-          margin-bottom: 15px;
-          border-collapse: collapse;
-          th,
-          td {
-            width: 50%;
-            font-size: 1.2rem;
-            text-align: center;
-            padding: 10px;
-            border-left: 2px solid #7c7c7c;
-            border-top: 2px solid #7c7c7c;
-            .correct {
-              color: rgb(30, 185, 134);
-            }
-          }
-          th {
-            &:last-of-type {
-              border-bottom: 2px solid #7c7c7c;
-            }
-          }
-          td {
-            border-right: 2px solid #7c7c7c;
-            &:last-of-type {
-              border-bottom: 2px solid #7c7c7c;
-            }
-            .incorrect-item-wrapper {
-              display: block;
-              overflow-y: auto;
-              height: 50px;
-              text-align: left;
-              span {
-                cursor: pointer;
-                display: inline-block;
-                padding: 5px 8px;
-                margin: 10px 10px 0 0;
-                border-radius: 10px;
-                color: white;
-                background-color: rgb(235, 150, 150);
-                box-shadow: $box-shadow;
-              }
-            }
+        margin-bottom: 15px;
+        border-collapse: collapse;
+        th,
+        td {
+          width: 50%;
+          font-size: 1.2rem;
+          text-align: center;
+          padding: 10px;
+          border-left: 2px solid #7c7c7c;
+          border-top: 2px solid #7c7c7c;
+          .correct {
+            color: rgb(30, 185, 134);
           }
         }
-        .evaluation-circle-wrapper {
-          margin-bottom: 15px;
-          .circle {
-            display: inline-block;
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            border: 2px solid rgb(252, 52, 52);
-            position: relative;
-            visibility: hidden;
-            animation: stamp 0.5s 0.5s ease-in forwards;
-
-            .circle-inner {
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 95%;
-              height: 95%;
-              border-radius: 50%;
-              border: 2px solid rgb(252, 52, 52);
-
-              .evaluation-text {
-                width: 85%;
-                text-align: center;
-                font-size: 0.9rem;
-                font-weight: bold;
-                color: rgb(252, 52, 52);
-              }
+        th {
+          &:last-of-type {
+            border-bottom: 2px solid #7c7c7c;
+          }
+        }
+        td {
+          border-right: 2px solid #7c7c7c;
+          &:last-of-type {
+            border-bottom: 2px solid #7c7c7c;
+          }
+          .incorrect-item-wrapper {
+            display: block;
+            overflow-y: auto;
+            height: 50px;
+            text-align: left;
+            span {
+              cursor: pointer;
+              display: inline-block;
+              padding: 5px 8px;
+              margin: 10px 10px 0 0;
+              border-radius: 10px;
+              color: white;
+              background-color: rgb(235, 150, 150);
+              box-shadow: $box-shadow;
             }
           }
         }
       }
-      .btn-wrapper {
+      .evaluation-wrapper {
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        .btn:first-of-type {
-          margin-bottom: 15px;
+        justify-content: space-around;
+
+        .circle {
+          display: inline-block;
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          border: 2px solid rgb(252, 52, 52);
+          position: relative;
+          visibility: hidden;
+          animation: stamp 0.5s 0.5s ease-in forwards;
+
+          .circle-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 95%;
+            height: 95%;
+            border-radius: 50%;
+            border: 2px solid rgb(252, 52, 52);
+
+            .evaluation-text {
+              width: 85%;
+              text-align: center;
+              font-size: 0.9rem;
+              font-weight: bold;
+              color: rgb(252, 52, 52);
+            }
+          }
+        }
+
+        .btn-wrapper {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .btn:first-child {
+            margin-bottom: 15px;
+          }
         }
       }
     }
@@ -1157,25 +1156,25 @@ $hamburger-menu-background-color: gray;
           td {
             padding: 5px;
             text-align: center;
-            font-size: 1.0rem;
+            font-size: 1rem;
             font-weight: bold;
             border-left: 2px solid #7c7c7c;
             border-right: 2px solid #7c7c7c;
           }
-          th{
+          th {
             border-top: 2px solid #7c7c7c;
           }
-          td{
+          td {
             border-top: 2px dotted #7c7c7c;
-            &:last-of-type{
+            &:last-of-type {
               border-bottom: 2px solid #7c7c7c;
             }
 
-            &.correct{
+            &.correct {
               color: rgb(30, 185, 134);
             }
 
-            &.miss{
+            &.miss {
               color: rgb(231, 84, 84);
             }
           }
@@ -1285,18 +1284,72 @@ $hamburger-menu-background-color: gray;
 
     .result {
       height: 100%;
-      .table-wrapper {
-        display: flex;
-        .table {
-          th,
-          td {
-            padding: 10px;
+      padding: 15px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: $box-shadow;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .table {
+        width: 100%;
+        margin-bottom: 15px;
+        border-collapse: collapse;
+        th,
+        td {
+          width: 50%;
+          font-size: 1.2rem;
+          text-align: center;
+          padding: 10px;
+          border-left: 2px solid #7c7c7c;
+          border-top: 2px solid #7c7c7c;
+          &.correct {
+            color: rgb(30, 185, 134);
+          }
+          &.miss {
+            color: rgb(231, 84, 84);
           }
         }
+        th {
+          &:last-of-type {
+            border-bottom: 2px solid #7c7c7c;
+          }
+        }
+        td {
+          border-right: 2px solid #7c7c7c;
+          &:last-of-type {
+            border-bottom: 2px solid #7c7c7c;
+          }
+          .incorrect-item-wrapper {
+            display: block;
+            overflow-y: auto;
+            height: 50px;
+            text-align: left;
+            span {
+              cursor: pointer;
+              display: inline-block;
+              padding: 5px 8px;
+              margin: 10px 10px 0 0;
+              border-radius: 10px;
+              color: white;
+              background-color: rgb(235, 150, 150);
+              box-shadow: $box-shadow;
+            }
+          }
+        }
+      }
+
+      .evaluation-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
         .circle {
           display: inline-block;
-          width: 130px;
-          height: 130px;
+          width: 140px;
+          height: 140px;
           border-radius: 50%;
           border: 2px solid rgb(252, 52, 52);
           position: relative;
@@ -1328,6 +1381,10 @@ $hamburger-menu-background-color: gray;
         .btn-wrapper {
           display: flex;
           flex-direction: column;
+          justify-content: center;
+          .btn:first-child {
+            margin-bottom: 15px;
+          }
         }
       }
     }
@@ -1779,11 +1836,21 @@ keyframes
         }
       }
       .result {
-        .table-wrapper {
-          .table {
-            th {
-              font-size: 1rem;
-              padding: 10px 5px;
+        .table {
+          th {
+            font-size: 1rem;
+            padding: 10px 5px;
+          }
+        }
+
+        .evaluation-wrapper {
+          .circle {
+            width: 110px;
+            height: 110px;
+            .circle-inner {
+              .evaluation-text {
+                font-size: 0.8rem;
+              }
             }
           }
         }
@@ -1796,6 +1863,26 @@ keyframes
       .game {
         .img-wrapper {
           height: 28%;
+        }
+      }
+      .result {
+        .table {
+          th {
+            font-size: 1rem;
+            padding: 10px 5px;
+          }
+        }
+
+        .evaluation-wrapper {
+          .circle {
+            width: 110px;
+            height: 110px;
+            .circle-inner {
+              .evaluation-text {
+                font-size: 0.8rem;
+              }
+            }
+          }
         }
       }
     }

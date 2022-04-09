@@ -25177,6 +25177,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -25854,6 +25857,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -53721,100 +53730,102 @@ var render = function () {
               ]),
             ])
           : _c("div", { staticClass: "result" }, [
-              _c("div", { staticClass: "table-wrapper" }, [
-                _c("table", { staticClass: "table" }, [
-                  _c("tr", [
-                    _c("th", [
-                      _c("span", { staticClass: "correct" }, [_vm._v("正解")]),
-                      _vm._v(" / 問題数"),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("span", { staticClass: "correct" }, [
-                        _vm._v(_vm._s(_vm.correctCount)),
-                      ]),
-                      _vm._v(
-                        " /\n              " +
-                          _vm._s(_vm.quizCountLimit) +
-                          "\n            "
-                      ),
+              _c("table", { staticClass: "table" }, [
+                _c("tr", [
+                  _c("th", [_vm._v("問題数")]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      "\n            " +
+                        _vm._s(_vm.quizCountLimit) +
+                        "\n          "
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("th", [_vm._v("正解数")]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("span", { staticClass: "correct" }, [
+                      _vm._v(_vm._s(_vm.correctCount)),
                     ]),
                   ]),
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("th", [_vm._v("ミス問題")]),
                   _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("ミス問題")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "div",
-                        { staticClass: "incorrect-item-wrapper" },
-                        _vm._l(_vm.missQuizData, function (item) {
-                          return _c(
-                            "span",
-                            {
-                              key: item.id,
-                              on: {
-                                click: function ($event) {
-                                  return _vm.showMissQuiz(item)
-                                },
+                  _c("td", [
+                    _c(
+                      "div",
+                      { staticClass: "incorrect-item-wrapper" },
+                      _vm._l(_vm.missQuizData, function (item) {
+                        return _c(
+                          "span",
+                          {
+                            key: item.id,
+                            on: {
+                              click: function ($event) {
+                                return _vm.showMissQuiz(item)
                               },
                             },
-                            [_vm._v(_vm._s(item.correctName))]
-                          )
-                        }),
-                        0
+                          },
+                          [_vm._v(_vm._s(item.correctName))]
+                        )
+                      }),
+                      0
+                    ),
+                  ]),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "evaluation-wrapper" }, [
+                _c("div", { staticClass: "circle" }, [
+                  _c("div", { staticClass: "circle-inner" }, [
+                    _c("p", { staticClass: "evaluation-text" }, [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.evaluationText.split(",")[0])
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        _vm._s(_vm.evaluationText.split(",")[1]) +
+                          "\n            "
                       ),
                     ]),
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "evaluation-circle-wrapper" }, [
-                  _c("div", { staticClass: "circle" }, [
-                    _c("div", { staticClass: "circle-inner" }, [
-                      _c("p", { staticClass: "evaluation-text" }, [
-                        _vm._v(
-                          "\n                " +
-                            _vm._s(_vm.evaluationText.split(",")[0])
-                        ),
-                        _c("br"),
-                        _vm._v(
-                          _vm._s(_vm.evaluationText.split(",")[1]) +
-                            "\n              "
-                        ),
-                      ]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "btn-wrapper" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-gray",
-                      attrs: { to: { name: "menu" } },
-                    },
-                    [_vm._v("\n          メニューへ\n        ")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-gray",
-                      on: {
-                        click: function ($event) {
-                          return _vm.reset()
+                _c(
+                  "div",
+                  { staticClass: "btn-wrapper" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-gray",
+                        attrs: { to: { name: "menu" } },
+                      },
+                      [_vm._v("\n            メニューへ\n          ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-gray",
+                        on: {
+                          click: function ($event) {
+                            return _vm.reset()
+                          },
                         },
                       },
-                    },
-                    [_vm._v("設定画面へ")]
-                  ),
-                ],
-                1
-              ),
+                      [_vm._v("設定画面へ")]
+                    ),
+                  ],
+                  1
+                ),
+              ]),
             ]),
         _vm._v(" "),
         _vm.showAlertModal
@@ -54565,37 +54576,44 @@ var render = function () {
               ]),
             ])
           : _c("div", { staticClass: "result" }, [
-              _c("div", { staticClass: "table-wrapper" }, [
-                _c("table", { staticClass: "table" }, [
-                  _c("tr", [
-                    _c("th", [_vm._v("クリア数 / 問題数")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(_vm.currentQuizIndex) +
-                          " / " +
-                          _vm._s(_vm.quizCountLimit)
-                      ),
-                    ]),
-                  ]),
+              _c("table", { staticClass: "table" }, [
+                _c("tr", [
+                  _c("th", [_vm._v("クリア数 / 問題数")]),
                   _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("正解タイプ数")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.correctTypeCount))]),
+                  _c("td", [
+                    _vm._v(
+                      _vm._s(_vm.currentQuizIndex) +
+                        " / " +
+                        _vm._s(_vm.quizCountLimit)
+                    ),
                   ]),
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("th", [_vm._v("正解タイプ数")]),
                   _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("ミスタイプ数")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.missTypeCount))]),
+                  _c("td", { staticClass: "correct" }, [
+                    _vm._v(_vm._s(_vm.correctTypeCount)),
                   ]),
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("th", [_vm._v("ミスタイプ数")]),
                   _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("ミス問題")]),
-                    _vm._v(" "),
+                  _c("td", { staticClass: "miss" }, [
+                    _vm._v(_vm._s(_vm.missTypeCount)),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("tr", [_c("th", [_vm._v("WPM")]), _vm._v(" "), _c("td")]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("th", [_vm._v("ミス問題")]),
+                  _vm._v(" "),
+                  _c("td", [
                     _c(
-                      "td",
+                      "div",
+                      { staticClass: "incorrect-item-wrapper" },
                       _vm._l(_vm.missQuizData, function (item) {
                         return _c(
                           "span",
@@ -54614,7 +54632,9 @@ var render = function () {
                     ),
                   ]),
                 ]),
-                _vm._v(" "),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "evaluation-wrapper" }, [
                 _c("div", { staticClass: "circle" }, [
                   _c("div", { staticClass: "circle-inner" }, [
                     _c("p", { staticClass: "evaluation-text" }, [
@@ -54641,7 +54661,7 @@ var render = function () {
                         staticClass: "btn btn-gray",
                         attrs: { to: { name: "menu" } },
                       },
-                      [_vm._v("\n            メニュー画面へ\n          ")]
+                      [_vm._v("\n            メニューへ\n          ")]
                     ),
                     _vm._v(" "),
                     _c(

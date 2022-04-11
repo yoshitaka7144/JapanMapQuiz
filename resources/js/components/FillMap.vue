@@ -827,7 +827,9 @@
         </div>
         <div class="btn-wrapper" v-if="!isFinished">
           <button class="btn btn-blue" @click="checkAnswer()">解答終了</button>
-          <button class="btn btn-green">操作方法</button>
+          <button class="btn btn-green" @click="showManualModal = true">
+            操作方法
+          </button>
         </div>
         <div class="btn-wrapper" v-else>
           <router-link :to="{ name: 'menu' }" class="btn btn-gray">
@@ -840,6 +842,10 @@
         v-if="showAlertModal"
         :alertMessage="alertMessage"
         @close="showAlertModal = false"
+      />
+      <ManualModalComponent
+        v-if="showManualModal"
+        @close="showManualModal = false"
       />
       <InputModalComponent
         v-if="showInputNameModal"
@@ -887,11 +893,13 @@ import {
 import SettingComponent from "./Setting.vue";
 import InputModalComponent from "./InputNameModal.vue";
 import AlertModalComponent from "./AlertModal.vue";
+import ManualModalComponent from "./ManualModal.vue";
 import ConfirmationModalComponent from "./ConfirmationModal.vue";
 export default {
   components: {
     SettingComponent,
     AlertModalComponent,
+    ManualModalComponent,
     InputModalComponent,
     ConfirmationModalComponent,
   },
@@ -910,6 +918,7 @@ export default {
       inputedName: [],
       showInputNameModal: false,
       showAlertModal: false,
+      showManualModal: false,
       showConfirmationModal: false,
       alertMessage: String,
       imageId: Number,

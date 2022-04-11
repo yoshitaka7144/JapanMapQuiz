@@ -937,6 +937,7 @@ export default {
       dy: 0,
       canMove: false,
       zoomValue: FILL_MAP_VIEW_BOX_MAX_WIDTH,
+      touchstartArea: Number,
     };
   },
   mounted() {
@@ -1167,22 +1168,48 @@ export default {
       }
     },
     touchMove(e) {
-      if (this.canMove) {
-        let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
-        const rect = e.target.getBoundingClientRect();
-        const offsetX = e.touches[0].clientX - window.pageXOffset - rect.left;
-        const offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
-        const deltaX = offsetX - this.dx;
-        const deltaY = offsetY - this.dy;
-        if (
-          FILL_MAP_VIEW_BOX_MIN_X <= x - deltaX &&
-          x - deltaX <= FILL_MAP_VIEW_BOX_MAX_X &&
-          FILL_MAP_VIEW_BOX_MIN_Y <= y - deltaY &&
-          y - deltaY <= FILL_MAP_VIEW_BOX_MAX_Y
-        ) {
-          this.createViewBox(x - deltaX, y - deltaY, w, h);
-          this.dx += deltaX;
-          this.dy += deltaY;
+      let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
+      if (e.touches.length >= 2) {
+        const absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
+        const absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);
+        const area = absWidth * absHeight;
+        if (area >= this.touchstartArea) {
+          // 拡大
+          w = w * 0.9;
+          h = h * 0.9;
+          if (w < FILL_MAP_VIEW_BOX_MIN_WIDTH) {
+            w = FILL_MAP_VIEW_BOX_MIN_WIDTH;
+            h = FILL_MAP_VIEW_BOX_MIN_WIDTH;
+          }
+        } else {
+          // 縮小
+          w = w * 1.1;
+          h = h * 1.1;
+          if (w > FILL_MAP_VIEW_BOX_MAX_WIDTH) {
+            w = FILL_MAP_VIEW_BOX_MAX_WIDTH;
+            h = FILL_MAP_VIEW_BOX_MAX_WIDTH;
+          }
+        }
+        this.createViewBox(x, y, w, h);
+        this.zoomValue = w;
+        this.touchstartArea = area;
+      } else {
+        if (this.canMove) {
+          const rect = e.target.getBoundingClientRect();
+          const offsetX = e.touches[0].clientX - window.pageXOffset - rect.left;
+          const offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
+          const deltaX = offsetX - this.dx;
+          const deltaY = offsetY - this.dy;
+          if (
+            FILL_MAP_VIEW_BOX_MIN_X <= x - deltaX &&
+            x - deltaX <= FILL_MAP_VIEW_BOX_MAX_X &&
+            FILL_MAP_VIEW_BOX_MIN_Y <= y - deltaY &&
+            y - deltaY <= FILL_MAP_VIEW_BOX_MAX_Y
+          ) {
+            this.createViewBox(x - deltaX, y - deltaY, w, h);
+            this.dx += deltaX;
+            this.dy += deltaY;
+          }
         }
       }
     },
@@ -1195,12 +1222,20 @@ export default {
       this.canMove = true;
     },
     touchStartMove(e) {
-      const rect = e.target.getBoundingClientRect();
-      const offsetX = e.touches[0].clientX - window.pageXOffset - rect.left;
-      const offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
-      this.dx = offsetX;
-      this.dy = offsetY;
-      this.canMove = true;
+      if (e.touches.length >= 2) {
+        // 絶対値を取得
+        const absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
+        const absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);
+        // 面積
+        this.touchstartArea = absWidth * absHeight;
+      } else {
+        const rect = e.target.getBoundingClientRect();
+        const offsetX = e.touches[0].clientX - window.pageXOffset - rect.left;
+        const offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
+        this.dx = offsetX;
+        this.dy = offsetY;
+        this.canMove = true;
+      }
     },
     endMove() {
       this.canMove = false;

@@ -1,5 +1,5 @@
 <template>
-  <transition name="modal">
+  <transition appear>
     <div id="confirmation-modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
@@ -20,6 +20,17 @@
     </div>
   </transition>
 </template>
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s;
+}
+
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
 <script>
 import { FILL_MAP_ANSWER_CONFIRMATION_TEXT } from "../util";
 export default {

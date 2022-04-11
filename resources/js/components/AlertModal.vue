@@ -1,5 +1,5 @@
 <template>
-  <transition name="modal">
+  <transition appear>
     <div id="alert-modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
@@ -15,6 +15,17 @@
     </div>
   </transition>
 </template>
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s;
+}
+
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
 <script>
 export default {
   props: {

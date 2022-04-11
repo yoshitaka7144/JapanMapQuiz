@@ -15,13 +15,13 @@
             <label for="zoom">ズーム</label>
           </div>
           <p class="text" v-if="tabName === 'input'">
-            入力対象の都道府県をクリック（タップ）すると入力用のウィンドウが開きます。テキストを入力または選択し、OKボタンをクリック（タップ）すると入力が完了します。
+            入力対象の<span>都道府県をクリック（タップ）</span>すると入力用のウィンドウが開きます。テキストを入力または選択し、OKボタンをクリック（タップ）すると入力が完了します。
           </p>
           <p class="text" v-if="tabName === 'move'">
-            地図上をドラッグすることで表示位置を移動させることが出来ます。
+            <span>地図上をドラッグ</span>することで表示位置を移動させることが出来ます。
           </p>
           <p class="text" v-if="tabName === 'zoom'">
-            地図上でマウスホイールを上下させることで地図の拡大と縮小が出来ます。スマートフォンの場合は地図上でピンチイン、ピンチアウトで拡大と縮小が出来ます。
+            <span>地図上でマウスホイールを上下</span>させることで地図の拡大と縮小が出来ます。スマートフォンの場合は地図上でピンチイン、ピンチアウトで拡大と縮小が出来ます。
           </p>
           <div class="btn-wrapper">
             <button class="btn btn-orange" @click="$emit('close')">OK</button>
@@ -34,7 +34,7 @@
 <style>
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
 }
 
 .v-enter,

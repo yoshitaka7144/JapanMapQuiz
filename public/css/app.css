@@ -647,12 +647,14 @@ img {
 #fill-map .fill-map-inner .game .map-wrapper {
   height: 85%;
   position: relative;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  background-color: #e4f0f9;
 }
 #fill-map .fill-map-inner .game .map-wrapper .zoom-slider-wrapper {
   position: absolute;
   top: 20%;
-  right: -150px;
+  right: -140px;
   transform: rotate(90deg);
   transform-origin: bottom left;
   display: flex;
@@ -724,7 +726,7 @@ img {
 }
 #fill-map .fill-map-inner .game .map-wrapper .info-area .info-list dt {
   width: 80%;
-  border-radius: 7px;
+  border-radius: 10px;
   text-align: center;
   color: white;
   font-size: 0.9rem;
@@ -1496,6 +1498,15 @@ modal
   background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px, #e9f4ff 3px, #e9f4ff 7px);
   font-size: 1rem;
   margin-bottom: 15px;
+}
+#manual-modal-mask .modal-wrapper .modal-container .text span {
+  font-weight: bold;
+  display: inline-block;
+  background-position: 0% 0%;
+  background-size: 0% auto;
+  background-image: linear-gradient(to bottom, transparent 60%, yellow 40%);
+  -webkit-animation: draw-line 0.7s ease-out forwards;
+          animation: draw-line 0.7s ease-out forwards;
 }
 #manual-modal-mask .modal-wrapper .modal-container .btn-wrapper {
   display: flex;

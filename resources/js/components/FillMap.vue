@@ -8,7 +8,7 @@
         :selected-menu-text="selectedMenuText"
         :setting-params="settingParams"
       />
-      <div class="game" v-show="canStartGame">
+      <div class="game" v-if="canStartGame">
         <div class="map-wrapper">
           <div class="zoom-slider-wrapper">
             <fontawesome-icon
@@ -34,14 +34,14 @@
             <dl class="info-list">
               <dt class="disabled">対象外</dt>
               <dd>{{ disabledPlaceCount }}</dd>
-              <dt class="blank" v-show="!isFinished">未入力</dt>
-              <dd v-show="!isFinished">{{ blankPlaceCount }}</dd>
-              <dt class="inputed" v-show="!isFinished">入力済</dt>
-              <dd v-show="!isFinished">{{ inputedPlaceCount }}</dd>
-              <dt class="correct" v-show="isFinished">正解</dt>
-              <dd v-show="isFinished">{{ correctPlaceCount }}</dd>
-              <dt class="incorrect" v-show="isFinished">不正解</dt>
-              <dd v-show="isFinished">{{ incorrectPlaceCount }}</dd>
+              <dt class="blank" v-if="!isFinished">未入力</dt>
+              <dd v-if="!isFinished">{{ blankPlaceCount }}</dd>
+              <dt class="inputed" v-if="!isFinished">入力済</dt>
+              <dd v-if="!isFinished">{{ inputedPlaceCount }}</dd>
+              <dt class="correct" v-if="isFinished">正解</dt>
+              <dd v-if="isFinished">{{ correctPlaceCount }}</dd>
+              <dt class="incorrect" v-if="isFinished">不正解</dt>
+              <dd v-if="isFinished">{{ incorrectPlaceCount }}</dd>
             </dl>
             <div class="circle" v-if="isFinished">
               <div class="circle-inner">
@@ -1034,7 +1034,6 @@ export default {
     },
     startGame() {
       Promise.all([this.loadSelectPlaceNames()]).then(() => {
-        this.setCheckTargetIndex();
         this.canStartGame = true;
       });
     },
@@ -1066,6 +1065,7 @@ export default {
       this.showInputNameModal = false;
     },
     checkAnswer() {
+      this.setCheckTargetIndex();
       let count = 0;
       this.checkTargetIndex.forEach((index) => {
         if (this.inputedName[index] === "") {

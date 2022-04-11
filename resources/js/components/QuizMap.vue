@@ -226,6 +226,8 @@ export default {
       hintTextType: String,
       typeFamous: QUIZ_MAP_HINT_TEXT_FAMOUS,
       typeFood: QUIZ_MAP_HINT_TEXT_FOOD,
+      correctAudio: new Audio("./audio/correct.mp3"),
+      incorrectAudio: new Audio("./audio/incorrect.mp3"),
     };
   },
   computed: {
@@ -421,6 +423,9 @@ export default {
           this.correctCount++;
           this.judgeText = QUIZ_MAP_CORRECT_TEXT;
           this.isCorrected = true;
+          if(this.audioChecked){
+            this.playSound(this.correctAudio);
+          }
         } else {
           // 不正解
           this.incorrectCount++;
@@ -432,6 +437,9 @@ export default {
             selectedName: this.selectedChoiceValue,
           };
           this.missQuizData.push(missData);
+          if(this.audioChecked){
+            this.playSound(this.incorrectAudio);
+          }
         }
 
         // 次へボタン表示
@@ -451,6 +459,10 @@ export default {
       this.correctPlaceName = item.correctName;
       this.okFunction = this.closeInputModal;
       this.showInputModal = true;
+    },
+    playSound(audio){
+      audio.currentTime = 0;
+      audio.play();
     },
   },
 };

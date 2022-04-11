@@ -220,6 +220,7 @@ export default {
       wpm: Number,
       preText: TYPING_MAP_TYPING_PRE_TEXT,
       typeKey: false,
+      missAudio: new Audio("./audio/miss.mp3"),
     };
   },
   mounted() {
@@ -476,7 +477,7 @@ export default {
             //タイプミス時
             // ミス音声再生
             if (this.audioChecked) {
-              //this.audio.play();
+              this.playSound(this.missAudio);
             }
 
             // ミス回数カウント
@@ -513,6 +514,10 @@ export default {
             break;
         }
       }
+    },
+    playSound(audio){
+      audio.currentTime = 0;
+      audio.play();
     },
   },
   watch: {

@@ -1,145 +1,148 @@
 <template>
   <div id="quiz-map">
     <div class="quiz-map-inner wrapper">
-      <SettingComponent
-        v-if="!canStartGame"
-        :selected-menu-title-ja="selectedMenuTitleJa"
-        :selected-menu-title-en="selectedMenuTitleEn"
-        :selected-menu-text="selectedMenuText"
-        :setting-params="settingParams"
-      />
-      <div class="game" v-else-if="!isFinished">
-        <div class="img-wrapper">
-          <svg class="svg-default">
-            <use
-              :xlink:href="
-                './image/map/' +
-                quizData[currentQuizIndex].id +
-                '.svg#' +
-                quizData[currentQuizIndex].id
-              "
-            ></use>
-          </svg>
-        </div>
-        <div class="hint-wrapper">
-          <p class="title">
-            <fontawesome-icon
-              class="icon"
-              :icon="['far', 'fa-lightbulb']"
-            />ヒント
-          </p>
-          <div class="btn-wrapper" v-if="!canShowHint">
-            <button
-              @click="
-                canShowHint = true;
-                hintTextType = typeFamous;
-              "
-              class="btn btn-green circle"
-            >
+      <transition appear mode="out-in">
+        <SettingComponent
+          v-if="!canStartGame"
+          :selected-menu-title-ja="selectedMenuTitleJa"
+          :selected-menu-title-en="selectedMenuTitleEn"
+          :selected-menu-text="selectedMenuText"
+          :setting-params="settingParams"
+        />
+        <div class="game" v-else-if="!isFinished" key="game">
+          <div class="img-wrapper">
+            <svg class="svg-default">
+              <use
+                :xlink:href="
+                  './image/map/' +
+                  quizData[currentQuizIndex].id +
+                  '.svg#' +
+                  quizData[currentQuizIndex].id
+                "
+              ></use>
+            </svg>
+          </div>
+          <div class="hint-wrapper">
+            <p class="title">
               <fontawesome-icon
                 class="icon"
-                :icon="['fas', 'fa-location-dot']"
+                :icon="['far', 'fa-lightbulb']"
+              />ヒント
+            </p>
+            <div class="btn-wrapper" v-if="!canShowHint">
+              <button
+                @click="
+                  canShowHint = true;
+                  hintTextType = typeFamous;
+                "
+                class="btn btn-green circle"
+              >
+                <fontawesome-icon
+                  class="icon"
+                  :icon="['fas', 'fa-location-dot']"
+                />
+              </button>
+              <button
+                @click="
+                  canShowHint = true;
+                  hintTextType = typeFood;
+                "
+                class="btn btn-orange circle"
+              >
+                <fontawesome-icon class="icon" :icon="['fas', 'fa-utensils']" />
+              </button>
+            </div>
+            <p v-else class="hint-text">
+              {{ quizData[currentQuizIndex].hintText[hintTextType] }}
+            </p>
+          </div>
+          <div class="choices">
+            <div
+              class="item"
+              v-for="(choice, index) in quizData[currentQuizIndex].choices"
+              :key="choice"
+            >
+              <input
+                type="radio"
+                :id="index"
+                :value="choice"
+                v-model="selectedChoiceValue"
               />
-            </button>
-            <button
-              @click="
-                canShowHint = true;
-                hintTextType = typeFood;
-              "
-              class="btn btn-orange circle"
-            >
-              <fontawesome-icon class="icon" :icon="['fas', 'fa-utensils']" />
-            </button>
-          </div>
-          <p v-else class="hint-text">
-            {{ quizData[currentQuizIndex].hintText[hintTextType] }}
-          </p>
-        </div>
-        <div class="choices">
-          <div
-            class="item"
-            v-for="(choice, index) in quizData[currentQuizIndex].choices"
-            :key="choice"
-          >
-            <input
-              type="radio"
-              :id="index"
-              :value="choice"
-              v-model="selectedChoiceValue"
-            />
-            <label
-              :for="index"
-              :class="[
-                quizData[currentQuizIndex].name === choice
-                  ? 'correct'
-                  : 'incorrect',
-                nextFlag ? 'judge' : '',
-              ]"
-              >{{ choice }}</label
-            >
-          </div>
-        </div>
-        <p class="judge-text" :class="{ correct: isCorrected }">
-          {{ judgeText }}
-        </p>
-        <div class="btn-wrapper">
-          <button
-            class="btn"
-            :class="{ 'btn-blue': !nextFlag, 'btn-green': nextFlag }"
-            @click="judgeQuiz()"
-          >
-            <span v-if="nextFlag && lastFlag">結果へ</span>
-            <span v-else-if="nextFlag && !lastFlag">次へ</span>
-            <span v-else>解答する</span>
-          </button>
-        </div>
-      </div>
-      <div class="result" v-else>
-        <table class="table">
-          <tr>
-            <th>問題数</th>
-            <td>
-              {{ quizCountLimit }}
-            </td>
-          </tr>
-          <tr>
-            <th>正解数</th>
-            <td>
-              <span class="correct">{{ correctCount }}</span>
-            </td>
-          </tr>
-          <tr>
-            <th>ミス問題</th>
-            <td>
-              <div class="incorrect-item-wrapper">
-                <span
-                  v-for="item in missQuizData"
-                  :key="item.id"
-                  @click="showMissQuiz(item)"
-                  >{{ item.correctName }}</span
-                >
-              </div>
-            </td>
-          </tr>
-        </table>
-        <div class="evaluation-wrapper">
-          <div class="circle">
-            <div class="circle-inner">
-              <p class="evaluation-text">
-                {{ evaluationText.split(",")[0] }}<br />{{
-                  evaluationText.split(",")[1]
-                }}
-              </p>
+              <label
+                :for="index"
+                :class="[
+                  quizData[currentQuizIndex].name === choice
+                    ? 'correct'
+                    : 'incorrect',
+                  nextFlag ? 'judge' : '',
+                ]"
+                >{{ choice }}</label
+              >
             </div>
           </div>
+          <p class="judge-text" :class="{ correct: isCorrected }">
+            {{ judgeText }}
+          </p>
           <div class="btn-wrapper">
-            <router-link :to="{ name: 'menu' }" class="btn btn-gray">
-              メニューへ
-            </router-link>
-            <button class="btn btn-gray" @click="reset()">設定画面へ</button>
+            <button
+              class="btn"
+              :class="{ 'btn-blue': !nextFlag, 'btn-green': nextFlag }"
+              @click="judgeQuiz()"
+            >
+              <span v-if="nextFlag && lastFlag">結果へ</span>
+              <span v-else-if="nextFlag && !lastFlag">次へ</span>
+              <span v-else>解答する</span>
+            </button>
           </div>
         </div>
-      </div>
+        <div class="result" v-else key="result">
+          <table class="table">
+            <tr>
+              <th>問題数</th>
+              <td>
+                {{ quizCountLimit }}
+              </td>
+            </tr>
+            <tr>
+              <th>正解数</th>
+              <td>
+                <span class="correct">{{ correctCount }}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>ミス問題</th>
+              <td>
+                <div class="incorrect-item-wrapper">
+                  <span
+                    v-for="item in missQuizData"
+                    :key="item.id"
+                    @click="showMissQuiz(item)"
+                    >{{ item.correctName }}</span
+                  >
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div class="evaluation-wrapper">
+            <div class="circle">
+              <div class="circle-inner">
+                <p class="evaluation-text">
+                  {{ evaluationText.split(",")[0] }}<br />{{
+                    evaluationText.split(",")[1]
+                  }}
+                </p>
+              </div>
+            </div>
+            <div class="btn-wrapper">
+              <router-link :to="{ name: 'menu' }" class="btn btn-gray">
+                メニューへ
+              </router-link>
+              <button class="btn btn-gray" @click="reset()">設定画面へ</button>
+            </div>
+          </div>
+        </div>
+      </transition>
+
       <AlertModalComponent
         v-if="showAlertModal"
         :alertMessage="alertMessage"
@@ -157,7 +160,17 @@
     </div>
   </div>
 </template>
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s;
+}
 
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
 <script>
 import {
   INTERNAL_SERVER_ERROR,
@@ -423,7 +436,7 @@ export default {
           this.correctCount++;
           this.judgeText = QUIZ_MAP_CORRECT_TEXT;
           this.isCorrected = true;
-          if(this.audioChecked){
+          if (this.audioChecked) {
             this.playSound(this.correctAudio);
           }
         } else {
@@ -437,7 +450,7 @@ export default {
             selectedName: this.selectedChoiceValue,
           };
           this.missQuizData.push(missData);
-          if(this.audioChecked){
+          if (this.audioChecked) {
             this.playSound(this.incorrectAudio);
           }
         }
@@ -460,7 +473,7 @@ export default {
       this.okFunction = this.closeInputModal;
       this.showInputModal = true;
     },
-    playSound(audio){
+    playSound(audio) {
       audio.currentTime = 0;
       audio.play();
     },

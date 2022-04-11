@@ -1,125 +1,127 @@
 <template>
   <div id="typing-map">
     <div class="typing-map-inner wrapper">
-      <SettingComponent
-        v-if="!canStartGame"
-        :selected-menu-title-ja="selectedMenuTitleJa"
-        :selected-menu-title-en="selectedMenuTitleEn"
-        :selected-menu-text="selectedMenuText"
-        :setting-params="settingParams"
-      />
-      <div class="count-down" v-else-if="startCountDownFlag">
-        <p>3</p>
-        <p>2</p>
-        <p>1</p>
-      </div>
-      <div class="game" v-else-if="!isFinished">
-        <div class="info-table-wrapper">
+      <transition appear mode="out-in">
+        <SettingComponent
+          v-if="!canStartGame"
+          :selected-menu-title-ja="selectedMenuTitleJa"
+          :selected-menu-title-en="selectedMenuTitleEn"
+          :selected-menu-text="selectedMenuText"
+          :setting-params="settingParams"
+        />
+        <div class="count-down" v-else-if="startCountDownFlag">
+          <p>3</p>
+          <p>2</p>
+          <p>1</p>
+        </div>
+        <div class="game" v-else-if="!isFinished" key="game">
+          <div class="info-table-wrapper">
+            <table class="table">
+              <tr>
+                <th>タイプ数</th>
+              </tr>
+              <tr>
+                <td class="correct">{{ correctTypeCount }}</td>
+              </tr>
+              <tr>
+                <th>ミス数</th>
+              </tr>
+              <tr>
+                <td class="miss">{{ missTypeCount }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="img-wrapper">
+            <svg class="svg-default">
+              <use
+                :xlink:href="
+                  './image/map/' +
+                  quizData[currentQuizIndex].id +
+                  '.svg#' +
+                  quizData[currentQuizIndex].id
+                "
+              ></use>
+            </svg>
+          </div>
+          <div v-if="timeLimitChecked" class="progress">
+            <div
+              class="progress-bar"
+              :style="{ width: progress + '%', backgroundColor: progressColor }"
+            ></div>
+          </div>
+          <div class="hint-wrapper">
+            <p class="hint" :class="{ hidden: !canShowHint }">
+              <fontawesome-icon class="icon" :icon="['far', 'fa-lightbulb']" />
+              {{ displayHintText }}
+            </p>
+          </div>
+          <div class="text-wrapper">
+            <p class="pre-text" v-if="!typeKey">{{ preText }}</p>
+            <div class="typing">
+              <span class="inputed">{{ displayTypingInputedText }}</span>
+              <span class="remaining" :class="{ hidden: !canShowDetails }">{{
+                displayTypingRemainingText
+              }}</span>
+            </div>
+            <p class="kana" :class="{ hidden: !canShowDetails }">
+              {{ displayKanaText }}
+            </p>
+            <p class="quiz" :class="{ hidden: !canShowDetails }">
+              {{ displayQuizText }}
+            </p>
+          </div>
+        </div>
+        <div class="result" v-else key="result">
           <table class="table">
             <tr>
-              <th>タイプ数</th>
+              <th>クリア数 / 問題数</th>
+              <td>{{ currentQuizIndex }} / {{ quizCountLimit }}</td>
             </tr>
             <tr>
+              <th>正解タイプ数</th>
               <td class="correct">{{ correctTypeCount }}</td>
             </tr>
             <tr>
-              <th>ミス数</th>
-            </tr>
-            <tr>
+              <th>ミスタイプ数</th>
               <td class="miss">{{ missTypeCount }}</td>
             </tr>
+            <tr>
+              <th>WPM</th>
+              <td>{{ wpm }}</td>
+            </tr>
+            <tr>
+              <th>ミス問題</th>
+              <td>
+                <div class="incorrect-item-wrapper">
+                  <span
+                    v-for="item in missQuizData"
+                    :key="item.id"
+                    @click="showMissQuiz(item)"
+                    >{{ item.correctName }}</span
+                  >
+                </div>
+              </td>
+            </tr>
           </table>
-        </div>
-        <div class="img-wrapper">
-          <svg class="svg-default">
-            <use
-              :xlink:href="
-                './image/map/' +
-                quizData[currentQuizIndex].id +
-                '.svg#' +
-                quizData[currentQuizIndex].id
-              "
-            ></use>
-          </svg>
-        </div>
-        <div v-if="timeLimitChecked" class="progress">
-          <div
-            class="progress-bar"
-            :style="{ width: progress + '%', backgroundColor: progressColor }"
-          ></div>
-        </div>
-        <div class="hint-wrapper">
-          <p class="hint" :class="{ hidden: !canShowHint }">
-            <fontawesome-icon class="icon" :icon="['far', 'fa-lightbulb']" />
-            {{ displayHintText }}
-          </p>
-        </div>
-        <div class="text-wrapper">
-          <p class="pre-text" v-if="!typeKey">{{ preText }}</p>
-          <div class="typing">
-            <span class="inputed">{{ displayTypingInputedText }}</span>
-            <span class="remaining" :class="{ hidden: !canShowDetails }">{{
-              displayTypingRemainingText
-            }}</span>
-          </div>
-          <p class="kana" :class="{ hidden: !canShowDetails }">
-            {{ displayKanaText }}
-          </p>
-          <p class="quiz" :class="{ hidden: !canShowDetails }">
-            {{ displayQuizText }}
-          </p>
-        </div>
-      </div>
-      <div class="result" v-else>
-        <table class="table">
-          <tr>
-            <th>クリア数 / 問題数</th>
-            <td>{{ currentQuizIndex }} / {{ quizCountLimit }}</td>
-          </tr>
-          <tr>
-            <th>正解タイプ数</th>
-            <td class="correct">{{ correctTypeCount }}</td>
-          </tr>
-          <tr>
-            <th>ミスタイプ数</th>
-            <td class="miss">{{ missTypeCount }}</td>
-          </tr>
-          <tr>
-            <th>WPM</th>
-            <td>{{ wpm }}</td>
-          </tr>
-          <tr>
-            <th>ミス問題</th>
-            <td>
-              <div class="incorrect-item-wrapper">
-                <span
-                  v-for="item in missQuizData"
-                  :key="item.id"
-                  @click="showMissQuiz(item)"
-                  >{{ item.correctName }}</span
-                >
+          <div class="evaluation-wrapper">
+            <div class="circle">
+              <div class="circle-inner">
+                <p class="evaluation-text">
+                  {{ evaluationText.split(",")[0] }}<br />{{
+                    evaluationText.split(",")[1]
+                  }}
+                </p>
               </div>
-            </td>
-          </tr>
-        </table>
-        <div class="evaluation-wrapper">
-          <div class="circle">
-            <div class="circle-inner">
-              <p class="evaluation-text">
-                {{ evaluationText.split(",")[0] }}<br />{{
-                  evaluationText.split(",")[1]
-                }}
-              </p>
+            </div>
+            <div class="btn-wrapper">
+              <router-link :to="{ name: 'menu' }" class="btn btn-gray">
+                メニューへ
+              </router-link>
+              <button class="btn btn-gray" @click="reset()">設定画面へ</button>
             </div>
           </div>
-          <div class="btn-wrapper">
-            <router-link :to="{ name: 'menu' }" class="btn btn-gray">
-              メニューへ
-            </router-link>
-            <button class="btn btn-gray" @click="reset()">設定画面へ</button>
-          </div>
         </div>
-      </div>
+      </transition>
       <AlertModalComponent
         v-if="showAlertModal"
         :alertMessage="alertMessage"
@@ -138,7 +140,17 @@
     </div>
   </div>
 </template>
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s;
+}
 
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
 <script>
 import {
   INTERNAL_SERVER_ERROR,
@@ -515,7 +527,7 @@ export default {
         }
       }
     },
-    playSound(audio){
+    playSound(audio) {
       audio.currentTime = 0;
       audio.play();
     },

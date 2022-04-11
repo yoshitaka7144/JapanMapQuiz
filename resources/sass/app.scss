@@ -1181,6 +1181,12 @@ $hamburger-menu-background-color: gray;
 
         .hint-text {
           font-size: 1rem;
+          &.famous {
+            color: #0f9d58;
+          }
+          &.food {
+            color: #eb6100;
+          }
         }
       }
 

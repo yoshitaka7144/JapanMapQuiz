@@ -25390,6 +25390,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -55191,17 +55198,27 @@ var render = function () {
                             1
                           ),
                         ])
-                      : _c("p", { staticClass: "hint-text" }, [
-                          _vm._v(
-                            "\n            " +
-                              _vm._s(
-                                _vm.quizData[_vm.currentQuizIndex].hintText[
-                                  _vm.hintTextType
-                                ]
-                              ) +
-                              "\n          "
-                          ),
-                        ]),
+                      : _c(
+                          "p",
+                          {
+                            staticClass: "hint-text",
+                            class: {
+                              famous: _vm.hintTextType === _vm.typeFamous,
+                              food: _vm.hintTextType === _vm.typeFood,
+                            },
+                          },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(
+                                  _vm.quizData[_vm.currentQuizIndex].hintText[
+                                    _vm.hintTextType
+                                  ]
+                                ) +
+                                "\n          "
+                            ),
+                          ]
+                        ),
                   ]),
                   _vm._v(" "),
                   _c(

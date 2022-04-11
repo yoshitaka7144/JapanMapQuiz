@@ -52,7 +52,14 @@
                 <fontawesome-icon class="icon" :icon="['fas', 'fa-utensils']" />
               </button>
             </div>
-            <p v-else class="hint-text">
+            <p
+              v-else
+              class="hint-text"
+              :class="{
+                famous: hintTextType === typeFamous,
+                food: hintTextType === typeFood,
+              }"
+            >
               {{ quizData[currentQuizIndex].hintText[hintTextType] }}
             </p>
           </div>

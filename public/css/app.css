@@ -1039,6 +1039,12 @@ img {
 #quiz-map .quiz-map-inner .game .hint-wrapper .hint-text {
   font-size: 1rem;
 }
+#quiz-map .quiz-map-inner .game .hint-wrapper .hint-text.famous {
+  color: #0f9d58;
+}
+#quiz-map .quiz-map-inner .game .hint-wrapper .hint-text.food {
+  color: #eb6100;
+}
 #quiz-map .quiz-map-inner .game .choices {
   display: flex;
   flex-wrap: wrap;

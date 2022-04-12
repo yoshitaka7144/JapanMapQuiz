@@ -199,3 +199,13 @@ export const RESULT_EVALUATION_TEXT_GOOD = "もうすこし,がんばろう!";
 * 結果画面：結果評価テキスト:悪い
 */
 export const RESULT_EVALUATION_TEXT_POOR = "少しずつ,覚えよう!";
+
+/**
+* NotFound画面：メッセージ
+*/
+export const NOT_FOUND_MESSAGE = "存在しないページです。URLを確認して下さい。";
+
+/**
+* SystemError画面：メッセージ
+*/
+export const SYSTEM_ERROR_MESSAGE = "システムエラーが発生しています。";

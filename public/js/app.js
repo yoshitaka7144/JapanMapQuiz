@@ -24402,7 +24402,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.INTERNAL_SERVER_ERROR) {
                   _this.$router.push({
-                    name: "systemError"
+                    name: "system-error",
+                    params: {
+                      file: response.data.file,
+                      message: response.data.message
+                    }
                   });
                 } else {
                   response.data.forEach(function (item) {
@@ -24442,7 +24446,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.INTERNAL_SERVER_ERROR) {
                   _this2.$router.push({
-                    name: "systemError"
+                    name: "system-error",
+                    params: {
+                      file: response.data.file,
+                      message: response.data.message
+                    }
                   });
                 } else {
                   _this2.selectPlaceNames = response.data;
@@ -25236,6 +25244,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util.js */ "./resources/js/util.js");
 //
 //
 //
@@ -25244,7 +25253,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      notFoundText: _util_js__WEBPACK_IMPORTED_MODULE_0__.NOT_FOUND_MESSAGE
+    };
+  }
+});
 
 /***/ }),
 
@@ -25583,7 +25608,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.INTERNAL_SERVER_ERROR) {
                   _this.$router.push({
-                    name: "systemError"
+                    name: "system-error",
+                    params: {
+                      file: response.data.file,
+                      message: response.data.message
+                    }
                   });
                 } else {
                   _this.maps = response.data;
@@ -25616,7 +25645,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.INTERNAL_SERVER_ERROR) {
                   _this2.$router.push({
-                    name: "systemError"
+                    name: "system-error",
+                    params: {
+                      file: response.data.file,
+                      message: response.data.message
+                    }
                   });
                 } else {
                   if (_this2.choiceType === _util__WEBPACK_IMPORTED_MODULE_1__.CHOICE_TYPE_ALL) {
@@ -26032,7 +26065,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.status === _util__WEBPACK_IMPORTED_MODULE_2__.INTERNAL_SERVER_ERROR) {
                   _this2.$router.push({
-                    name: "systemError"
+                    name: "system-error",
+                    params: {
+                      file: response.data.file,
+                      message: response.data.message
+                    }
                   });
                 } else {
                   _this2.classifications = response.data;
@@ -26065,7 +26102,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.status === _util__WEBPACK_IMPORTED_MODULE_2__.INTERNAL_SERVER_ERROR) {
                   _this3.$router.push({
-                    name: "systemError"
+                    name: "system-error",
+                    params: {
+                      file: response.data.file,
+                      message: response.data.message
+                    }
                   });
                 } else {
                   _this3.timeLimitValues = response.data;
@@ -26098,7 +26139,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.status === _util__WEBPACK_IMPORTED_MODULE_2__.INTERNAL_SERVER_ERROR) {
                   _this4.$router.push({
-                    name: "systemError"
+                    name: "system-error",
+                    params: {
+                      file: response.data.file,
+                      message: response.data.message
+                    }
                   });
                 } else {
                   _this4.quizCountValues = response.data;
@@ -26128,6 +26173,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util.js */ "./resources/js/util.js");
 //
 //
 //
@@ -26136,7 +26182,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    file: String,
+    message: String
+  },
+  data: function data() {
+    return {
+      systemErrorText: _util_js__WEBPACK_IMPORTED_MODULE_0__.SYSTEM_ERROR_MESSAGE
+    };
+  }
+});
 
 /***/ }),
 
@@ -26485,7 +26553,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.INTERNAL_SERVER_ERROR) {
                   _this.$router.push({
-                    name: "systemError"
+                    name: "system-error",
+                    params: {
+                      file: response.data.file,
+                      message: response.data.message
+                    }
                   });
                 } else {
                   _this.maps = response.data;
@@ -27315,7 +27387,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_8__["default"]({
   }, {
     path: "/system-error",
     name: "system-error",
-    component: _components_SystemError__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _components_SystemError__WEBPACK_IMPORTED_MODULE_6__["default"],
+    props: true
   }, {
     path: "*",
     name: "not-found",
@@ -27362,6 +27435,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FILL_MAP_VIEW_BOX_MIN_X": () => (/* binding */ FILL_MAP_VIEW_BOX_MIN_X),
 /* harmony export */   "FILL_MAP_VIEW_BOX_MIN_Y": () => (/* binding */ FILL_MAP_VIEW_BOX_MIN_Y),
 /* harmony export */   "INTERNAL_SERVER_ERROR": () => (/* binding */ INTERNAL_SERVER_ERROR),
+/* harmony export */   "NOT_FOUND_MESSAGE": () => (/* binding */ NOT_FOUND_MESSAGE),
 /* harmony export */   "OK": () => (/* binding */ OK),
 /* harmony export */   "QUIZ_MAP_CHOICE_DEFAULT_VALUE": () => (/* binding */ QUIZ_MAP_CHOICE_DEFAULT_VALUE),
 /* harmony export */   "QUIZ_MAP_CORRECT_TEXT": () => (/* binding */ QUIZ_MAP_CORRECT_TEXT),
@@ -27378,6 +27452,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "RESULT_EVALUATION_TEXT_GREAT": () => (/* binding */ RESULT_EVALUATION_TEXT_GREAT),
 /* harmony export */   "RESULT_EVALUATION_TEXT_POOR": () => (/* binding */ RESULT_EVALUATION_TEXT_POOR),
 /* harmony export */   "SETTING_CLASSIFICATION_ERROR_TEXT": () => (/* binding */ SETTING_CLASSIFICATION_ERROR_TEXT),
+/* harmony export */   "SYSTEM_ERROR_MESSAGE": () => (/* binding */ SYSTEM_ERROR_MESSAGE),
 /* harmony export */   "TYPING_MAP_EXPLANATION_TEXT": () => (/* binding */ TYPING_MAP_EXPLANATION_TEXT),
 /* harmony export */   "TYPING_MAP_MENU_TITLE_ENGLISH": () => (/* binding */ TYPING_MAP_MENU_TITLE_ENGLISH),
 /* harmony export */   "TYPING_MAP_MENU_TITLE_JAPANESE": () => (/* binding */ TYPING_MAP_MENU_TITLE_JAPANESE),
@@ -27629,6 +27704,16 @@ var RESULT_EVALUATION_TEXT_GOOD = "もうすこし,がんばろう!";
 */
 
 var RESULT_EVALUATION_TEXT_POOR = "少しずつ,覚えよう!";
+/**
+* NotFound画面：メッセージ
+*/
+
+var NOT_FOUND_MESSAGE = "存在しないページです。URLを確認して下さい。";
+/**
+* SystemError画面：メッセージ
+*/
+
+var SYSTEM_ERROR_MESSAGE = "システムエラーが発生しています。";
 
 /***/ }),
 
@@ -55361,17 +55446,37 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "not-found" } }, [
-    _c(
-      "div",
-      { staticClass: "not-found-inner wrapper" },
-      [
-        _c("router-link", { attrs: { to: { name: "home" } } }, [
-          _vm._v(" トップへ戻る "),
-        ]),
-      ],
-      1
-    ),
+  return _c("div", { staticClass: "wrapper", attrs: { id: "not-found" } }, [
+    _c("div", { staticClass: "not-found-inner" }, [
+      _c("p", { staticClass: "title" }, [_vm._v("Not Found")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "text" }, [_vm._v(_vm._s(_vm.notFoundText))]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "btn-wrapper" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-gray large",
+              attrs: { to: { name: "home" } },
+            },
+            [_vm._v("トップ画面へ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-gray large",
+              attrs: { to: { name: "menu" } },
+            },
+            [_vm._v("メニュー画面へ")]
+          ),
+        ],
+        1
+      ),
+    ]),
   ])
 }
 var staticRenderFns = []
@@ -56332,17 +56437,41 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "system-error" } }, [
-    _c(
-      "div",
-      { staticClass: "system-error-inner wrapper" },
-      [
-        _c("router-link", { attrs: { to: { name: "home" } } }, [
-          _vm._v(" トップへ戻る "),
-        ]),
-      ],
-      1
-    ),
+  return _c("div", { staticClass: "wrapper", attrs: { id: "system-error" } }, [
+    _c("div", { staticClass: "system-error-inner" }, [
+      _c("p", { staticClass: "title" }, [_vm._v("System Error")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "text" }, [_vm._v(_vm._s(_vm.systemErrorText))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "error-message" }, [_vm._v(_vm._s(_vm.message))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "file-name" }, [_vm._v(_vm._s(_vm.file))]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "btn-wrapper" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-gray large",
+              attrs: { to: { name: "home" } },
+            },
+            [_vm._v("トップ画面へ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-gray large",
+              attrs: { to: { name: "menu" } },
+            },
+            [_vm._v("メニュー画面へ")]
+          ),
+        ],
+        1
+      ),
+    ]),
   ])
 }
 var staticRenderFns = []

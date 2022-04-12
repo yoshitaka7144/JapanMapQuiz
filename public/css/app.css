@@ -1547,6 +1547,90 @@ img {
 }
 
 /************************************************
+NotFound画面 not-found
+************************************************/
+#not-found {
+  height: 100%;
+}
+#not-found .not-found-inner {
+  height: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+#not-found .not-found-inner .title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  margin-bottom: 40px;
+}
+#not-found .not-found-inner .text {
+  font-size: 1.3rem;
+  margin-bottom: 60px;
+}
+#not-found .not-found-inner .btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#not-found .not-found-inner .btn-wrapper .btn:first-child {
+  margin-bottom: 40px;
+}
+
+/************************************************
+SystemError画面 system-error
+************************************************/
+#system-error {
+  height: 100%;
+}
+#system-error .system-error-inner {
+  height: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+#system-error .system-error-inner .title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  margin-bottom: 40px;
+}
+#system-error .system-error-inner .text {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+#system-error .system-error-inner .file-name {
+  width: 100%;
+  font-size: 1rem;
+  word-wrap: break-word;
+  color: #53aeff;
+  margin-bottom: 10px;
+}
+#system-error .system-error-inner .error-message {
+  width: 100%;
+  font-size: 1rem;
+  word-wrap: break-word;
+  color: #fa5757;
+  margin-bottom: 10px;
+}
+#system-error .system-error-inner .btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#system-error .system-error-inner .btn-wrapper .btn:first-child {
+  margin-bottom: 40px;
+}
+
+/************************************************
 フッター footer
 ************************************************/
 #footer {
@@ -2050,6 +2134,9 @@ keyframes
     display: block;
   }
 
+  /************************************************
+  メニュー画面 menu
+  ************************************************/
   #menu .menu-inner .menu-select .menu-item .title .title-ja {
     font-size: 1.3rem;
   }
@@ -2057,6 +2144,9 @@ keyframes
     font-size: 3.9rem;
   }
 
+  /************************************************
+  設定画面 setting
+  ************************************************/
   .setting .setting-inner .setting-wrapper .setting-target-area .checkbox-wrapper {
     width: 33.3333333333%;
   }
@@ -2068,6 +2158,9 @@ keyframes
     order: -1;
   }
 
+  /************************************************
+  地図埋め画面 fill-map
+  ************************************************/
   #fill-map .fill-map-inner .game .map-wrapper .info-area .circle {
     width: 100px;
     height: 100px;
@@ -2076,6 +2169,9 @@ keyframes
     font-size: 0.8rem;
   }
 
+  /************************************************
+  地図クイズ画面 quiz-map
+  ************************************************/
   #quiz-map .quiz-map-inner .game .img-wrapper {
     height: 25%;
     margin-bottom: 15px;
@@ -2092,6 +2188,9 @@ keyframes
     font-size: 0.8rem;
   }
 
+  /************************************************
+  地図タイピング画面 typing-map
+  ************************************************/
   #typing-map .typing-map-inner .game .img-wrapper {
     height: 28%;
   }

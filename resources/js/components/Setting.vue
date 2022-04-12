@@ -220,7 +220,13 @@ export default {
         .catch((error) => error.response || error);
 
       if (response.status === INTERNAL_SERVER_ERROR) {
-        this.$router.push({ name: "systemError" });
+        this.$router.push({
+          name: "system-error",
+          params: {
+            file: response.data.file,
+            message: response.data.message,
+          },
+        });
       } else {
         this.classifications = response.data;
       }
@@ -231,7 +237,13 @@ export default {
         .catch((error) => error.response || error);
 
       if (response.status === INTERNAL_SERVER_ERROR) {
-        this.$router.push({ name: "systemError" });
+        this.$router.push({
+          name: "system-error",
+          params: {
+            file: response.data.file,
+            message: response.data.message,
+          },
+        });
       } else {
         this.timeLimitValues = response.data;
       }
@@ -242,7 +254,13 @@ export default {
         .catch((error) => error.response || error);
 
       if (response.status === INTERNAL_SERVER_ERROR) {
-        this.$router.push({ name: "systemError" });
+        this.$router.push({
+          name: "system-error",
+          params: {
+            file: response.data.file,
+            message: response.data.message,
+          },
+        });
       } else {
         this.quizCountValues = response.data;
       }

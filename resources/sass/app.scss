@@ -1495,7 +1495,7 @@ $hamburger-menu-background-color: gray;
         border-radius: 15px;
         padding: 7px;
         margin-bottom: 15px;
-        .icon{
+        .icon {
           color: #7c7c7c;
           font-size: 1.4rem;
           margin: 0 10px;
@@ -1704,6 +1704,92 @@ $hamburger-menu-background-color: gray;
             margin-bottom: 15px;
           }
         }
+      }
+    }
+  }
+}
+
+/************************************************
+NotFound画面 not-found
+************************************************/
+#not-found {
+  height: 100%;
+  .not-found-inner {
+    height: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: $box-shadow;
+
+    .title {
+      font-size: 2.3rem;
+      font-weight: bold;
+      letter-spacing: 0.2rem;
+      margin-bottom: 40px;
+    }
+    .text {
+      font-size: 1.3rem;
+      margin-bottom: 60px;
+    }
+    .btn-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .btn:first-child {
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
+
+/************************************************
+SystemError画面 system-error
+************************************************/
+#system-error {
+  height: 100%;
+  .system-error-inner {
+    height: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: $box-shadow;
+
+    .title {
+      font-size: 2.3rem;
+      font-weight: bold;
+      letter-spacing: 0.2rem;
+      margin-bottom: 40px;
+    }
+    .text {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    .file-name{
+      width: 100%;
+      font-size: 1.0rem;
+      word-wrap: break-word;
+      color: #53aeff;
+      margin-bottom: 10px;
+    }
+    .error-message{
+      width: 100%;
+      font-size: 1.0rem;
+      word-wrap: break-word;
+      color: rgb(250, 87, 87);
+      margin-bottom: 10px;
+    }
+    .btn-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .btn:first-child {
+        margin-bottom: 40px;
       }
     }
   }
@@ -2228,6 +2314,9 @@ keyframes
     }
   }
 
+  /************************************************
+  メニュー画面 menu
+  ************************************************/
   #menu {
     .menu-inner {
       .menu-select {
@@ -2248,6 +2337,9 @@ keyframes
     }
   }
 
+  /************************************************
+  設定画面 setting
+  ************************************************/
   .setting {
     .setting-inner {
       .setting-wrapper {
@@ -2270,6 +2362,9 @@ keyframes
     }
   }
 
+  /************************************************
+  地図埋め画面 fill-map
+  ************************************************/
   #fill-map {
     .fill-map-inner {
       .game {
@@ -2290,6 +2385,9 @@ keyframes
     }
   }
 
+  /************************************************
+  地図クイズ画面 quiz-map
+  ************************************************/
   #quiz-map {
     .quiz-map-inner {
       .game {
@@ -2321,6 +2419,9 @@ keyframes
     }
   }
 
+  /************************************************
+  地図タイピング画面 typing-map
+  ************************************************/
   #typing-map {
     .typing-map-inner {
       .game {

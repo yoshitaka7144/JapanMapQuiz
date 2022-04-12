@@ -44,7 +44,8 @@ const router = new VueRouter({
     {
       path: "/system-error",
       name: "system-error",
-      component: SystemError
+      component: SystemError,
+      props: true,
     },
     {
       path: "*",

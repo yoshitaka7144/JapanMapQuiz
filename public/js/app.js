@@ -25142,6 +25142,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -52778,7 +52793,7 @@ var render = function () {
             [
               _c("fontawesome-icon", {
                 staticClass: "icon",
-                attrs: { icon: ["fas", "fa-circle-xmark"] },
+                attrs: { icon: ["fas", "fa-xmark"] },
               }),
             ],
             1
@@ -52895,7 +52910,7 @@ var render = function () {
             [
               _c("fontawesome-icon", {
                 staticClass: "icon",
-                attrs: { icon: ["fas", "fa-circle-xmark"] },
+                attrs: { icon: ["fas", "fa-xmark"] },
               }),
             ],
             1
@@ -54612,7 +54627,7 @@ var render = function () {
             [
               _c("fontawesome-icon", {
                 staticClass: "icon",
-                attrs: { icon: ["fas", "fa-circle-xmark"] },
+                attrs: { icon: ["fas", "fa-xmark"] },
               }),
             ],
             1
@@ -54836,7 +54851,7 @@ var render = function () {
             [
               _c("fontawesome-icon", {
                 staticClass: "icon",
-                attrs: { icon: ["fas", "fa-circle-xmark"] },
+                attrs: { icon: ["fas", "fa-xmark"] },
               }),
             ],
             1
@@ -54988,11 +55003,19 @@ var render = function () {
             },
           },
           [
+            _c(
+              "div",
+              { staticClass: "icon-wrapper" },
+              [
+                _c("fontawesome-icon", {
+                  staticClass: "icon",
+                  attrs: { icon: ["fas", "fa-map-location-dot"] },
+                }),
+              ],
+              1
+            ),
+            _vm._v(" "),
             _c("p", { staticClass: "title" }, [
-              _c("span", { staticClass: "title-en" }, [
-                _vm._v(_vm._s(_vm.fillMapTitle.en)),
-              ]),
-              _vm._v(" "),
               _c("span", { staticClass: "title-ja" }, [
                 _vm._v(_vm._s(_vm.fillMapTitle.ja)),
               ]),
@@ -55011,11 +55034,19 @@ var render = function () {
             },
           },
           [
+            _c(
+              "div",
+              { staticClass: "icon-wrapper" },
+              [
+                _c("fontawesome-icon", {
+                  staticClass: "icon",
+                  attrs: { icon: ["fas", "fa-circle-question"] },
+                }),
+              ],
+              1
+            ),
+            _vm._v(" "),
             _c("p", { staticClass: "title" }, [
-              _c("span", { staticClass: "title-en" }, [
-                _vm._v(_vm._s(_vm.quizMapTitle.en)),
-              ]),
-              _vm._v(" "),
               _c("span", { staticClass: "title-ja" }, [
                 _vm._v(_vm._s(_vm.quizMapTitle.ja)),
               ]),
@@ -55034,11 +55065,19 @@ var render = function () {
             },
           },
           [
+            _c(
+              "div",
+              { staticClass: "icon-wrapper" },
+              [
+                _c("fontawesome-icon", {
+                  staticClass: "icon",
+                  attrs: { icon: ["fas", "fa-keyboard"] },
+                }),
+              ],
+              1
+            ),
+            _vm._v(" "),
             _c("p", { staticClass: "title" }, [
-              _c("span", { staticClass: "title-en" }, [
-                _vm._v(_vm._s(_vm.typingMapTitle.en)),
-              ]),
-              _vm._v(" "),
               _c("span", { staticClass: "title-ja" }, [
                 _vm._v(_vm._s(_vm.typingMapTitle.ja)),
               ]),

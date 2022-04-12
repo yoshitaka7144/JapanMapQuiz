@@ -309,51 +309,55 @@ $hamburger-menu-background-color: gray;
       height: 100%;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
 
       .menu-item {
         cursor: pointer;
-        height: calc(100% / 3);
-        position: relative;
+        height: 30%;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: $box-shadow;
+        display: flex;
+        align-items: center;
+        transition: 0.3s;
+
+        &:hover{
+          transform: scale(1.03);
+        }
+
         .title {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
+          width: 75%;
           display: flex;
           flex-direction: column;
           align-items: center;
-          .title-en {
-            display: inline-block;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: white;
-          }
           .title-ja {
             display: inline-block;
-            font-size: 1.3rem;
+            font-size: 2.0rem;
             font-weight: bold;
-            color: white;
+            color: #7c7c7c;
+          }
+        }
+
+        .icon-wrapper {
+          width: 25%;
+          display: flex;
+          justify-content: center;
+          .icon {
+            font-size: 5rem;
+            color: #7c7c7c;
           }
         }
 
         &.fill {
-          background-color: rgb(240, 145, 145);
-          .title {
-            left: 10%;
-          }
+          background-color: #def9dc;
         }
 
         &.quiz {
-          background-color: rgb(131, 131, 241);
-          .title {
-            right: 10%;
-          }
+          background-color: #c7efff;
         }
 
         &.typing {
-          background-color: rgb(248, 248, 167);
-          .title {
-            left: 10%;
-          }
+          background-color: #ffffd9;
         }
       }
     }
@@ -1724,14 +1728,14 @@ modal
 
       .closeBtn {
         position: absolute;
-        top: 7px;
-        right: 7px;
+        top: 8px;
+        right: 8px;
         .icon {
           font-size: 1.2rem;
           color: #7c7c7c;
           cursor: pointer;
           &:hover {
-            opacity: $hovered-opacity;
+            color: #e03131;
           }
         }
       }
@@ -1777,14 +1781,14 @@ modal
 
       .closeBtn {
         position: absolute;
-        top: 7px;
-        right: 7px;
+        top: 8px;
+        right: 8px;
         .icon {
           font-size: 1.2rem;
           color: #7c7c7c;
           cursor: pointer;
           &:hover {
-            opacity: $hovered-opacity;
+            color: #e03131;
           }
         }
       }
@@ -1874,14 +1878,14 @@ modal
 
       .closeBtn {
         position: absolute;
-        top: 7px;
-        right: 7px;
+        top: 8px;
+        right: 8px;
         .icon {
           font-size: 1.2rem;
           color: #7c7c7c;
           cursor: pointer;
           &:hover {
-            opacity: $hovered-opacity;
+            color: #e03131;
           }
         }
       }
@@ -2096,14 +2100,14 @@ modal
 
       .closeBtn {
         position: absolute;
-        top: 7px;
-        right: 7px;
+        top: 8px;
+        right: 8px;
         .icon {
           font-size: 1.2rem;
           color: #7c7c7c;
           cursor: pointer;
           &:hover {
-            opacity: $hovered-opacity;
+            color: #e03131;
           }
         }
       }
@@ -2191,6 +2195,26 @@ keyframes
 
       #sp-nav {
         display: block;
+      }
+    }
+  }
+
+  #menu {
+    .menu-inner {
+      .menu-select {
+        .menu-item {
+          .title {
+            .title-ja {
+              font-size: 1.3rem;
+            }
+          }
+
+          .icon-wrapper {
+            .icon {
+              font-size: 3.9rem;
+            }
+          }
+        }
       }
     }
   }

@@ -4,7 +4,7 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <button class="closeBtn" @click="$emit('close')">
-            <fontawesome-icon class="icon" :icon="['fas', 'fa-circle-xmark']" />
+            <fontawesome-icon class="icon" :icon="['fas', 'fa-xmark']" />
           </button>
           <div class="tab-wrapper">
             <input type="radio" id="input" value="input" v-model="tabName" />

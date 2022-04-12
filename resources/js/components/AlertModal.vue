@@ -4,7 +4,7 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <button class="closeBtn" @click="$emit('close')">
-            <fontawesome-icon class="icon" :icon="['fas', 'fa-circle-xmark']" />
+            <fontawesome-icon class="icon" :icon="['fas', 'fa-xmark']" />
           </button>
           <p class="message">{{ alertMessage }}</p>
           <div class="btn-wrapper">

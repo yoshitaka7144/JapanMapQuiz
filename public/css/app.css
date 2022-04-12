@@ -264,49 +264,50 @@ img {
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 #menu .menu-inner .menu-select .menu-item {
   cursor: pointer;
-  height: 33.3333333333%;
-  position: relative;
+  height: 30%;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+}
+#menu .menu-inner .menu-select .menu-item:hover {
+  transform: scale(1.03);
 }
 #menu .menu-inner .menu-select .menu-item .title {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  width: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#menu .menu-inner .menu-select .menu-item .title .title-en {
-  display: inline-block;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: white;
-}
 #menu .menu-inner .menu-select .menu-item .title .title-ja {
   display: inline-block;
-  font-size: 1.3rem;
+  font-size: 2rem;
   font-weight: bold;
-  color: white;
+  color: #7c7c7c;
+}
+#menu .menu-inner .menu-select .menu-item .icon-wrapper {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+}
+#menu .menu-inner .menu-select .menu-item .icon-wrapper .icon {
+  font-size: 5rem;
+  color: #7c7c7c;
 }
 #menu .menu-inner .menu-select .menu-item.fill {
-  background-color: #f09191;
-}
-#menu .menu-inner .menu-select .menu-item.fill .title {
-  left: 10%;
+  background-color: #def9dc;
 }
 #menu .menu-inner .menu-select .menu-item.quiz {
-  background-color: #8383f1;
-}
-#menu .menu-inner .menu-select .menu-item.quiz .title {
-  right: 10%;
+  background-color: #c7efff;
 }
 #menu .menu-inner .menu-select .menu-item.typing {
-  background-color: #f8f8a7;
-}
-#menu .menu-inner .menu-select .menu-item.typing .title {
-  left: 10%;
+  background-color: #ffffd9;
 }
 
 /************************************************
@@ -1555,8 +1556,8 @@ modal
 }
 #alert-modal-mask .modal-wrapper .modal-container .closeBtn {
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 8px;
+  right: 8px;
 }
 #alert-modal-mask .modal-wrapper .modal-container .closeBtn .icon {
   font-size: 1.2rem;
@@ -1564,7 +1565,7 @@ modal
   cursor: pointer;
 }
 #alert-modal-mask .modal-wrapper .modal-container .closeBtn .icon:hover {
-  opacity: 0.7;
+  color: #e03131;
 }
 #alert-modal-mask .modal-wrapper .modal-container .message {
   font-size: 1rem;
@@ -1603,8 +1604,8 @@ modal
 }
 #manual-modal-mask .modal-wrapper .modal-container .closeBtn {
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 8px;
+  right: 8px;
 }
 #manual-modal-mask .modal-wrapper .modal-container .closeBtn .icon {
   font-size: 1.2rem;
@@ -1612,7 +1613,7 @@ modal
   cursor: pointer;
 }
 #manual-modal-mask .modal-wrapper .modal-container .closeBtn .icon:hover {
-  opacity: 0.7;
+  color: #e03131;
 }
 #manual-modal-mask .modal-wrapper .modal-container .tab-wrapper {
   display: flex;
@@ -1690,8 +1691,8 @@ modal
 }
 #input-modal-mask .modal-wrapper .modal-container .closeBtn {
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 8px;
+  right: 8px;
 }
 #input-modal-mask .modal-wrapper .modal-container .closeBtn .icon {
   font-size: 1.2rem;
@@ -1699,7 +1700,7 @@ modal
   cursor: pointer;
 }
 #input-modal-mask .modal-wrapper .modal-container .closeBtn .icon:hover {
-  opacity: 0.7;
+  color: #e03131;
 }
 #input-modal-mask .modal-wrapper .modal-container .img-wrapper {
   display: flex;
@@ -1899,8 +1900,8 @@ modal
 }
 #confirmation-modal-mask .modal-wrapper .modal-container .closeBtn {
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 8px;
+  right: 8px;
 }
 #confirmation-modal-mask .modal-wrapper .modal-container .closeBtn .icon {
   font-size: 1.2rem;
@@ -1908,7 +1909,7 @@ modal
   cursor: pointer;
 }
 #confirmation-modal-mask .modal-wrapper .modal-container .closeBtn .icon:hover {
-  opacity: 0.7;
+  color: #e03131;
 }
 #confirmation-modal-mask .modal-wrapper .modal-container .empty-message {
   font-size: 1.2rem;
@@ -2013,6 +2014,13 @@ keyframes
   }
   #header .header-inner #sp-nav {
     display: block;
+  }
+
+  #menu .menu-inner .menu-select .menu-item .title .title-ja {
+    font-size: 1.3rem;
+  }
+  #menu .menu-inner .menu-select .menu-item .icon-wrapper .icon {
+    font-size: 3.9rem;
   }
 
   .setting .setting-inner .setting-wrapper .setting-target-area .checkbox-wrapper {

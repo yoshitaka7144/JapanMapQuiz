@@ -1,5 +1,6 @@
 <template>
   <div id="quiz-map">
+    <LoadingComponent v-if="isLoadingApi" />
     <div class="quiz-map-inner wrapper">
       <transition appear mode="out-in">
         <SettingComponent
@@ -149,7 +150,6 @@
           </div>
         </div>
       </transition>
-
       <AlertModalComponent
         v-if="showAlertModal"
         :alertMessage="alertMessage"
@@ -199,11 +199,13 @@ import {
   QUIZ_MAP_HINT_TEXT_FAMOUS,
   QUIZ_MAP_HINT_TEXT_FOOD,
 } from "../util";
+import LoadingComponent from "./Loading.vue";
 import SettingComponent from "./Setting.vue";
 import AlertModalComponent from "./AlertModal.vue";
 import InputModalComponent from "./InputNameModal.vue";
 export default {
   components: {
+    LoadingComponent,
     SettingComponent,
     AlertModalComponent,
     InputModalComponent,
@@ -248,6 +250,7 @@ export default {
       typeFood: QUIZ_MAP_HINT_TEXT_FOOD,
       correctAudio: new Audio("./audio/correct.mp3"),
       incorrectAudio: new Audio("./audio/incorrect.mp3"),
+      isLoadingApi: false,
     };
   },
   computed: {
@@ -408,12 +411,14 @@ export default {
       }
     },
     startQuiz() {
+      this.isLoadingApi = true;
       Promise.all([this.loadQuizMaps(), this.loadQuizChoices()]).then(() => {
         // 問題、選択肢データ作成
         this.createQuizData();
 
         // クイズ画面表示
         this.canStartGame = true;
+        this.isLoadingApi = false;
       });
     },
     showResult() {

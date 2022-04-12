@@ -1,5 +1,6 @@
 <template>
   <div id="typing-map">
+    <LoadingComponent v-if="isLoadingApi" />
     <div class="typing-map-inner wrapper">
       <transition appear mode="out-in">
         <SettingComponent
@@ -167,11 +168,13 @@ import {
   TYPING_MAP_TYPING_PRE_TEXT,
 } from "../util";
 import { checkInputKey } from "../key.js";
+import LoadingComponent from "./Loading.vue";
 import SettingComponent from "./Setting.vue";
 import AlertModalComponent from "./AlertModal.vue";
 import InputModalComponent from "./InputNameModal.vue";
 export default {
   components: {
+    LoadingComponent,
     SettingComponent,
     AlertModalComponent,
     InputModalComponent,
@@ -233,6 +236,7 @@ export default {
       preText: TYPING_MAP_TYPING_PRE_TEXT,
       typeKey: false,
       missAudio: new Audio("./audio/miss.mp3"),
+      isLoadingApi: false,
     };
   },
   mounted() {
@@ -314,12 +318,14 @@ export default {
       }
     },
     startQuiz() {
+      this.isLoadingApi = true;
       Promise.all([this.loadQuizMaps()]).then(() => {
         // 出題問題データ作成
         this.createQuizData();
 
         // クイズ画面表示
         this.canStartGame = true;
+        this.isLoadingApi = false;
 
         setTimeout(() => {
           this.startCountDownFlag = false;

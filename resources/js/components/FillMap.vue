@@ -1,5 +1,6 @@
 <template>
   <div id="fill-map">
+    <LoadingComponent v-if="isLoadingApi" />
     <div class="fill-map-inner wrapper">
       <transition appear mode="out-in">
         <SettingComponent
@@ -905,6 +906,7 @@ import {
   FILL_MAP_VIEW_BOX_MAX_Y,
   FILL_MAP_VIEW_BOX_MIN_Y,
 } from "../util";
+import LoadingComponent from "./Loading.vue";
 import SettingComponent from "./Setting.vue";
 import InputModalComponent from "./InputNameModal.vue";
 import AlertModalComponent from "./AlertModal.vue";
@@ -912,6 +914,7 @@ import ManualModalComponent from "./ManualModal.vue";
 import ConfirmationModalComponent from "./ConfirmationModal.vue";
 export default {
   components: {
+    LoadingComponent,
     SettingComponent,
     AlertModalComponent,
     ManualModalComponent,
@@ -953,10 +956,8 @@ export default {
       canMove: false,
       zoomValue: FILL_MAP_VIEW_BOX_MAX_WIDTH,
       touchstartArea: Number,
+      isLoadingApi: false,
     };
-  },
-  mounted() {
-    this.loadMapNames();
   },
   computed: {
     disabledPlaceCount() {
@@ -1048,9 +1049,13 @@ export default {
       }
     },
     startGame() {
-      Promise.all([this.loadSelectPlaceNames()]).then(() => {
-        this.canStartGame = true;
-      });
+      this.isLoadingApi = true;
+      Promise.all([this.loadMapNames(), this.loadSelectPlaceNames()]).then(
+        () => {
+          this.canStartGame = true;
+          this.isLoadingApi = false;
+        }
+      );
     },
     setPlaceName(name, id) {
       this.$set(this.inputedName, id - 1, name.replace(/都|府|県/, ""));

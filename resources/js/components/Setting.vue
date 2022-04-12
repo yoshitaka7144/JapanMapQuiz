@@ -128,12 +128,11 @@
         </router-link>
       </div>
     </div>
-    <div class="loading" v-else>
-      <span class="loading01"><span></span></span>
-    </div>
+    <LoadingComponent v-else />
   </div>
 </template>
 <script>
+import LoadingComponent from "./Loading.vue";
 import {
   INTERNAL_SERVER_ERROR,
   DEFAULT_TIME_LIMIT_VALUE,
@@ -151,6 +150,9 @@ import {
   DEFAULT_CHOICE_TYPE,
 } from "../util";
 export default {
+  components: {
+    LoadingComponent,
+  },
   props: {
     selectedMenuTitleJa: String,
     selectedMenuTitleEn: String,

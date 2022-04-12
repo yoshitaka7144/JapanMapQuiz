@@ -57,7 +57,7 @@ img {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 .btn.large {
   width: 200px;
@@ -108,7 +108,7 @@ img {
   position: fixed;
   top: 0;
   z-index: 5;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 #header .header-inner {
   display: flex;
@@ -271,7 +271,8 @@ img {
   height: 30%;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  border: 7px solid white;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   transition: 0.3s;
@@ -467,7 +468,7 @@ img {
   padding: 10px;
   border-radius: 10px;
   background-color: white;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   position: relative;
 }
 .setting .setting-inner {
@@ -810,7 +811,7 @@ img {
   padding: 15px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
 }
@@ -1019,7 +1020,7 @@ img {
   padding: 15px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 #quiz-map .quiz-map-inner .game .img-wrapper {
   display: flex;
@@ -1128,7 +1129,7 @@ img {
   height: 100%;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -1176,7 +1177,7 @@ img {
   border-radius: 10px;
   color: white;
   background-color: #eb9696;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 #quiz-map .quiz-map-inner .result .evaluation-wrapper {
   width: 100%;
@@ -1291,7 +1292,7 @@ img {
   padding: 15px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   position: relative;
 }
 #typing-map .typing-map-inner .game .info-table-wrapper {
@@ -1448,7 +1449,7 @@ img {
   padding: 15px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -1499,7 +1500,7 @@ img {
   border-radius: 10px;
   color: white;
   background-color: #eb9696;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 #typing-map .typing-map-inner .result .evaluation-wrapper {
   width: 100%;
@@ -1560,7 +1561,7 @@ NotFound画面 not-found
   align-items: center;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 #not-found .not-found-inner .title {
   font-size: 2.3rem;
@@ -1595,7 +1596,7 @@ SystemError画面 system-error
   align-items: center;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 #system-error .system-error-inner .title {
   font-size: 2.3rem;

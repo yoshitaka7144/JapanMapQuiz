@@ -46,7 +46,7 @@ img {
   width: 130px;
   text-align: center;
   display: inline-block;
-  padding: 8px 12px;
+  padding: 10px;
   border-radius: 30px;
   border-bottom-width: 5px;
   border-bottom-style: solid;
@@ -60,7 +60,7 @@ img {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 .btn.large {
-  width: 210px;
+  width: 200px;
 }
 .btn.circle {
   border-radius: 50%;
@@ -470,6 +470,12 @@ img {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   position: relative;
 }
+.setting .setting-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 .setting .setting-inner .title {
   display: flex;
   flex-direction: column;
@@ -478,8 +484,21 @@ img {
 }
 .setting .setting-inner .title .title-ja {
   display: inline-block;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: bold;
+  background-position: 0% 0%;
+  background-size: 0% auto;
+  -webkit-animation: draw-line 0.7s ease-out forwards;
+          animation: draw-line 0.7s ease-out forwards;
+}
+.setting .setting-inner .title .title-ja.fill {
+  background-image: linear-gradient(to bottom, transparent 60%, #def9dc 40%);
+}
+.setting .setting-inner .title .title-ja.quiz {
+  background-image: linear-gradient(to bottom, transparent 60%, #c7efff 40%);
+}
+.setting .setting-inner .title .title-ja.typing {
+  background-image: linear-gradient(to bottom, transparent 60%, #ffffd9 40%);
 }
 .setting .setting-inner .sub-title {
   font-size: 1rem;

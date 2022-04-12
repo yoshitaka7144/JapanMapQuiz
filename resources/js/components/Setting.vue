@@ -2,7 +2,15 @@
   <div class="setting">
     <div class="setting-inner" v-if="completesApiLoading">
       <p class="title">
-        <span class="title-ja">{{ selectedMenuTitleJa }}</span>
+        <span
+          class="title-ja"
+          :class="{
+            fill: selectedMenuTitleEn === fillMapMenuTitleEn,
+            quiz: selectedMenuTitleEn === quizMapMenuTitleEn,
+            typing: selectedMenuTitleEn === typingMapMenuTitleEn,
+          }"
+          >{{ selectedMenuTitleJa }}</span
+        >
       </p>
       <div class="setting-wrapper">
         <div class="setting-target-area">

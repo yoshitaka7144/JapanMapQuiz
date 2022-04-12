@@ -44,11 +44,17 @@
               ></use>
             </svg>
           </div>
-          <div v-if="timeLimitChecked" class="progress">
-            <div
-              class="progress-bar"
-              :style="{ width: progress + '%', backgroundColor: progressColor }"
-            ></div>
+          <div v-if="timeLimitChecked" class="progress-wrapper">
+            <fontawesome-icon class="icon" :icon="['fas', 'fa-clock']" />
+            <div class="progress">
+              <div
+                class="progress-bar"
+                :style="{
+                  width: progress + '%',
+                  backgroundColor: progressColor,
+                }"
+              ></div>
+            </div>
           </div>
           <div class="hint-wrapper">
             <p class="hint" :class="{ hidden: !canShowHint }">

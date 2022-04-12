@@ -23,7 +23,7 @@
           </p>
           <p class="text" v-if="tabName === 'zoom'">
             <span>地図上でマウスホイールを上下</span
-            >させることで地図の拡大と縮小が出来ます。スマートフォンの場合は地図上でピンチイン、ピンチアウトで拡大と縮小が出来ます。
+            >させることで地図の拡大と縮小が出来ます。スマートフォンの場合は<span>地図上でピンチイン、ピンチアウト</span>で拡大と縮小が出来ます。
           </p>
           <div class="btn-wrapper">
             <button class="btn btn-orange" @click="$emit('close')">OK</button>

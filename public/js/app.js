@@ -26319,6 +26319,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -55184,8 +55190,10 @@ var render = function () {
             ? _c("p", { staticClass: "text" }, [
                 _c("span", [_vm._v("地図上でマウスホイールを上下")]),
                 _vm._v(
-                  "させることで地図の拡大と縮小が出来ます。スマートフォンの場合は地図上でピンチイン、ピンチアウトで拡大と縮小が出来ます。\n        "
+                  "させることで地図の拡大と縮小が出来ます。スマートフォンの場合は"
                 ),
+                _c("span", [_vm._v("地図上でピンチイン、ピンチアウト")]),
+                _vm._v("で拡大と縮小が出来ます。\n        "),
               ])
             : _vm._e(),
           _vm._v(" "),
@@ -56428,15 +56436,27 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _vm.timeLimitChecked
-                      ? _c("div", { staticClass: "progress" }, [
-                          _c("div", {
-                            staticClass: "progress-bar",
-                            style: {
-                              width: _vm.progress + "%",
-                              backgroundColor: _vm.progressColor,
-                            },
-                          }),
-                        ])
+                      ? _c(
+                          "div",
+                          { staticClass: "progress-wrapper" },
+                          [
+                            _c("fontawesome-icon", {
+                              staticClass: "icon",
+                              attrs: { icon: ["fas", "fa-clock"] },
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "progress" }, [
+                              _c("div", {
+                                staticClass: "progress-bar",
+                                style: {
+                                  width: _vm.progress + "%",
+                                  backgroundColor: _vm.progressColor,
+                                },
+                              }),
+                            ]),
+                          ],
+                          1
+                        )
                       : _vm._e(),
                     _vm._v(" "),
                     _c("div", { staticClass: "hint-wrapper" }, [

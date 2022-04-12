@@ -1488,37 +1488,49 @@ $hamburger-menu-background-color: gray;
         }
       }
 
-      .progress {
-        display: inline-block;
-        width: 100%;
+      .progress-wrapper {
+        display: flex;
+        align-items: center;
+        background-color: #fdf8dd;
         border-radius: 15px;
-        height: 10px;
-        background-color: #e9edf1;
-        position: relative;
-        margin-bottom: 20px;
-
-        .progress-bar {
+        padding: 7px;
+        margin-bottom: 15px;
+        .icon{
+          color: #7c7c7c;
+          font-size: 1.4rem;
+          margin: 0 10px;
+        }
+        .progress {
           display: inline-block;
-          position: absolute;
-          top: 0;
-          left: 0;
+          width: 100%;
           border-radius: 15px;
-          width: 0%;
-          height: 100%;
-          background-color: rgb(0, 230, 100);
-          transition: all 10ms linear;
+          height: 10px;
+          background-color: #c9c9c9;
+          position: relative;
+
+          .progress-bar {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 15px;
+            width: 0%;
+            height: 100%;
+            background-color: rgb(0, 230, 100);
+            transition: all 10ms linear;
+          }
         }
       }
 
       .hint-wrapper {
         width: 100%;
-        padding: 15px;
+        padding: 0 15px;
         display: flex;
         justify-content: center;
+        margin-bottom: 15px;
 
         .hint {
           font-size: 1.4rem;
-          padding: 10px;
           color: #5aaefd;
 
           &.hidden {
@@ -1856,11 +1868,7 @@ modal
 
         span {
           font-weight: bold;
-          display: inline-block;
-          background-position: 0% 0%;
-          background-size: 0% auto;
-          background-image: linear-gradient(to bottom, transparent 60%, rgb(255, 255, 0) 40%);
-          animation: draw-line 0.7s ease-out forwards;
+          color: #2599ff;
         }
       }
 

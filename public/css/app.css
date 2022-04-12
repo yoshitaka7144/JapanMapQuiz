@@ -1340,16 +1340,28 @@ img {
   stroke-width: 0.48px;
   fill-rule: evenodd;
 }
-#typing-map .typing-map-inner .game .progress {
+#typing-map .typing-map-inner .game .progress-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #fdf8dd;
+  border-radius: 15px;
+  padding: 7px;
+  margin-bottom: 15px;
+}
+#typing-map .typing-map-inner .game .progress-wrapper .icon {
+  color: #7c7c7c;
+  font-size: 1.4rem;
+  margin: 0 10px;
+}
+#typing-map .typing-map-inner .game .progress-wrapper .progress {
   display: inline-block;
   width: 100%;
   border-radius: 15px;
   height: 10px;
-  background-color: #e9edf1;
+  background-color: #c9c9c9;
   position: relative;
-  margin-bottom: 20px;
 }
-#typing-map .typing-map-inner .game .progress .progress-bar {
+#typing-map .typing-map-inner .game .progress-wrapper .progress .progress-bar {
   display: inline-block;
   position: absolute;
   top: 0;
@@ -1362,13 +1374,13 @@ img {
 }
 #typing-map .typing-map-inner .game .hint-wrapper {
   width: 100%;
-  padding: 15px;
+  padding: 0 15px;
   display: flex;
   justify-content: center;
+  margin-bottom: 15px;
 }
 #typing-map .typing-map-inner .game .hint-wrapper .hint {
   font-size: 1.4rem;
-  padding: 10px;
   color: #5aaefd;
 }
 #typing-map .typing-map-inner .game .hint-wrapper .hint.hidden {
@@ -1679,12 +1691,7 @@ modal
 }
 #manual-modal-mask .modal-wrapper .modal-container .text span {
   font-weight: bold;
-  display: inline-block;
-  background-position: 0% 0%;
-  background-size: 0% auto;
-  background-image: linear-gradient(to bottom, transparent 60%, yellow 40%);
-  -webkit-animation: draw-line 0.7s ease-out forwards;
-          animation: draw-line 0.7s ease-out forwards;
+  color: #2599ff;
 }
 #manual-modal-mask .modal-wrapper .modal-container .btn-wrapper {
   display: flex;

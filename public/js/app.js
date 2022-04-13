@@ -24886,6 +24886,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util.js */ "./resources/js/util.js");
 //
 //
 //
@@ -24896,11 +24897,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
-  },
-  methods: {}
+    return {
+      message: _util_js__WEBPACK_IMPORTED_MODULE_0__.HOME_MESSAGE
+    };
+  }
 });
 
 /***/ }),
@@ -27425,6 +27428,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FILL_MAP_VIEW_BOX_MIN_WIDTH": () => (/* binding */ FILL_MAP_VIEW_BOX_MIN_WIDTH),
 /* harmony export */   "FILL_MAP_VIEW_BOX_MIN_X": () => (/* binding */ FILL_MAP_VIEW_BOX_MIN_X),
 /* harmony export */   "FILL_MAP_VIEW_BOX_MIN_Y": () => (/* binding */ FILL_MAP_VIEW_BOX_MIN_Y),
+/* harmony export */   "HOME_MESSAGE": () => (/* binding */ HOME_MESSAGE),
 /* harmony export */   "INTERNAL_SERVER_ERROR": () => (/* binding */ INTERNAL_SERVER_ERROR),
 /* harmony export */   "NOT_FOUND_MESSAGE": () => (/* binding */ NOT_FOUND_MESSAGE),
 /* harmony export */   "OK": () => (/* binding */ OK),
@@ -27470,6 +27474,11 @@ var UNPROCESSABLE_ENTITY = 422;
  */
 
 var INTERNAL_SERVER_ERROR = 500;
+/**
+ * ホーム画面：メッセージ
+ */
+
+var HOME_MESSAGE = "クリック or タップしてね!!";
 /**
  * 設定画面：制限時間チェックボックス：初期選択値
  */
@@ -54873,7 +54882,7 @@ var render = function () {
           { staticClass: "home-img", attrs: { to: { name: "menu" } } },
           [
             _c("p", { staticClass: "start-text" }, [
-              _vm._v("クリック or タップして下さい。"),
+              _vm._v(_vm._s(_vm.message)),
             ]),
           ]
         ),

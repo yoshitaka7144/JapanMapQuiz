@@ -278,20 +278,28 @@ $hamburger-menu-background-color: gray;
       position: relative;
       display: block;
       height: 100%;
-      background-color: rgb(121, 203, 250);
+      border-radius: 10px;
+      background-image: url("../image/background/top_pc.svg");
+      background-size: contain;
+      background-position: center;
+      background-color: #d1eddf;
+      cursor: pointer;
 
       &:hover {
         opacity: 1;
       }
 
       .start-text {
+        width: 95%;
         position: absolute;
-        bottom: 15%;
+        bottom: 10%;
         left: 50%;
         transform: translateX(-50%);
         font-size: 1.3rem;
         font-weight: bold;
-        color: white;
+        text-align: center;
+        color: #fdae4d;
+        animation: blink 1.2s linear infinite;
       }
     }
   }
@@ -2328,6 +2336,20 @@ keyframes
 
       #sp-nav {
         display: block;
+      }
+    }
+  }
+
+  /************************************************
+  ホーム画面 home
+  ************************************************/
+  #home {
+    .home-inner {
+      .home-img {
+        background-image: url("../image/background/top_sp.svg");
+        .start-text {
+          font-size: 1rem;
+        }
       }
     }
   }

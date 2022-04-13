@@ -16,6 +16,11 @@ export const UNPROCESSABLE_ENTITY = 422;
 export const INTERNAL_SERVER_ERROR = 500;
 
 /**
+ * ホーム画面：メッセージ
+ */
+ export const HOME_MESSAGE = "クリック or タップしてね!!";
+
+/**
  * 設定画面：制限時間チェックボックス：初期選択値
  */
 export const DEFAULT_TIME_LIMIT_CHECKED = false;

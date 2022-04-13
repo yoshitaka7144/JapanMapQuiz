@@ -25195,15 +25195,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -55350,11 +55341,7 @@ var render = function () {
               1
             ),
             _vm._v(" "),
-            _c("p", { staticClass: "title" }, [
-              _c("span", { staticClass: "title-ja" }, [
-                _vm._v(_vm._s(_vm.fillMapTitle.ja)),
-              ]),
-            ]),
+            _c("div", { staticClass: "title-background-image" }),
           ]
         ),
         _vm._v(" "),
@@ -55381,11 +55368,7 @@ var render = function () {
               1
             ),
             _vm._v(" "),
-            _c("p", { staticClass: "title" }, [
-              _c("span", { staticClass: "title-ja" }, [
-                _vm._v(_vm._s(_vm.quizMapTitle.ja)),
-              ]),
-            ]),
+            _c("div", { staticClass: "title-background-image" }),
           ]
         ),
         _vm._v(" "),
@@ -55412,11 +55395,7 @@ var render = function () {
               1
             ),
             _vm._v(" "),
-            _c("p", { staticClass: "title" }, [
-              _c("span", { staticClass: "title-ja" }, [
-                _vm._v(_vm._s(_vm.typingMapTitle.ja)),
-              ]),
-            ]),
+            _c("div", { staticClass: "title-background-image" }),
           ]
         ),
       ]),

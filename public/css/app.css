@@ -274,41 +274,52 @@ img {
   border: 7px solid white;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   display: flex;
+  justify-content: space-around;
   align-items: center;
   transition: 0.3s;
 }
 #menu .menu-inner .menu-select .menu-item:hover {
   transform: scale(1.03);
 }
-#menu .menu-inner .menu-select .menu-item .title {
-  width: 75%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-#menu .menu-inner .menu-select .menu-item .title .title-ja {
-  display: inline-block;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #7c7c7c;
+#menu .menu-inner .menu-select .menu-item .title-background-image {
+  width: 70%;
+  height: 80%;
+  background-position: center;
 }
 #menu .menu-inner .menu-select .menu-item .icon-wrapper {
-  width: 25%;
+  width: 20%;
   display: flex;
   justify-content: center;
 }
 #menu .menu-inner .menu-select .menu-item .icon-wrapper .icon {
-  font-size: 5rem;
-  color: #7c7c7c;
+  font-size: 4.2rem;
 }
 #menu .menu-inner .menu-select .menu-item.fill {
   background-color: #def9dc;
 }
+#menu .menu-inner .menu-select .menu-item.fill .title-background-image {
+  background-image: url("../image/background/title_fill.svg");
+}
+#menu .menu-inner .menu-select .menu-item.fill .icon-wrapper .icon {
+  color: #77c995;
+}
 #menu .menu-inner .menu-select .menu-item.quiz {
   background-color: #c7efff;
 }
+#menu .menu-inner .menu-select .menu-item.quiz .title-background-image {
+  background-image: url("../image/background/title_quiz.svg");
+}
+#menu .menu-inner .menu-select .menu-item.quiz .icon-wrapper .icon {
+  color: #58b7ed;
+}
 #menu .menu-inner .menu-select .menu-item.typing {
-  background-color: #ffffd9;
+  background-color: #fff0db;
+}
+#menu .menu-inner .menu-select .menu-item.typing .title-background-image {
+  background-image: url("../image/background/title_typing.svg");
+}
+#menu .menu-inner .menu-select .menu-item.typing .icon-wrapper .icon {
+  color: #f9bd69;
 }
 
 /************************************************
@@ -499,7 +510,7 @@ img {
   background-image: linear-gradient(to bottom, transparent 60%, #c7efff 40%);
 }
 .setting .setting-inner .title .title-ja.typing {
-  background-image: linear-gradient(to bottom, transparent 60%, #ffffd9 40%);
+  background-image: linear-gradient(to bottom, transparent 60%, #fff0db 40%);
 }
 .setting .setting-inner .sub-title {
   font-size: 1rem;
@@ -2138,11 +2149,8 @@ keyframes
   /************************************************
   メニュー画面 menu
   ************************************************/
-  #menu .menu-inner .menu-select .menu-item .title .title-ja {
-    font-size: 1.3rem;
-  }
   #menu .menu-inner .menu-select .menu-item .icon-wrapper .icon {
-    font-size: 3.9rem;
+    font-size: 3rem;
   }
 
   /************************************************

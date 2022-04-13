@@ -319,6 +319,7 @@ $hamburger-menu-background-color: gray;
         border: 7px solid white;
         box-shadow: $box-shadow;
         display: flex;
+        justify-content: space-around;
         align-items: center;
         transition: 0.3s;
 
@@ -326,39 +327,55 @@ $hamburger-menu-background-color: gray;
           transform: scale(1.03);
         }
 
-        .title {
-          width: 75%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          .title-ja {
-            display: inline-block;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #7c7c7c;
-          }
+        .title-background-image {
+          width: 70%;
+          height: 80%;
+          background-position: center;
         }
 
         .icon-wrapper {
-          width: 25%;
+          width: 20%;
           display: flex;
           justify-content: center;
           .icon {
-            font-size: 5rem;
-            color: #7c7c7c;
+            font-size: 4.2rem;
           }
         }
 
         &.fill {
           background-color: #def9dc;
+          .title-background-image {
+            background-image: url("../image/background/title_fill.svg");
+          }
+          .icon-wrapper {
+            .icon {
+              color: #77c995;
+            }
+          }
         }
 
         &.quiz {
           background-color: #c7efff;
+          .title-background-image {
+            background-image: url("../image/background/title_quiz.svg");
+          }
+          .icon-wrapper {
+            .icon {
+              color: #58b7ed;
+            }
+          }
         }
 
         &.typing {
-          background-color: #ffffd9;
+          background-color: #fff0db;
+          .title-background-image {
+            background-image: url("../image/background/title_typing.svg");
+          }
+          .icon-wrapper {
+            .icon {
+              color: #f9bd69;
+            }
+          }
         }
       }
     }
@@ -599,7 +616,7 @@ $hamburger-menu-background-color: gray;
           background-image: linear-gradient(to bottom, transparent 60%, #c7efff 40%);
         }
         &.typing {
-          background-image: linear-gradient(to bottom, transparent 60%, #ffffd9 40%);
+          background-image: linear-gradient(to bottom, transparent 60%, #fff0db 40%);
         }
       }
     }
@@ -1771,16 +1788,16 @@ SystemError画面 system-error
       font-size: 1.3rem;
       margin-bottom: 20px;
     }
-    .file-name{
+    .file-name {
       width: 100%;
-      font-size: 1.0rem;
+      font-size: 1rem;
       word-wrap: break-word;
       color: #53aeff;
       margin-bottom: 10px;
     }
-    .error-message{
+    .error-message {
       width: 100%;
-      font-size: 1.0rem;
+      font-size: 1rem;
       word-wrap: break-word;
       color: rgb(250, 87, 87);
       margin-bottom: 10px;
@@ -2322,15 +2339,9 @@ keyframes
     .menu-inner {
       .menu-select {
         .menu-item {
-          .title {
-            .title-ja {
-              font-size: 1.3rem;
-            }
-          }
-
           .icon-wrapper {
             .icon {
-              font-size: 3.9rem;
+              font-size: 3rem;
             }
           }
         }

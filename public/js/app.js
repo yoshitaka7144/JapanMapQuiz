@@ -24849,8 +24849,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -54656,136 +54654,135 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "header" } }, [
-    _c("div", { staticClass: "header-inner wrapper" }, [
-      _c(
-        "div",
-        { staticClass: "logo" },
-        [
-          _c("router-link", { attrs: { to: { name: "home" } } }, [
-            _vm._v("タイトルロゴ"),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c("nav", { attrs: { id: "sp-nav" } }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.isOpened,
-              expression: "isOpened",
-            },
-          ],
-          attrs: { type: "checkbox", id: "hamburger-menu" },
-          domProps: {
-            checked: Array.isArray(_vm.isOpened)
-              ? _vm._i(_vm.isOpened, null) > -1
-              : _vm.isOpened,
-          },
-          on: {
-            change: function ($event) {
-              var $$a = _vm.isOpened,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 && (_vm.isOpened = $$a.concat([$$v]))
-                } else {
-                  $$i > -1 &&
-                    (_vm.isOpened = $$a
-                      .slice(0, $$i)
-                      .concat($$a.slice($$i + 1)))
-                }
-              } else {
-                _vm.isOpened = $$c
-              }
-            },
-          },
+    _c(
+      "div",
+      { staticClass: "header-inner wrapper" },
+      [
+        _c("router-link", {
+          staticClass: "logo",
+          attrs: { to: { name: "home" } },
         }),
         _vm._v(" "),
-        _vm._m(1),
+        _vm._m(0),
         _vm._v(" "),
-        _c("ul", { staticClass: "menu-list" }, [
-          _c(
-            "li",
-            {
-              on: {
-                click: function ($event) {
-                  _vm.isOpened = false
-                },
+        _c("nav", { attrs: { id: "sp-nav" } }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.isOpened,
+                expression: "isOpened",
+              },
+            ],
+            attrs: { type: "checkbox", id: "hamburger-menu" },
+            domProps: {
+              checked: Array.isArray(_vm.isOpened)
+                ? _vm._i(_vm.isOpened, null) > -1
+                : _vm.isOpened,
+            },
+            on: {
+              change: function ($event) {
+                var $$a = _vm.isOpened,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && (_vm.isOpened = $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      (_vm.isOpened = $$a
+                        .slice(0, $$i)
+                        .concat($$a.slice($$i + 1)))
+                  }
+                } else {
+                  _vm.isOpened = $$c
+                }
               },
             },
-            [
-              _c(
-                "a",
-                {
-                  attrs: {
-                    href: "https://portfolio.mikanbako.jp/works-japan-map-quiz",
-                    target: "_blank",
-                    rel: "noopener",
-                  },
-                },
-                [_vm._v("作品紹介")]
-              ),
-            ]
-          ),
+          }),
           _vm._v(" "),
-          _c(
-            "li",
-            {
-              on: {
-                click: function ($event) {
-                  _vm.isOpened = false
-                },
-              },
-            },
-            [
-              _c(
-                "a",
-                {
-                  attrs: {
-                    href: "https://portfolio.mikanbako.jp/",
-                    target: "_blank",
-                    rel: "noopener",
-                  },
-                },
-                [_vm._v("ポートフォリオ")]
-              ),
-            ]
-          ),
+          _vm._m(1),
           _vm._v(" "),
-          _c(
-            "li",
-            {
-              on: {
-                click: function ($event) {
-                  _vm.isOpened = false
-                },
-              },
-            },
-            [
-              _c(
-                "a",
-                {
-                  attrs: {
-                    href: "https://github.com/yoshitaka7144/JapanMapQuiz",
-                    target: "_blank",
-                    rel: "noopener",
+          _c("ul", { staticClass: "menu-list" }, [
+            _c(
+              "li",
+              {
+                on: {
+                  click: function ($event) {
+                    _vm.isOpened = false
                   },
                 },
-                [_vm._v("Github\n          ")]
-              ),
-            ]
-          ),
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "https://portfolio.mikanbako.jp/works-japan-map-quiz",
+                      target: "_blank",
+                      rel: "noopener",
+                    },
+                  },
+                  [_vm._v("作品紹介")]
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              {
+                on: {
+                  click: function ($event) {
+                    _vm.isOpened = false
+                  },
+                },
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "https://portfolio.mikanbako.jp/",
+                      target: "_blank",
+                      rel: "noopener",
+                    },
+                  },
+                  [_vm._v("ポートフォリオ")]
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              {
+                on: {
+                  click: function ($event) {
+                    _vm.isOpened = false
+                  },
+                },
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "https://github.com/yoshitaka7144/JapanMapQuiz",
+                      target: "_blank",
+                      rel: "noopener",
+                    },
+                  },
+                  [_vm._v("Github\n          ")]
+                ),
+              ]
+            ),
+          ]),
         ]),
-      ]),
-    ]),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = [

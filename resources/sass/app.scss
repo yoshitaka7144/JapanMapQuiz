@@ -129,6 +129,12 @@ $hamburger-menu-background-color: gray;
     width: 100%;
 
     .logo {
+      cursor: pointer;
+      display: block;
+      width: 200px;
+      height: $header-height;
+      background-image: url("../image/background/logo.svg");
+      background-position: center;
     }
 
     #pc-nav {

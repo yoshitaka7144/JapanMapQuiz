@@ -116,6 +116,14 @@ img {
   align-items: center;
   width: 100%;
 }
+#header .header-inner .logo {
+  cursor: pointer;
+  display: block;
+  width: 200px;
+  height: 60px;
+  background-image: url("../image/background/logo.svg");
+  background-position: center;
+}
 #header .header-inner #pc-nav .menu-list {
   display: flex;
 }

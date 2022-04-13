@@ -1,9 +1,7 @@
 <template>
   <div id="header">
     <div class="header-inner wrapper">
-      <div class="logo">
-        <router-link :to="{ name: 'home' }">タイトルロゴ</router-link>
-      </div>
+      <router-link class="logo" :to="{ name: 'home' }"></router-link>
       <nav id="pc-nav">
         <ul class="menu-list">
           <li>

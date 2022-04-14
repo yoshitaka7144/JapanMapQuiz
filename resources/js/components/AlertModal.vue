@@ -29,6 +29,9 @@
 <script>
 export default {
   props: {
+    /**
+     * 警告メッセージ
+     */
     alertMessage: String,
   },
 };

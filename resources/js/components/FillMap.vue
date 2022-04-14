@@ -7,7 +7,6 @@
           v-if="!canStartGame"
           :selected-menu-title-ja="selectedMenuTitleJa"
           :selected-menu-title-en="selectedMenuTitleEn"
-          :selected-menu-text="selectedMenuText"
           :setting-params="settingParams"
         />
         <div class="game" v-if="canStartGame">
@@ -889,9 +888,7 @@ import {
   INTERNAL_SERVER_ERROR,
   FILL_MAP_MENU_TITLE_JAPANESE,
   FILL_MAP_MENU_TITLE_ENGLISH,
-  FILL_MAP_EXPLANATION_TEXT,
   SETTING_CLASSIFICATION_ERROR_TEXT,
-  ANSWER_METHOD_SELECT,
   FILL_MAP_MODAL_INPUT_MODE,
   FILL_MAP_MODAL_CONFIRM_MODE,
   FILL_MAP_VIEW_BOX_DEFAULT,
@@ -923,58 +920,180 @@ export default {
   },
   data() {
     return {
+      /**
+       * 日本語メニュータイトル
+       */
       selectedMenuTitleJa: FILL_MAP_MENU_TITLE_JAPANESE,
+      /**
+       * 英語メニュータイトル
+       */
       selectedMenuTitleEn: FILL_MAP_MENU_TITLE_ENGLISH,
-      selectedMenuText: FILL_MAP_EXPLANATION_TEXT,
+      /**
+       * ゲーム開始フラグ
+       */
       canStartGame: false,
+      /**
+       * 設定対象地方区分
+       */
       classificationCheckedValues: [],
+      /**
+       * 設定解答方法
+       */
       answerMethod: String,
+      /**
+       * 設定制限時間有無
+       */
       timeLimitChecked: Boolean,
+      /**
+       * 設定制限時間値
+       */
       timeLimitSelectedValue: Number,
+      /**
+       * 地図名
+       */
       mapNames: [],
+      /**
+       * セレクトボックス用地図名
+       */
       selectPlaceNames: [],
+      /**
+       * 入力地図名
+       */
       inputedName: [],
+      /**
+       * 入力用モーダル表示フラグ
+       */
       showInputNameModal: false,
+      /**
+       * 警告モーダル表示フラグ
+       */
       showAlertModal: false,
+      /**
+       * 操作方法モーダル表示フラグ
+       */
       showManualModal: false,
+      /**
+       * 確認モーダル表示フラグ
+       */
       showConfirmationModal: false,
+      /**
+       * 警告メッセージ
+       */
       alertMessage: String,
+      /**
+       * 地図画像id
+       */
       imageId: Number,
+      /**
+       * 新潟エリア塗りフラグ
+       */
       fillNiigataArea: false,
+      /**
+       * 滋賀エリア塗りフラグ
+       */
       fillSigaArea: false,
+      /**
+       * 兵庫エリア塗りフラグ
+       */
       fillHyougoArea: false,
+      /**
+       * 熊本エリア塗りフラグ
+       */
       fillKumamotoArea: false,
+      /**
+       * 判定対象id
+       */
       checkTargetIndex: [],
+      /**
+       * ゲーム終了フラグ
+       */
       isFinished: false,
+      /**
+       * 未解答数
+       */
       emptyCount: 0,
+      /**
+       * 正解不正解判定
+       */
       judgeName: [],
+      /**
+       * 入力モーダルタイプ
+       */
       inputModalMode: FILL_MAP_MODAL_INPUT_MODE,
+      /**
+       * 入力モーダル用処理
+       */
       okFunction: this.setPlaceName,
+      /**
+       * 地図svgのviewbox
+       */
       viewBox: FILL_MAP_VIEW_BOX_DEFAULT,
+      /**
+       * 移動x座標
+       */
       dx: 0,
+      /**
+       * 移動y座標
+       */
       dy: 0,
+      /**
+       * 地図移動可否フラグ
+       */
       canMove: false,
+      /**
+       * 地図拡大縮小スライダー値
+       */
       zoomValue: FILL_MAP_VIEW_BOX_MAX_WIDTH,
+      /**
+       * 2本指タッチ時の面積
+       */
       touchstartArea: Number,
+      /**
+       * apiローディング状態
+       */
       isLoadingApi: false,
     };
   },
   computed: {
+    /**
+     * 対象外数
+     * @returns {Number} 対象外数
+     */
     disabledPlaceCount() {
       return 47 - this.selectPlaceNames.length;
     },
+    /**
+     * 入力済み数
+     * @returns {Number} 入力済み数
+     */
     inputedPlaceCount() {
       return this.inputedName.filter((name) => name !== "").length;
     },
+    /**
+     * 未入力数
+     * @returns {Number} 未入力数
+     */
     blankPlaceCount() {
       return 47 - this.disabledPlaceCount - this.inputedPlaceCount;
     },
+    /**
+     * 正解数
+     * @returns {Number} 正解数
+     */
     correctPlaceCount() {
       return this.judgeName.filter((judge) => judge === true).length;
     },
+    /**
+     * 不正解数
+     * @returns {Number} 不正解数
+     */
     incorrectPlaceCount() {
       return 47 - this.disabledPlaceCount - this.correctPlaceCount;
     },
+    /**
+     * 評価テキスト
+     * @returns {String} 評価テキスト
+     */
     evaluationText() {
       const total = this.correctPlaceCount + this.incorrectPlaceCount;
       const percentage = Math.floor((this.correctPlaceCount / total) * 100);
@@ -990,6 +1109,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * リセット
+     */
     reset() {
       for (let i = 0; i < 47; i++) {
         this.$set(this.inputedName, i, "");
@@ -1004,6 +1126,10 @@ export default {
       this.inputModalMode = FILL_MAP_MODAL_INPUT_MODE;
       this.okFunction = this.setPlaceName;
     },
+    /**
+     * 設定内容セット
+     * @param {Object} params 設定オブジェクト
+     */
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
       this.answerMethod = params.answerMethod;
@@ -1021,6 +1147,9 @@ export default {
       this.reset();
       this.startGame();
     },
+    /**
+     * 全地図名取得
+     */
     async loadMapNames() {
       const response = await axios
         .get("/api/maps/names")
@@ -1040,6 +1169,9 @@ export default {
         });
       }
     },
+    /**
+     * 地図名選択用の地図名取得
+     */
     async loadSelectPlaceNames() {
       const params = {
         classificationId: this.classificationCheckedValues,
@@ -1060,29 +1192,57 @@ export default {
         this.selectPlaceNames = response.data;
       }
     },
+    /**
+     * ゲーム開始
+     */
     startGame() {
+      // ローディング表示
       this.isLoadingApi = true;
       Promise.all([this.loadMapNames(), this.loadSelectPlaceNames()]).then(
         () => {
+          // ゲーム画面表示
           this.canStartGame = true;
+
+          // ローディング非表示
           this.isLoadingApi = false;
         }
       );
     },
+    /**
+     * 地図名セット
+     * @param {String} name 名前
+     * @param {Number} id 地図id
+     */
     setPlaceName(name, id) {
+      // 入力文字列の「都府県」を空文字に置き換える
       this.$set(this.inputedName, id - 1, name.replace(/都|府|県/, ""));
+
+      // 入力用モーダルを閉じる
       this.showInputNameModal = false;
     },
+    /**
+     * 入力用モーダル表示
+     * @param {Event} e
+     */
     openInputNameModal(e) {
+      // クリック対象の地図の区分id
       const classificationId = Number(e.target.dataset.classification);
+
+      // 対象区分の場合入力モーダルを開く
       if (this.classificationCheckedValues.includes(classificationId)) {
         const id = Number(e.target.dataset.id);
         this.imageId = id;
         this.showInputNameModal = true;
       }
     },
+    /**
+     * 判定対象の地図idをセット
+     */
     setCheckTargetIndex() {
+      // 地図svg
       const paths = this.$el.querySelectorAll("path");
+
+      // 対象区分に含まれる場合は地図idをセット
       paths.forEach((el) => {
         const id = Number(el.dataset.id);
         const classificationId = Number(el.dataset.classification);
@@ -1093,11 +1253,20 @@ export default {
         }
       });
     },
+    /**
+     * 入力モーダルを閉じる
+     */
     closeInputModal() {
       this.showInputNameModal = false;
     },
+    /**
+     * 解答の確認
+     */
     checkAnswer() {
+      // 判定対象の地図id
       this.setCheckTargetIndex();
+
+      // 未入力数をカウント
       let count = 0;
       this.checkTargetIndex.forEach((index) => {
         if (this.inputedName[index] === "") {
@@ -1114,6 +1283,9 @@ export default {
         this.showResult();
       }
     },
+    /**
+     * 結果画面表示
+     */
     showResult() {
       // 入力地名判定
       for (let i = 0; i < 47; i++) {
@@ -1133,6 +1305,9 @@ export default {
       this.zoomValue = FILL_MAP_VIEW_BOX_MAX_WIDTH;
       this.isFinished = true;
     },
+    /**
+     * 地図拡大
+     */
     zoomPlus() {
       let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
       w = w - 50;
@@ -1144,6 +1319,9 @@ export default {
       this.createViewBox(x, y, w, h);
       this.zoomValue = w;
     },
+    /**
+     * 地図縮小
+     */
     zoomMinus() {
       let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
       w = w + 50;
@@ -1155,11 +1333,19 @@ export default {
       this.createViewBox(x, y, w, h);
       this.zoomValue = w;
     },
+    /**
+     * 地図拡大縮小スライダー処理
+     * @param {Event} e
+     */
     zoomSlider(e) {
       let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
       const newWidthValue = e.target.value;
       this.createViewBox(x, y, newWidthValue, newWidthValue);
     },
+    /**
+     * 地図拡大縮小
+     * @param {Event} e
+     */
     zoom(e) {
       let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
       if (e.deltaY > 0) {
@@ -1182,6 +1368,10 @@ export default {
       this.createViewBox(x, y, w, h);
       this.zoomValue = w;
     },
+    /**
+     * 地図移動
+     * @param {Event} e
+     */
     move(e) {
       if (this.canMove) {
         let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
@@ -1199,9 +1389,14 @@ export default {
         }
       }
     },
+    /**
+     * タッチ操作
+     * @param {Event} e
+     */
     touchMove(e) {
       let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
       if (e.touches.length >= 2) {
+        // タッチされている指が2本の場合
         const absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
         const absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);
         const area = absWidth * absHeight;
@@ -1226,6 +1421,7 @@ export default {
         this.zoomValue = w;
         this.touchstartArea = area;
       } else {
+        // タッチされている指が1本の場合
         if (this.canMove) {
           const rect = e.target.getBoundingClientRect();
           const offsetX = e.touches[0].clientX - window.pageXOffset - rect.left;
@@ -1245,22 +1441,36 @@ export default {
         }
       }
     },
+    /**
+     * 地図のviewbox更新
+     */
     createViewBox(x, y, w, h) {
       this.viewBox = [x, y, w, h].join(" ");
     },
+    /**
+     * マウスドラッグ開始
+     * @param {Event} e
+     */
     startMove(e) {
+      // 初期位置を保持
       this.dx = e.offsetX;
       this.dy = e.offsetY;
       this.canMove = true;
     },
+    /**
+     * タッチ操作開始
+     * @param {Event} e
+     */
     touchStartMove(e) {
       if (e.touches.length >= 2) {
-        // 絶対値を取得
+        // 2本指でのタッチの場合
+        // タッチされている2点から面積を算出、保持
         const absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
         const absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);
-        // 面積
         this.touchstartArea = absWidth * absHeight;
       } else {
+        // 1本指でのタッチの場合
+        // 地図移動
         const rect = e.target.getBoundingClientRect();
         const offsetX = e.touches[0].clientX - window.pageXOffset - rect.left;
         const offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
@@ -1269,6 +1479,9 @@ export default {
         this.canMove = true;
       }
     },
+    /**
+     * 移動終了
+     */
     endMove() {
       this.canMove = false;
     },

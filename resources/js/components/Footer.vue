@@ -3,12 +3,21 @@
     <div class="footer-inner wrapper">
       <p class="copyright">
         <fontawesome-icon class="icon" :icon="['fas', 'fa-copyright']" />
-        Yoshitaka Nagai
-        </p>
+        {{ authorName }}
+      </p>
     </div>
   </div>
 </template>
-
 <script>
-export default {};
+import { AUTHOR_NAME } from "../util.js";
+export default {
+  data() {
+    return {
+      /**
+       * 制作者名
+       */
+      authorName: AUTHOR_NAME,
+    };
+  },
+};
 </script>

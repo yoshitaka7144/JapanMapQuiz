@@ -18,10 +18,6 @@ use App\Http\Controllers\QuizCountValueController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 // 地図マスタデータ取得
 Route::get("/maps", [MapController::class, "index"]);
 

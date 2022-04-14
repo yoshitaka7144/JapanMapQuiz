@@ -162,37 +162,103 @@ export default {
     LoadingComponent,
   },
   props: {
+    /**
+     * 日本語メニュータイトル
+     */
     selectedMenuTitleJa: String,
+    /**
+     * 英語メニュータイトル
+     */
     selectedMenuTitleEn: String,
-    selectedMenuText: String,
+    /**
+     * 設定情報セット処理
+     */
     settingParams: Function,
   },
   data() {
     return {
+      /**
+       * 設定パラメータ
+       */
       params: {
+        /**
+         * 地方区分id
+         */
         classificationCheckedValues: [1, 2, 3, 4, 5, 6, 7, 8],
+        /**
+         * 解答方法
+         */
         answerMethod: DEFAULT_ANSWER_METHOD,
+        /**
+         * 音声有無
+         */
         audioChecked: DEFAULT_AUDIO_CHECKED,
+        /**
+         * 制限時間有無
+         */
         timeLimitChecked: DEFAULT_TIME_LIMIT_CHECKED,
+        /**
+         * 制限時間値
+         */
         timeLimitSelectedValue: DEFAULT_TIME_LIMIT_VALUE,
+        /**
+         * 問題数
+         */
         quizCountSelectedValue: DEFAULT_QUIZ_COUNT_VALUE,
+        /**
+         * 選択肢タイプ
+         */
         choiceType: DEFAULT_CHOICE_TYPE,
       },
+      /**
+       * 地方区分名リスト
+       */
       classifications: Array,
+      /**
+       * 制限時間値リスト
+       */
       timeLimitValues: Array,
+      /**
+       * 問題数リスト
+       */
       quizCountValues: Array,
+      /**
+       * 地図埋め英語タイトル
+       */
       fillMapMenuTitleEn: FILL_MAP_MENU_TITLE_ENGLISH,
+      /**
+       * 地図クイズ英語タイトル
+       */
       quizMapMenuTitleEn: QUIZ_MAP_MENU_TITLE_ENGLISH,
+      /**
+       * 地図タイピング英語タイトル
+       */
       typingMapMenuTitleEn: TYPING_MAP_MENU_TITLE_ENGLISH,
+      /**
+       * 解答方法：選択
+       */
       answerMethodSelectValue: ANSWER_METHOD_SELECT,
+      /**
+       * 解答方法：記述
+       */
       answerMethodWriteValue: ANSWER_METHOD_WRITE,
+      /**
+       * 選択肢タイプ：全都道府県
+       */
       choiceTypeAll: CHOICE_TYPE_ALL,
+      /**
+       * 選択肢タイプ：同地方区分
+       */
       choiceTypeClassification: CHOICE_TYPE_CLASSIFICATION,
+      /**
+       * api読み込み処理完了フラグ
+       */
       completesApiLoading: false,
     };
   },
   created() {
     if (this.selectedMenuTitleEn === TYPING_MAP_MENU_TITLE_ENGLISH) {
+      // 地図タイピングの場合
       Promise.all([
         this.loadTimeLimitValues(),
         this.loadQuizCountValues(),
@@ -201,6 +267,7 @@ export default {
         this.completesApiLoading = true;
       });
     } else if (this.selectedMenuTitleEn === QUIZ_MAP_MENU_TITLE_ENGLISH) {
+      // 地図クイズの場合
       Promise.all([
         this.loadQuizCountValues(),
         this.loadClassifications(),
@@ -208,12 +275,16 @@ export default {
         this.completesApiLoading = true;
       });
     } else {
+      // 地図埋めの場合
       Promise.all([this.loadClassifications()]).then(() => {
         this.completesApiLoading = true;
       });
     }
   },
   methods: {
+    /**
+     * 地方区分名リスト取得
+     */
     async loadClassifications() {
       const response = await axios
         .get("/api/classifications")
@@ -231,6 +302,9 @@ export default {
         this.classifications = response.data;
       }
     },
+    /**
+     * 制限時間リスト取得
+     */
     async loadTimeLimitValues() {
       const response = await axios
         .get("/api/time_limit_values")
@@ -248,6 +322,9 @@ export default {
         this.timeLimitValues = response.data;
       }
     },
+    /**
+     * 問題数リスト取得
+     */
     async loadQuizCountValues() {
       const response = await axios
         .get("/api/quiz_count_values")

@@ -43,14 +43,23 @@ import {
 export default {
   data() {
     return {
+      /**
+       * 地図埋めメニュータイトル
+       */
       fillMapTitle: {
         ja: FILL_MAP_MENU_TITLE_JAPANESE,
         en: FILL_MAP_MENU_TITLE_ENGLISH,
       },
+      /**
+       * 地図クイズメニュータイトル
+       */
       quizMapTitle: {
         ja: QUIZ_MAP_MENU_TITLE_JAPANESE,
         en: QUIZ_MAP_MENU_TITLE_ENGLISH,
       },
+      /**
+       * 地図タイピングメニュータイトル
+       */
       typingMapTitle: {
         ja: TYPING_MAP_MENU_TITLE_JAPANESE,
         en: TYPING_MAP_MENU_TITLE_ENGLISH,
@@ -58,6 +67,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * 選択したゲームを開く
+     * @param {String} menuName メニュー名
+     */
     selectMenu(menuName) {
       this.$router.push({
         name: menuName.toLowerCase(),

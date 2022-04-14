@@ -1,4 +1,9 @@
 /**
+ * 制作者名
+ */
+ export const AUTHOR_NAME = "Yoshitaka Nagai";
+
+/**
  * apiステータス：成功
  */
 export const OK = 200;
@@ -18,7 +23,7 @@ export const INTERNAL_SERVER_ERROR = 500;
 /**
  * ホーム画面：メッセージ
  */
- export const HOME_MESSAGE = "クリック or タップしてね!!";
+export const HOME_MESSAGE = "クリック or タップしてね!!";
 
 /**
  * 設定画面：制限時間チェックボックス：初期選択値
@@ -186,7 +191,7 @@ export const TYPING_MAP_TYPING_TEXT_END_CHAR = "$";
 /**
  * 地図タイピング：初期表示テキスト
  */
- export const TYPING_MAP_TYPING_PRE_TEXT = "タイピングしてください!!";
+export const TYPING_MAP_TYPING_PRE_TEXT = "タイピングしてください!!";
 
 /**
  * 結果画面：結果評価テキスト:大変良い

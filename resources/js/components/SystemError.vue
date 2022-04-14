@@ -2,7 +2,7 @@
   <div id="system-error" class="wrapper">
     <div class="system-error-inner">
       <p class="title">System Error</p>
-      <p class="text">{{ systemErrorText }}</p>
+      <p class="text">{{ systemErrorMessage }}</p>
       <p class="error-message">{{ message }}</p>
       <p class="file-name">{{ file }}</p>
       <div class="btn-wrapper">
@@ -21,12 +21,21 @@
 import { SYSTEM_ERROR_MESSAGE } from "../util.js";
 export default {
   props: {
+    /**
+     * ファイル名
+     */
     file: String,
+    /**
+     * エラーメッセージ
+     */
     message: String,
   },
   data() {
     return {
-      systemErrorText: SYSTEM_ERROR_MESSAGE,
+      /**
+       * システムエラーメッセージ
+       */
+      systemErrorMessage: SYSTEM_ERROR_MESSAGE,
     };
   },
 };

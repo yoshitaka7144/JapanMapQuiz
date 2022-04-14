@@ -72,19 +72,28 @@
 export default {
   data() {
     return {
-      // spメニュー開閉状態
+      /**
+       * spメニュー開閉状態
+       */
       isOpened: false,
     };
   },
   mounted() {
+    // clickイベントに処理設定
     window.addEventListener("click", this.closeSpNavMenu);
   },
   beforeDestroy() {
+    // clickイベントの処理設定を削除
     window.removeEventListener("click", this.closeSpNavMenu);
   },
   methods: {
-    closeSpNavMenu(event) {
-      if (!this.$el.querySelector("#sp-nav").contains(event.target)) {
+    /**
+     * ナビメニューを閉じる
+     * @param {Event} e
+     */
+    closeSpNavMenu(e) {
+      // メニュー外をクリック時にメニューを閉じる
+      if (!this.$el.querySelector("#sp-nav").contains(e.target)) {
         this.isOpened = false;
       }
     },

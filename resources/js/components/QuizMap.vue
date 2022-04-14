@@ -7,7 +7,6 @@
           v-if="!canStartGame"
           :selected-menu-title-ja="selectedMenuTitleJa"
           :selected-menu-title-en="selectedMenuTitleEn"
-          :selected-menu-text="selectedMenuText"
           :setting-params="settingParams"
         />
         <div class="game" v-else-if="!isFinished" key="game">
@@ -183,7 +182,6 @@ import {
   INTERNAL_SERVER_ERROR,
   QUIZ_MAP_MENU_TITLE_JAPANESE,
   QUIZ_MAP_MENU_TITLE_ENGLISH,
-  QUIZ_MAP_EXPLANATION_TEXT,
   QUIZ_MAP_CHOICE_DEFAULT_VALUE,
   QUIZ_MAP_NOT_CHOICE_TEXT,
   SETTING_CLASSIFICATION_ERROR_TEXT,
@@ -212,48 +210,157 @@ export default {
   },
   data() {
     return {
+      /**
+       * 日本語メニュータイトル
+       */
       selectedMenuTitleJa: QUIZ_MAP_MENU_TITLE_JAPANESE,
+      /**
+       * 英語メニュータイトル
+       */
       selectedMenuTitleEn: QUIZ_MAP_MENU_TITLE_ENGLISH,
-      selectedMenuText: QUIZ_MAP_EXPLANATION_TEXT,
+      /**
+       * ゲーム開始フラグ
+       */
       canStartGame: false,
+      /**
+       * 設定問題対象地方区分id
+       */
       classificationCheckedValues: [],
+      /**
+       * 設定音声有無
+       */
       audioChecked: Boolean,
-      timeLimitChecked: Boolean,
-      timeLimitSelectedValue: Number,
+      /**
+       * 設定問題数
+       */
       quizCountSelectedValue: Number,
+      /**
+       * 設定選択肢タイプ
+       */
       choiceType: String,
+      /**
+       * 地図データ
+       */
       maps: [],
+      /**
+       * 選択肢データ
+       */
       choices: {},
+      /**
+       * クイズデータ
+       */
       quizData: [],
+      /**
+       * 正解数
+       */
       correctCount: 0,
+      /**
+       * 不正解数
+       */
       incorrectCount: 0,
+      /**
+       * 出題クイズ数
+       */
       quizCountLimit: 0,
+      /**
+       * 現在のクイズインデックス
+       */
       currentQuizIndex: 0,
+      /**
+       * 選択した選択肢
+       */
       selectedChoiceValue: QUIZ_MAP_CHOICE_DEFAULT_VALUE,
+      /**
+       * 次の問題フラグ
+       */
       nextFlag: false,
+      /**
+       * 最終問題フラグ
+       */
       lastFlag: false,
+      /**
+       * ゲーム終了フラグ
+       */
       isFinished: false,
+      /**
+       * 警告モーダル表示フラグ
+       */
       showAlertModal: false,
+      /**
+       * 警告メッセージ
+       */
       alertMessage: String,
+      /**
+       * ヒント表示フラグ
+       */
       canShowHint: false,
+      /**
+       * 入力モーダル表示フラグ
+       */
       showInputModal: false,
+      /**
+       * モーダルモード
+       */
       modalMode: FILL_MAP_MODAL_CONFIRM_MODE,
+      /**
+       * 地図画像id
+       */
       imageId: Number,
+      /**
+       * 選択地図名
+       */
       initialPlaceName: String,
+      /**
+       * 正解地図名
+       */
       correctPlaceName: String,
+      /**
+       * ok処理
+       */
       okFunction: Function,
+      /**
+       * ミスクイズデータ
+       */
       missQuizData: [],
+      /**
+       * 判定テキスト
+       */
       judgeText: "",
+      /**
+       * 問題正解判定
+       */
       isCorrected: false,
+      /**
+       * ヒントタイプ
+       */
       hintTextType: String,
+      /**
+       * ヒントタイプ：名所
+       */
       typeFamous: QUIZ_MAP_HINT_TEXT_FAMOUS,
+      /**
+       * ヒントタイプ：食べ物
+       */
       typeFood: QUIZ_MAP_HINT_TEXT_FOOD,
+      /**
+       * クイズ正解音
+       */
       correctAudio: new Audio("./audio/correct.mp3"),
+      /**
+       * クイズ不正解音
+       */
       incorrectAudio: new Audio("./audio/incorrect.mp3"),
+      /**
+       * apiローディング状態
+       */
       isLoadingApi: false,
     };
   },
   computed: {
+    /**
+     * 評価テキスト取得
+     * @returns {String} 評価テキスト
+     */
     evaluationText() {
       const total = this.quizCountLimit;
       const percentage = Math.floor((this.correctCount / total) * 100);
@@ -269,6 +376,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * リセット処理
+     */
     reset() {
       this.canStartGame = false;
       this.maps = [];
@@ -287,11 +397,13 @@ export default {
       this.missQuizData = [];
       this.judgeText = "";
     },
+    /**
+     * 設定パラメータセット
+     * @param {Object} params 設定パラメータオブジェクト
+     */
     settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
       this.audioChecked = params.audioChecked;
-      this.timeLimitChecked = params.timeLimitChecked;
-      this.timeLimitSelectedValue = params.timeLimitSelectedValue;
       this.quizCountSelectedValue = params.quizCountSelectedValue;
       this.choiceType = params.choiceType;
 
@@ -305,6 +417,9 @@ export default {
       // 問題開始
       this.startQuiz();
     },
+    /**
+     * クイズ対象地図データ取得
+     */
     async loadQuizMaps() {
       const params = {
         classificationId: this.classificationCheckedValues,
@@ -325,6 +440,9 @@ export default {
         this.maps = response.data;
       }
     },
+    /**
+     * クイズ選択肢データ取得
+     */
     async loadQuizChoices() {
       const response = await axios
         .get("/api/maps/names")
@@ -340,12 +458,15 @@ export default {
         });
       } else {
         if (this.choiceType === CHOICE_TYPE_ALL) {
+          // 選択肢タイプ：全都道府県
           this.choices = response.data;
         } else {
+          // 選択肢タイプ：同地方区分
           response.data.forEach((item) => {
             const name = item.name;
             const classificationId = item.classification_id;
             if (classificationId === 1) {
+              // 北海道のみ同地方区分の県がない為、固定の選択肢
               this.choices[classificationId] =
                 QUIZ_MAP_HOKKAIDOU_CHOICES.split(",");
             } else {
@@ -359,6 +480,10 @@ export default {
         }
       }
     },
+    /**
+     * 配列内容をシャッフル
+     * @param {Array} array シャッフル対象の配列
+     */
     shuffle(array) {
       let n = array.length;
       let tmp;
@@ -373,7 +498,11 @@ export default {
 
       return array;
     },
+    /**
+     * クイズデータ作成
+     */
     createQuizData() {
+      // クイズ問題数
       this.quizCountLimit =
         this.maps.length <= this.quizCountSelectedValue
           ? this.maps.length
@@ -395,7 +524,9 @@ export default {
         let array = [];
         array.push(quiz.name);
 
+        // 選択肢データ作成
         if (this.choiceType === CHOICE_TYPE_ALL) {
+          // 選択肢タイプ：全都道府県の場合
           while (j !== 4) {
             const r = Math.floor(Math.random() * this.choices.length);
             const name = this.choices[r].name;
@@ -405,6 +536,7 @@ export default {
             }
           }
         } else {
+          // 選択肢タイプ：同地方区分の場合
           const classificationId = this.maps[i].classification_id;
           while (j !== 4) {
             const r = Math.floor(
@@ -422,41 +554,61 @@ export default {
         this.quizData.push(quiz);
       }
     },
+    /**
+     * ゲーム開始
+     */
     startQuiz() {
+      // ローディング表示
       this.isLoadingApi = true;
       Promise.all([this.loadQuizMaps(), this.loadQuizChoices()]).then(() => {
-        // 問題、選択肢データ作成
+        // 問題データ作成
         this.createQuizData();
 
         // クイズ画面表示
         this.canStartGame = true;
+
+        // ローディング非表示
         this.isLoadingApi = false;
       });
     },
+    /**
+     * 結果表示
+     */
     showResult() {
       this.isFinished = true;
     },
+    /**
+     * クイズ判定処理
+     */
     judgeQuiz() {
       if (this.selectedChoiceValue === QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
+        // 未選択の場合
+        // 警告モーダル表示
         this.alertMessage = QUIZ_MAP_NOT_CHOICE_TEXT;
         this.showAlertModal = true;
       } else if (this.nextFlag && this.lastFlag) {
+        // 最終問題解答後の場合
         // 結果画面表示
         this.showResult();
       } else if (this.nextFlag && !this.lastFlag) {
+        // 解答後、次の問題がある場合
         // 次の問題表示
         this.currentQuizIndex++;
         this.nextFlag = false;
+
+        // ヒント非表示
         this.canShowHint = false;
 
         // 選択肢をデフォルト値に
         this.selectedChoiceValue = QUIZ_MAP_CHOICE_DEFAULT_VALUE;
+
+        // 判定テキストを空に
         this.judgeText = "";
       } else {
-        // 正解判定
+        // 解答後の判定
         const correctValue = this.quizData[this.currentQuizIndex].name;
         if (this.selectedChoiceValue === correctValue) {
-          // 正解
+          // 正解処理
           this.correctCount++;
           this.judgeText = QUIZ_MAP_CORRECT_TEXT;
           this.isCorrected = true;
@@ -464,7 +616,7 @@ export default {
             this.playSound(this.correctAudio);
           }
         } else {
-          // 不正解
+          // 不正解処理
           this.incorrectCount++;
           this.judgeText = QUIZ_MAP_INCORRECT_TEXT;
           this.isCorrected = false;
@@ -481,24 +633,42 @@ export default {
 
         // 次へボタン表示
         this.nextFlag = true;
+
+        // 最終問題解答後の場合、結果へボタン表示
         if (this.currentQuizIndex + 1 === this.quizCountLimit) {
-          // 結果へボタン表示
           this.lastFlag = true;
         }
       }
     },
+    /**
+     * 入力モーダルを閉じる
+     */
     closeInputModal() {
       this.showInputModal = false;
     },
+    /**
+     * ミスクイズ情報表示
+     * @param {Object} item ミスクイズデータオブジェクト
+     */
     showMissQuiz(item) {
+      // 各データセット
       this.imageId = item.id;
       this.initialPlaceName = item.selectedName;
       this.correctPlaceName = item.correctName;
       this.okFunction = this.closeInputModal;
+
+      // モーダル表示
       this.showInputModal = true;
     },
+    /**
+     * 音声再生
+     * @param {Audio} audio 音声データ
+     */
     playSound(audio) {
+      // 再生位置を先頭へ
       audio.currentTime = 0;
+
+      // 音声再生
       audio.play();
     },
   },

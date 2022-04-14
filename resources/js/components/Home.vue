@@ -13,6 +13,9 @@ import { HOME_MESSAGE } from "../util.js";
 export default {
   data() {
     return {
+      /**
+       * 表示メッセージ
+       */
       message: HOME_MESSAGE,
     };
   },

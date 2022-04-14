@@ -13,7 +13,7 @@
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
 
-  <link rel="icon" href="{{ asset('image/favicon.ico') }}">
+  <link rel="icon" href="{{ asset('image/favicon.svg') }}" type="image/svg+xml">
 
   <!-- Styles -->
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">

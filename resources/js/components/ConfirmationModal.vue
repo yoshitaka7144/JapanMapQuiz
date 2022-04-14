@@ -35,11 +35,20 @@
 import { FILL_MAP_ANSWER_CONFIRMATION_TEXT } from "../util";
 export default {
   props: {
+    /**
+     * 未解答数
+     */
     emptyCount: Number,
+    /**
+     * okボタン処理
+     */
     ok: Function,
   },
   data() {
     return {
+      /**
+       * 確認メッセージ
+       */
       confirmationMessage: FILL_MAP_ANSWER_CONFIRMATION_TEXT,
     };
   },

@@ -23227,6 +23227,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    /**
+     * 警告メッセージ
+     */
     alertMessage: String
   }
 });
@@ -23326,11 +23329,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    /**
+     * 未解答数
+     */
     emptyCount: Number,
+
+    /**
+     * okボタン処理
+     */
     ok: Function
   },
   data: function data() {
     return {
+      /**
+       * 確認メッセージ
+       */
       confirmationMessage: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_ANSWER_CONFIRMATION_TEXT
     };
   }
@@ -24261,7 +24274,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -24280,62 +24292,221 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      /**
+       * 日本語メニュータイトル
+       */
       selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MENU_TITLE_JAPANESE,
+
+      /**
+       * 英語メニュータイトル
+       */
       selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MENU_TITLE_ENGLISH,
-      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_EXPLANATION_TEXT,
+
+      /**
+       * ゲーム開始フラグ
+       */
       canStartGame: false,
+
+      /**
+       * 設定対象地方区分
+       */
       classificationCheckedValues: [],
+
+      /**
+       * 設定解答方法
+       */
       answerMethod: String,
+
+      /**
+       * 設定制限時間有無
+       */
       timeLimitChecked: Boolean,
+
+      /**
+       * 設定制限時間値
+       */
       timeLimitSelectedValue: Number,
+
+      /**
+       * 地図名
+       */
       mapNames: [],
+
+      /**
+       * セレクトボックス用地図名
+       */
       selectPlaceNames: [],
+
+      /**
+       * 入力地図名
+       */
       inputedName: [],
+
+      /**
+       * 入力用モーダル表示フラグ
+       */
       showInputNameModal: false,
+
+      /**
+       * 警告モーダル表示フラグ
+       */
       showAlertModal: false,
+
+      /**
+       * 操作方法モーダル表示フラグ
+       */
       showManualModal: false,
+
+      /**
+       * 確認モーダル表示フラグ
+       */
       showConfirmationModal: false,
+
+      /**
+       * 警告メッセージ
+       */
       alertMessage: String,
+
+      /**
+       * 地図画像id
+       */
       imageId: Number,
+
+      /**
+       * 新潟エリア塗りフラグ
+       */
       fillNiigataArea: false,
+
+      /**
+       * 滋賀エリア塗りフラグ
+       */
       fillSigaArea: false,
+
+      /**
+       * 兵庫エリア塗りフラグ
+       */
       fillHyougoArea: false,
+
+      /**
+       * 熊本エリア塗りフラグ
+       */
       fillKumamotoArea: false,
+
+      /**
+       * 判定対象id
+       */
       checkTargetIndex: [],
+
+      /**
+       * ゲーム終了フラグ
+       */
       isFinished: false,
+
+      /**
+       * 未解答数
+       */
       emptyCount: 0,
+
+      /**
+       * 正解不正解判定
+       */
       judgeName: [],
+
+      /**
+       * 入力モーダルタイプ
+       */
       inputModalMode: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_INPUT_MODE,
+
+      /**
+       * 入力モーダル用処理
+       */
       okFunction: this.setPlaceName,
+
+      /**
+       * 地図svgのviewbox
+       */
       viewBox: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_DEFAULT,
+
+      /**
+       * 移動x座標
+       */
       dx: 0,
+
+      /**
+       * 移動y座標
+       */
       dy: 0,
+
+      /**
+       * 地図移動可否フラグ
+       */
       canMove: false,
+
+      /**
+       * 地図拡大縮小スライダー値
+       */
       zoomValue: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH,
+
+      /**
+       * 2本指タッチ時の面積
+       */
       touchstartArea: Number,
+
+      /**
+       * apiローディング状態
+       */
       isLoadingApi: false
     };
   },
   computed: {
+    /**
+     * 対象外数
+     * @returns {Number} 対象外数
+     */
     disabledPlaceCount: function disabledPlaceCount() {
       return 47 - this.selectPlaceNames.length;
     },
+
+    /**
+     * 入力済み数
+     * @returns {Number} 入力済み数
+     */
     inputedPlaceCount: function inputedPlaceCount() {
       return this.inputedName.filter(function (name) {
         return name !== "";
       }).length;
     },
+
+    /**
+     * 未入力数
+     * @returns {Number} 未入力数
+     */
     blankPlaceCount: function blankPlaceCount() {
       return 47 - this.disabledPlaceCount - this.inputedPlaceCount;
     },
+
+    /**
+     * 正解数
+     * @returns {Number} 正解数
+     */
     correctPlaceCount: function correctPlaceCount() {
       return this.judgeName.filter(function (judge) {
         return judge === true;
       }).length;
     },
+
+    /**
+     * 不正解数
+     * @returns {Number} 不正解数
+     */
     incorrectPlaceCount: function incorrectPlaceCount() {
       return 47 - this.disabledPlaceCount - this.correctPlaceCount;
     },
+
+    /**
+     * 評価テキスト
+     * @returns {String} 評価テキスト
+     */
     evaluationText: function evaluationText() {
       var total = this.correctPlaceCount + this.incorrectPlaceCount;
       var percentage = Math.floor(this.correctPlaceCount / total * 100);
@@ -24352,6 +24523,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    /**
+     * リセット
+     */
     reset: function reset() {
       for (var i = 0; i < 47; i++) {
         this.$set(this.inputedName, i, "");
@@ -24367,6 +24541,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.inputModalMode = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_INPUT_MODE;
       this.okFunction = this.setPlaceName;
     },
+
+    /**
+     * 設定内容セット
+     * @param {Object} params 設定オブジェクト
+     */
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
       this.answerMethod = params.answerMethod;
@@ -24383,6 +24562,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.reset();
       this.startGame();
     },
+
+    /**
+     * 全地図名取得
+     */
     loadMapNames: function loadMapNames() {
       var _this = this;
 
@@ -24422,6 +24605,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+
+    /**
+     * 地図名選択用の地図名取得
+     */
     loadSelectPlaceNames: function loadSelectPlaceNames() {
       var _this2 = this;
 
@@ -24464,21 +24651,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
+
+    /**
+     * ゲーム開始
+     */
     startGame: function startGame() {
       var _this3 = this;
 
+      // ローディング表示
       this.isLoadingApi = true;
       Promise.all([this.loadMapNames(), this.loadSelectPlaceNames()]).then(function () {
-        _this3.canStartGame = true;
+        // ゲーム画面表示
+        _this3.canStartGame = true; // ローディング非表示
+
         _this3.isLoadingApi = false;
       });
     },
+
+    /**
+     * 地図名セット
+     * @param {String} name 名前
+     * @param {Number} id 地図id
+     */
     setPlaceName: function setPlaceName(name, id) {
-      this.$set(this.inputedName, id - 1, name.replace(/都|府|県/, ""));
+      // 入力文字列の「都府県」を空文字に置き換える
+      this.$set(this.inputedName, id - 1, name.replace(/都|府|県/, "")); // 入力用モーダルを閉じる
+
       this.showInputNameModal = false;
     },
+
+    /**
+     * 入力用モーダル表示
+     * @param {Event} e
+     */
     openInputNameModal: function openInputNameModal(e) {
-      var classificationId = Number(e.target.dataset.classification);
+      // クリック対象の地図の区分id
+      var classificationId = Number(e.target.dataset.classification); // 対象区分の場合入力モーダルを開く
 
       if (this.classificationCheckedValues.includes(classificationId)) {
         var id = Number(e.target.dataset.id);
@@ -24486,10 +24694,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.showInputNameModal = true;
       }
     },
+
+    /**
+     * 判定対象の地図idをセット
+     */
     setCheckTargetIndex: function setCheckTargetIndex() {
       var _this4 = this;
 
-      var paths = this.$el.querySelectorAll("path");
+      // 地図svg
+      var paths = this.$el.querySelectorAll("path"); // 対象区分に含まれる場合は地図idをセット
+
       paths.forEach(function (el) {
         var id = Number(el.dataset.id);
         var classificationId = Number(el.dataset.classification);
@@ -24501,13 +24715,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
+
+    /**
+     * 入力モーダルを閉じる
+     */
     closeInputModal: function closeInputModal() {
       this.showInputNameModal = false;
     },
+
+    /**
+     * 解答の確認
+     */
     checkAnswer: function checkAnswer() {
       var _this5 = this;
 
-      this.setCheckTargetIndex();
+      // 判定対象の地図id
+      this.setCheckTargetIndex(); // 未入力数をカウント
+
       var count = 0;
       this.checkTargetIndex.forEach(function (index) {
         if (_this5.inputedName[index] === "") {
@@ -24524,6 +24748,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.showResult();
       }
     },
+
+    /**
+     * 結果画面表示
+     */
     showResult: function showResult() {
       // 入力地名判定
       for (var i = 0; i < 47; i++) {
@@ -24547,6 +24775,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.zoomValue = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH;
       this.isFinished = true;
     },
+
+    /**
+     * 地図拡大
+     */
     zoomPlus: function zoomPlus() {
       var _this$viewBox$split$m = this.viewBox.split(" ").map(function (v) {
         return parseFloat(v);
@@ -24568,6 +24800,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.createViewBox(x, y, w, h);
       this.zoomValue = w;
     },
+
+    /**
+     * 地図縮小
+     */
     zoomMinus: function zoomMinus() {
       var _this$viewBox$split$m3 = this.viewBox.split(" ").map(function (v) {
         return parseFloat(v);
@@ -24589,6 +24825,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.createViewBox(x, y, w, h);
       this.zoomValue = w;
     },
+
+    /**
+     * 地図拡大縮小スライダー処理
+     * @param {Event} e
+     */
     zoomSlider: function zoomSlider(e) {
       var _this$viewBox$split$m5 = this.viewBox.split(" ").map(function (v) {
         return parseFloat(v);
@@ -24602,6 +24843,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var newWidthValue = e.target.value;
       this.createViewBox(x, y, newWidthValue, newWidthValue);
     },
+
+    /**
+     * 地図拡大縮小
+     * @param {Event} e
+     */
     zoom: function zoom(e) {
       var _this$viewBox$split$m7 = this.viewBox.split(" ").map(function (v) {
         return parseFloat(v);
@@ -24635,6 +24881,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.createViewBox(x, y, w, h);
       this.zoomValue = w;
     },
+
+    /**
+     * 地図移動
+     * @param {Event} e
+     */
     move: function move(e) {
       if (this.canMove) {
         var _this$viewBox$split$m9 = this.viewBox.split(" ").map(function (v) {
@@ -24656,6 +24907,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
     },
+
+    /**
+     * タッチ操作
+     * @param {Event} e
+     */
     touchMove: function touchMove(e) {
       var _this$viewBox$split$m11 = this.viewBox.split(" ").map(function (v) {
         return parseFloat(v);
@@ -24667,6 +24923,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           h = _this$viewBox$split$m12[3];
 
       if (e.touches.length >= 2) {
+        // タッチされている指が2本の場合
         var absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
         var absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);
         var area = absWidth * absHeight;
@@ -24695,6 +24952,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.zoomValue = w;
         this.touchstartArea = area;
       } else {
+        // タッチされている指が1本の場合
         if (this.canMove) {
           var rect = e.target.getBoundingClientRect();
           var offsetX = e.touches[0].clientX - window.pageXOffset - rect.left;
@@ -24710,22 +24968,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
     },
+
+    /**
+     * 地図のviewbox更新
+     */
     createViewBox: function createViewBox(x, y, w, h) {
       this.viewBox = [x, y, w, h].join(" ");
     },
+
+    /**
+     * マウスドラッグ開始
+     * @param {Event} e
+     */
     startMove: function startMove(e) {
+      // 初期位置を保持
       this.dx = e.offsetX;
       this.dy = e.offsetY;
       this.canMove = true;
     },
+
+    /**
+     * タッチ操作開始
+     * @param {Event} e
+     */
     touchStartMove: function touchStartMove(e) {
       if (e.touches.length >= 2) {
-        // 絶対値を取得
+        // 2本指でのタッチの場合
+        // タッチされている2点から面積を算出、保持
         var absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
-        var absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY); // 面積
-
+        var absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);
         this.touchstartArea = absWidth * absHeight;
       } else {
+        // 1本指でのタッチの場合
+        // 地図移動
         var rect = e.target.getBoundingClientRect();
         var offsetX = e.touches[0].clientX - window.pageXOffset - rect.left;
         var offsetY = e.touches[0].clientY - window.pageYOffset - rect.top;
@@ -24734,6 +25009,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.canMove = true;
       }
     },
+
+    /**
+     * 移動終了
+     */
     endMove: function endMove() {
       this.canMove = false;
     }
@@ -24753,6 +25032,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util.js */ "./resources/js/util.js");
 //
 //
 //
@@ -24763,8 +25043,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      /**
+       * 制作者名
+       */
+      authorName: _util_js__WEBPACK_IMPORTED_MODULE_0__.AUTHOR_NAME
+    };
+  }
+});
 
 /***/ }),
 
@@ -24852,19 +25141,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      // spメニュー開閉状態
+      /**
+       * spメニュー開閉状態
+       */
       isOpened: false
     };
   },
   mounted: function mounted() {
+    // clickイベントに処理設定
     window.addEventListener("click", this.closeSpNavMenu);
   },
   beforeDestroy: function beforeDestroy() {
+    // clickイベントの処理設定を削除
     window.removeEventListener("click", this.closeSpNavMenu);
   },
   methods: {
-    closeSpNavMenu: function closeSpNavMenu(event) {
-      if (!this.$el.querySelector("#sp-nav").contains(event.target)) {
+    /**
+     * ナビメニューを閉じる
+     * @param {Event} e
+     */
+    closeSpNavMenu: function closeSpNavMenu(e) {
+      // メニュー外をクリック時にメニューを閉じる
+      if (!this.$el.querySelector("#sp-nav").contains(e.target)) {
         this.isOpened = false;
       }
     }
@@ -24899,6 +25197,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      /**
+       * 表示メッセージ
+       */
       message: _util_js__WEBPACK_IMPORTED_MODULE_0__.HOME_MESSAGE
     };
   }
@@ -25019,34 +25320,97 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    /**
+     * セレクトボックス用地図名
+     */
     placeNames: [],
+
+    /**
+     * 地図画像id
+     */
     imageId: Number,
-    setPlaceName: Function,
+
+    /**
+     * 解答方法
+     */
     answerMethod: String,
+
+    /**
+     * 入力or選択地図名
+     */
     initialPlaceName: String,
+
+    /**
+     * 正解地図名
+     */
     correctPlaceName: String,
+
+    /**
+     * 地図名（かな）
+     */
     kana: String,
+
+    /**
+     * 地図名（ローマ字）
+     */
     roman: String,
+
+    /**
+     * モーダルモード
+     */
     mode: String,
+
+    /**
+     * ok処理
+     */
     ok: Function
   },
   data: function data() {
     return {
+      /**
+       * 解答タイプ：選択
+       */
       methodSelect: _util__WEBPACK_IMPORTED_MODULE_0__.ANSWER_METHOD_SELECT,
+
+      /**
+       * 解答タイプ：記述
+       */
       methodWrite: _util__WEBPACK_IMPORTED_MODULE_0__.ANSWER_METHOD_WRITE,
+
+      /**
+       * 選択地図名
+       */
       selectedPlaceName: this.initialPlaceName,
+
+      /**
+       * 入力モーダルモード
+       */
       modeInput: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MODAL_INPUT_MODE,
+
+      /**
+       * 確認モーダルモード
+       */
       modeConfirm: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MODAL_CONFIRM_MODE,
+
+      /**
+       * 地図名初期選択値
+       */
       selectDefaultValue: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_INPUT_MODAL_SELECT_DEFAULT_VALUE,
+
+      /**
+       * inputプレースホルダテキスト
+       */
       placeholderText: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_INPUT_MODAL_PLACEHOLDER_TEXT
     };
   },
   computed: {
+    /**
+     * 入力地図名正解判定
+     */
     isCorrected: function isCorrected() {
       return this.initialPlaceName === this.correctPlaceName;
     }
-  },
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -25144,6 +25508,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      /**
+       * タブ名
+       */
       tabName: "input"
     };
   }
@@ -25200,14 +25567,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      /**
+       * 地図埋めメニュータイトル
+       */
       fillMapTitle: {
         ja: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MENU_TITLE_JAPANESE,
         en: _util__WEBPACK_IMPORTED_MODULE_0__.FILL_MAP_MENU_TITLE_ENGLISH
       },
+
+      /**
+       * 地図クイズメニュータイトル
+       */
       quizMapTitle: {
         ja: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_MENU_TITLE_JAPANESE,
         en: _util__WEBPACK_IMPORTED_MODULE_0__.QUIZ_MAP_MENU_TITLE_ENGLISH
       },
+
+      /**
+       * 地図タイピングメニュータイトル
+       */
       typingMapTitle: {
         ja: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_MENU_TITLE_JAPANESE,
         en: _util__WEBPACK_IMPORTED_MODULE_0__.TYPING_MAP_MENU_TITLE_ENGLISH
@@ -25215,6 +25593,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    /**
+     * 選択したゲームを開く
+     * @param {String} menuName メニュー名
+     */
     selectMenu: function selectMenu(menuName) {
       this.$router.push({
         name: menuName.toLowerCase()
@@ -25258,7 +25640,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      notFoundText: _util_js__WEBPACK_IMPORTED_MODULE_0__.NOT_FOUND_MESSAGE
+      /**
+       * 表示メッセージ
+       */
+      notFoundMessage: _util_js__WEBPACK_IMPORTED_MODULE_0__.NOT_FOUND_MESSAGE
     };
   }
 });
@@ -25468,7 +25853,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -25483,48 +25867,192 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      /**
+       * 日本語メニュータイトル
+       */
       selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_MENU_TITLE_JAPANESE,
+
+      /**
+       * 英語メニュータイトル
+       */
       selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_MENU_TITLE_ENGLISH,
-      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_EXPLANATION_TEXT,
+
+      /**
+       * ゲーム開始フラグ
+       */
       canStartGame: false,
+
+      /**
+       * 設定問題対象地方区分id
+       */
       classificationCheckedValues: [],
+
+      /**
+       * 設定音声有無
+       */
       audioChecked: Boolean,
-      timeLimitChecked: Boolean,
-      timeLimitSelectedValue: Number,
+
+      /**
+       * 設定問題数
+       */
       quizCountSelectedValue: Number,
+
+      /**
+       * 設定選択肢タイプ
+       */
       choiceType: String,
+
+      /**
+       * 地図データ
+       */
       maps: [],
+
+      /**
+       * 選択肢データ
+       */
       choices: {},
+
+      /**
+       * クイズデータ
+       */
       quizData: [],
+
+      /**
+       * 正解数
+       */
       correctCount: 0,
+
+      /**
+       * 不正解数
+       */
       incorrectCount: 0,
+
+      /**
+       * 出題クイズ数
+       */
       quizCountLimit: 0,
+
+      /**
+       * 現在のクイズインデックス
+       */
       currentQuizIndex: 0,
+
+      /**
+       * 選択した選択肢
+       */
       selectedChoiceValue: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE,
+
+      /**
+       * 次の問題フラグ
+       */
       nextFlag: false,
+
+      /**
+       * 最終問題フラグ
+       */
       lastFlag: false,
+
+      /**
+       * ゲーム終了フラグ
+       */
       isFinished: false,
+
+      /**
+       * 警告モーダル表示フラグ
+       */
       showAlertModal: false,
+
+      /**
+       * 警告メッセージ
+       */
       alertMessage: String,
+
+      /**
+       * ヒント表示フラグ
+       */
       canShowHint: false,
+
+      /**
+       * 入力モーダル表示フラグ
+       */
       showInputModal: false,
+
+      /**
+       * モーダルモード
+       */
       modalMode: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_CONFIRM_MODE,
+
+      /**
+       * 地図画像id
+       */
       imageId: Number,
+
+      /**
+       * 選択地図名
+       */
       initialPlaceName: String,
+
+      /**
+       * 正解地図名
+       */
       correctPlaceName: String,
+
+      /**
+       * ok処理
+       */
       okFunction: Function,
+
+      /**
+       * ミスクイズデータ
+       */
       missQuizData: [],
+
+      /**
+       * 判定テキスト
+       */
       judgeText: "",
+
+      /**
+       * 問題正解判定
+       */
       isCorrected: false,
+
+      /**
+       * ヒントタイプ
+       */
       hintTextType: String,
+
+      /**
+       * ヒントタイプ：名所
+       */
       typeFamous: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_HINT_TEXT_FAMOUS,
+
+      /**
+       * ヒントタイプ：食べ物
+       */
       typeFood: _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_HINT_TEXT_FOOD,
+
+      /**
+       * クイズ正解音
+       */
       correctAudio: new Audio("./audio/correct.mp3"),
+
+      /**
+       * クイズ不正解音
+       */
       incorrectAudio: new Audio("./audio/incorrect.mp3"),
+
+      /**
+       * apiローディング状態
+       */
       isLoadingApi: false
     };
   },
   computed: {
+    /**
+     * 評価テキスト取得
+     * @returns {String} 評価テキスト
+     */
     evaluationText: function evaluationText() {
       var total = this.quizCountLimit;
       var percentage = Math.floor(this.correctCount / total * 100);
@@ -25541,6 +26069,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    /**
+     * リセット処理
+     */
     reset: function reset() {
       this.canStartGame = false;
       this.maps = [];
@@ -25559,11 +26090,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.missQuizData = [];
       this.judgeText = "";
     },
+
+    /**
+     * 設定パラメータセット
+     * @param {Object} params 設定パラメータオブジェクト
+     */
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
       this.audioChecked = params.audioChecked;
-      this.timeLimitChecked = params.timeLimitChecked;
-      this.timeLimitSelectedValue = params.timeLimitSelectedValue;
       this.quizCountSelectedValue = params.quizCountSelectedValue;
       this.choiceType = params.choiceType; // 地方区分エラーチェック
 
@@ -25576,6 +26110,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.startQuiz();
     },
+
+    /**
+     * クイズ対象地図データ取得
+     */
     loadQuizMaps: function loadQuizMaps() {
       var _this = this;
 
@@ -25618,6 +26156,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+
+    /**
+     * クイズ選択肢データ取得
+     */
     loadQuizChoices: function loadQuizChoices() {
       var _this2 = this;
 
@@ -25645,13 +26187,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 } else {
                   if (_this2.choiceType === _util__WEBPACK_IMPORTED_MODULE_1__.CHOICE_TYPE_ALL) {
+                    // 選択肢タイプ：全都道府県
                     _this2.choices = response.data;
                   } else {
+                    // 選択肢タイプ：同地方区分
                     response.data.forEach(function (item) {
                       var name = item.name;
                       var classificationId = item.classification_id;
 
                       if (classificationId === 1) {
+                        // 北海道のみ同地方区分の県がない為、固定の選択肢
                         _this2.choices[classificationId] = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_HOKKAIDOU_CHOICES.split(",");
                       } else {
                         if (_this2.choices[classificationId]) {
@@ -25672,6 +26217,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
+
+    /**
+     * 配列内容をシャッフル
+     * @param {Array} array シャッフル対象の配列
+     */
     shuffle: function shuffle(array) {
       var n = array.length;
       var tmp;
@@ -25686,7 +26236,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return array;
     },
+
+    /**
+     * クイズデータ作成
+     */
     createQuizData: function createQuizData() {
+      // クイズ問題数
       this.quizCountLimit = this.maps.length <= this.quizCountSelectedValue ? this.maps.length : this.quizCountSelectedValue;
 
       for (var i = 0; i < this.quizCountLimit; i++) {
@@ -25702,9 +26257,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         quiz.hintText[_util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_HINT_TEXT_FOOD] = this.maps[i].hint_food;
         var j = 1;
         var array = [];
-        array.push(quiz.name);
+        array.push(quiz.name); // 選択肢データ作成
 
         if (this.choiceType === _util__WEBPACK_IMPORTED_MODULE_1__.CHOICE_TYPE_ALL) {
+          // 選択肢タイプ：全都道府県の場合
           while (j !== 4) {
             var r = Math.floor(Math.random() * this.choices.length);
             var name = this.choices[r].name;
@@ -25715,6 +26271,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         } else {
+          // 選択肢タイプ：同地方区分の場合
           var classificationId = this.maps[i].classification_id;
 
           while (j !== 4) {
@@ -25733,43 +26290,63 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.quizData.push(quiz);
       }
     },
+
+    /**
+     * ゲーム開始
+     */
     startQuiz: function startQuiz() {
       var _this3 = this;
 
+      // ローディング表示
       this.isLoadingApi = true;
       Promise.all([this.loadQuizMaps(), this.loadQuizChoices()]).then(function () {
-        // 問題、選択肢データ作成
+        // 問題データ作成
         _this3.createQuizData(); // クイズ画面表示
 
 
-        _this3.canStartGame = true;
+        _this3.canStartGame = true; // ローディング非表示
+
         _this3.isLoadingApi = false;
       });
     },
+
+    /**
+     * 結果表示
+     */
     showResult: function showResult() {
       this.isFinished = true;
     },
+
+    /**
+     * クイズ判定処理
+     */
     judgeQuiz: function judgeQuiz() {
       if (this.selectedChoiceValue === _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE) {
+        // 未選択の場合
+        // 警告モーダル表示
         this.alertMessage = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_NOT_CHOICE_TEXT;
         this.showAlertModal = true;
       } else if (this.nextFlag && this.lastFlag) {
+        // 最終問題解答後の場合
         // 結果画面表示
         this.showResult();
       } else if (this.nextFlag && !this.lastFlag) {
+        // 解答後、次の問題がある場合
         // 次の問題表示
         this.currentQuizIndex++;
-        this.nextFlag = false;
+        this.nextFlag = false; // ヒント非表示
+
         this.canShowHint = false; // 選択肢をデフォルト値に
 
-        this.selectedChoiceValue = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE;
+        this.selectedChoiceValue = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CHOICE_DEFAULT_VALUE; // 判定テキストを空に
+
         this.judgeText = "";
       } else {
-        // 正解判定
+        // 解答後の判定
         var correctValue = this.quizData[this.currentQuizIndex].name;
 
         if (this.selectedChoiceValue === correctValue) {
-          // 正解
+          // 正解処理
           this.correctCount++;
           this.judgeText = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_CORRECT_TEXT;
           this.isCorrected = true;
@@ -25778,7 +26355,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             this.playSound(this.correctAudio);
           }
         } else {
-          // 不正解
+          // 不正解処理
           this.incorrectCount++;
           this.judgeText = _util__WEBPACK_IMPORTED_MODULE_1__.QUIZ_MAP_INCORRECT_TEXT;
           this.isCorrected = false;
@@ -25795,26 +26372,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         } // 次へボタン表示
 
 
-        this.nextFlag = true;
+        this.nextFlag = true; // 最終問題解答後の場合、結果へボタン表示
 
         if (this.currentQuizIndex + 1 === this.quizCountLimit) {
-          // 結果へボタン表示
           this.lastFlag = true;
         }
       }
     },
+
+    /**
+     * 入力モーダルを閉じる
+     */
     closeInputModal: function closeInputModal() {
       this.showInputModal = false;
     },
+
+    /**
+     * ミスクイズ情報表示
+     * @param {Object} item ミスクイズデータオブジェクト
+     */
     showMissQuiz: function showMissQuiz(item) {
+      // 各データセット
       this.imageId = item.id;
       this.initialPlaceName = item.selectedName;
       this.correctPlaceName = item.correctName;
-      this.okFunction = this.closeInputModal;
+      this.okFunction = this.closeInputModal; // モーダル表示
+
       this.showInputModal = true;
     },
+
+    /**
+     * 音声再生
+     * @param {Audio} audio 音声データ
+     */
     playSound: function playSound(audio) {
-      audio.currentTime = 0;
+      // 再生位置を先頭へ
+      audio.currentTime = 0; // 音声再生
+
       audio.play();
     }
   }
@@ -25991,32 +26585,116 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     LoadingComponent: _Loading_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
+    /**
+     * 日本語メニュータイトル
+     */
     selectedMenuTitleJa: String,
+
+    /**
+     * 英語メニュータイトル
+     */
     selectedMenuTitleEn: String,
-    selectedMenuText: String,
+
+    /**
+     * 設定情報セット処理
+     */
     settingParams: Function
   },
   data: function data() {
     return {
+      /**
+       * 設定パラメータ
+       */
       params: {
+        /**
+         * 地方区分id
+         */
         classificationCheckedValues: [1, 2, 3, 4, 5, 6, 7, 8],
+
+        /**
+         * 解答方法
+         */
         answerMethod: _util__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_ANSWER_METHOD,
+
+        /**
+         * 音声有無
+         */
         audioChecked: _util__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_AUDIO_CHECKED,
+
+        /**
+         * 制限時間有無
+         */
         timeLimitChecked: _util__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TIME_LIMIT_CHECKED,
+
+        /**
+         * 制限時間値
+         */
         timeLimitSelectedValue: _util__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_TIME_LIMIT_VALUE,
+
+        /**
+         * 問題数
+         */
         quizCountSelectedValue: _util__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_QUIZ_COUNT_VALUE,
+
+        /**
+         * 選択肢タイプ
+         */
         choiceType: _util__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_CHOICE_TYPE
       },
+
+      /**
+       * 地方区分名リスト
+       */
       classifications: Array,
+
+      /**
+       * 制限時間値リスト
+       */
       timeLimitValues: Array,
+
+      /**
+       * 問題数リスト
+       */
       quizCountValues: Array,
+
+      /**
+       * 地図埋め英語タイトル
+       */
       fillMapMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_2__.FILL_MAP_MENU_TITLE_ENGLISH,
+
+      /**
+       * 地図クイズ英語タイトル
+       */
       quizMapMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_2__.QUIZ_MAP_MENU_TITLE_ENGLISH,
+
+      /**
+       * 地図タイピング英語タイトル
+       */
       typingMapMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_2__.TYPING_MAP_MENU_TITLE_ENGLISH,
+
+      /**
+       * 解答方法：選択
+       */
       answerMethodSelectValue: _util__WEBPACK_IMPORTED_MODULE_2__.ANSWER_METHOD_SELECT,
+
+      /**
+       * 解答方法：記述
+       */
       answerMethodWriteValue: _util__WEBPACK_IMPORTED_MODULE_2__.ANSWER_METHOD_WRITE,
+
+      /**
+       * 選択肢タイプ：全都道府県
+       */
       choiceTypeAll: _util__WEBPACK_IMPORTED_MODULE_2__.CHOICE_TYPE_ALL,
+
+      /**
+       * 選択肢タイプ：同地方区分
+       */
       choiceTypeClassification: _util__WEBPACK_IMPORTED_MODULE_2__.CHOICE_TYPE_CLASSIFICATION,
+
+      /**
+       * api読み込み処理完了フラグ
+       */
       completesApiLoading: false
     };
   },
@@ -26024,20 +26702,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     if (this.selectedMenuTitleEn === _util__WEBPACK_IMPORTED_MODULE_2__.TYPING_MAP_MENU_TITLE_ENGLISH) {
+      // 地図タイピングの場合
       Promise.all([this.loadTimeLimitValues(), this.loadQuizCountValues(), this.loadClassifications()]).then(function () {
         _this.completesApiLoading = true;
       });
     } else if (this.selectedMenuTitleEn === _util__WEBPACK_IMPORTED_MODULE_2__.QUIZ_MAP_MENU_TITLE_ENGLISH) {
+      // 地図クイズの場合
       Promise.all([this.loadQuizCountValues(), this.loadClassifications()]).then(function () {
         _this.completesApiLoading = true;
       });
     } else {
+      // 地図埋めの場合
       Promise.all([this.loadClassifications()]).then(function () {
         _this.completesApiLoading = true;
       });
     }
   },
   methods: {
+    /**
+     * 地方区分名リスト取得
+     */
     loadClassifications: function loadClassifications() {
       var _this2 = this;
 
@@ -26075,6 +26759,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+
+    /**
+     * 制限時間リスト取得
+     */
     loadTimeLimitValues: function loadTimeLimitValues() {
       var _this3 = this;
 
@@ -26112,6 +26800,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
+
+    /**
+     * 問題数リスト取得
+     */
     loadQuizCountValues: function loadQuizCountValues() {
       var _this4 = this;
 
@@ -26188,12 +26880,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    /**
+     * ファイル名
+     */
     file: String,
+
+    /**
+     * エラーメッセージ
+     */
     message: String
   },
   data: function data() {
     return {
-      systemErrorText: _util_js__WEBPACK_IMPORTED_MODULE_0__.SYSTEM_ERROR_MESSAGE
+      /**
+       * システムエラーメッセージ
+       */
+      systemErrorMessage: _util_js__WEBPACK_IMPORTED_MODULE_0__.SYSTEM_ERROR_MESSAGE
     };
   }
 });
@@ -26384,7 +27086,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -26400,73 +27101,270 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      /**
+       * 日本語メニュータイトル
+       */
       selectedMenuTitleJa: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_MENU_TITLE_JAPANESE,
+
+      /**
+       * 英語メニュータイトル
+       */
       selectedMenuTitleEn: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_MENU_TITLE_ENGLISH,
-      selectedMenuText: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_EXPLANATION_TEXT,
+
+      /**
+       * ゲーム開始フラグ
+       */
       canStartGame: false,
+
+      /**
+       * カウントダウン表示フラグ
+       */
       startCountDownFlag: true,
+
+      /**
+       * タイピング判定フラグ
+       */
       isTyping: false,
+
+      /**
+       * 設定問題対象地方区分id
+       */
       classificationCheckedValues: [],
+
+      /**
+       * 設定音声有無
+       */
       audioChecked: Boolean,
+
+      /**
+       * 設定制限時間有無
+       */
       timeLimitChecked: Boolean,
+
+      /**
+       * 設定制限時間値
+       */
       timeLimitSelectedValue: Number,
+
+      /**
+       * 設定問題数
+       */
       quizCountSelectedValue: Number,
+
+      /**
+       * 地図データ
+       */
       maps: [],
+
+      /**
+       * 問題データ
+       */
       quizData: [],
+
+      /**
+       * 問題数
+       */
       quizCountLimit: 0,
+
+      /**
+       * 現在の問題インデックス
+       */
       currentQuizIndex: 0,
+
+      /**
+       * 現在のクイズデータ
+       */
       currentQuizData: Object,
+
+      /**
+       * 現在のタイピング文字配列
+       */
       currentTypingText: [],
+
+      /**
+       * 現在のタイピング文字配列インデックス
+       */
       currentTypingTextIndex: 0,
+
+      /**
+       * 正解タイプ数
+       */
       correctTypeCount: 0,
+
+      /**
+       * ミスタイプ数
+       */
       missTypeCount: 0,
+
+      /**
+       * ミスキーオブジェクト
+       */
       missTypeKeyHash: {},
+
+      /**
+       * 表示用地図名テキスト
+       */
       displayQuizText: String,
+
+      /**
+       * 表示用かなテキスト
+       */
       displayKanaText: String,
+
+      /**
+       * 表示用ヒントテキスト
+       */
       displayHintText: String,
+
+      /**
+       * 表示用未入力タイピングテキスト
+       */
       displayTypingRemainingText: String,
+
+      /**
+       * 表示用入力済みタイピングテキスト
+       */
       displayTypingInputedText: String,
+
+      /**
+       * ゲーム終了フラグ
+       */
       isFinished: false,
+
+      /**
+       * 警告モーダル表示フラグ
+       */
       showAlertModal: false,
+
+      /**
+       * 警告メッセージ
+       */
       alertMessage: String,
+
+      /**
+       * ヒント表示フラグ
+       */
       canShowHint: false,
+
+      /**
+       * 詳細表示フラグ
+       */
       canShowDetails: false,
+
+      /**
+       * 1問題当たりのミスカウント
+       */
       oneQuizMissCount: 0,
+
+      /**
+       * タイピングの経過時間
+       */
       typeTime: 0,
-      // 残り時間
+
+      /**
+       * 残り時間
+       */
       remainingTime: 0,
-      // プログレスバー進捗率
+
+      /**
+       * プログレスバー進捗率
+       */
       progress: 100,
-      // プログレスバーの色スタイル
+
+      /**
+       * プログレスバーの色スタイル
+       */
       progressColor: String,
-      // 繰り返し制御用
+
+      /**
+       * 繰り返し制御用
+       */
       intervalId: "",
-      timeOutId: "",
+
+      /**
+       * 入力モーダル表示フラグ
+       */
       showInputModal: false,
+
+      /**
+       * モーダルモード
+       */
       modalMode: _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_MODAL_CONFIRM_MODE,
+
+      /**
+       * 確認モーダル用地図画像id
+       */
       imageId: Number,
+
+      /**
+       * 確認モーダル用かな
+       */
       kana: String,
+
+      /**
+       * 確認モーダル用ローマ字
+       */
       roman: String,
+
+      /**
+       * 確認モーダル用正解地図名
+       */
       correctPlaceName: String,
+
+      /**
+       * 確認モーダル用ok処理
+       */
       okFunction: Function,
+
+      /**
+       * ミス問題データリスト
+       */
       missQuizData: [],
+
+      /**
+       * ミス問題追加判定用id
+       */
       tmpId: 0,
+
+      /**
+       * wpm
+       */
       wpm: Number,
+
+      /**
+       * タイピング準備表示テキスト
+       */
       preText: _util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_TYPING_PRE_TEXT,
+
+      /**
+       * 1度でもタイプしたか判定
+       */
       typeKey: false,
+
+      /**
+       * タイプミス音データ
+       */
       missAudio: new Audio("./audio/miss.mp3"),
+
+      /**
+       * apiローディング状態
+       */
       isLoadingApi: false
     };
   },
   mounted: function mounted() {
-    // keydownイベントに処理を設定
-    window.addEventListener("keydown", this.keyAction);
+    // keydownイベントにキー判定処理を設定
+    window.addEventListener("keydown", this.judgeKey);
   },
   beforeDestroy: function beforeDestroy() {
     // keydownイベントに設定した処理を削除
-    window.removeEventListener("keydown", this.keyAction);
+    window.removeEventListener("keydown", this.judgeKey);
   },
   computed: {
+    /**
+     * 評価テキストを返す
+     * @returns {String} 評価テキスト
+     */
     evaluationText: function evaluationText() {
       var total = this.quizCountLimit;
       var finishedQuizCount = this.currentQuizIndex;
@@ -26487,6 +27385,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    /**
+     * リセット処理
+     */
     reset: function reset() {
       this.quizData = [];
       this.canStartGame = false;
@@ -26505,6 +27406,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.missQuizData = [];
       this.typeKey = false;
     },
+
+    /**
+     * 設定パラメータセット
+     * @param {Object} params 設定パラメータオブジェクト
+     */
     settingParams: function settingParams(params) {
       this.classificationCheckedValues = params.classificationCheckedValues;
       this.audioChecked = params.audioChecked;
@@ -26521,6 +27427,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.startQuiz();
     },
+
+    /**
+     * 問題地図データ取得
+     */
     loadQuizMaps: function loadQuizMaps() {
       var _this = this;
 
@@ -26563,31 +27473,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+
+    /**
+     * ゲーム開始
+     */
     startQuiz: function startQuiz() {
       var _this2 = this;
 
+      // ローディング表示
       this.isLoadingApi = true;
       Promise.all([this.loadQuizMaps()]).then(function () {
         // 出題問題データ作成
         _this2.createQuizData(); // クイズ画面表示
 
 
-        _this2.canStartGame = true;
-        _this2.isLoadingApi = false;
+        _this2.canStartGame = true; // ローディング非表示
+
+        _this2.isLoadingApi = false; // 3秒後（カウントダウンの為）に実行
+
         setTimeout(function () {
-          _this2.startCountDownFlag = false;
+          // カウントダウン画面非表示
+          _this2.startCountDownFlag = false; // タイピング判定
+
           _this2.isTyping = true; // タイピング時間計測開始
 
-          _this2.typeTime = performance.now();
+          _this2.typeTime = performance.now(); // 制限時間有りの場合、制限時間タイマースタート
 
           if (_this2.timeLimitChecked) {
-            // 制限時間タイマースタート
             _this2.limitTimerStart();
           }
         }, 3000);
       });
     },
+
+    /**
+     * 問題データ作成
+     */
     createQuizData: function createQuizData() {
+      // 問題数
       this.quizCountLimit = this.maps.length <= this.quizCountSelectedValue ? this.maps.length : this.quizCountSelectedValue;
 
       for (var i = 0; i < this.quizCountLimit; i++) {
@@ -26601,7 +27524,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         quiz.id = this.maps[i].id;
         quiz.name = this.maps[i].name;
         quiz.kana = this.maps[i].kana;
-        quiz.typingText = this.maps[i].typing_text;
+        quiz.typingText = this.maps[i].typing_text; // ヒントテキストを2パターンランダムに設定
 
         if (Math.floor(Math.random() * 10) % 2 === 0) {
           quiz.hintText = this.maps[i].hint_famous;
@@ -26615,9 +27538,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.initQuizText();
     },
-    // プログレスバー色作成
+
+    /**
+     * プログレスバー色作成
+     * @param {Number} progressPercentage 進捗パーセンテージ
+     */
     createProgressBarColor: function createProgressBarColor(progressPercentage) {
-      // 残り時間減少で緑、黄、赤色へと変化していく
+      // 緑、黄、赤色へと変化
       var rInitVal = 0;
       var gInitVal = 230;
       var bInitVal = 100;
@@ -26626,58 +27553,98 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var b = bInitVal - (100 - progressPercentage);
       this.progressColor = "rgb(" + r + ", " + g + ", " + b + ")";
     },
+
+    /**
+     * 制限時間タイマースタート
+     */
     limitTimerStart: function limitTimerStart() {
-      this.remainingTime = this.timeLimitSelectedValue * 1000;
+      // 秒をミリ秒へ
+      this.remainingTime = this.timeLimitSelectedValue * 1000; // 10ミリ秒ごとに10ミリ秒減らす
+
       this.intervalId = setInterval(this.remainingTimeCountDown, 10, 10);
     },
-    // 残り時間を減らす
+
+    /**
+     * 残り時間を減らす
+     * @param {Number} n 減らすミリ秒
+     */
     remainingTimeCountDown: function remainingTimeCountDown(n) {
-      // nミリ秒減らす
       this.remainingTime -= n;
     },
+
+    /**
+     * 結果表示
+     */
     showResult: function showResult() {
+      // 制限時間有りの場合、繰り返し処理停止
       if (this.timeLimitChecked) {
         clearInterval(this.intervalId);
       } // タイピング時間測定終了
 
 
-      this.typeTime = performance.now() - this.typeTime; // wpm
+      this.typeTime = performance.now() - this.typeTime; // wpm算出
 
-      this.wpm = Math.floor(this.correctTypeCount / this.typeTime * 1000 * 60);
-      this.isTyping = false;
+      this.wpm = Math.floor(this.correctTypeCount / this.typeTime * 1000 * 60); // タイピング判定終了
+
+      this.isTyping = false; // ゲーム終了、結果表示
+
       this.isFinished = true;
     },
+
+    /**
+     * モーダルを閉じる
+     */
     closeInputModal: function closeInputModal() {
       this.showInputModal = false;
     },
+
+    /**
+     * ミス問題表示
+     * @param {Object} item ミス問題オブジェクト
+     */
     showMissQuiz: function showMissQuiz(item) {
+      // 各データをセット
       this.imageId = item.id;
       this.kana = item.kana;
       this.correctPlaceName = item.correctName;
       this.roman = item.roman;
-      this.okFunction = this.closeInputModal;
+      this.okFunction = this.closeInputModal; // 確認モーダルを表示
+
       this.showInputModal = true;
     },
+
+    /**
+     * 問題初期表示処理
+     */
     initQuizText: function initQuizText() {
+      // 現在の問題データ
       this.currentQuizData = this.quizData[this.currentQuizIndex];
       this.currentTypingText = this.currentQuizData.typingText.split("");
       this.currentTypingText.push(_util__WEBPACK_IMPORTED_MODULE_1__.TYPING_MAP_TYPING_TEXT_END_CHAR);
-      this.currentTypingTextIndex = 0;
+      this.currentTypingTextIndex = 0; // 表示テキスト更新
+
       this.displayQuizText = this.currentQuizData.name;
       this.displayKanaText = this.currentQuizData.kana;
       this.displayHintText = this.currentQuizData.hintText;
       this.displayTypingRemainingText = this.currentQuizData.typingText;
-      this.displayTypingInputedText = "";
+      this.displayTypingInputedText = ""; // 1問題当たりの設定初期化
+
       this.oneQuizMissCount = 0;
       this.canShowHint = false;
       this.canShowDetails = false;
       this.typeKey = false;
     },
-    // キータイプ処理
-    keyAction: function keyAction(e) {
+
+    /**
+     * キータイプ判定処理
+     * @param {Event} e キーダウンイベント
+     */
+    judgeKey: function judgeKey(e) {
+      // タイピング判定が有りの時のみ
       if (this.isTyping) {
-        // キーの処理をキャンセル
-        e.preventDefault();
+        // キーのデフォルト処理をキャンセル
+        e.preventDefault(); // タイプ判定
+
         this.typeKey = true;
 
         switch ((0,_key_js__WEBPACK_IMPORTED_MODULE_2__.checkInputKey)(e.code, this.currentTypingText, this.currentTypingTextIndex)) {
@@ -26701,13 +27668,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.initQuizText();
               }
             } else {
+              // 未入力表示文字列更新
               this.displayTypingRemainingText = "";
-              this.displayTypingInputedText = ""; // 表示文字列
 
               for (var i = this.currentTypingTextIndex; i < this.currentTypingText.length - 1; i++) {
                 this.displayTypingRemainingText += this.currentTypingText[i];
-              } // 入力済み表示文字列
+              } // 入力済み表示文字列更新
 
+
+              this.displayTypingInputedText = "";
 
               for (var _i = 0; _i < this.currentTypingTextIndex; _i++) {
                 this.displayTypingInputedText += this.currentTypingText[_i];
@@ -26722,11 +27691,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             // ミス音声再生
             if (this.audioChecked) {
               this.playSound(this.missAudio);
-            } // ミス回数カウント
+            } // ミスタイプ回数カウント
 
 
-            this.missTypeCount++;
-            this.oneQuizMissCount++;
+            this.missTypeCount++; // 1問題当たりのミスカウント
+
+            this.oneQuizMissCount++; // 1問題当たりミス回数に応じて、ヒント表示 or 詳細表示
 
             if (this.oneQuizMissCount === 1) {
               this.canShowHint = true;
@@ -26741,7 +27711,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               this.missTypeKeyHash[missTypeKey]++;
             } else {
               this.missTypeKeyHash[missTypeKey] = 1;
-            }
+            } // ミス問題保持
+
 
             if (this.tmpId !== this.quizData[this.currentQuizIndex].id) {
               var missData = {
@@ -26761,18 +27732,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
     },
+
+    /**
+     * 音声再生
+     * @param {Audio} audio 音声データ
+     */
     playSound: function playSound(audio) {
-      audio.currentTime = 0;
+      // 再生位置を先頭に
+      audio.currentTime = 0; // 音声再生
+
       audio.play();
     }
   },
   watch: {
+    // 残り時間
     remainingTime: function remainingTime(val) {
-      if (val < 0) {
-        // 結果表示
+      if (val <= 0) {
+        // 0秒以下の場合、結果表示
         this.showResult();
       } else {
-        // 残り時間割合
+        // 残り時間割合算出
         this.progress = Math.floor(this.remainingTime / (this.timeLimitSelectedValue * 1000) * 100 * 10) / 10; // プログレスバー色作成
 
         this.createProgressBarColor(this.progress);
@@ -26870,7 +27849,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getChar": () => (/* binding */ getChar)
 /* harmony export */ });
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./resources/js/util.js");
- // コードから文字列取得
+
+/**
+ * キーコードから文字列を返す
+ * @param {String} code キーコード
+ * @returns {String} 文字列
+ */
 
 function getChar(code) {
   switch (code) {
@@ -26994,7 +27978,14 @@ function getChar(code) {
     default:
       return "";
   }
-} // 入力キー判定
+}
+/**
+ * 入力キー判定
+ * @param {String} code 入力キーコード
+ * @param {Array} roman タイピング文字配列
+ * @param {Number} romanIndex タイピング文字配列インデックス 
+ * @returns {Number} 0:判定対象外キー入力時 1,2:正解判定 3:不正解判定
+ */
 
 function checkInputKey(code, roman, romanIndex) {
   var inputChar = getChar(code);
@@ -27354,34 +28345,41 @@ vue__WEBPACK_IMPORTED_MODULE_7__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_8__["default"]({
   mode: "history",
   routes: [{
+    // ホーム画面
     path: "/",
     name: "home",
     component: _components_Home__WEBPACK_IMPORTED_MODULE_0__["default"]
   }, {
+    // メニュー画面
     path: "/menu",
     name: "menu",
     component: _components_Menu__WEBPACK_IMPORTED_MODULE_1__["default"]
   }, {
+    // 地図埋め画面
     path: "/fill",
     name: "fill",
     component: _components_FillMap__WEBPACK_IMPORTED_MODULE_2__["default"],
     props: true
   }, {
+    // 地図クイズ画面
     path: "/quiz",
     name: "quiz",
     component: _components_QuizMap__WEBPACK_IMPORTED_MODULE_3__["default"],
     props: true
   }, {
+    // 地図タイピング画面
     path: "/typing",
     name: "typing",
     component: _components_TypingMap__WEBPACK_IMPORTED_MODULE_4__["default"],
     props: true
   }, {
+    // システムエラー画面
     path: "/system-error",
     name: "system-error",
     component: _components_SystemError__WEBPACK_IMPORTED_MODULE_6__["default"],
     props: true
   }, {
+    // NotFound画面
     path: "*",
     name: "not-found",
     component: _components_NotFound__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -27402,6 +28400,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ANSWER_METHOD_SELECT": () => (/* binding */ ANSWER_METHOD_SELECT),
 /* harmony export */   "ANSWER_METHOD_WRITE": () => (/* binding */ ANSWER_METHOD_WRITE),
+/* harmony export */   "AUTHOR_NAME": () => (/* binding */ AUTHOR_NAME),
 /* harmony export */   "CHOICE_TYPE_ALL": () => (/* binding */ CHOICE_TYPE_ALL),
 /* harmony export */   "CHOICE_TYPE_CLASSIFICATION": () => (/* binding */ CHOICE_TYPE_CLASSIFICATION),
 /* harmony export */   "CREATED": () => (/* binding */ CREATED),
@@ -27454,8 +28453,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "UNPROCESSABLE_ENTITY": () => (/* binding */ UNPROCESSABLE_ENTITY)
 /* harmony export */ });
 /**
+ * 制作者名
+ */
+var AUTHOR_NAME = "Yoshitaka Nagai";
+/**
  * apiステータス：成功
  */
+
 var OK = 200;
 /**
  * apiステータス：データ作成
@@ -53286,7 +54290,6 @@ var render = function () {
                     attrs: {
                       "selected-menu-title-ja": _vm.selectedMenuTitleJa,
                       "selected-menu-title-en": _vm.selectedMenuTitleEn,
-                      "selected-menu-text": _vm.selectedMenuText,
                       "setting-params": _vm.settingParams,
                     },
                   })
@@ -54623,7 +55626,7 @@ var render = function () {
             staticClass: "icon",
             attrs: { icon: ["fas", "fa-copyright"] },
           }),
-          _vm._v("\n      Yoshitaka Nagai\n      "),
+          _vm._v("\n      " + _vm._s(_vm.authorName) + "\n    "),
         ],
         1
       ),
@@ -55435,7 +56438,7 @@ var render = function () {
     _c("div", { staticClass: "not-found-inner" }, [
       _c("p", { staticClass: "title" }, [_vm._v("Not Found")]),
       _vm._v(" "),
-      _c("p", { staticClass: "text" }, [_vm._v(_vm._s(_vm.notFoundText))]),
+      _c("p", { staticClass: "text" }, [_vm._v(_vm._s(_vm.notFoundMessage))]),
       _vm._v(" "),
       _c(
         "div",
@@ -55506,7 +56509,6 @@ var render = function () {
                     attrs: {
                       "selected-menu-title-ja": _vm.selectedMenuTitleJa,
                       "selected-menu-title-en": _vm.selectedMenuTitleEn,
-                      "selected-menu-text": _vm.selectedMenuText,
                       "setting-params": _vm.settingParams,
                     },
                   })
@@ -56426,7 +57428,9 @@ var render = function () {
     _c("div", { staticClass: "system-error-inner" }, [
       _c("p", { staticClass: "title" }, [_vm._v("System Error")]),
       _vm._v(" "),
-      _c("p", { staticClass: "text" }, [_vm._v(_vm._s(_vm.systemErrorText))]),
+      _c("p", { staticClass: "text" }, [
+        _vm._v(_vm._s(_vm.systemErrorMessage)),
+      ]),
       _vm._v(" "),
       _c("p", { staticClass: "error-message" }, [_vm._v(_vm._s(_vm.message))]),
       _vm._v(" "),
@@ -56501,7 +57505,6 @@ var render = function () {
                     attrs: {
                       "selected-menu-title-ja": _vm.selectedMenuTitleJa,
                       "selected-menu-title-en": _vm.selectedMenuTitleEn,
-                      "selected-menu-text": _vm.selectedMenuText,
                       "setting-params": _vm.settingParams,
                     },
                   })

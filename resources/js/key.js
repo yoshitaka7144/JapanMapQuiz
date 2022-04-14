@@ -1,5 +1,9 @@
 import { TYPING_MAP_TYPING_TEXT_END_CHAR } from "./util";
-// コードから文字列取得
+/**
+ * キーコードから文字列を返す
+ * @param {String} code キーコード
+ * @returns {String} 文字列
+ */
 export function getChar(code) {
   switch (code) {
     case "KeyA":
@@ -85,7 +89,13 @@ export function getChar(code) {
   }
 }
 
-// 入力キー判定
+/**
+ * 入力キー判定
+ * @param {String} code 入力キーコード
+ * @param {Array} roman タイピング文字配列
+ * @param {Number} romanIndex タイピング文字配列インデックス 
+ * @returns {Number} 0:判定対象外キー入力時 1,2:正解判定 3:不正解判定
+ */
 export function checkInputKey(code, roman, romanIndex) {
   const inputChar = getChar(code);
   const currentChar = roman[romanIndex];

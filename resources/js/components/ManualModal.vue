@@ -48,6 +48,9 @@
 export default {
   data() {
     return {
+      /**
+       * タブ名
+       */
       tabName: "input",
     };
   },

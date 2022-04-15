@@ -25,6 +25,12 @@
             <fontawesome-icon class="icon" :icon="['fas', 'fa-keyboard']" />
           </div>
           <div class="title-background-image"></div>
+          <p class="annotation">
+            <fontawesome-icon
+              class="icon"
+              :icon="['fas', 'fa-triangle-exclamation']"
+            />キーボード入力必須
+          </p>
         </div>
       </div>
     </div>

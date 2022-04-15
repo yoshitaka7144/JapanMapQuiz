@@ -336,9 +336,27 @@ $hamburger-menu-background-color: gray;
         justify-content: space-around;
         align-items: center;
         transition: 0.3s;
+        position: relative;
 
         &:hover {
           transform: scale(1.03);
+        }
+
+        .annotation {
+          width: 100%;
+          text-align: center;
+          position: absolute;
+          bottom: 10px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: rgb(250, 115, 115);
+          font-size: 1.1rem;
+          font-weight: bold;
+          .icon {
+            font-size: 1.1rem;
+            color: rgb(250, 115, 115);
+            margin-right: 8px;
+          }
         }
 
         .title-background-image {

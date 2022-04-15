@@ -24860,8 +24860,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (e.deltaY > 0) {
         // 縮小
-        w = w * 1.1;
-        h = h * 1.1;
+        w = w * 1.05;
+        h = h * 1.05;
 
         if (w > _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH) {
           w = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH;
@@ -24869,8 +24869,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       } else {
         // 拡大
-        w = w * 0.9;
-        h = h * 0.9;
+        w = w * 0.95;
+        h = h * 0.95;
 
         if (w < _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH) {
           w = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH;
@@ -24931,8 +24931,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         if (area >= this.touchstartArea) {
           // 拡大
-          w = w * 0.9;
-          h = h * 0.9;
+          w = w * 0.95;
+          h = h * 0.95;
 
           if (w < _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH) {
             w = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MIN_WIDTH;
@@ -24940,8 +24940,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         } else {
           // 縮小
-          w = w * 1.1;
-          h = h * 1.1;
+          w = w * 1.05;
+          h = h * 1.05;
 
           if (w > _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH) {
             w = _util__WEBPACK_IMPORTED_MODULE_1__.FILL_MAP_VIEW_BOX_MAX_WIDTH;

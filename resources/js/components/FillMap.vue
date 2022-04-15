@@ -1350,16 +1350,16 @@ export default {
       let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
       if (e.deltaY > 0) {
         // 縮小
-        w = w * 1.1;
-        h = h * 1.1;
+        w = w * 1.05;
+        h = h * 1.05;
         if (w > FILL_MAP_VIEW_BOX_MAX_WIDTH) {
           w = FILL_MAP_VIEW_BOX_MAX_WIDTH;
           h = FILL_MAP_VIEW_BOX_MAX_WIDTH;
         }
       } else {
         // 拡大
-        w = w * 0.9;
-        h = h * 0.9;
+        w = w * 0.95;
+        h = h * 0.95;
         if (w < FILL_MAP_VIEW_BOX_MIN_WIDTH) {
           w = FILL_MAP_VIEW_BOX_MIN_WIDTH;
           h = FILL_MAP_VIEW_BOX_MIN_WIDTH;
@@ -1403,16 +1403,16 @@ export default {
         const area = absWidth * absHeight;
         if (area >= this.touchstartArea) {
           // 拡大
-          w = w * 0.9;
-          h = h * 0.9;
+          w = w * 0.95;
+          h = h * 0.95;
           if (w < FILL_MAP_VIEW_BOX_MIN_WIDTH) {
             w = FILL_MAP_VIEW_BOX_MIN_WIDTH;
             h = FILL_MAP_VIEW_BOX_MIN_WIDTH;
           }
         } else {
           // 縮小
-          w = w * 1.1;
-          h = h * 1.1;
+          w = w * 1.05;
+          h = h * 1.05;
           if (w > FILL_MAP_VIEW_BOX_MAX_WIDTH) {
             w = FILL_MAP_VIEW_BOX_MAX_WIDTH;
             h = FILL_MAP_VIEW_BOX_MAX_WIDTH;

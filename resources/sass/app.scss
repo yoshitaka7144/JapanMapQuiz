@@ -108,7 +108,7 @@ img {
 /************************************************
 ヘッダー header
 ************************************************/
-$header-height: 60px;
+$header-height: 50px;
 $hamburger-menu-icon-color: gray;
 $hamburger-menu-background-color: gray;
 #header {
@@ -203,9 +203,9 @@ $hamburger-menu-background-color: gray;
       #hamburger-menu-icon {
         display: block;
         position: relative;
-        width: 50px;
-        height: 50px;
-        padding: 15px;
+        width: 46px;
+        height: 46px;
+        padding: 13px;
         border-radius: 50%;
         background-color: $hamburger-menu-icon-color;
         cursor: pointer;
@@ -270,7 +270,7 @@ $hamburger-menu-background-color: gray;
   padding: 15px 0;
   width: 100%;
   max-width: 700px;
-  height: 550px;
+  height: 560px;
 }
 
 /************************************************
@@ -613,7 +613,6 @@ $hamburger-menu-background-color: gray;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 10px;
 
       .title-ja {
         display: inline-block;
@@ -638,7 +637,7 @@ $hamburger-menu-background-color: gray;
     .sub-title {
       font-size: 1rem;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     .btn-start-wrapper {
@@ -1023,8 +1022,8 @@ $hamburger-menu-background-color: gray;
 
         .info-area {
           position: absolute;
-          top: 0;
-          left: 0;
+          top: 10px;
+          left: 10px;
           width: 30%;
           display: flex;
           flex-direction: column;
@@ -1249,7 +1248,6 @@ $hamburger-menu-background-color: gray;
       .choices {
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: 10px;
         .item {
           width: calc(50% - 20px);
           margin: 10px;
@@ -1290,7 +1288,7 @@ $hamburger-menu-background-color: gray;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: bold;
         color: rgb(231, 84, 84);
         margin-bottom: 10px;
@@ -1350,7 +1348,7 @@ $hamburger-menu-background-color: gray;
             span {
               cursor: pointer;
               display: inline-block;
-              padding: 5px 8px;
+              padding: 5px;
               margin: 10px 10px 0 0;
               border-radius: 10px;
               color: white;
@@ -1680,7 +1678,7 @@ $hamburger-menu-background-color: gray;
             span {
               cursor: pointer;
               display: inline-block;
-              padding: 5px 8px;
+              padding: 5px;
               margin: 10px 10px 0 0;
               border-radius: 10px;
               color: white;

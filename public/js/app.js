@@ -24924,6 +24924,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (e.touches.length >= 2) {
         // タッチされている指が2本の場合
+        e.preventDefault();
         var absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
         var absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);
         var area = absWidth * absHeight;
@@ -24994,7 +24995,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     touchStartMove: function touchStartMove(e) {
       if (e.touches.length >= 2) {
         // 2本指でのタッチの場合
-        // タッチされている2点から面積を算出、保持
+        e.preventDefault(); // タッチされている2点から面積を算出、保持
+
         var absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
         var absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);
         this.touchstartArea = absWidth * absHeight;

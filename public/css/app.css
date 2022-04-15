@@ -1668,7 +1668,7 @@ SystemError画面 system-error
   justify-content: center;
   align-items: center;
   background-color: #3b3b3b;
-  height: 50px;
+  height: 40px;
 }
 #footer .footer-inner .copyright {
   font-size: 0.9rem;

@@ -1397,6 +1397,7 @@ export default {
       let [x, y, w, h] = this.viewBox.split(" ").map((v) => parseFloat(v));
       if (e.touches.length >= 2) {
         // タッチされている指が2本の場合
+        e.preventDefault();
         const absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
         const absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);
         const area = absWidth * absHeight;
@@ -1464,6 +1465,7 @@ export default {
     touchStartMove(e) {
       if (e.touches.length >= 2) {
         // 2本指でのタッチの場合
+        e.preventDefault();
         // タッチされている2点から面積を算出、保持
         const absWidth = Math.abs(e.touches[1].pageX - e.touches[0].pageX);
         const absHeight = Math.abs(e.touches[1].pageY - e.touches[0].pageY);

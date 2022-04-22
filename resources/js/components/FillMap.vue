@@ -1215,7 +1215,13 @@ export default {
      */
     setPlaceName(name, id) {
       // 入力文字列の「都府県」を空文字に置き換える
-      this.$set(this.inputedName, id - 1, name.replace(/都|府|県/, ""));
+      if (name === "京都府") {
+        this.$set(this.inputedName, id - 1, name.replace(/府/g, ""));
+      } else if (name === "京都") {
+        this.$set(this.inputedName, id - 1, name);
+      } else {
+        this.$set(this.inputedName, id - 1, name.replace(/都|府|県/g, ""));
+      }
 
       // 入力用モーダルを閉じる
       this.showInputNameModal = false;

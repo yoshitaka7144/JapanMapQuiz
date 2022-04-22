@@ -96,6 +96,10 @@
               <td>{{ wpm }}</td>
             </tr>
             <tr>
+              <th>ミスキーTOP3</th>
+              <td>{{ weakKeyText }}</td>
+            </tr>
+            <tr>
               <th>ミス問題</th>
               <td>
                 <div class="incorrect-item-wrapper">
@@ -170,6 +174,7 @@ import {
   RESULT_EVALUATION_TEXT_GOOD,
   RESULT_EVALUATION_TEXT_POOR,
   TYPING_MAP_TYPING_PRE_TEXT,
+  TYPING_MAP_WEAK_KEY_COUNT,
 } from "../util";
 import { checkInputKey } from "../key.js";
 import LoadingComponent from "./Loading.vue";
@@ -418,6 +423,9 @@ export default {
         return RESULT_EVALUATION_TEXT_POOR;
       }
     },
+    weakKeyText() {
+      return this.formatKeySet(this.missTypeKeyHash, TYPING_MAP_WEAK_KEY_COUNT);
+    },
   },
   methods: {
     /**
@@ -660,6 +668,42 @@ export default {
       this.canShowHint = false;
       this.canShowDetails = false;
       this.typeKey = false;
+    },
+    /**
+     * 結果表示用テキスト作成
+     * @param {Object} obj キー連想配列
+     * @param {Number} count 表示上限数
+     * @returns {String} 結果表示用テキスト
+     */
+    formatKeySet(obj, count) {
+      let result = "";
+      let arr = Object.keys(obj).map((key) => {
+        return { key: key, value: obj[key] };
+      });
+
+      arr.sort((a, b) => {
+        if (a.value === b.value) {
+          if (a.key < b.key) {
+            return -1;
+          } else {
+            return 1;
+          }
+        } else {
+          return b.value - a.value;
+        }
+      });
+
+      let n = 0;
+      for (let i = 0; i < arr.length; i++) {
+        result += arr[i].key + ", ";
+        n++;
+        if (n === count) {
+          break;
+        }
+      }
+
+      result = result.slice(0, -2);
+      return result;
     },
     /**
      * キータイプ判定処理

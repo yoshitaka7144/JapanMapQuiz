@@ -192,6 +192,10 @@ export const TYPING_MAP_TYPING_TEXT_END_CHAR = "$";
  * 地図タイピング：初期表示テキスト
  */
 export const TYPING_MAP_TYPING_PRE_TEXT = "タイピングしてください!!";
+/**
+ * 地図タイピング：ミスキー表示数
+ */
+ export const TYPING_MAP_WEAK_KEY_COUNT = 3;
 
 /**
  * 結果画面：結果評価テキスト:大変良い
